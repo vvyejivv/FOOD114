@@ -45,31 +45,31 @@
 			<div class="container">
 				<div>
 					<h2 style="color: #ff7f00; text-align: center;">회원가입</h2>
-					사업자등록번호 <input id="businessNum" type="text"
+					<div>사업자등록번호</div> <input id="businessNum" type="text"
 						placeholder="'-' 제외 숫자 10자리 입력" v-model="businessNo">
 					<button @click="business()">사업자등록번호 조회</button>
 				</div>
 				<div>
-					사업자아이디 <input type="text" placeholder="입력해 주세요"
+					<div>사업자아이디</div> <input type="text" placeholder="입력해 주세요"
 						v-model="businessId">
 					<button @click="">중복체크</button>
 				</div>
 				<div>
-					비밀번호 <input type="text" placeholder="입력해 주세요" v-model="businessPwd">
+					<div>비밀번호</div> <input type="text" placeholder="입력해 주세요" v-model="businessPwd">
 				</div>
 				<div>
-					비밀번호 확인 <input type="text" placeholder="입력해 주세요"
+					<div>비밀번호 확인</div> <input type="text" placeholder="입력해 주세요"
 						v-model="businessPwd2">
 				</div>
 				<div>
-					상호명 <input type="text" placeholder="입력해 주세요" v-model="businessName">
+					<div>상호명</div> <input type="text" placeholder="입력해 주세요" v-model="businessName">
 				</div>
 				<div>
-					대표자명 <input type="text" placeholder="입력해 주세요"
+					<div>대표자명</div> <input type="text" placeholder="입력해 주세요"
 						v-model="businessRename">
 				</div>
 				<div>
-					전화번호 <input id="phoneNum" type="text" placeholder="'-' 제외 입력"
+					<div>전화번호</div> <input id="phoneNum" type="text" placeholder="'-' 제외 입력"
 						v-model="phone">
 					<button id="success" v-if="!flg2" @click="fnSmsTest()">인증
 						요청</button>
@@ -79,11 +79,11 @@
 					<button @click="authentication()">인증</button>
 				</div>
 				<div>
-					이메일 <input type="email" placeholder="입력해 주세요"
+					<div>이메일</div> <input type="email" placeholder="입력해 주세요"
 						v-model="businessEmail">
 				</div>
 				<div>
-					사업자 소재지 <input id="addressInput" type="text" placeholder="입력해 주세요"
+					<div>사업자 소재지</div> <input id="addressInput" type="text" placeholder="입력해 주세요"
 						v-model="businessAddr">
 					<button style="margin-bottom: 10px;" @click="openAddressSearch()">주소
 						조회</button>
@@ -91,7 +91,7 @@
 						v-model="businessDetailAddr">
 				</div>
 				<div>
-					입금은행 <select v-model="businessBank">
+					<div>입금은행</div> <select v-model="businessBank">
 						<option value="">은행을 선택하세요</option>
 						<option value="kb">국민은행</option>
 						<option value="sh">신한은행</option>
@@ -103,7 +103,7 @@
 					</select>
 				</div>
 				<div>
-					입금계좌번호 <input type="text" placeholder="'-' 제외 입력"
+					<div>입금계좌번호</div> <input type="text" placeholder="'-' 제외 입력"
 						v-model="businessAccountNum">
 				</div>
 				<button @click="signUp()">가입하기</button>
