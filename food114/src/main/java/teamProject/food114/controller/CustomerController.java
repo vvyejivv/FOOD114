@@ -25,6 +25,12 @@ public class CustomerController {
 		return "/main";
 	}
 	
+	@RequestMapping("/login.do")
+	public String login(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
+			throws Exception {
+		return "/login";
+	}
+	
 	   //글 내용
 	   @RequestMapping(value = "/main.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	   @ResponseBody
