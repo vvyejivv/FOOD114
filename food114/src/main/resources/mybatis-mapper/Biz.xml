@@ -3,8 +3,11 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="teamProject.food114.mapper.BizMapper">
-	<!-- <insert id="insertBiz" parameterType="hashmap">
+	<insert id="insertBiz" parameterType="hashmap">
 		INSERT INTO FOOD114_BIZ_INFO 
 		VALUES(#{bizId},#{bizPwd},#{bizNo},#{bizName},#{ownerName},#{email},#{phone},#{newAddr},#{oldAddr},#{detail},#{latitude},#{longitude},NOW(),NOW(),#{bank},#{accountNum},null,'1')
-	</insert> -->
+	</insert>
+	<select id="idCheck" parameterType="hashmap" resultType="teamProject.food114.model.Biz">
+		SELECT * FROM FOOD114_BIZ_INFO WHERE BIZID = #{bizId}
+	</select>
 </mapper>
