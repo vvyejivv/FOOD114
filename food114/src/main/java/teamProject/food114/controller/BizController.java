@@ -29,10 +29,25 @@ public class BizController {
 	public String businessSignup(Model model) throws Exception {
 		return "/business_signup"; // business_signup.jsp
 	}
+	
+	@RequestMapping("/business-signup2.do")
+	public String businessSignup2(Model model) throws Exception {
+		return "/business_signup(cssupdate)"; // business_signup.jsp
+	}
 
 	@RequestMapping("/mapSearch.do")
 	public String mapSearch(Model model) throws Exception {
 		return "/mapSearch"; // mapSearch.jsp
+	}
+	
+	@RequestMapping("/mapTest.do")
+	public String mapTest(Model model) throws Exception {
+		return "/mapTest"; // mapTest.jsp
+	}
+	
+	@RequestMapping("/mapTest2.do")
+	public String mapTest2(Model model) throws Exception {
+		return "/mapTest2"; // mapTest2.jsp
 	}
 
 	@RequestMapping(value = "/bizSignup.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
@@ -48,6 +63,14 @@ public class BizController {
 	public String idCheck(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap = bizService.idCheck(map);
+		return new Gson().toJson(resultMap);
+	}
+	
+	@RequestMapping(value = "/emailCheck.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String emailCheck(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = bizService.emailCheck(map);
 		return new Gson().toJson(resultMap);
 	}
 }

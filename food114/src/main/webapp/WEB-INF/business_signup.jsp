@@ -40,10 +40,7 @@
 		<!-- <div class="ad">
         광고창
         <button class="adClose">x</button>
-    </div> -->
-    <style>
-    	
-    </style>
+    	</div>-->
 		<section>
 			<div class="container">
 				<div style="margin-bottom: 20px;">
@@ -90,7 +87,7 @@
 				<div>
 					<div>휴대폰번호</div>
 					<div style="text-wrap: nowrap;">
-						<input id="phoneNum" type="text" placeholder="'-' 제외 입력" v-model="phone" style="width:350px">
+						<input id="phoneNum" type="text" placeholder="'-' 제외 입력" v-model="phone" :style="{width : !flg2 ? '350px' : ''}">
 						<button id="success" v-if="!flg2" @click="fnSmsTest()">인증
 							요청</button>
 					</div>
@@ -190,16 +187,13 @@
 				checkFlg: false,
 				valid: true,
 				valid2: true,
-				bizNumFlg: false,
-				width350: {
-				width: "350px"
-				}
+				bizNumFlg: false
 			},
 			methods: {
 				fnSmsTest: function () {
 					var self = this;
 					if (self.phone == "") {
-						alert("전화번호를 입력해주세요.");
+						alert("휴대폰번호를 입력해주세요.");
 						return;
 					}
 					self.flg = !self.flg;
@@ -256,10 +250,12 @@
 						{
 							oncomplete: function (data) {
 								console.log(data);
+								console.log(data.jibunAddress);
+								console.log(data.roadAddress);
 								self.businessAddr = data.address;
-								self.convertAddressToCoordinates(data.address);
 								self.oldAddr = data.jibunAddress;
 								self.newAddr = data.roadAddress;
+								self.convertAddressToCoordinates(data.address);
 							}
 						}).open();
 				},
@@ -312,6 +308,10 @@
 							console.log("경도:" + result[0].x);
 							self.latitude = result[0].y;
 							self.longitude = result[0].x;
+							console.log(self.latitude);
+							console.log(self.longitude);
+							console.log(self.oldAddr);
+							console.log(self.newAddr);
 						}
 					};
 					geocoder.addressSearch(addr, callback);
@@ -368,11 +368,11 @@
 					}
 					var inputElement = document.getElementById("businessNum");
 					var inputElement2 = document.getElementById("phoneNum");
-					if(inputElement.hasAttribute('disabled')){
+					if(!inputElement.hasAttribute('disabled')){
 						alert("사업자등록번호를 확인해주세요.");
 						return;
 					}
-					if(inputElement2.hasAttribute('disabled')){
+					if(!inputElement2.hasAttribute('disabled')){
 						alert("인증을 완료해주세요.");
 						return;
 					}
@@ -380,7 +380,7 @@
 						alert("비밀번호를 확인해주세요.");
 						return;
 					}
-					if(!checkFlg){
+					if(!self.checkFlg){
 						alert("아이디를 확인해주세요.");
 						return;
 					}

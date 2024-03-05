@@ -51,4 +51,20 @@ public class BizServiceImpl implements BizService {
 		}
 		return resultMap;
 	}
+
+	@Override
+	public HashMap<String, Object> emailCheck(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		Biz email = bizMapper.emailCheck(map);
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		if(email == null) {
+			// 아이디가 없는 경우
+			resultMap.put("result", "success");
+			resultMap.put("message", "This is an available Email.\nDo you want to use it?");
+		} else {
+			resultMap.put("result", "fail");
+			resultMap.put("message", "This is a duplicate Email.");
+		}
+		return resultMap;
+	}
 }
