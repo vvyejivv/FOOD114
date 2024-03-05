@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,30 +14,46 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 
+import teamProject.food114.service.CustomerService;
+
 @Controller
 public class CustomerController {
-	
 
-	// 글 내용
-	@RequestMapping("/main.do")
+	@Autowired
+	CustomerService customerService;
+	
+	// 고객 회원가입 페이지
+	@RequestMapping("/consumer-join.do")
 	public String bbsBoardView(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
-		return "/main";
+		return "/consumerJoin";
 	}
-	
-	@RequestMapping("/login.do")
-	public String login(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
-			throws Exception {
-		return "/login";
-	}
-	
-	   //글 내용
-	   @RequestMapping(value = "/main.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-	   @ResponseBody
-	   public String main(Model model, @RequestParam HashMap<String, Object> map) throws Exception {   
-	      HashMap<String, Object> resultMap = new HashMap<String, Object>();
-	      return new Gson().toJson(resultMap);
-	   }
 
+	// 고객 회원가입 클릭시
+	@RequestMapping(value = "/consumer-join.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String consumerJoin(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = customerService.addConsumer(map);
+		return new Gson().toJson(resultMap);
+	}
+	
+	// 아이디 중복 확인 클릭시
+	@RequestMapping(value = "/consumer-idCheck.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String consumeridCheck(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = customerService.searchUserId(map);
+		return new Gson().toJson(resultMap);
+	}
+	
+	// 이메일 중복 확인 클릭시
+	@RequestMapping(value = "/email-check.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String emailCheck(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = customerService.searchEmail(map);
+		return new Gson().toJson(resultMap);
+	}
 
 }

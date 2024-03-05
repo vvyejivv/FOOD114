@@ -38,7 +38,6 @@ var app = new Vue({
     , created: function () {
     	var self = this;    	
     	self.list();
-
 	}
 });
 </script>
