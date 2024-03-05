@@ -391,7 +391,7 @@ select {
 					data : nparmap,
 					success : function(data) {
 						if (data.result == "success") {
-							alert("완료");
+							location.href="consumer-join-success.do";
 						} else {
 							alert("실패");
 						}

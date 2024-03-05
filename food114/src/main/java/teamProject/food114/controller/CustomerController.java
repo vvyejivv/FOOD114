@@ -24,9 +24,16 @@ public class CustomerController {
 	
 	// 고객 회원가입 페이지
 	@RequestMapping("/consumer-join.do")
-	public String bbsBoardView(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
+	public String consumerJoin(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
 		return "/consumerJoin";
+	}
+	
+	// 고객 회원가입 성공 페이지
+	@RequestMapping("/consumer-join-success.do")
+	public String consumerJoinSuccess(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
+			throws Exception {
+		return "/consumerJoinAfter";
 	}
 
 	// 고객 회원가입 클릭시
