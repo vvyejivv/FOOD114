@@ -29,11 +29,6 @@ public class BizController {
 	public String businessSignup(Model model) throws Exception {
 		return "/business_signup"; // business_signup.jsp
 	}
-	
-	@RequestMapping("/business-signup2.do")
-	public String businessSignup2(Model model) throws Exception {
-		return "/business_signup(cssupdate)"; // business_signup.jsp
-	}
 
 	@RequestMapping("/mapSearch.do")
 	public String mapSearch(Model model) throws Exception {

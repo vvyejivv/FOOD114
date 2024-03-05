@@ -153,22 +153,7 @@ button img {
 <body>
 	<div id="app">
 		<header>
-			<div id="container" style="height: 50px;">
-				<div id="logo">
-					<img src="../img/logo.png" class="logo">
-				</div>
-				<div id="status">
-					<a class="buttonBox">로그인 </a> <a class="join"> 회원가입 </a> <a
-						class="join"> 사장님사이트 </a>
-				</div>
-			</div>
-			<!-- menuBar -->
-			<div id="menuBar">
-				<div id="container" class="menuBar">
-					<a class="menu">메뉴 </a> <a class="menu">지도로 찾기</a> <a class="menu">우리동네</a>
-					<a class="menu">이벤트</a> <a class="menu">고객지원</a>
-				</div>
-			</div>
+- 			<%@include file="main(header).html" %> 
 		</header>
 		<!-- 광고창 -->
 		<!-- <div class="ad">
@@ -227,24 +212,7 @@ button img {
 		</section>
 
 		<footer>
-			<div class="footerImg">
-				<img src="../img/logo_gray.png">
-			</div>
-			<div style="float: right; padding-right: 50px;">가맹점 문의</div>
-			<div style="clear: both; font-size: 12px;">
-				<div>주소 : 인천광역시 부평구 경원대로 1366(부평동. 스테이션타워 7F)</div>
-				<div>
-					대표이사 : 박경빈 <span class="partition"> | </span>사업자등록번호 :
-					010-6382-4246
-				</div>
-
-				<div>
-					제휴문의 : djl01@naver.com <span class="partition"> | </span>고객만족센터 :
-					1588-****
-				</div>
-				안심센터 FOOD114 클린리뷰 고객만족센터 1588-****(유료) 24시간, 연중무휴
-				<div>호스팅 제공자 : 더조은 FOOD114</div>
-			</div>
+			<%@include file="main(footer).html" %>
 		</footer>
 	</div>
 </body>
