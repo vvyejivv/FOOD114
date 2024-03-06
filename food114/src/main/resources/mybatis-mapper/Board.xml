@@ -3,4 +3,18 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="teamProject.food114.mapper.BoardMapper">
+	<select id="selectEventList" parameterType="hashmap"
+		resultType="teamProject.food114.model.Board">
+		SELECT
+	b.*,
+	DATE_FORMAT(begintime, '%Y-%m-%d') AS begintime2,
+	DATE_FORMAT(endtime, '%Y-%m-%d') AS endtime2,
+	f.*
+FROM
+	FOOD114_BOARD b
+	LEFT JOIN FOOD114_BOARD_FILE f ON b.boardno = f.boardno
+WHERE
+	CODE = 3
+	AND f.USAGE = 1
+	</select>
 </mapper>
