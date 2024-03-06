@@ -21,7 +21,7 @@ public class BoardController {
 
 	// 공지사항 리스트
 	@RequestMapping("/userNoticeList.do")
-	public String userList(Model model) throws Exception {
+	public String userList(Model model) throws Exception { 
 		return "/userNoticeList"; // business_signup.jsp
 	}
 
