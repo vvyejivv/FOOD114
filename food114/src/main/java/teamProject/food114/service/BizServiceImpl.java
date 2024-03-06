@@ -1,6 +1,7 @@
 package teamProject.food114.service;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -64,6 +65,22 @@ public class BizServiceImpl implements BizService {
 		} else {
 			resultMap.put("result", "fail");
 			resultMap.put("message", "This is a duplicate Email.");
+		}
+		return resultMap;
+	}
+
+	@Override
+	public HashMap<String, Object> searchBizList(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			List<Biz> list = bizMapper.selectBizList(map);
+			resultMap.put("list", list);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			resultMap.put("result", "fail");
 		}
 		return resultMap;
 	}

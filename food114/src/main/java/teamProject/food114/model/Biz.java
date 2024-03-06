@@ -11,9 +11,7 @@ public class Biz {
 	private String ownerName;
 	private String email;
 	private String phone;
-	private String si;
-	private String gu;
-	private String dong;
+	private String oldAddr;
 	private String detail;
 	private String newAddr;
 	private String latitude;
@@ -24,4 +22,7 @@ public class Biz {
 	private String accountNumber;
 	private String bizFileNo;
 	private String bizCategory;
+	private String openTime;
+	private String closeTime;
+	private String openYn;
 }

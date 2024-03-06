@@ -13,4 +13,7 @@
 	<select id="emailCheck" parameterType="hashmap" resultType="teamProject.food114.model.Biz">
 		SELECT * FROM FOOD114_BIZ_INFO WHERE EMAIL = #{email}
 	</select>
+	<select id="selectBizList" parameterType="hashmap" resultType="teamProject.food114.model.Biz">
+		SELECT * FROM FOOD114_BIZ_INFO
+	</select>
 </mapper>
