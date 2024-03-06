@@ -1,0 +1,50 @@
+section {
+	padding: 40px;
+	margin-top: 20px;
+	border-radius: 20px;
+	position: relative; /* 배경 이미지를 위한 상대 위치 설정 */
+}
+
+.container {
+	max-width: 500px;
+	margin: 0 auto;
+	padding: 20px;
+	background-color: rgba(255, 255, 255, 0.8); /* 폼 컨테이너의 배경을 투명하게 설정 */
+	border-radius: 8px;
+}
+
+
+.container input[type="text"], .container input[type="email"],
+	.container select {
+	width: 300px;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	outline: none;
+	transition: border-color 0.3s ease;
+	background-color: rgba(255, 255, 255, 0.9); /* 입력 필드의 배경을 투명하게 설정 */
+}
+
+.container input[type="text"]:focus, .container select:focus {
+	border-color: #ff7f00;
+	
+}
+
+.container div~div{
+	margin-bottom: 20px;
+}
+
+.container button {
+	padding: 10px 20px;
+	background-color: #ff7f00;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+	margin-top: 10px;
+}
+
+.container button:hover {
+	background-color: #cc6600;
+}

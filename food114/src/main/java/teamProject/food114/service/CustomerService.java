@@ -11,4 +11,7 @@ public interface CustomerService {
 
 	// 이메일 중복체크
 	HashMap<String, Object> searchEmail(HashMap<String, Object> map);
+	// 로그인 아이디 확인
+	HashMap<String, Object> searchLoginUserId(HashMap<String, Object> map);
+	
 }
