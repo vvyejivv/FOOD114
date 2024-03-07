@@ -44,6 +44,11 @@ public class BizController {
 	public String mapTest2(Model model) throws Exception {
 		return "/mapTest2"; // mapTest2.jsp
 	}
+	
+	@RequestMapping("/mapTest3.do")
+	public String mapTest3(Model model) throws Exception {
+		return "/mapTest3"; // mapTest3.jsp
+	}
 
 	@RequestMapping(value = "/bizSignup.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
