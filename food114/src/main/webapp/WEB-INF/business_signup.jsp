@@ -429,7 +429,9 @@ select {
 							return;
 						}
 						self.flg = !self.flg;
-						var nparmap = {};
+						var nparmap = {
+								phone : self.phone
+						};
 						$.ajax({
 							url : "send-one",
 							dataType : "json",

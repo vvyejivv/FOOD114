@@ -12,8 +12,10 @@ import java.util.HashMap;
 import java.util.Random;
 
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import net.nurigo.sdk.NurigoApp;
@@ -94,12 +96,12 @@ public class ExampleController {
      * 단일 메시지 발송 예제
      */
     @PostMapping("/send-one")
-    public HashMap<String, Object> sendOne() {
+    public HashMap<String, Object> sendOne(Model model, @RequestParam HashMap<String, Object> data) {
         Message message = new Message();
         // 발신번호 및 수신번호는 반드시 01012345678 형태로 입력되어야 합니다.
         String ranStr = randomMessage();
         message.setFrom("01046548947");
-		message.setTo("01085816901");
+		message.setTo((String)data.get("phone"));
         message.setText("인증번호 : " + ranStr);
 
         SingleMessageSentResponse response = this.messageService.sendOne(new SingleMessageSendingRequest(message));

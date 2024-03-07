@@ -22,6 +22,13 @@ public class CustomerController {
 	@Autowired
 	CustomerService customerService;
 	
+	// 고객 메인 페이지
+	@RequestMapping("/food114.do")
+	public String food114Main(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
+			throws Exception {
+		return "/mainPage";
+	}
+	
 	// 고객 회원가입 페이지
 	@RequestMapping("/consumer-join.do")
 	public String consumerJoin(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
