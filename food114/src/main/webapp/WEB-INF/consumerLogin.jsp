@@ -93,7 +93,7 @@
 					data : nparmap,
 					success : function(data) {
 						if (data.pwd == "pwdSuccess") {
-							location.href="/main.do";							
+							location.href="/food114.do";							
 						}else{
 							self.errormsg = data.message;						
 						}

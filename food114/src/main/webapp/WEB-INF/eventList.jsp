@@ -138,7 +138,8 @@ a {
 					</div>
 				</div>
 				<div v-if="list.length==0"
-					style="margin-top: 50px; width: 1300px; margin-bottom: 50px; text-align: center; height: 230px">현재 진행중인 이벤트가 없습니다.</div>
+					style="margin-top: 50px; width: 1300px; margin-bottom: 50px; text-align: center; height: 230px">현재
+					진행중인 이벤트가 없습니다.</div>
 				<div class="eventContainer">
 					<!-- 이벤트 게시물 1개 -->
 					<!-- <div class="eventBox">
@@ -150,7 +151,7 @@ a {
 					</div> -->
 
 					<template v-for="item in list" v-if="list.length!=0">
-						<div class="eventBox">
+						<div class="eventBox" @click="fnBoardView(item.boardNo)">
 							<div class="previewBox">
 								<div class="imgBox">
 									<img :src=item.filePath+item.fileName+item.fileEtc>
@@ -178,7 +179,7 @@ a {
 		el : '#app',
 		data : {
 			list : [],
-			endYn : "N"
+			endYn : "${endYn}"
 		},
 		methods : {
 			fnList : function(str) {
@@ -188,19 +189,26 @@ a {
 					endYn : str
 				};
 				$.ajax({
-						url : "event-list.dox",
-						dataType : "json",
-						type : "POST",
-						data : nparmap,
-						success : function(data) {
-							self.list = data.list;
-						}
-					});
+					url : "event-list.dox",
+					dataType : "json",
+					type : "POST",
+					data : nparmap,
+					success : function(data) {
+						self.list = data.list;
+					}
+				});
+			},
+			fnBoardView : function(boardNo) {
+				var self = this;
+				$.pageChange("/event-web-view.do", {
+					boardNo : boardNo,
+					endYn : self.endYn
+				});
 			}
 		},
 		created : function() {
 			var self = this;
-			self.fnList("N");
+			self.fnList(self.endYn);
 		}
 	});
 </script>

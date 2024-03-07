@@ -40,9 +40,9 @@
 }
 </style>
 <body>
-	<header>
-		<%@include file="main(header).html"%>
-	</header>
+
+	<%@include file="main(header).html"%>
+
 	<!-- 주문하기(영수증창) -->
 	<!-- <div class="receipt" style="border-radius: 10px;">
         영수증
@@ -61,16 +61,18 @@
 	<section>
 		<div class="eventSlide">
 			<!-- <h1>이벤트 슬라이드</h1> -->
-			<img src="even.png" width="100%" height="370px">
+			<img src="../boardFile/event1.png" width="100%" height="370px">
 		</div>
 		<div class="clickBoxList">
 			<div class="clickBox">
 				<div style="border: 1px solid black; width: 50px; height: 50px;">img</div>
 				<div
-					style="color: green; font-size: 40px; padding: 10px 0px; padding-bottom: 20px;">
+					style="color: green; font-size: 40px; padding: 10px 0px; padding-bottom: 20px; height: 100px; display: flex; align-items: center; gap:10px;">
 					지도로검색
-					<button
-						style="background-color: green; color: white; border-radius: 50%; border: none; width: 30px; height: 30px; font-size: 20px;"></button>
+
+					<a style="background-color: green; color: white; display: inline-block; width: 30px; height: 30px; font-size: 20px; border-radius: 50%; text-align: center;">❯</a>
+
+
 				</div>
 				<div>지도로검색하세요</div>
 			</div>
@@ -89,7 +91,7 @@
 	</section>
 
 	<footer>
-		<%@include file="main(footer).html" %>
+		<%@include file="main(footer).html"%>
 	</footer>
 </body>
 

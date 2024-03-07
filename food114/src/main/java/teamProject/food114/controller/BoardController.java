@@ -19,15 +19,39 @@ import teamProject.food114.service.BoardService;
 
 @Controller
 public class BoardController {
-	
+
 	@Autowired
 	BoardService boardService;
-	
+
 	// 웹 주관 이벤트 페이지
-	@RequestMapping("/event-web.do")
+	@RequestMapping("/event-web-list.do")
 	public String eventWeb(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
-		return "/eventWeb";
+		System.out.println(map.get("endYn"));
+		if (!map.containsKey("endYn")) {
+			request.setAttribute("endYn", "N");
+		} else {
+			request.setAttribute("endYn", map.get("endYn"));
+		}
+		return "/eventList";
+	}
+
+	// 웹 주관 이벤트 페이지 상세보기
+	@RequestMapping("/event-web-view.do")
+	public String eventWebView(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
+			throws Exception {
+		request.setAttribute("boardNo", map.get("boardNo"));
+		request.setAttribute("endYn", map.get("endYn"));
+		return "/eventView";
+	}
+
+	// 웹 주관 이벤트 페이지 상세보기
+	@RequestMapping(value = "/event-view.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String eventView(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = boardService.searchEvent(map);
+		return new Gson().toJson(resultMap);
 	}
 
 	// 웹 주관 이벤트 목록 호출
@@ -35,17 +59,16 @@ public class BoardController {
 	@ResponseBody
 	public String eventList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		resultMap=boardService.searchEventList(map);
+		resultMap = boardService.searchEventList(map);
 		return new Gson().toJson(resultMap);
 	}
 
 	// 공지사항 리스트
 	@RequestMapping("/userNoticeList.do")
-	public String userList(Model model) throws Exception { 
+	public String userList(Model model) throws Exception {
 		return "/userNoticeList"; // business_signup.jsp
 	}
 
-	
 	// 게시글 목록
 	@RequestMapping(value = "/userNoticeList.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
@@ -54,5 +77,5 @@ public class BoardController {
 		resultMap = boardService.searchBoardList(map);
 		return new Gson().toJson(resultMap);
 	}
-	
+
 }
