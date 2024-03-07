@@ -173,9 +173,11 @@ section {
 			list : []
 		},
 		methods : {
-			fnList : function() {
+			fnList : function(str) {
 				var self = this;
-				var nparmap = {};
+				var nparmap = {
+					endYn : str
+				};
 				$
 						.ajax({
 							url : "event-list.dox",
@@ -193,7 +195,7 @@ section {
 		},
 		created : function() {
 			var self = this;
-			self.fnList();
+			self.fnList("N");
 		}
 	});
 </script>

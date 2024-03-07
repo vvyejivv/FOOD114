@@ -22,11 +22,25 @@ public class CustomerController {
 	@Autowired
 	CustomerService customerService;
 	
+	// 고객 메인 페이지
+	@RequestMapping("/food114.do")
+	public String food114Main(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
+			throws Exception {
+		return "/mainPage";
+	}
+	
 	// 고객 회원가입 페이지
 	@RequestMapping("/consumer-join.do")
 	public String consumerJoin(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
 		return "/consumerJoin";
+	}
+	
+	// 고객 로그인 페이지
+	@RequestMapping("/consumer-login.do")
+	public String consumerLogin(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
+			throws Exception {
+		return "/consumerLogin";
 	}
 	
 	// 고객 회원가입 성공 페이지
@@ -60,6 +74,15 @@ public class CustomerController {
 	public String emailCheck(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap = customerService.searchEmail(map);
+		return new Gson().toJson(resultMap);
+	}
+	
+	// 고객 로그인
+	@RequestMapping(value = "/consumer-login.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String consumerLogin(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = customerService.searchLoginUserId(map);
 		return new Gson().toJson(resultMap);
 	}
 

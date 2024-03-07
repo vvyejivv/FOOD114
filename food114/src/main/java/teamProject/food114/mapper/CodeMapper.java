@@ -10,4 +10,5 @@ import teamProject.food114.model.Code;
 @Mapper
 public interface CodeMapper {
 	List<Code> selectEmail(HashMap<String,Object> map);
+	List<Code> selectBank(HashMap<String,Object> map);
 }

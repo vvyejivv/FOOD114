@@ -1,0 +1,218 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+.notosanskr * {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+* {
+    font-family: 'Noto Sans KR';
+}
+
+#orderContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+#title {
+    width: 800px;
+    height: 40px;
+    background-color: #f9f9f9;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    border-bottom: 3px solid #e4e4e4;
+    font-weight: bold;
+    color: rgb(72, 72, 72);
+}
+
+.subTitle {
+    width: 800px;
+    height: 40px;
+    background-color: #f9f9f9;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    margin-top: 10px;
+    border-bottom: 3px solid #e4e4e4;
+    font-weight: bold;
+    color: rgb(72, 72, 72);
+}
+
+.deliveryBox {
+    width: 800px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.deliveryBox input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.deliveryBox textarea {
+    resize: none;
+    height: 40px;
+}
+
+.deliveryBox button {
+    padding: 11px 15px;
+    background-color: #ff7f00;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#requestSize {
+    font-size: 14px;
+    float: right;
+    color: #ccc;
+}
+
+#securePhone {
+    font-size: 13px;
+    color: rgb(72, 72, 72);
+}
+
+.infoBox {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.infoText {
+    font-size: 15px;
+    margin-bottom: 15px;
+    color: rgb(72, 72, 72);
+}
+
+#phone input[type="text"] {
+    width: 100px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#addr input[type="text"],
+.deliveryBox textarea {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#ecoYN {
+    font-size: 13px;
+    margin-top: 4px;
+    margin-bottom: 15px;
+}
+
+.payBox {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.payMainText {
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 15px;
+    color: rgb(72, 72, 72);
+}
+
+.payDivContainer {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.payMargin {
+    margin-bottom: 25px;
+}
+
+.payDivBox {
+    width: 350px;
+    height: 50px;
+    padding: 8px 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 5px;
+    margin-right: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#payDivBox {
+    width: 400px;
+    height: 200px;
+    padding: 8px 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 5px;
+    /* margin: 0px auto; */
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.selectedPayment{
+	background-color: #ff7f00;
+	color : #fff;
+}
+#payText {
+    font-size: 12px;
+    color: red;
+
+}
+
+#payPageLeft {
+    margin: 100px 20px 0px 150px;
+    cursor: pointer;
+    font-size: 18px;
+    color: rgb(72, 72, 72);
+}
+
+#payPageRight {
+    margin: 100px 50px 0px 20px;
+    cursor: pointer;
+    font-size: 18px;
+    color: rgb(72, 72, 72);
+}
+
+hr {
+    border: none;
+    /* 기본 선 제거 */
+    border-top: 2px solid #ccc;
+    /* 원하는 선 스타일 및 색상 지정 */
+}
+
+
+#couponBox input[type="text"] {
+    width: 250px;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.orderText {
+    font-size: 14px;
+    color: rgb(72, 72, 72);
+}
+#kakaoPay{
+    width : 60px; 
+    margin-right: 5px;
+}
+#tossPay{
+    width : 75px; 
+    margin-right: 5px;
+}
