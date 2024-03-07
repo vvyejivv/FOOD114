@@ -21,6 +21,7 @@ public class BoardServiceImpl implements BoardService {
 		// TODO Auto-generated method stub
 		try {
 			List<Board> list = boardMapper.selectEventList(map);
+			boardMapper.updateEndYn();
 			resultMap.put("list", list);
 		} catch (Exception e) {
 			// TODO: handle exception
