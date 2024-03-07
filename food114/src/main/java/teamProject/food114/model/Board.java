@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class Board {
+
 	   private int boardNo;
 	   private String title;
 	   private String contents;
@@ -18,6 +19,7 @@ public class Board {
 	   private String udateTime;
 	   private int pboardNo;
 	   private int code;
+	   private int cnt;
 	   private String beginTime2;
 	   private String endTime2;
 	   private String filePath;
