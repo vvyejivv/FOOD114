@@ -11,9 +11,6 @@ public class Biz {
 	private String ownerName;
 	private String email;
 	private String phone;
-	private String si;
-	private String gu;
-	private String dong;
 	private String detail;
 	private String newAddr;
 	private String latitude;
