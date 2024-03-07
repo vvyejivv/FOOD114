@@ -7,4 +7,9 @@
 		INSERT INTO FOOD114_BIZ_INFO 
 		VALUES(#{bizId},#{bizPwd},#{bizNo},#{bizName},#{ownerName},#{email},#{phone},#{newAddr},#{oldAddr},#{detail},#{latitude},#{longitude},NOW(),NOW(),#{bank},#{accountNum},null,'1')
 	</insert> -->
+	<select id="selectBizId" parameterType="hashmap" resultType="teamProject.food114.model.Biz">
+		SELECT *
+		FROM FOOD114_BIZ_INFO 
+		WHERE BIZID = #{bizId}
+	</select>
 </mapper>

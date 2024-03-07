@@ -17,9 +17,10 @@
 		</choose>
 		),"1",now(),now(),"N","Y")
 	</insert>
-	<select id="selectUserID" parameterType="hashmap"
-		resultType="teamProject.food114.model.Customer">
-		SELECT * FROM FOOD114_CONSUMER WHERE USERID=#{userId}
+	<select id="selectUserID" parameterType="hashmap" resultType="teamProject.food114.model.Customer">
+		SELECT *
+		FROM FOOD114_CONSUMER 
+		WHERE USERID=#{userId}
 	</select>
 	<select id="selectEmail" parameterType="hashmap"
 		resultType="teamProject.food114.model.Customer">
