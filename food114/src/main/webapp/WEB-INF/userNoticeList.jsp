@@ -27,7 +27,7 @@ body {
 table {
 	border-left: none;
 	border-right: none;
-	width: 1000px;
+	width: 950px;
 	border-top: 1px solid #c0c0c0;
 	border-collapse: collapse;
 }
@@ -44,7 +44,7 @@ th:first-child, td:first-child {
 }
 
 .container {
-	width: 1400px;
+	width: 1200px;
 	margin: 5px auto;
 	padding: 10px;
 }
@@ -56,6 +56,8 @@ a {
 }
 
 .content {
+	width: 910px;
+	display: left;
 	margin: 10px;
 	padding: 5px;
 	/* border: 1px solid black; */
@@ -100,10 +102,10 @@ button {
 }
 
 .sidebar {
-	margin-top: 87px;
+	margin-top: 103px;
+	margin-left: 15px;
 	margin-right: 60px;
 	width: 150px;
-	height: 800px;
 	padding: 10px;
 }
 
@@ -129,9 +131,9 @@ h2 {
 </head>
 
 <body>
-	<header>
+<%-- 	<header>
 		<%@include file="main(header).html"%>
-	</header>
+	</header> --%>
 
 	<!-- 광고창 -->
 	<!--
@@ -141,11 +143,11 @@ h2 {
         </div>
     -->
 	<section>
-	<div id="app">
-		<div class="container">
-			<div class="content" style="overflow: hidden;">
+		<div id="app">
+			<div class="container">
+
 				<div style="float: left;">
-					<ul class="sidebar" >
+					<ul class="sidebar">
 						<li><a href="javascript:;">공지사항</a> <a href="javascript:;"
 							style="font-size: 17px; color: #a3a2a2;"><span
 								style="margin-left: 100px;">❯</span></a></li>
@@ -158,56 +160,64 @@ h2 {
 
 					</ul>
 				</div>
-				<div style="float: left; width: 1000px;">
-					<div style="float: left;">
+				<div class="content" style="overflow: hidden;">
+					<div style="float: left; width: 800px;">
+						<div style="float: left;">
+							<br>
+							<h2>
+								<span style="color: #ff7f00; font-weight: bold;">| </span><span
+									style="text-align: left; color: rgba(72, 72, 72);">공지사항&nbsp;</span>
+								<span class="span">새로운 소식과 유용한 정보를 한 곳에서 확인하세요.</span>
+							</h2>
+						</div>
+						<table>
+							<tr>
+								<th
+									style="width: 10px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+									번호</th>
+								<th
+									style="width: 200px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+									제목</th>
+								<th
+									style="width: 20px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+									작성자</th>
+								<th
+									style="width: 5px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+									작성일</th>
+							</tr>
+							<tr v-for="(item, index) in paginatedList">
+								<td style="text-align: center;">{{item.boardNo}}</td>
+								<td><a href="javascript:;" style="font-size: 15px;">{{item.title}}</a></td>
+								<td style="text-align: center; font-size: 14px;">{{item.userId}}</td>
+								<td style="text-align: center; font-size: 15px; color: #a3a2a2;">{{formatDate(item.cdateTime)}}</td>
+							</tr>
+						</table>
 						<br>
-						<h2>
-							<span style="color: #ff7f00; font-weight: bold;">| </span><span
-								style="text-align: left; color: rgba(72, 72, 72);">공지사항&nbsp;</span>
-							<span class="span">새로운 소식과 유용한 정보를 한 곳에서 확인하세요.</span>
-						</h2>
-					</div>
-					<table>
-						<tr>
-							<th
-								style="width: 20px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
-								번호</th>
-							<th
-								style="width: 300px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
-								제목</th>
-							<th
-								style="width: 50px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
-								작성자</th>
-							<th
-								style="width: 100px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
-								작성일</th>
-						</tr>
-						<tr v-for="(item, index) in paginatedList">
-							<td style="text-align: center;">{{item.boardNo}}</td>
-							<td><a href="javascript:;" style="font-size: 15px;">{{item.title}}</a></td>
-							<td style="text-align: center; font-size: 14px;">{{item.userId}}</td>
-							<td style="text-align: center; font-size: 15px; color: #a3a2a2;">{{formatDate(item.cdateTime)}}</td>
-						</tr>
-					</table>
-					<br>
 						<div style="text-align: center;">
-						<button @click="fnPageList(nowPage-1)" v-if="nowPage > 1 || pageCount > 1">
-							<span style="color: #ff7f00; font-size: 20px;">{{prevIcon}}</span>
-						</button>
+							<button @click="fnPageList(nowPage-1)" v-if="nowPage > 1">
+								<span style="color: #ff7f00; font-size: 20px;">{{prevIcon}}</span>
+							</button>
+							<button @click="fnPageList(nowPage-1)" v-if="nowPage == 1"
+								style="border: 1px solid #f5f3f3; cursor: default;" disabled>
+								<span style="color: #f5f3f3; font-size: 20px;">{{prevIcon}}</span>
+							</button>
 							<template v-for="n in pageCount">
-								  <a href="javascript:;" @click="fnPageList(n)">
-								    <span v-else>{{n}}</span>
-								  </a>
-								</template>
-						<button @click="fnPageList(nowPage+1)" v-if="nowPage < pageCount || pageCount > 1">
-							<span style="color: #ff7f00; font-size: 20px;">{{nextIcon}}</span>
-						</button>
+								<a href="javascript:;" @click="fnPageList(n)"> </a>
+							</template>
+							<button @click="fnPageList(nowPage+1)" v-if="nowPage < pageCount">
+								<span style="color: #ff7f00; font-size: 20px;">{{nextIcon}}</span>
+							</button>
+							<button @click="fnPageList(nowPage-1)"
+								v-if="nowPage == pageCount"
+								style="border: 1px solid #f5f3f3; cursor: default;" disabled>
+								<span style="color: #f5f3f3; font-size: 20px;">{{nextIcon}}</span>
+							</button>
+						</div>
 					</div>
 				</div>
-			</div>
 
+			</div>
 		</div>
-</div>
 	</section>
 
 	<footer>
@@ -219,24 +229,28 @@ h2 {
 			el : '#app',
 			data : {
 				list : [],
-				boardList : "",	// 게시글 목록
+				boardList : "", // 게시글 목록
 				type : "CDATE",
 				prevIcon : "❮",
 				nextIcon : "❯",
 				nowPage : 1,
 				pageCount : '',
-				searchCnt: 10
-				},
+				searchCnt : 20
+			},
 			methods : {
 				fnPageList : function(page) {
 					var self = this;
-					 if (page >= 1 && page <= self.pageCount) {
-				            self.nowPage = page;
-				            var nparmap = {			
-				                startNum: (page - 1) * self.searchCnt + 1,
-				                lastNum: page * self.searchCnt,
-				                type: self.type}
-				            };
+					if (page >= 1 && page <= self.pageCount) {
+						self.nowPage = page;
+						var nparmap = {
+							startNum : (self.pageCount - page) * self.searchCnt
+									+ 1,
+							lastNum : (self.pageCount - page + 1)
+									* self.searchCnt,
+							type : self.type
+						}
+					}
+					;
 					$.ajax({
 						url : "userNoticeList.dox",
 						dataType : "json",
@@ -244,24 +258,32 @@ h2 {
 						data : nparmap,
 						success : function(data) {
 							console.log(data);
-							self.list = data.list;
-							self.pageCount = Math.ceil(data.cnt/self.searchCnt);
+							self.list = data.list.reverse();
+							self.pageCount = Math.ceil(data.cnt
+									/ self.searchCnt);
+							/* self.nowPage = nowPage; */
+							if (page == 1) {
+								self.prevIcon = "❮";
+							} else {
+								self.prevIcon = "❮"
+							}
 						}
 					});
 				},
-				formatDate: function (dateString) {
-				      if (dateString) {
-				        return dateString.split(' ')[0];
-				      }
-				    }
+				formatDate : function(dateString) {
+					if (dateString) {
+						return dateString.split(' ')[0];
+					}
+				}
 			},
-			computed: {
-			    paginatedList: function() {
-			        var startIndex = (this.nowPage - 1) * 10;
-			        var endIndex = startIndex + 10;
-			        return this.list.slice(startIndex, endIndex);
-			  	  }
-			    },
+			computed : {
+				paginatedList : function() {
+					var self = this;
+					var startIndex = (this.nowPage - 1) * self.searchCnt;
+					var endIndex = startIndex + self.searchCnt;
+					return this.list.slice(startIndex, endIndex);
+				}
+			},
 			created : function() {
 				var self = this;
 				self.fnPageList();
