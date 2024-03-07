@@ -166,7 +166,10 @@
     justify-content: center;
     align-items: center;
 }
-
+.selectedPayment{
+	background-color: #ff7f00;
+	color : #fff;
+}
 #payText {
     font-size: 12px;
     color: red;
