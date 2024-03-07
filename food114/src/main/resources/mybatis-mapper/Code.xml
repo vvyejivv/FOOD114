@@ -7,4 +7,8 @@
 		resultType="teamProject.food114.model.Code">
 		SELECT * FROM FOOD114_CODE WHERE KIND='email'
 	</select>
+	<select id="selectBank" parameterType="hashmap"
+		resultType="teamProject.food114.model.Code">
+		SELECT * FROM FOOD114_CODE WHERE KIND='bank'
+	</select>
 </mapper>
