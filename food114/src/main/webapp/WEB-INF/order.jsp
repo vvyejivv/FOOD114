@@ -109,12 +109,15 @@
                     </div>
                 </div>
                 <hr>
-                <!-- 커밋테스트  -->
                 <div class="payBox">
                     <span class="payMainText">현장 결제</span>
                     <div class="payDivContainer">
-                        <div class="payDivBox" @click="fnMeetPayment('card')">신용카드</div>
-                        <div class="payDivBox" @click="fnMeetPayment('cash')">현금</div>
+                        <div class="payDivBox" 
+                        	 @click="fnMeetPayment('card')" 
+                        	 :class="{'selectedPayment': selectedPaymentMethod === 'card' }">신용카드</div>
+                        <div class="payDivBox" 
+                        	 @click="fnMeetPayment('cash')"
+                        	 :class="{'selectedPayment': selectedPaymentMethod === 'cash' }">현금</div>
                     </div>
                 </div>
             </div>
@@ -155,6 +158,7 @@ var app = new Vue({
     	ecoYNChecked : false, /* 일회용 수저,포크 체크여부 전달  */
     	orderRequest : "", /* 주문 요청사항  */
     	deliveryRequest : "", /* 배달 요청사항  */
+    	selectedPaymentMethod : "", /* 결제 선택  */
     }   
     , methods: {
     	fnView : function(){    		
@@ -187,6 +191,7 @@ var app = new Vue({
         /* 바로 결제  */
         fnPayment : function(type){
         	var self = this;
+        	self.selectedPaymentMethod = type;
         	if(type == 'card'){
         		alert("신용카드결제~");
         	}else if(type == 'phone'){
@@ -202,6 +207,7 @@ var app = new Vue({
         /* 만나서 결제  */
         fnMeetPayment : function(type){
         	var self = this;
+        	self.selectedPaymentMethod = type;
         	if(type =='card'){
         		alert("카드 결제")
         	}else if(type == 'cash'){
