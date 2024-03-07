@@ -13,4 +13,10 @@ public interface BizService {
 	HashMap<String, Object> emailCheck(HashMap<String, Object> map);
 
 	HashMap<String, Object> searchBizList(HashMap<String, Object> map);
+	
+	HashMap<String, Object> searchSiList(HashMap<String, Object> map);
+	
+	HashMap<String, Object> searchGuList(HashMap<String, Object> map);
+	
+	HashMap<String, Object> searchDongList(HashMap<String, Object> map);
 }
