@@ -182,7 +182,7 @@ h2 {
 								style="width: 100px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
 								작성일</th>
 						</tr>
-						<tr v-for="(item, index) in list">
+						<tr v-for="(item, index) in paginatedList">
 							<td style="text-align: center;">{{item.boardNo}}</td>
 							<td><a href="javascript:;" style="font-size: 15px;">{{item.title}}</a></td>
 							<td style="text-align: center; font-size: 14px;">{{item.userId}}</td>
@@ -191,17 +191,15 @@ h2 {
 					</table>
 					<br>
 						<div style="text-align: center;">
-						<button @click="fnPageList(nowPage-1)" v-if="nowPage !=1">
+						<button @click="fnPageList(nowPage-1)" v-if="nowPage > 1 || pageCount > 1">
 							<span style="color: #ff7f00; font-size: 20px;">{{prevIcon}}</span>
 						</button>
 							<template v-for="n in pageCount">
 								  <a href="javascript:;" @click="fnPageList(n)">
-								    <span v-if="n !== '❮' && n !== '❯'">
-								    </span>
 								    <span v-else>{{n}}</span>
 								  </a>
 								</template>
-						<button @click="fnPageList(nowPage+1)" v-if="nowPage != pageCount">
+						<button @click="fnPageList(nowPage+1)" v-if="nowPage < pageCount || pageCount > 1">
 							<span style="color: #ff7f00; font-size: 20px;">{{nextIcon}}</span>
 						</button>
 					</div>
@@ -230,14 +228,15 @@ h2 {
 				searchCnt: 10
 				},
 			methods : {
-				fnPageList : function() {
+				fnPageList : function(page) {
 					var self = this;
-					self.nowPage =1;
-					var nparmap = {			
-							startNum : 1,
-		            		lastNum : 10,
-							type : self.type
-					};
+					 if (page >= 1 && page <= self.pageCount) {
+				            self.nowPage = page;
+				            var nparmap = {			
+				                startNum: (page - 1) * self.searchCnt + 1,
+				                lastNum: page * self.searchCnt,
+				                type: self.type}
+				            };
 					$.ajax({
 						url : "userNoticeList.dox",
 						dataType : "json",
@@ -256,6 +255,13 @@ h2 {
 				      }
 				    }
 			},
+			computed: {
+			    paginatedList: function() {
+			        var startIndex = (this.nowPage - 1) * 10;
+			        var endIndex = startIndex + 10;
+			        return this.list.slice(startIndex, endIndex);
+			  	  }
+			    },
 			created : function() {
 				var self = this;
 				self.fnPageList();
