@@ -30,43 +30,6 @@
 	<section>
 		<div id="app">
 			<div id="orderContainer">
-				<!-- 결제  -->
-				<!-- <div class="popup">
-					팝업처럼 하기 위한 배경
-					<div class="pwrap">
-						실제 팝업창
-						<a class="closebtn">X</a>
-						비밀번호 변경창 닫기 버튼
-						<div>
-							<h1>결제하기</h1>
-							<span>(1개월 결제 금액은 100원 입니다.)</span>
-						</div>
-						<div>
-							<h3 class="amount">결제 금액 : 100원</h3>
-							<p>개월 수를 선택 해 주세요</p>
-							<select onchange="monthSelect(this)">
-								<option value="0">선택하기</option>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-								<option value="6">6</option>
-								<option value="7">7</option>
-								<option value="8">8</option>
-								<option value="9">9</option>
-								<option value="10">10</option>
-								<option value="11">11</option>
-								<option value="12">12</option>
-							</select>
-						</div>
-					</div>
-					<button @click="fnCreditCard()">카드결제</button>
-					<button @click="fnKakaoPay()">카카오페이</button>
-					<button @click="fnToss()">토스페이</button>
-
-				</div> -->
-
 				<div id="title">
 					<span>주문하기</span>
 				</div>
@@ -139,7 +102,7 @@
 						<div class="payBox">
 							<span class="payMainText">다른 결제 수단</span>
 							<div class="payDivContainer">
-								<div class="payDivBox" @click="fnPayment('card')"
+								<div class="payDivBox" @click="fnPayment('card') "
 									:class="{'selectedPayment': selectedPaymentMethod === 'card' }">
 									<span>신용카드</span>
 								</div>
@@ -175,9 +138,9 @@
 				<div class="deliveryBox">
 					<div id="couponBox" class="payMainText">
 						<p>쿠폰</p>
-						<input type="text" placeholder="쿠폰 코드 입력" class="couponInput">
-						<button>적용</button>
-						<button>쿠폰 목록</button>
+						<input type="text" placeholder="쿠폰 코드 입력" class="couponInput" v-model="couponNum">
+						<button @click="fnUseCoupon">적용</button>
+						<button @click="fnCouponPopupOpen">쿠폰 목록</button>
 					</div>
 					<!--            <div id="couponBox" class="payMainText">
                     <p>포인트 사용</p>
@@ -186,7 +149,9 @@
                     <button>전체 포인트</button>
                 </div> -->
 				</div>
-				<div><button @click="fnOrder">결제하기</button></div>
+				<div>
+					<button @click="fnOrder">결제하기</button>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -210,7 +175,10 @@
 			deliveryRequest : "", /* 배달 요청사항  */
 			selectedPaymentMethod : "", /* 바로 결제 선택  */
 			selectedMeetPaymentMethod : "", /* 만나서 결제 선택  */
-			paymentType : "",
+			paymentType : "", /* 결제방식  */
+			couponNum : "", /* 쿠폰번호  */
+			couponList : {}, /* 쿠폰 목록  */
+			couponPopup : false, /* 쿠폰 팝업  */
 		},
 		methods : {
 			fnView : function() {
@@ -246,7 +214,7 @@
 				self.selectedPaymentMethod = type;
 				if (self.selectedPaymentMethod === type) {
 					self.selectedMeetPaymentMethod = "";
-				}
+				} 
 				if (type == 'card') {
 					self.paymentType = type;
 				} else if (type == 'phone') {
@@ -272,13 +240,26 @@
 					self.paymentType = type;
 				}
 			},
+			/* 쿠폰 적용  */
+			fnUseCoupon : function(){
+				var self = this;
+			},
+			/* 쿠폰 팝업(open)  */
+			fnCouponPopupOpen : function(){
+				var self = this;
+				var left = (screen.availWidth) / 2;
+		        var top = (screen.availHeight) / 2;
+		        var width = 500;
+		        var height = 500;
+		        pop = window.open("couponList.do", "couponPopup", 'width=' + width + ',height=' + height + ',left=' + (left - (width / 2)) + ',top=' + (top - (height / 2)));
+			},
 			/* 결제하기  */
 			fnOrder : function(){
 				var self = this;
 				if (self.paymentType == 'card') {
 					self.fnCreditCard();
 				} else if (self.paymentType == 'phone') {
-					alert("핸드폰 결제~");
+					self.fnPhonePayment();
 				} else if (self.paymentType == 'kakao') {
 					self.fnKakaoPay();
 				} else if (self.paymentType == 'toss') {
@@ -290,7 +271,7 @@
 				}  else {
 					alert("다시 시도하세요");
 				}
-				var nparmap = {};
+/* 				var nparmap = {};
 	            $.ajax({
 	                url:"test.dox",
 	                dataType:"json",	
@@ -299,7 +280,7 @@
 	                success : function(data) { 
 	                
 	                }
-	            }); 
+	            }); */ 
 				
 			},
 			/* 신용카드 결제  */
@@ -325,6 +306,29 @@
 	                 }
 	             });
 	         },
+	         /* 휴대폰 결제  */
+			fnPhonePayment : function() {
+				var self = this;
+				IMP.init('imp67187845'); //iamport 대신 자신의 "가맹점 식별코드"를 사용
+				IMP.request_pay({
+					pg : "danal.A010002002",
+					pay_method : "card",
+					merchant_uid : 'merchant_' + new Date().getTime(),
+					name : '결제테스트',
+					amount : 100,
+					buyer_email : 'iamport@siot.do',
+					buyer_name : '구매자',
+					buyer_tel : '010-1234-5678',
+					buyer_addr : '서울특별시 강남구 삼성동',
+					buyer_postcode : '123-456'
+					}, function(rsp) { // callback
+						if (rsp.success) {
+							alert("Success!");
+						} else {
+							alert("Fail.");
+						}
+					});
+			},
 	         /* 카카오페이 결제  */
 			fnKakaoPay : function() {
 				var self = this;
