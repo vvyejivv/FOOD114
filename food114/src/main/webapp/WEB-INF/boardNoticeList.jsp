@@ -11,129 +11,13 @@
 <title>MAIN</title>
 <style>
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
-
-.notosanskr * {
-	font-family: 'Noto Sans KR', sans-serif;
-}
-
-* {
-	font-family: 'Noto Sans KR';
-}
-
-body {
-	margin: 0px;
-}
-
-table {
-	border-left: none;
-	border-right: none;
-	width: 950px;
-	border-top: 1px solid #c0c0c0;
-	border-collapse: collapse;
-}
-
-th, td {
-	border-right: none;
-	border-bottom: 1px solid #e4e3e3;
-	padding: 15px 25px;
-	color: (72, 72, 72);
-}
-
-th:first-child, td:first-child {
-	border-left: none;
-}
-
-.container {
-	width: 1200px;
-	margin: 5px auto;
-	padding: 10px;
-}
-
-a {
-	font-size: 15px;
-	text-decoration: none;
-	color: #333;
-}
-
-.content {
-	width: 910px;
-	display: left;
-	margin: 10px;
-	padding: 5px;
-	/* border: 1px solid black; */
-}
-
-a {
-	font-size: 14px;
-}
-
-.border {
-	border-width: 0 0 1px;
-	border-width: 0;
-}
-
-textarea {
-	border: none;
-	resize: none;
-	width: 700px;
-	height: 100px;
-	resize: none;
-	/* 크기고정 */
-}
-
-textarea:focus {
-	outline: none;
-}
-
-button {
-	background-color: white;
-	border: 1px solid #f8dec7;
-	border-radius: 4px;
-	width: 50px;
-	height: 40px;
-	margin: 5px;
-	cursor: pointer;
-	font-size: 12px;
-}
-
-.span {
-	font-size: 14px;
-	color: #979696c9;
-}
-
-.sidebar {
-	margin-top: 103px;
-	margin-left: 15px;
-	margin-right: 60px;
-	width: 150px;
-	padding: 10px;
-}
-
-li {
-	border: 1px solid #e9e7e7b0;
-	width: 170px;
-	height: 40px;
-	list-style-type: none;
-	text-align: left;
-	padding: 10px;
-	margin: auto;
-}
-
-li:hover {
-	background-color: #f5f3f3;
-	font-weight: bold;
-}
-
-h2 {
-	display: left;
-}
 </style>
 </head>
-
+<link rel="stylesheet" href="../css/board.css">
 <body>
-<%-- 	<header>
+ 	<header>
 		<%@include file="main(header).html"%>
-	</header> --%>
+	</header> 
 
 	<!-- 광고창 -->
 	<!--
@@ -148,13 +32,13 @@ h2 {
 
 				<div style="float: left;">
 					<ul class="sidebar">
-						<li><a href="javascript:;">공지사항</a> <a href="javascript:;"
+						<li><a href="javascript:;" @click="fnClickNoticeList">공지사항</a> <a href="javascript:;"
 							style="font-size: 17px; color: #a3a2a2;"><span
 								style="margin-left: 100px;">❯</span></a></li>
 						<li><a href="javascript:;">자주하는 질문</a> <a href="javascript:;"
 							style="font-size: 17px; color: #a3a2a2;"><span
 								style="margin-left: 70px;">❯</span></a></li>
-						<li><a href="javascript:;">1:1 문의</a> <a href="javascript:;"
+						<li><a href="javascript:;" @click="fnclick">1:1 문의</a> <a href="javascript:;"
 							style="font-size: 17px; color: #a3a2a2;"><span
 								style="margin-left: 100px;">❯</span></a></li>
 
@@ -170,7 +54,7 @@ h2 {
 								<span class="span">새로운 소식과 유용한 정보를 한 곳에서 확인하세요.</span>
 							</h2>
 						</div>
-						<table>
+						<table style="width:920px">
 							<tr>
 								<th
 									style="width: 10px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
@@ -187,7 +71,7 @@ h2 {
 							</tr>
 							<tr v-for="(item, index) in paginatedList">
 								<td style="text-align: center;">{{item.boardNo}}</td>
-								<td><a href="javascript:;" style="font-size: 15px;">{{item.title}}</a></td>
+								<td><a href="javascript:;" style="font-size: 15px;" @click="fnClickBoardNoticeView(item.boardNo)">{{item.title}}</a></td>
 								<td style="text-align: center; font-size: 14px;">{{item.userId}}</td>
 								<td style="text-align: center; font-size: 15px; color: #a3a2a2;">{{formatDate(item.cdateTime)}}</td>
 							</tr>
@@ -208,7 +92,7 @@ h2 {
 								<span style="color: #ff7f00; font-size: 20px;">{{nextIcon}}</span>
 							</button>
 							<button @click="fnPageList(nowPage-1)"
-								v-if="nowPage == pageCount"
+								v-if="nowPage == pageCount"boardNoticeList.jsp
 								style="border: 1px solid #f5f3f3; cursor: default;" disabled>
 								<span style="color: #f5f3f3; font-size: 20px;">{{nextIcon}}</span>
 							</button>
@@ -220,9 +104,9 @@ h2 {
 		</div>
 	</section>
 
-	<footer>
+	
 		<%@include file="main(footer).html"%>
-	</footer>
+	
 
 	<script type="text/javascript">
 		var app = new Vue({
@@ -252,7 +136,7 @@ h2 {
 					}
 					;
 					$.ajax({
-						url : "userNoticeList.dox",
+						url : "boardNoticeList.dox",
 						dataType : "json",
 						type : "POST",
 						data : nparmap,
@@ -270,6 +154,18 @@ h2 {
 						}
 					});
 				},
+				fnclick : function(userId){
+						location.href="/boardQnaInsert.do";
+			        },
+			        fnClickNoticeList : function(userId){
+						location.href="/boardNoticeList.do";
+			        },
+			        fnClickBoardNoticeView : function(boardNo){
+			        	$.pageChang("/boardNoticeVeiw.do",{
+			        		boardNo : boardNo
+			        	});
+						/* location.href="/boardNoticeVeiw.do"; */
+			        },
 				formatDate : function(dateString) {
 					if (dateString) {
 						return dateString.split(' ')[0];

@@ -27,7 +27,7 @@ WHERE
 		
 	</select>
 
-	<!-- 게시글 개수  -->
+	<!-- 공지사항 게시글 개수  -->
 	<select id="selectBoardListCnt" parameterType="hashmap" resultType="int">
 		SELECT *
 		FROM FOOD114_BOARD
@@ -36,6 +36,12 @@ WHERE
 		LIMIT 1 OFFSET 10
 	</select>
 
+	<!-- 공지사항 상세보기  -->
+	<select id="selectBoardInfo" parameterType="hashmap" resultType="teamProject.food114.model.Board">
+		SELECT *
+		FROM FOOD114_BOARD
+		WHERE BOARDNO = #{boardNo} AND CODE = 1
+	</select>
 	
 	
 	
