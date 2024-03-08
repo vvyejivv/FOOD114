@@ -45,7 +45,7 @@
 	background: rgba(255, 255, 255, 1);
 	z-index: 1;
 	font-size: 14px;
-	border-radius: 5px;
+	border-right: 1px solid #ddd;
 	/* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
 }
 
@@ -63,10 +63,12 @@
 }
 
 #menu_wrap .option button {
-	background-color: #eee; /* 변경된 버튼 색상 */
+	background-color: #fff; /* 변경된 버튼 색상 */
 	color: #fff;
-	border: none;
-	border-radius: 5px;
+	border: 1px solid #ccc;
+	border-left: none;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
 	cursor: pointer;
 	padding: 10px;
 	margin-left: -10px;
@@ -84,10 +86,12 @@
 }
 
 #menu_wrap .option input {
-	background-color: #eee; /* 변경된 버튼 색상 */
+	background-color: #fff; /* 변경된 버튼 색상 */
 	color: black;
-	border: none;
-	border-radius: 5px;
+	border: 1px solid #ccc;
+	border-right: none;
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
 	padding: 10px;
 }
 
@@ -202,19 +206,55 @@ ul, ol {
 #placesList1 {
 	margin-right: 10px;
 }
+
+.select_button {
+	padding: 10px;
+	background-color: #ff7f00;
+	border: none;
+	cursor: pointer;
+	height: 50px;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.none_select_button {
+	margin-top: 10px;
+	padding: 10px;
+	background-color: #fff;
+	border: 1px solid #ff7f00;
+	cursor: pointer;
+	height: 50px;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+#menu_view {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	width: 400px;
+	padding: 20px;
+	overflow-y: auto;
+	background: rgba(255, 255, 255, 1);
+	z-index: 1;
+	font-size: 14px;
+	border-right: 1px solid #ddd;
+	/* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+}
 </style>
 </head>
 <body>
-	<header>
-		<%@include file="main(header).html"%>
-	</header>
+	<%@include file="main(header).html"%>
 
 	<div id="app">
 		<section>
 			<div class="map_wrap">
 				<div id="map"
 					style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
-
+				<div id="menu_view" class="bg_white">
+					<button @click="fnRestClose()">닫기</button>
+				</div>
 				<div id="menu_wrap" class="bg_white">
 					<div class="option">
 						<div>
@@ -222,31 +262,40 @@ ul, ol {
 								style="padding: 10px; border-radius: 5px; background-color: white; overflow: hidden; padding: 0px; width: 400px; display: block">
 								<div>
 									<a href="javascript:;" id="menu1" @click="fnSearchType1()"
-										:style="{'background-color' : searchFlg1 ? '#bbb' : '#eee'}">지역검색</a>
+										:style="{'color': searchFlg1 ? '#fff' : '#ff7f00'}"
+										:class="searchFlg1 ? 'select_button' : 'none_select_button'">지역검색</a>
 								</div>
 								<div>
 									<a href="javascript:;" id="menu2" @click="fnSearchType2()"
-										:style="{'background-color' : searchFlg2 ? '#bbb' : '#eee'}">가게명</a>
+										:style="{'color': searchFlg2 ? '#fff' : '#ff7f00'}"
+										:class="searchFlg2 ? 'select_button' : 'none_select_button'">가게명</a>
 								</div>
 							</div>
 							<div v-if="searchFlg2" class="search-bar">
-								<input type="text" id="keyword" size="30"
-									placeholder="가게명을 입력해주세요">
+								<input type="text" size="30" placeholder="가게명을 입력해주세요">
 								<button>
 									<img src="../img/magnifying-glass-solid.png">
 								</button>
 							</div>
 							<div v-if="searchFlg1" class="search-bar">
-								<select
-									style="padding: 8px; border-radius: 5px; border: 1px solid #ccc;">
-									<option>선택</option>
-									<option>선택</option>
-								</select> <select
-									style="padding: 8px; border-radius: 5px; border: 1px solid #ccc;">
-									<option>선택</option>
-									<option>선택</option>
+								<select v-model="si" @change="fnGuList()"
+									style="padding: 8px; border-radius: 5px; border: 1px solid #ccc; margin-right: 45px; width: 313px;">
+									<option value="">선택</option>
+									<option v-for="item in siList" :value="item.si">{{item.si}}</option>
 								</select>
-								<button style="background-color: white; margin: 0;">
+							</div>
+							<div v-if="searchFlg1" class="search-bar">
+								<select v-model="gu" @change="fnDongList()"
+									style="padding: 8px; border-radius: 5px; border: 1px solid #ccc;">
+									<option value="">선택</option>
+									<option v-for="item in guList" :value="item.gu">{{item.gu}}</option>
+								</select> <select v-model="dong"
+									style="padding: 8px; border-radius: 5px; border: 1px solid #ccc;">
+									<option value="">선택</option>
+									<option v-for="item in dongList" :value="item.dong">{{item.dong}}</option>
+								</select>
+								<button
+									style="background-color: white; margin: 0; border: none;">
 									<img src="../img/magnifying-glass-solid.png">
 								</button>
 							</div>
@@ -254,127 +303,12 @@ ul, ol {
 					</div>
 					<div class="restList">
 						<img src="" alt="Hi" class="restImg">
-						<h3 style="font-size: 1.5em; margin-top: 8px;">List 1</h3>
+						<h3 style="margin-top: 8px;">
+							<a style="font-size: 1.5em;" href="javascript:;"
+								@click="fnRestView()">List 1</a>
+						</h3>
 						<div id="placesList1">
-							<span style="color: #ff7f00;">★ 점수</span>
-							| 리뷰개수
-							<p style="margin-left: 60px;">이벤트정보이벤트이벤트이벤트이벤트이벤트이벤트이벤트이이벤트이벤트이벤트이벤트이벤트이벤</p>
-						</div>
-					</div>
-					<div class="restList">
-						<img src="" alt="Hi" class="restImg">
-						<h3 style="font-size: 1.5em; margin-top: 8px;">List 1</h3>
-						<div id="placesList1">
-							<span style="color: #ff7f00;">★ 점수</span>
-							| 리뷰개수
-							<p style="margin-left: 60px;">이벤트정보이벤트이벤트이벤트이벤트이벤트이벤트이벤트이이벤트이벤트이벤트이벤트이벤트이벤</p>
-						</div>
-					</div>
-					<div class="restList">
-						<img src="" alt="Hi" class="restImg">
-						<h3 style="font-size: 1.5em; margin-top: 8px;">List 1</h3>
-						<div id="placesList1">
-							<span style="color: #ff7f00;">★ 점수</span>
-							| 리뷰개수
-							<p style="margin-left: 60px;">이벤트정보이벤트이벤트이벤트이벤트이벤트이벤트이벤트이이벤트이벤트이벤트이벤트이벤트이벤</p>
-						</div>
-					</div>
-					<div class="restList">
-						<img src="" alt="Hi" class="restImg">
-						<h3 style="font-size: 1.5em; margin-top: 8px;">List 1</h3>
-						<div id="placesList1">
-							<span style="color: #ff7f00;">★ 점수</span>
-							| 리뷰개수
-							<p style="margin-left: 60px;">이벤트정보이벤트이벤트이벤트이벤트이벤트이벤트이벤트이이벤트이벤트이벤트이벤트이벤트이벤</p>
-						</div>
-					</div>
-					<div class="restList">
-						<img src="" alt="Hi" class="restImg">
-						<h3 style="font-size: 1.5em; margin-top: 8px;">List 1</h3>
-						<div id="placesList1">
-							<span style="color: #ff7f00;">★ 점수</span>
-							| 리뷰개수
-							<p style="margin-left: 60px;">이벤트정보이벤트이벤트이벤트이벤트이벤트이벤트이벤트이이벤트이벤트이벤트이벤트이벤트이벤</p>
-						</div>
-					</div>
-					<div class="restList">
-						<img src="" alt="Hi" class="restImg">
-						<h3 style="font-size: 1.5em; margin-top: 8px;">List 1</h3>
-						<div id="placesList1">
-							<span style="color: #ff7f00;">★ 점수</span>
-							| 리뷰개수
-							<p style="margin-left: 60px;">이벤트정보이벤트이벤트이벤트이벤트이벤트이벤트이벤트이이벤트이벤트이벤트이벤트이벤트이벤</p>
-						</div>
-					</div>
-					<div class="restList">
-						<img src="" alt="Hi" class="restImg">
-						<h3 style="font-size: 1.5em; margin-top: 8px;">List 1</h3>
-						<div id="placesList1">
-							<span style="color: #ff7f00;">★ 점수</span>
-							| 리뷰개수
-							<p style="margin-left: 60px;">이벤트정보이벤트이벤트이벤트이벤트이벤트이벤트이벤트이이벤트이벤트이벤트이벤트이벤트이벤</p>
-						</div>
-					</div>
-					<div class="restList">
-						<img src="" alt="Hi" class="restImg">
-						<h3 style="font-size: 1.5em; margin-top: 8px;">List 1</h3>
-						<div id="placesList1">
-							<span style="color: #ff7f00;">★ 점수</span>
-							| 리뷰개수
-							<p style="margin-left: 60px;">이벤트정보이벤트이벤트이벤트이벤트이벤트이벤트이벤트이이벤트이벤트이벤트이벤트이벤트이벤</p>
-						</div>
-					</div>
-					<div class="restList">
-						<img src="" alt="Hi" class="restImg">
-						<h3 style="font-size: 1.5em; margin-top: 8px;">List 1</h3>
-						<div id="placesList1">
-							<span style="color: #ff7f00;">★ 점수</span>
-							| 리뷰개수
-							<p style="margin-left: 60px;">이벤트정보이벤트이벤트이벤트이벤트이벤트이벤트이벤트이이벤트이벤트이벤트이벤트이벤트이벤</p>
-						</div>
-					</div>
-					<div class="restList">
-						<img src="" alt="Hi" class="restImg">
-						<h3 style="font-size: 1.5em; margin-top: 8px;">List 1</h3>
-						<div id="placesList1">
-							<span style="color: #ff7f00;">★ 점수</span>
-							| 리뷰개수
-							<p style="margin-left: 60px;">이벤트정보이벤트이벤트이벤트이벤트이벤트이벤트이벤트이이벤트이벤트이벤트이벤트이벤트이벤</p>
-						</div>
-					</div>
-					<div class="restList">
-						<img src="" alt="Hi" class="restImg">
-						<h3 style="font-size: 1.5em; margin-top: 8px;">List 1</h3>
-						<div id="placesList1">
-							<span style="color: #ff7f00;">★ 점수</span>
-							| 리뷰개수
-							<p style="margin-left: 60px;">이벤트정보이벤트이벤트이벤트이벤트이벤트이벤트이벤트이이벤트이벤트이벤트이벤트이벤트이벤</p>
-						</div>
-					</div>
-					<div class="restList">
-						<img src="" alt="Hi" class="restImg">
-						<h3 style="font-size: 1.5em; margin-top: 8px;">List 1</h3>
-						<div id="placesList1">
-							<span style="color: #ff7f00;">★ 점수</span>
-							| 리뷰개수
-							<p style="margin-left: 60px;">이벤트정보이벤트이벤트이벤트이벤트이벤트이벤트이벤트이이벤트이벤트이벤트이벤트이벤트이벤</p>
-						</div>
-					</div>
-					<div class="restList">
-						<img src="" alt="Hi" class="restImg">
-						<h3 style="font-size: 1.5em; margin-top: 8px;">List 1</h3>
-						<div id="placesList1">
-							<span style="color: #ff7f00;">★ 점수</span>
-							| 리뷰개수
-							<p style="margin-left: 60px;">이벤트정보이벤트이벤트이벤트이벤트이벤트이벤트이벤트이이벤트이벤트이벤트이벤트이벤트이벤</p>
-						</div>
-					</div>
-					<div class="restList">
-						<img src="" alt="Hi" class="restImg">
-						<h3 style="font-size: 1.5em; margin-top: 8px;">List 1</h3>
-						<div id="placesList1">
-							<span style="color: #ff7f00;">★ 점수</span>
-							| 리뷰개수
+							<span style="color: #ff7f00;">★ 점수</span> | 리뷰개수
 							<p style="margin-left: 60px;">이벤트정보이벤트이벤트이벤트이벤트이벤트이벤트이벤트이이벤트이벤트이벤트이벤트이벤트이벤</p>
 						</div>
 					</div>
@@ -382,9 +316,7 @@ ul, ol {
 			</div>
 		</section>
 	</div>
-	<footer>
-		<%@include file="main(footer).html"%>
-	</footer>
+	<%@include file="main(footer).html"%>
 
 	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	<script type="text/javascript"
@@ -447,7 +379,13 @@ ul, ol {
 				searchFlg2: false,
 				restList: [],
 				markers: [],
-				map: null
+				map: null,
+				siList : [],
+				guList : [],
+				dongList : [],
+				si : "",
+				gu : "",
+				dong : ""
 			},
 			methods: {
 				fnRestList : function() {
@@ -465,19 +403,58 @@ ul, ol {
 						}
 					});
 				},
+				fnSiList : function() {
+					var self = this;
+					var nparmap = {};
+					$.ajax({
+						url : "siList.dox",
+						dataType : "json",
+						type : "POST",
+						data : nparmap,
+						success : function(data) {
+							self.siList = data.siList;
+						}
+					});
+				},
+				fnGuList : function() {
+					var self = this;
+					self.gu = "";
+					self.dong ="";
+					self.dongList = [];
+					var nparmap = {si : self.si};
+					$.ajax({
+						url : "guList.dox",
+						dataType : "json",
+						type : "POST",
+						data : nparmap,
+						success : function(data) {
+							self.guList = data.guList;
+						}
+					});
+				},
+				fnDongList : function() {
+					var self = this;
+					self.dong = "";
+					var nparmap = {si : self.si, gu : self.gu};
+					$.ajax({
+						url : "dongList.dox",
+						dataType : "json",
+						type : "POST",
+						data : nparmap,
+						success : function(data) {
+							self.dongList = data.dongList;
+						}
+					});
+				},
 				fnSearchType1: function () {
 					var self = this;
 					self.searchFlg1 = true;
 					self.searchFlg2 = false;
-					document.getElementById("menu1").style.backgroundColor = "#bbb";
-					document.getElementById("menu2").style.backgroundColor = "#eee";
 				},
 				fnSearchType2: function () {
 					var self = this;
 					self.searchFlg1 = false;
 					self.searchFlg2 = true;
-					document.getElementById("menu1").style.backgroundColor = "#eee";
-					document.getElementById("menu2").style.backgroundColor = "#bbb";
 				},
 				addMarkers: function () {
 	                var self = this;
@@ -539,7 +516,19 @@ ul, ol {
 		            })
 		                console.log(self.markers);
 	             })
-			  }
+			  },
+			  fnRestView: function() {
+				    var self = this;
+				    var menuView = document.getElementById("menu_view");
+				    menuView.style.transition = "left 0.5s ease"; // 슬라이드 효과를 위한 CSS transition 속성 적용
+				    menuView.style.left = "441px";
+				},
+			  fnRestClose: function() {
+				    var self = this;
+				    var menuView = document.getElementById("menu_view");
+				    menuView.style.transition = "left 0.5s ease"; // 슬라이드 효과를 위한 CSS transition 속성 적용
+				    menuView.style.left = "0";
+				}
 			},
 			mounted() {
 				 updateMapOptionsWithCurrentLocation().then(mapOptions => {
@@ -551,6 +540,7 @@ ul, ol {
 			},
 			created : function() {
 				var self = this;
+				self.fnSiList();
 			}
 		});
 	</script>

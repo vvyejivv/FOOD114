@@ -28,4 +28,16 @@
 		resultType="teamProject.food114.model.Biz">
 		SELECT * FROM FOOD114_BIZ_INFO
 	</select>
+	<select id="selectSiList" parameterType="hashmap"
+		resultType="teamProject.food114.model.Area">
+		SELECT SI FROM FOOD114_AREA GROUP BY SI
+	</select>
+	<select id="selectGuList" parameterType="hashmap"
+		resultType="teamProject.food114.model.Area">
+		SELECT GU FROM FOOD114_AREA WHERE SI = #{si} GROUP BY GU
+	</select>
+	<select id="selectDongList" parameterType="hashmap"
+		resultType="teamProject.food114.model.Area">
+		SELECT DONG FROM FOOD114_AREA WHERE SI = #{si} AND GU = #{gu} GROUP BY DONG
+	</select>
 </mapper>

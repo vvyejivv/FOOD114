@@ -29,6 +29,11 @@ public class BizController {
 	public String businessSignup(Model model) throws Exception {
 		return "/business_signup"; // business_signup.jsp
 	}
+	
+	@RequestMapping("/orderTest.do")
+	public String orderTest(Model model) throws Exception {
+		return "/orderTest"; // orderTest.jsp
+	}
 
 	@RequestMapping("/mapSearch.do")
 	public String mapSearch(Model model) throws Exception {
@@ -71,6 +76,11 @@ public class BizController {
 	public String mapTest3(Model model) throws Exception {
 		return "/mapTest3"; // mapTest3.jsp
 	}
+	
+	@RequestMapping("/business-admin.do")
+	public String businessAdmin(Model model) throws Exception {
+		return "/business_admin"; // business_admin.jsp
+	}
 
 	@RequestMapping(value = "/bizSignup.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
@@ -101,6 +111,30 @@ public class BizController {
 	public String bizList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap = bizService.searchBizList(map);
+		return new Gson().toJson(resultMap);
+	}
+	
+	@RequestMapping(value = "/siList.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String siList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = bizService.searchSiList(map);
+		return new Gson().toJson(resultMap);
+	}
+	
+	@RequestMapping(value = "/guList.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String guList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = bizService.searchGuList(map);
+		return new Gson().toJson(resultMap);
+	}
+	
+	@RequestMapping(value = "/dongList.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String dongList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = bizService.searchDongList(map);
 		return new Gson().toJson(resultMap);
 	}
 }
