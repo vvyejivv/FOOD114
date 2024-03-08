@@ -27,21 +27,21 @@ public class BoardController {
 	@RequestMapping("/event-web-list.do")
 	public String eventWeb(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
-		System.out.println(map.get("endYn"));
 		if (!map.containsKey("endYn")) {
 			request.setAttribute("endYn", "N");
 		} else {
 			request.setAttribute("endYn", map.get("endYn"));
 		}
+
 		return "/eventList";
 	}
-	
+
 	// 웹 주관 이벤트 페이지
-		@RequestMapping("/event-biz-list.do")
-		public String eventBizList(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
-				throws Exception {			
-			return "/event_biz";
-		}
+	@RequestMapping("/event-biz-list.do")
+	public String eventBizList(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
+			throws Exception {
+		return "/event_biz";
+	}
 
 	// 웹 주관 이벤트 페이지 상세보기
 	@RequestMapping("/event-web-view.do")

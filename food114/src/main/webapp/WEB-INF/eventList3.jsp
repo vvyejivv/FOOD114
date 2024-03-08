@@ -9,15 +9,60 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>웹 이벤트</title>
-
+<style>
+</style>
 </head>
 
-<style>
+<body>
+
+	<style>
+section {
+	color: rgb(72, 72, 72);
+}
+
+.container {
+	width: 1300px;
+	margin: 0px auto;
+	margin-top: 35px;
+}
+
+.menuTitle {
+	font-size: 30px;
+	text-align: center;
+}
+
+.eventSelect {
+	width: 500px;
+	height: 54px;
+	overflow: hidden;
+	margin: 0px auto;
+	margin-top: 25px;
+}
+
+.eventSelectType {
+	float: left;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid #ccc;
+	border-bottom: 1px solid white;
+	width: 248px;
+	height: 48px;
+	position: relative;
+}
+
+.nowWatchType {
+	border: 2px solid #ff7f00;
+	position: absolute;
+	width: 246px;
+	top: -1px;
+}
+
 .eventContainer {
 	margin-top: 25px;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
-	width: 1000px;
+	width: 1300px;
 	margin-bottom: 50px;
 }
 
@@ -67,44 +112,36 @@
 	/* border: 1px solid #ccc; */
 	text-align: center;
 }
+
+a {
+	text-decoration: none;
+	color: rgb(72, 72, 72);
+}
 </style>
 
-
-<body>
-	<header>
-		<%@include file="main(header).html"%>
-	</header>
-
 	<section>
-		<div style="width:1200px; margin: 0px auto">
-			<%@include file="event_header.jsp"%>
-			<div id="app">
-				<div style="width: 1200px; color: rgb(72, 72, 72); margin-top: 35px; padding: 0px;">
-					<div v-if="list.length==0"
-						style="margin-top: 50px; width: 1000px; margin-bottom: 50px; text-align: center; height: 230px">현재
-						진행중인 이벤트가 없습니다.</div>
-					<div class="eventContainer">
-						<template v-for="item in list" v-if="list.length!=0">
-							<div class="eventBox" @click="fnBoardView(item.boardNo)">
-								<div class="previewBox">
-									<div class="imgBox">
-										<img :src=item.filePath+item.fileName+item.fileEtc>
-									</div>
-									<div class="titleBox">{{item.title}}</div>
+		<div id="app">
+			<div class="container">
+				<div v-if="list.length==0"
+					style="margin-top: 50px; width: 1300px; margin-bottom: 50px; text-align: center; height: 230px">현재
+					진행중인 이벤트가 없습니다.</div>
+				<div class="eventContainer">
+					<template v-for="item in list" v-if="list.length!=0">
+						<div class="eventBox" @click="fnBoardView(item.boardNo)">
+							<div class="previewBox">
+								<div class="imgBox">
+									<img :src=item.filePath+item.fileName+item.fileEtc>
 								</div>
-								<div class="periodBox">{{item.beginTime2}} ~
-									{{item.endTime2}}</div>
+								<div class="titleBox">{{item.title}}</div>
 							</div>
-						</template>
-					</div>
+							<div class="periodBox">{{item.beginTime2}} ~
+								{{item.endTime2}}</div>
+						</div>
+					</template>
 				</div>
-
 			</div>
 		</div>
 	</section>
-
-	<!-- footer -->
-	<%@ include file="main(footer).html"%>
 
 </body>
 
@@ -146,6 +183,12 @@
 				$.pageChange("/event-web-view.do", {
 					boardNo : boardNo,
 					endYn : self.endYn
+				});
+			},
+			fnSelect : function(endYn) {
+				var self = this;
+				$.pageChange("/event-web-list.do", {
+					endYn : endYn
 				});
 			}
 		},
