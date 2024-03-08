@@ -84,11 +84,26 @@ public class BizController {
 		return "/mapTest3"; // mapTest3.jsp
 	}
 	
-	@RequestMapping("/business-admin.do")
-	public String businessAdmin(Model model) throws Exception {
-		return "/business_admin"; // business_admin.jsp
+	@RequestMapping("/bizView.do")
+	public String bizView(Model model) throws Exception {
+		return "/bizView"; // bizView.jsp
 	}
-
+	
+	@RequestMapping("/bizReview.do")
+	public String bizReview(Model model) throws Exception {
+		return "/bizReview"; // bizReview.jsp
+	}
+	
+	@RequestMapping("/bizOrder.do")
+	public String bizOrder(Model model) throws Exception {
+		return "/bizOrder"; // bizOrder.jsp
+	}
+	
+	@RequestMapping("/bizEvent.do")
+	public String bizEvent(Model model) throws Exception {
+		return "/bizEvent"; // bizEvent.jsp
+	}
+	
 	@RequestMapping(value = "/bizSignup.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String bizSignup(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
