@@ -45,6 +45,13 @@ public class BizController {
 	public String bizLogin(Model model) throws Exception {
 		return "/bizLogin"; 
 	}
+	
+	//사업자 메인
+	@RequestMapping("/business-main.do")
+	public String businessMain(Model model) throws Exception {
+		return "/business_main"; // business_main.jsp
+	}
+	
 //	@RequestMapping(value = "/bizSignup.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 //	@ResponseBody
 //	public String bizSignup(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
