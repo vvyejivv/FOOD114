@@ -90,13 +90,13 @@ input {
 							style="font-size: 20px; line-height: 20px; margin: 0px 20px; width: 500px;"
 							placeholder="주소를 입력하세요.">
 						<a
-							style="background-color: green; color: white; display: inline-block; width: 30px; height: 30px; font-size: 20px; border-radius: 50%; text-align: center;"
-							@click=""><img src="../img/down.png" width="20px"></a>
+							style="background-color: green; color: white; display: inline-block; width: 30px; height: 30px; font-size: 20px; border-radius: 50%; text-align: center; cursor: pointer;"
+							@click="fnAddrtrue" ></a>
 
 						<!-- 주소창 더보기 클릭시 display none상태-->
-						<template>
+						<template v-if="showAddr">
 							<div
-								style="width: 600px; margin: 0px auto; border: 1px solid #ff7f00; padding-top: 30px; position: absolute; top: 20px; box-sizing: border-box; left: -2px; border-top: none; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; overflow: hidden;">
+								style="width: 600px; margin: 0px auto; border: 1px solid #ff7f00; padding-top: 30px; position: absolute; top: 20px; box-sizing: border-box; left: -2px; border-top: none; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; overflow: hidden; left:-1px">
 								<!-- 등록된 주소창 v-for 사용할것 -->
 								<div
 									style="background-color: white; padding: 0px 10px; margin-top: 2px;">
@@ -184,7 +184,8 @@ input {
 		data : {
 			categoryList : [],
 			nowCategory : "",
-			sortType : "기본 정렬 순"
+			sortType : "기본 정렬 순",
+			showAddr : true
 		},
 		methods : {
 			fnCategoryList : function() {
@@ -203,9 +204,21 @@ input {
 			},
 			fnBizList : function() {
 			},
-			fnAddr : function() {
+			fnAddrfalse : function() {
 				var self = this;
+				self.showAddr=false;
+				return;
+				if(self.showAddr==false){
+				self.showAddr=true;
+				} else{
+					self.showAddr=false;
+				}
+			},
+			fnAddrtrue : function() {
+				var self = this;
+				self.showAddr=false;				
 			}
+
 
 		},
 		created : function() {
