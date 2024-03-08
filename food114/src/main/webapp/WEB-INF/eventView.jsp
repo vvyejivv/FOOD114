@@ -50,64 +50,46 @@
 	width: 246px;
 	top: -1px;
 }
+
 </style>
 
 	<section>
-		<div id="app">
-			<div class="container"
-				style="width: 1300px; color: rgb(72, 72, 72); margin-top: 35px; padding: 0px;">
-
-				<div class="menuTitle" style="margin-bottom: 35px;">이벤트</div>
-				<div class="eventSelect" style="margin-bottom: 35px;">
-					<div class="eventSelectType">
-						<div class="nowWatchType" v-if="endYn=='N'"></div>
-						<a href="javascript:;" @click="fnGoList('N')">진행중인 이벤트</a>
-					</div>
-
-					<div class="eventSelectType"
-						style="border-bottom: 1px solid #ccc; margin-left: -1px;">
-						<div class="nowWatchType" v-if="endYn=='Y'"></div>
-						<a href="javascript:;" @click="fnGoList('Y')">종료된 이벤트</a>
-					</div>
-				</div>
-				<!-- <div style="overflow: hidden">
-					<div style="float: right;">
-						<button
-							style="font-size: 13px; margin-right: 60px;padding: 10px 20px; background-color: #ccc;" @click="">목록</button>
-					</div>
-				</div> -->
-
-				<div style="width: 1200px; margin: 0px auto;">
-					<table border="1" style="width: 1200px;">
-						<tr>
-							<td
-								style="background-color: #f9f9f9; border-top: 2px solid rgba(72, 72, 72); width: 200px; min-width: 200px;">제목</td>
-							<td
-								style="border-top: 2px solid rgba(72, 72, 72); width: 800px; overflow: hidden;"><div
-									style="white-space: nowrap; text-overflow: ellipsis; max-width: 900px; overflow: hidden">{{board.title}}</div></td>
-						</tr>
-						<tr>
-							<td style="background-color: #f9f9f9;">작성자</td>
-							<td>{{board.userId}}</td>
-						</tr>
-						<tr>
-							<td style="background-color: #f9f9f9;">작성일</td>
-							<td colspan="3">{{board.cdateTime}}</td>
-						</tr>
-						<tr>
-							<td colspan="4" style="border-bottom: #333; padding: 35px 0px;"
-								v-html="board.contents"></td>
-						</tr>
-					</table>
-					<div style="text-align: right">
-						<button
-							style="margin: 10px; margin-bottom: 35px; background-color: #ccc"
-							@click="fnGoList(endYn)">목록</button>
+		<div style="width:1200px; margin: 0px auto;">
+			<%@include file="event_header.jsp"%>
+			<div id="app">
+				<div
+					style="width: 1200px; color: rgb(72, 72, 72); margin-top: 35px; padding: 0px;">
+					<div style="width: 1100px; margin: 0px auto;">
+						<table border="1" style="width: 1100px;">
+							<tr>
+								<td
+									style="background-color: #f9f9f9; border-top: 2px solid rgba(72, 72, 72); width: 200px; min-width: 200px;">제목</td>
+								<td
+									style="border-top: 2px solid rgba(72, 72, 72); width: 800px; overflow: hidden;"><div
+										style="white-space: nowrap; text-overflow: ellipsis; max-width: 900px; overflow: hidden">{{board.title}}</div></td>
+							</tr>
+							<tr>
+								<td style="background-color: #f9f9f9;">작성자</td>
+								<td>{{board.userId}}</td>
+							</tr>
+							<tr>
+								<td style="background-color: #f9f9f9;">작성일</td>
+								<td colspan="3">{{board.cdateTime}}</td>
+							</tr>
+							<tr>
+								<td colspan="4" style="border-bottom: #333; padding: 35px 0px;"
+									v-html="board.contents"></td>
+							</tr>
+						</table>
+						<div style="text-align: right">
+							<button
+								style="margin: 10px; margin-bottom: 35px; background-color: #ccc"
+								@click="fnGoList(endYn)">목록</button>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-
 	</section>
 
 	<%@include file="main(footer).html"%>
@@ -139,9 +121,9 @@
 					});
 				},
 				fnGoList : function(type) {
-					var self=this;
-					$.pageChange("/event-web-list.do", {						
-						endYn : self.endYn
+					var self = this;
+					$.pageChange("/event-web-list.do", {
+						endYn : type
 					});
 				}
 			},

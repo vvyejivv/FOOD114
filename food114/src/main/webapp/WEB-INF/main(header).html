@@ -38,10 +38,10 @@ pageEncoding="UTF-8"%>
 			<!-- menuBar -->
 			<div id="menuBar">
 				<div id="container" class="menuBar">
-					<a class="menu">메뉴 </a>
+					<a class="menu" href="food114_foodfind.do">배달메뉴 </a>
 					<a class="menu" href="mapTest2.do">지도로 찾기</a>
 					<a class="menu" href="event-biz-list.do">우리동네</a>
-					<a class="menu" href="event-web-list.do">이벤트</a>
+					<a class="menu" href="event-web-list.do" @click="fnClick('event-web-list.do','list')">이벤트</a>
 					<a class="menu">고객지원</a>
 				</div>
 			</div>
@@ -52,7 +52,7 @@ pageEncoding="UTF-8"%>
 
 </html>
 <script type="text/javascript">
-	var app = new Vue({
+	var header = new Vue({
 		el : '#header',
 		data : {
 			sessionId : "${sessionId}"
@@ -73,6 +73,12 @@ pageEncoding="UTF-8"%>
 	                	location.reload();
 	                }
 	            }); 
+			},
+			fnClick : function(link,str){
+				var self = this;
+				$.pageChange(link, {
+					type : str
+				});
 			}
 		},
 		created : function() {
