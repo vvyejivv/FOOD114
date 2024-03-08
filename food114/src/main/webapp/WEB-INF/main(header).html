@@ -26,12 +26,12 @@ pageEncoding="UTF-8"%>
 					<template v-if="sessionId==null || sessionId==''">
 						<a class="buttonBox" href="consumer-login.do">로그인 </a>
 						<a class="join" href="consumer-join.do"> 회원가입 </a>
-						<a class="join" href="javascript:;"> 사장님사이트 </a>
+						<a class="join" href="order.do"> 주문하기 </a>
 					</template>
 					<template v-if="sessionId!=null && sessionId!=''">
 						<a class="join" href="javascript:;" @click="fnLogout"> 로그아웃 </a>
 						<a class="join" href="javascript:;"> 마이페이지 </a>
-						<a class="join" href="javascript:;"> 사장님사이트 </a>
+						<a class="join" href="order.do"> 주문하기 </a>
 					</template>
 				</div>
 			</div>
@@ -39,8 +39,8 @@ pageEncoding="UTF-8"%>
 			<div id="menuBar">
 				<div id="container" class="menuBar">
 					<a class="menu">메뉴 </a>
-					<a class="menu">지도로 찾기</a>
-					<a class="menu">우리동네</a>
+					<a class="menu" href="mapTest2.do">지도로 찾기</a>
+					<a class="menu" href="event-biz-list.do">우리동네</a>
 					<a class="menu" href="event-web-list.do">이벤트</a>
 					<a class="menu">고객지원</a>
 				</div>
