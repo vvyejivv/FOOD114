@@ -88,9 +88,14 @@ public class BizController {
 		return "/mapTest3"; // mapTest3.jsp
 	}
 	
-	@RequestMapping("/business-admin.do")
-	public String businessAdmin(Model model) throws Exception {
-		return "/business_admin"; // business_admin.jsp
+	@RequestMapping("/biz-menu-update.do")
+	public String bizMenuUpdate(Model model) throws Exception {
+		return "/biz_menu_update"; // biz_menu_update.jsp
+	}
+	
+	@RequestMapping("/biz-menu-insert.do")
+	public String bizMenuInsert(Model model) throws Exception {
+		return "/biz_menu_insert"; // biz_menu_insert.jsp
 	}
 
 	@RequestMapping(value = "/bizSignup.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
