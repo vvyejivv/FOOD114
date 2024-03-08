@@ -136,10 +136,10 @@
 					<span>할인방법 선택</span>
 				</div>
 				<div class="deliveryBox">
-					<div id="couponBox" class="payMainText">
-						<p>쿠폰</p>
-						<input type="text" placeholder="쿠폰 코드 입력" class="couponInput" v-model="couponNum">
-						<button @click="fnUseCoupon">적용</button>
+					<div id="couponBox" class="infoText">
+						<div id="couponDiv">쿠폰</div>
+						<div id="couponInput"><input type="text" placeholder="쿠폰 목록에서 선택해주세요" class="couponInput" v-model="couponTitle" disabled="disabled"></div>
+						<!-- <button @click="fnUseCoupon">적용</button> -->
 						<button @click="fnCouponPopupOpen">쿠폰 목록</button>
 					</div>
 					<!--            <div id="couponBox" class="payMainText">
@@ -177,8 +177,8 @@
 			selectedMeetPaymentMethod : "", /* 만나서 결제 선택  */
 			paymentType : "", /* 결제방식  */
 			couponNum : "", /* 쿠폰번호  */
+			couponTitle : "", /* 쿠폰 이름  */
 			couponList : {}, /* 쿠폰 목록  */
-			couponPopup : false, /* 쿠폰 팝업  */
 		},
 		methods : {
 			fnView : function() {
@@ -249,9 +249,19 @@
 				var self = this;
 				var left = (screen.availWidth) / 2;
 		        var top = (screen.availHeight) / 2;
-		        var width = 500;
-		        var height = 500;
+		        var width = 700;
+		        var height = 300;
 		        pop = window.open("couponList.do", "couponPopup", 'width=' + width + ',height=' + height + ',left=' + (left - (width / 2)) + ',top=' + (top - (height / 2)));
+				
+		     // 팝업 창에서 부모 창의 데이터를 전달 받을 수 있도록 콜백 함수 설정
+		        pop.onApplyCoupon = function (couponNo,title) {
+		        	self.onApplyCoupon(couponNo,title); 
+		            console.log(couponNo);
+		        };
+			
+			},
+			onApplyCoupon : function(couponNo,title){
+				console.log(couponNo,title);
 			},
 			/* 결제하기  */
 			fnOrder : function(){
@@ -381,4 +391,10 @@
 			self.fnView();
 		}
 	});
+	function onApplyCoupon(couponNo,title){
+		console.log(couponNo);
+		console.log(title);
+		app.couponNum = couponNo;
+		app.couponTitle = title;
+	}
 </script>

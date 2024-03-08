@@ -22,7 +22,7 @@ table {
 	margin: 5px auto;
 	border-left: none;
 	border-right: none;
-	width: 420px;
+	width: 620px;
 	border-top: 1px solid #c0c0c0;
 	border-collapse: collapse;
 	text-align: center;
@@ -49,6 +49,7 @@ th:first-child, td:first-child {
 }
 
 #btnBox {
+
 	width: 300px;
 	height: 43px;
 	margin: 20px auto;
@@ -57,18 +58,30 @@ th:first-child, td:first-child {
 	align-items: center;
 }
 
+#apply {
+	margin-right: 10px;
+}
+
+#apply button {
+	padding: 11px 30px;
+}
+
+#close button {
+	padding: 11px 20px;
+}
+
 button {
-	padding: 11px 45px;
 	border: none;
 	border-radius: 4px;
 	cursor: pointer;
-	background-color: #f9f9f9;
-	color: #727272;
-	border: 1px solid #ccc;
+	background-color: #fff;
+	color: #ff7f00;
+	border: 1px solid #ff7f00;
+	transition: background-color 0.3s, color 0.3s, border 0.3s;
 }
 
 button:hover {
-	background-color: #ccc;
+	/* border: 1px solid #e66800; */
 	font-weight: bold;
 }
 </style>
@@ -77,23 +90,29 @@ button:hover {
 	<div id="app">
 		<table border="1">
 			<tr>
-				<th></th>
-				<th>쿠폰번호</th>
-				<th>사용여부</th>
-				<th>쿠폰발행일</th>
-				<th>쿠폰만료일</th>
+				<th width="5%"></th>
+				<th width="10%">쿠폰번호</th>
+				<th width="20%">쿠폰이름</th>
+				<th width="25%">쿠폰내용</th>
+				<th width="15%">쿠폰발행일</th>
+				<th width="15%">쿠폰만료일</th>
 			</tr>
-			<tr v-for="item in couponList">
-					<td><input type="checkbox"></td>
-					<td>{{item.couponId}}</td>
-					<td>{{item.useYN}}</td>
-					<td>{{item.beginDate}}</td>
-					<td>{{item.endDate}}</td>
+			<tr v-for="item in couponList" @click="fnSelect(item.couponNo, item.title)">
+				<td><input type="radio" v-model="selectCoupon" :value="item.couponNo" ></td>
+				<td>{{item.couponId}}</td>
+				<td>{{item.title}}</td>
+				<td>{{item.contents}}</td>
+				<td>{{item.beginDate}}</td>
+				<td>{{item.endDate}}</td>
 			</tr>
 		</table>
 		<div id="btnBox">
-<!-- 			<button>적용하기</button> -->
-			<button @click="fnClose">닫기</button>
+			<div id="apply">
+				<button @click="fnApply">적용하기</button>
+			</div>
+			<div id="close">
+				<button @click="fnClose">닫기</button>
+			</div>
 		</div>
 	</div>
 </body>
@@ -103,8 +122,10 @@ button:hover {
 		el : '#app',
 		data : {
 			userId : "yeji",
-		/* sessionId : "${userId}" */
-			couponList : {}
+			/* sessionId : "${userId}" */
+			couponList : {},
+			selectCoupon : "",
+			selectTitle : ""
 		},
 		methods : {
 			/* 쿠폰 리스트  */
@@ -124,7 +145,27 @@ button:hover {
 					}
 				});
 			},
-			fnClose : function(){
+			fnSelect : function(couponNo, title){
+				var self = this
+				self.selectCoupon = couponNo;
+				self.selectTitle = title;
+			},
+			/* 적용하기  */
+			fnApply : function(){
+				var self = this;
+	
+				// 부모 창으로 데이터 전달
+			    if (self.selectCoupon == "") {
+			        alert("선택하세요");
+			        return;
+			    }
+			    window.opener.onApplyCoupon(self.selectCoupon, self.selectTitle);
+			    
+			    // 팝업 창 닫기 (옵션)
+			    window.close();
+			},
+			/* 닫기 */
+			fnClose : function() {
 				var self = this;
 				window.close();
 			}

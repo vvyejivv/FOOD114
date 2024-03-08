@@ -197,7 +197,20 @@ hr {
     /* 원하는 선 스타일 및 색상 지정 */
 }
 
-
+#couponDiv{
+	width : 40px;
+	height : 40px;
+	margin-right : 10px; 
+	text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    float: left;
+}
+#couponInput{
+	float : left;
+	margin-right: 10px;
+}
 .couponInput {
     width: 250px;
     padding: 10px;
