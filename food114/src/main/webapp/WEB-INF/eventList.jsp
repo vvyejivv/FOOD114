@@ -127,13 +127,13 @@ a {
 				<div class="menuTitle">이벤트</div>
 				<div class="eventSelect">
 					<div class="eventSelectType">
-						<div class="nowWatchType" v-if="endYn=='N'"></div>
+						<div class="nowWatchType" v-if="endYn=='N'" id="ingEventLine"></div>
 						<a href="javascript:;" @click="fnList('N')">진행중인 이벤트</a>
 					</div>
 
 					<div class="eventSelectType"
 						style="border-bottom: 1px solid #ccc; margin-left: -1px;">
-						<div class="nowWatchType" v-if="endYn=='Y'"></div>
+						<div class="nowWatchType" v-if="endYn=='Y'" id="endEventLine"></div>
 						<a href="javascript:;" @click="fnList('Y')">종료된 이벤트</a>
 					</div>
 				</div>
