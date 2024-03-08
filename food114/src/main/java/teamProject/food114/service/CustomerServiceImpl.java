@@ -90,7 +90,7 @@ public class CustomerServiceImpl implements CustomerService {
 					resultMap.put("pwd", "pwdSuccess");
 					
 					//세션 생성
-					session.setAttribute("userId", customer.getUserId());
+					session.setAttribute("sessionId", customer.getUserId());
 					session.setAttribute("userGrade", customer.getGrade());
 					
 				}else {

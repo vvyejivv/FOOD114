@@ -18,8 +18,11 @@ public interface BoardMapper {
 
 	// 게시글 개수
 	int selectBoardListCnt(HashMap<String, Object> map);
-	
-	// 이벤트 기간 종료시 update endYn=Y 
+
+	// 이벤트 기간 종료시 update endYn=Y
 	void updateEndYn();
+
+	// 이벤트 상세보기
+	Board selectEventView(HashMap<String, Object> map);
 
 }

@@ -19,6 +19,13 @@
 		AND f.USAGE = 1
 		AND b.ENDYN = #{endYn}
 	</select>
+	
+	<!-- 이벤트 상세보기 -->
+	<select id="selectEventView" parameterType="hashmap"
+		resultType="teamProject.food114.model.Board">
+		SELECT *  FROM FOOD114_BOARD WHERE BOARDNO=#{boardNo}
+	</select>
+	
 	<!-- 이벤트 기간마감시 게시물 종료 update -->
 	<update id="updateEndYn" parameterType="hashmap">
 		UPDATE FOOD114_BOARD SET
