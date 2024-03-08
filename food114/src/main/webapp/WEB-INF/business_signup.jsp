@@ -19,9 +19,7 @@
 </head>
 
 <body>
-	<header>
 		<%@include file="main(header).html"%>
-	</header>
 	<!-- 주문하기(영수증창) -->
 	<!-- <div class="receipt" style="border-radius: 10px;">
         영수증
@@ -339,15 +337,10 @@ select {
 					style="text-align: center; margin-top: 50px; padding-bottom: 50px;">
 					<button @click="signUp()" class="joinBtn">가입하기</button>
 				</div>
-
 			</div>
 		</div>
 	</section>
-
-
-	<footer>
 		<%@include file="main(footer).html"%>
-	</footer>
 </body>
 
 </html>
