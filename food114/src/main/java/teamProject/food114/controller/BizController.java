@@ -45,6 +45,17 @@ public class BizController {
 	public String bizLogin(Model model) throws Exception {
 		return "/bizLogin"; 
 	}
+	//가게 정보
+	@RequestMapping("/shopInfo.do")
+	public String shopInfo(Model model) throws Exception {
+		return "/shopInfo"; 
+	}
+	//가게 이벤트
+	@RequestMapping("/shopEvent.do")
+	public String shopEvent(Model model) throws Exception {
+		return "/shopEvent"; 
+	}
+	
 //	@RequestMapping(value = "/bizSignup.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 //	@ResponseBody
 //	public String bizSignup(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
@@ -135,6 +146,14 @@ public class BizController {
 	public String dongList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap = bizService.searchDongList(map);
+		return new Gson().toJson(resultMap);
+	}
+	//가게정보
+	@RequestMapping(value = "/shopInfo.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String shopInfo(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = bizService.searchShopInfo(map);
 		return new Gson().toJson(resultMap);
 	}
 }

@@ -162,4 +162,20 @@ public class BizServiceImpl implements BizService {
 		}
 		return resultMap;
 	}
+	//가게 정보 확인
+	@Override
+	public HashMap<String, Object> searchShopInfo(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+				Biz biz = bizMapper.idCheck(map);
+				HashMap<String, Object> resultMap = new HashMap<String, Object>();
+				try {
+					resultMap.put("bizInfo", biz);
+					resultMap.put("result", "success");
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					resultMap.put("result", "fail");
+				}
+				return resultMap;
+	}
+
 }
