@@ -31,6 +31,20 @@
 		<div id="app">
 			<div class="container">
 				<div class="content">
+				<div style="float: left;">
+					<ul class="sidebar">
+						<li><a href="javascript:;" @click="fnClickNoticeList">공지사항</a> <a href="javascript:;"
+							style="font-size: 17px; color: #a3a2a2;"><span
+								style="margin-left: 100px;">❯</span></a></li>
+						<li><a href="javascript:;">자주하는 질문</a> <a href="javascript:;"
+							style="font-size: 17px; color: #a3a2a2;"><span
+								style="margin-left: 70px;">❯</span></a></li>
+						<li><a href="javascript:;" @click="fnclick">1:1 문의</a> <a href="javascript:;"
+							style="font-size: 17px; color: #a3a2a2;"><span
+								style="margin-left: 100px;">❯</span></a></li>
+					</ul>
+				</div>
+				
 					<br>
 					<h2>
 						<span style="color: #ff7f00; font-weight: bold;">| </span><span
@@ -38,14 +52,14 @@
 						<span class="span">새로운 소식과 유용한 정보를 한 곳에서 확인하세요.</span>
 					</h2>
 					<div>
-						<table border="1">
+						<table border="1" style="border-collapse: collapse; margin: 10px; width: 850px;">
 							<tr>
 								<td colspan="1"
-									style="background-color: #f9f9f9; border-top: 2px solid rgba(72, 72, 72); max-width :200px">제목</td>
+									style="background-color: #f9f9f9; border-top: 2px solid rgba(72, 72, 72);">제목</td>
 								<td style="border-top: 2px solid rgba(72, 72, 72);">{{info.title}}</td>
 							</tr>
 							<tr>
-								<td colspan="1" style="background-color: #f9f9f9;">작성자</td>
+								<td colspan="1" style="background-color: #f9f9f9; width: 50px;">작성자</td>
 								<td>{{info.userId}}</td>
 							</tr>
 							<tr>
@@ -53,13 +67,16 @@
 								<td colspan="1">{{formatDate(info.cdateTime)}}</td>
 							</tr>
 							<tr>
-								<td colspan="4" style="height: 600px; border-bottom: #333;">
-									{{info.contents}}</td>
+								<td colspan="4" style="padding-top:30px; padding-bottom:30px;">
+										<div style="text-align: justify;  font-size: 16px;">
+							            	{{info.contents}}
+							        	</div>
+									</td>
 							</tr>
 						</table>
 						<div>
 							<button @click="fnClickNoticeList"
-								style="width: 150px; font-size: 15px; margin-top: 15px; margin-left: 350px; margin-bottom: 100px;">목록</button>
+								style="width: 150px; font-size: 15px; margin-top: 15px; margin-left: 620px; margin-bottom: 100px;">목록</button>
 						</div>
 					</div>
 	</section>
@@ -70,16 +87,14 @@
 		var app = new Vue({ 
 		    el: '#app',
 		    data: {
-		    	boardNo : "${map.boardNo}",
+		    	boardNo : "${boardNo}",
 		    	list : [],
 		    	info : {},
 		    	boardList : ""
 		    },   
 		     methods : {
 		    	fnList : function(){
-		            var self = this;
-		            console.log(self.boardNo);
-		            return;
+		            var self = this;		            		            
 		            var nparmap = {
 		            		boardNo : self.boardNo
 		            };
@@ -89,11 +104,13 @@
 		                type : "POST", 
 		                data : nparmap,
 		                success : function(data) {
-		                	self.info = data.info;
-		                	console.log(data);
+		                	self.info = data.info;		                	
 		                }
 		            }); 
 		    } ,
+		    fnclick : function(userId){
+				location.href="/boardQnaInsert.do";
+	        },
 		    fnClickNoticeList : function(userId){
 				location.href= "/boardNoticeList.do";
 		    	},

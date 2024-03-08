@@ -48,7 +48,6 @@ a {
 	display: left;
 	margin: 10px;
 	padding: 5px;
-	/* border: 1px solid black; */
 }
 
 a {
@@ -66,7 +65,6 @@ textarea {
 	width: 700px;
 	height: 100px;
 	resize: none;
-	/* 크기고정 */
 }
 
 textarea:focus {

@@ -4,7 +4,7 @@
 <html lang="en">
 
 <head>
-<script src="js/jquery.js"></script>
+<script src="../js/jquery.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -161,7 +161,7 @@ select {
 					<tr>
 						<th>아이디<span class="star">*</span></th>
 						<td><input type="text" placeholder="아이디를 입력해주세요."
-								v-model="userInfo.userId" @change="fnChangeId">
+								v-model="userInfo.userId" @input="fnChangeId">
 							<div class="errorMessage" v-html="idCheckMessage"
 								:style="{color : idCheckFlg ? 'blue' : 'red'}"></div></td>
 						<td style="padding: 0px;">
@@ -190,8 +190,8 @@ select {
 					<tr>
 						<th>휴대폰<span class="star">*</span></th>
 						<td><input type="text" placeholder="'-'를 제외한 휴대폰 번호를 입력해주세요."
-								v-model="userInfo.phone" id="phoneInput">
-							<div v-if="phoneCertificateInput">
+								v-model="userInfo.phone" id="phoneInput">							
+							<div hidden class="certificateInput">
 								<input type="text" placeholder="인증번호를 입력해주세요."
 									style="width: 200px;" v-model="certificateInput">
 								<button @click="fnPhoneConfirm">확인</button>
@@ -200,7 +200,7 @@ select {
 								:style="{color : phoneCheckFlg ? 'blue' : 'red'}"></div></td>
 						<td style="padding: 0px;">
 							<button @click="fnPhoneCheck()" id="phoneConfirmBtn">인증문자받기</button>
-							<button @click="fnPhoneChange()" v-if="phoneCertificateInput">번호변경</button>
+							<button @click="fnPhoneChange()" hidden class="certificateInput">번호변경</button>
 						</td>
 					</tr>
 
@@ -211,17 +211,18 @@ select {
 								<input type="text" style="width: 150px; margin-right: 5px;"
 									placeholder="이메일을 입력해주세요." v-model="userInfo.email">
 								<span style="margin-right: 5px; font-size: 17px;">@</span>
-								<select style="" v-model="userInfo.emailAddr"
+								<select v-model="userInfo.emailAddr"
 									@change="fnEmailAddrInput()">
 									<option value="">직접입력</option>
 									<template v-for="item in emailList">
 										<option :value="item.value">{{item.name}}</option>
 									</template>
+									
 								</select>
 							</div>
-							<div>
+							<div hidden id="emailAddrInput">
 								<input type="text" placeholder="이메일 주소를 입력해주세요."
-									v-if="emailAddrInputFlg" v-model="userInfo.emailAddrInput">
+									v-model="userInfo.emailAddrInput">
 							</div>
 							<div class="errorMessage"
 								:style="{color : emailCheckFlg ? 'blue' : 'red'}"></div>
@@ -349,7 +350,6 @@ select {
 					phoneCheckFlg : false, //휴대폰 인증확인 성공시 true
 					phoneCertificateInput : false,
 					emailList : [],
-					emailAddrInputFlg : false, //이메일 직접입력시 true
 					certificateNumber : "", //인증번호 정답
 					certificateInput : "" // 입력한 인증번호값
 
@@ -378,9 +378,11 @@ select {
 							self.resultMessage = "이름을 입력해주세요."
 							return;
 						}
+						if (!phoneCheckFlg) {
+							self.resultMessage = "휴대폰 인증을 진행해주세요."
+							return;
+						}
 
-						alert("성공");
-						return;
 						// birthM + birthD = birthMD(4자리)
 						if (self.userInfo.birthM < 10) {
 							self.userInfo.birthMD = '0' + self.userInfo.birthM;
@@ -459,7 +461,7 @@ select {
 							type : "POST",
 							data : nparmap,
 							success : function(data) {
-								self.emailList = data.list;
+								self.emailList = data.emailList;
 							}
 						});
 					},
@@ -467,9 +469,9 @@ select {
 					fnEmailAddrInput : function() {
 						var self = this;
 						if (self.userInfo.emailAddr == "") {
-							self.emailAddrInputFlg = true;
+							$("#emailAddrInput").prop("hidden",false);							
 						} else {
-							self.emailAddrInputFlg = false;
+							$("#emailAddrInput").prop("hidden",true);
 						}
 					},
 					// 휴대폰 인증문자받기
@@ -486,9 +488,13 @@ select {
 						})
 						$("#phoneConfirmBtn").prop("hidden", true);
 						self.certificateNumber = "111111";
-						self.phoneCertificateInput = true;
+						$(".certificateInput").prop("hidden",false);
+						
+
+						var nparmap = {
+							phone : self.userInfo.phone
+						};
 						return;
-						var nparmap = {};
 						$.ajax({
 							url : "send-one",
 							dataType : "json",
@@ -496,7 +502,6 @@ select {
 							data : nparmap,
 							success : function(data) {
 								self.certificateNumber = data.number;
-								self.phoneCertificateInput = true;
 								$("#phoneInput").prop('disabled', true);
 							}
 						});
@@ -504,20 +509,21 @@ select {
 					// 휴대폰 번호 변경 클릭
 					fnPhoneChange : function() {
 						var self = this;
+						$(".certificateInput").prop("hidden",true);
 						$("#phoneInput").prop('disabled', false);
 						$("#phoneInput").css({
 							"background-color" : "white"
 						})
-						self.phoneCertificateInput = false;
+						
 					},
 					// 휴대폰 인증번호 입력 후 확인
 					fnPhoneConfirm : function() {
 						var self = this;
 						if (self.certificateNumber == self.certificateInput) {
-							self.phoneCertificateInput = false;
 							self.phoneCheckFlg = true;
 							self.phoneCheckMessage = "인증 완료";
 							$("#phoneConfirmBtn").prop("hidden", true);
+							$(".certificateInput").prop("hidden",true);
 						} else {
 							self.phoneCheckMessage = "인증 실패"
 						}

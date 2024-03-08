@@ -35,10 +35,10 @@
 						<li><a href="javascript:;" @click="fnClickNoticeList">공지사항</a> <a href="javascript:;"
 							style="font-size: 17px; color: #a3a2a2;"><span
 								style="margin-left: 100px;">❯</span></a></li>
-						<li><a href="javascript:;" @click="fnClickQnaAsk">자주하는 질문</a> <a href="javascript:;"
+						<li><a href="javascript:;">자주하는 질문</a> <a href="javascript:;"
 							style="font-size: 17px; color: #a3a2a2;"><span
 								style="margin-left: 70px;">❯</span></a></li>
-						<li><a href="javascript:;" @click="fnClick">1:1 문의</a> <a href="javascript:;"
+						<li><a href="javascript:;" @click="fnclick">1:1 문의</a> <a href="javascript:;"
 							style="font-size: 17px; color: #a3a2a2;"><span
 								style="margin-left: 100px;">❯</span></a></li>
 					</ul>
@@ -49,8 +49,8 @@
 							<br>
 							<h2>
 								<span style="color: #ff7f00; font-weight: bold;">| </span><span
-									style="text-align: left; color: rgba(72, 72, 72);">공지사항&nbsp;</span>
-								<span class="span">새로운 소식과 유용한 정보를 한 곳에서 확인하세요.</span>
+									style="text-align: left; color: rgba(72, 72, 72);">자주하는 질문&nbsp;</span>
+								<span class="span">고객님들이 자주하는 질문을 모았습니다.</span>
 							</h2>
 						</div>
 						<table style="width:920px">
@@ -68,12 +68,26 @@
 									style="width: 5px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
 									작성일</th>
 							</tr>
-							<tr v-for="(item, index) in paginatedList">
+							<!-- <tr v-for="(item, index) in paginatedList" :key="index">
 								<td style="text-align: center;">{{item.boardNo}}</td>
-								<td><a href="javascript:;" style="font-size: 15px;" @click="fnClickBoardNoticeView(item.boardNo)">{{item.title}}</a></td>
+								<td>
+									<a href="javascript:;" style="font-size: 15px;" @click="toggleDetails(item)">{{item.title}}</a>
+      								<div v-if="item.showDetails">{{item.contents}}</div>
+								</td>
 								<td style="text-align: center; font-size: 14px;">{{item.userId}}</td>
 								<td style="text-align: center; font-size: 15px; color: #a3a2a2;">{{formatDate(item.cdateTime)}}</td>
+							</tr> -->
+							
+							<tr v-for="(item, index) in paginatedList" :key="index">
+								<td style="text-align: center;"></td>
+								<td>
+									<a href="javascript:;" style="font-size: 15px;" @click="toggleDetails(item)">{{item.title}}</a>
+      								<div v-if="item.showDetails">{{item.contents}}</div>
+								</td>
+								<td style="text-align: center; font-size: 14px;"></td>
+								<td style="text-align: center; font-size: 15px; color: #a3a2a2;"></td>
 							</tr>
+							
 						</table>
 						<br>
 						<div style="text-align: center;">
@@ -150,23 +164,20 @@
 							} else {
 								self.prevIcon = "❮"
 							}
+							self.list.forEach(function(item){
+								self.$set(item, 'showDetails', false);
+							});
 						}
 					});
 				},
-				fnClickQnaAsk : function(userId){
-					location.href="/boardNoticeQnaAsk.do";
-		        },
-				fnClick : function(userId){
+				fnclick : function(userId){
 						location.href="/boardQnaInsert.do";
 			        },
 			        fnClickNoticeList : function(userId){
 						location.href="/boardNoticeList.do";
 			        },
-			        fnClickBoardNoticeView : function(boardNo){
-			        	$.pageChange("/boardNoticeVeiw.do",{
-			        		boardNo : boardNo
-			        	});
-						/* location.href="/boardNoticeVeiw.do"; */
+			        toggleDetails : function(item){
+			        	item.showDetails = !item.showDetails;
 			        },
 				formatDate : function(dateString) {
 					if (dateString) {
@@ -185,6 +196,8 @@
 			created : function() {
 				var self = this;
 				self.fnPageList();
+				
+				
 			}
 		});
 	</script>

@@ -22,6 +22,7 @@ public class BoardServiceImpl implements BoardService {
 		// TODO Auto-generated method stub
 		try {
 			List<Board> list = boardMapper.selectEventList(map);
+			boardMapper.updateEndYn();
 			resultMap.put("list", list);
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -32,16 +33,29 @@ public class BoardServiceImpl implements BoardService {
 
 	// 공지사항 게시글 목록, 개수
 	@Override
+	public HashMap<String, Object> searchEvent(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			resultMap.put("board", boardMapper.selectEventView(map));
+			resultMap.put("result","success");
+		} catch (Exception e) {
+			// TODO: handle exception
+			resultMap.put("result","failed");
+		}
+		return resultMap;
+	}
+
+	@Override
 	public HashMap<String, Object> searchBoardList(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<Board> list = boardMapper.selectBoardList(map);
-
-		// 댓글 개수
+		
 		int cnt = boardMapper.selectBoardListCnt(map);
 		resultMap.put("list", list);
 		resultMap.put("cnt", cnt);
-
+		
 		resultMap.put("result", "success");
 		return resultMap;
 	}

@@ -222,6 +222,7 @@
         </div>
     -->
     <section>
+    <div id="app">
         <div class="container">
             <div class="content">
                 <br>
@@ -246,50 +247,63 @@
                             </tr>
 
                             <thead>
-
                                 <tr>
-                                    <td>
-                                        <select>
-                                            <option>1차 분류 선택</option>
-                                            <option>상품문의</option>
+                                   <!--  <td>
+                                        <select v-model="qnaSelect" >
+                                            <option value="">선택하세요.</option>
+                                            <option value="상품">상품문의</option>
                                             <option>배달/포장 문의</option>
                                             <option>환불/취소 문의</option>
                                         </select>
                                         &nbsp;&nbsp;
-                                        <select>
-                                            <option>2차 분류 선택</option>
-                                            <option>2차분류선택</option>
-                                            <option>2차분류선택</option>
-                                            <option>2차분류선택</option>
-                                            <!-- 
-                                           -  상품문의
-                                            <option>상품</option>
-                                            - 배달/포장문의
+                                        <select v-model="qnaSelect">
+                                            <option value="2차 분류 선택">배달/포장문의</option>
                                             <option>배달</option>
                                             <option>포장</option>
-                                            - 환불/취소문의
-                                            <option>환불</option>
-                                            <option>취소</option>
-                                         -->
+                                            </select>
+                                            
+                                             <select v-model="qnaSelect">
+                                            <option value="2차 분류 선택">배달/포장문의</option>
+                                            <option>배달</option>
+                                            <option>포장</option>
+                                            </select>
+                                            
+                                    </td> -->
+                                    
+                                     <td>
+                                        <select v-model="selectFirst" @change="updateSecond" >
+                                            <option value="선택하세요.">선택하세요.</option>
+                                            <option value="상품문의">상품문의</option>
+                                            <option value="배달/포장 문의">배달/포장 문의</option>
+                                            <option value="환불/취소 문의">환불/취소 문의</option>
                                         </select>
+                                        &nbsp;&nbsp;
+                                       <select v-model="selectedSecond">
+									        <option v-for="category in second" :value="category">{{category}}</option>
+									    </select>
+                                       
+                                       
                                     </td>
+                                    
+                                    
+                                    
                                     <td>
                                         <input type="text" size="20">
 
                                     </td>
                                     <td>
                                         <input type="text" size="20"> @
-                                        <input type="text">
-                                        <select>
+                                        <input type="text" v-model="emailAddr">
+                                        <select v-model="emailAddr">
                                             &nbsp;
-                                            <option>선택하세요</option>
-                                            <option>naver.com</option>
+                                            <option value="">선택하세요</option>
+                                            <option value="naver.com">naver.com</option>
                                             <option>google.com</option>
                                             <option>hanmail.net</option>
                                             <option>nate.com</option>
                                             <option>kakao.com</option>
                                             <option>man.com</option>
-                                            <option>직접입력</option>
+                                            <option value="">직접입력</option>
                                         </select>
                                     </td>
                                     <td>
@@ -298,21 +312,6 @@
                                             <option>011</option>
                                             <option>02</option>
                                             <option>031</option>
-                                            <!-- 
-                                        <option>032</option>
-                                        <option>033</option>
-                                        <option>041</option>
-                                        <option>042</option> 
-                                        <option>043</option> 
-                                        <option>051</option> 
-                                        <option>052</option>
-                                        <option>053</option> 
-                                        <option>061</option> 
-                                        <option>062</option> 
-                                        <option>063</option> 
-                                        <option>064</option>
-                                    -->
-
                                         </select>&nbsp;
                                         - &nbsp;<input type="text" size="5">&nbsp;
                                         - &nbsp;<input type="text" size="5">
@@ -343,8 +342,8 @@
                     </table>
 
                     <div style="text-align: center; margin-top: 5px;">
-                        <button @click="fnInsert" >문의하기</button>
-                        <button style="background-color: #f9f9f9; color: rgb(72,72,72); border: 1px solid #ccc;">취소</button>
+                        <button @click="fnInsert">문의하기</button>
+                        <button @click="fnRemove" style="background-color: #f9f9f9; color: rgb(72,72,72); border: 1px solid #ccc;">취소</button>
                     </div>
                 </div>
             </div>
@@ -354,18 +353,18 @@
     <%@include file="main(footer).html"%>
 
     <script type="text/javascript">
-        Vue.use(Vue2Editor);
-        const VueEditor = Vue2Editor.VueEditor;
         var app = new Vue({
             el: '#app',
             data: {
                 userId: "${userId}",
                 kind: "${map.kind}",
                 title: "",
-                contents: ""
-
+                contents: "",
+                emailAddr : "", 
+                selectFirst: '',
+                selectSecond: '',
+                second: []
             }
-            , components: { VueEditor }
             , methods: {
                 fnInsert: function () {
                     var self = this;
@@ -402,7 +401,27 @@
 
                         }
                     });
-                }
+                },
+                fnRemove : function(){
+    				location.href="/boardNoticeList.do";
+    		    },
+    		    updateSecond : function(){
+    		    	 switch (this.selectedFirst) {
+                     case '상품문의':
+                         this.second = ['상품'];
+                         break;
+                     case '배달/포장문의':
+                         this.second = ['배달/포장'];
+                         break;
+                     case '환불/취소문의':
+                         this.second = ['환불/취소'];
+                         break;
+                     default:
+                         this.second = [];
+                         break;
+                 	}
+             	}
+    		    
             }
             , created: function () {
                 var self = this;

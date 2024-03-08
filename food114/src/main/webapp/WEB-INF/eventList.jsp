@@ -115,6 +115,11 @@ section {
 	/* border: 1px solid #ccc; */
 	text-align: center;
 }
+
+a {
+	text-decoration: none;
+	color: rgb(72, 72, 72);
+}
 </style>
 	<section>
 		<div id="app">
@@ -122,17 +127,19 @@ section {
 				<div class="menuTitle">이벤트</div>
 				<div class="eventSelect">
 					<div class="eventSelectType">
-						<div class="nowWatchType"></div>
-						진행중인 이벤트
+						<div class="nowWatchType" v-if="endYn=='N'"></div>
+						<a href="javascript:;" @click="fnList('N')">진행중인 이벤트</a>
 					</div>
 
 					<div class="eventSelectType"
 						style="border-bottom: 1px solid #ccc; margin-left: -1px;">
-						<!-- <div class="nowWatchType"></div> -->
-						종료된 이벤트
+						<div class="nowWatchType" v-if="endYn=='Y'"></div>
+						<a href="javascript:;" @click="fnList('Y')">종료된 이벤트</a>
 					</div>
 				</div>
-
+				<div v-if="list.length==0"
+					style="margin-top: 50px; width: 1300px; margin-bottom: 50px; text-align: center; height: 230px">현재
+					진행중인 이벤트가 없습니다.</div>
 				<div class="eventContainer">
 					<!-- 이벤트 게시물 1개 -->
 					<!-- <div class="eventBox">
@@ -142,8 +149,9 @@ section {
 						</div>
 						<div class="periodBox">event Start date ~ End date</div>
 					</div> -->
-					<template v-for="item in list">
-						<div class="eventBox">
+
+					<template v-for="item in list" v-if="list.length!=0">
+						<div class="eventBox" @click="fnBoardView(item.boardNo)">
 							<div class="previewBox">
 								<div class="imgBox">
 									<img :src=item.filePath+item.fileName+item.fileEtc>
@@ -160,9 +168,9 @@ section {
 		</div>
 	</section>
 
-	<footer>
-		<%@ include file="main(footer).html"%>
-	</footer>
+	<!-- footer -->
+	<%@ include file="main(footer).html"%>
+
 </body>
 
 </html>
@@ -170,30 +178,37 @@ section {
 	var app = new Vue({
 		el : '#app',
 		data : {
-			list : []
+			list : [],
+			endYn : "${endYn}"
 		},
 		methods : {
-			fnList : function() {
+			fnList : function(str) {
 				var self = this;
-				var nparmap = {};
-				$
-						.ajax({
-							url : "event-list.dox",
-							dataType : "json",
-							type : "POST",
-							data : nparmap,
-							success : function(data) {
-								self.list = data.list;
-								console.log(self.list[0].filePath
-										+ self.list[0].fileName
-										+ self.list[0].fileEtc);
-							}
-						});
+				self.endYn = str;
+				var nparmap = {
+					endYn : str
+				};
+				$.ajax({
+					url : "event-list.dox",
+					dataType : "json",
+					type : "POST",
+					data : nparmap,
+					success : function(data) {
+						self.list = data.list;
+					}
+				});
+			},
+			fnBoardView : function(boardNo) {
+				var self = this;
+				$.pageChange("/event-web-view.do", {
+					boardNo : boardNo,
+					endYn : self.endYn
+				});
 			}
 		},
 		created : function() {
 			var self = this;
-			self.fnList();
+			self.fnList(self.endYn);
 		}
 	});
 </script>

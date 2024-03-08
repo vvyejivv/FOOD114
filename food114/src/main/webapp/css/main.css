@@ -32,6 +32,9 @@ body {
     float: right;
     width: 500px;
 }
+a{
+	text-decoration: none;
+}
 
 .buttonBox {
     padding: 0px 20px;

@@ -18,7 +18,8 @@ public class CodeServiceImpl implements CodeService {
 		// TODO Auto-generated method stub
 		HashMap<String, Object> resultMap = new HashMap<>();
 		try {
-			resultMap.put("list", codeMapper.selectEmail(map));			
+			resultMap.put("emailList", codeMapper.selectEmail(map));			
+			resultMap.put("bankList", codeMapper.selectBank(map));			
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e.getMessage());

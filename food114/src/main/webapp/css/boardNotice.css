@@ -13,52 +13,67 @@
         }
 
         table {
+         	border-collapse: collapse;
+    		margin: 10px;
+    		margin-top: 10px; 
             border-left: none;
             border-right: none;
-            width: 800px;
+            width: 850px;
             border-top: 1px solid #c0c0c0;
             border-collapse: collapse;
         }
-        td {
+        th,td {
             border-right: none;
             border-bottom: 1px solid #c0c0c065;
             padding: 15px 25px;
             color: (72, 72, 72);
+            font-size: 14px;
         }
-
         th:first-child,td:first-child {
             border-left: none;
-            
         }
-
         .container {
-            width: 800px;
-            margin: 0 auto;
+        	display: flex;
+   			justify-content: center;
+            width: 1200px;
+            margin: 5px auto;
             padding: 10px;
         }
-
         .sidebar {
-            margin: 10px;
-            width: 200px;
-            height: 800px;
-            padding: 10px;
+            margin-top: 89px;
+			margin-left: 15px;
+			margin-right: 60px;
+			width: 150px;
+			padding: 10px;
         }
+        li {
+			border: 1px solid #e9e7e7b0;
+			width: 170px;
+			height: 40px;
+			list-style-type: none;
+			text-align: left;
+			padding: 10px;
+			margin: auto;
+		}
 
+		li:hover {
+			background-color: #f5f3f3;
+			font-weight: bold;
+		}
         a {
             font-size: 15px;
             text-decoration: none;
             color: #333;
+            font-size: 13px;
         }
 
         .content {
+        	width : 1200px;
+        	display : left;
             margin: 10px;
             padding: 5px;
-            width: 800px;
-            /* border: 1px solid black; */
         }
-        a {
-            font-size: 13px;
-        }
+       
         .border {
             border-width: 0 0 1px;
             border-width: 0;
@@ -84,6 +99,7 @@
             margin: 5px;
             cursor: pointer;
             font-size: 13px;
+            
         }
         .span {
             font-size: 14px;
