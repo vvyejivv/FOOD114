@@ -7,9 +7,6 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <!-- 뷰 구성요소에 type="application/javascript" 추가  -->
 <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-
-
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="../css/main.css">

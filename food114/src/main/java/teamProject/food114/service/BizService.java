@@ -19,4 +19,7 @@ public interface BizService {
 	HashMap<String, Object> searchGuList(HashMap<String, Object> map);
 	
 	HashMap<String, Object> searchDongList(HashMap<String, Object> map);
+	//가게 정보 확인
+	HashMap<String, Object> searchShopInfo(HashMap<String, Object> map);
+	
 }

@@ -19,6 +19,9 @@ public class Biz {
 	private String accountNumber;
 	private String bizFileNo;
 	private String bizCategory;
+	private String openTime;
+	private String closeTime;
+	private String opneYN;
 
 	public String getBizId() {
 		return bizId;
@@ -162,5 +165,29 @@ public class Biz {
 
 	public void setBizCategory(String bizCategory) {
 		this.bizCategory = bizCategory;
+	}
+
+	public String getOpenTime() {
+		return openTime;
+	}
+
+	public void setOpenTime(String openTime) {
+		this.openTime = openTime;
+	}
+
+	public String getCloseTime() {
+		return closeTime;
+	}
+
+	public void setCloseTime(String closeTime) {
+		this.closeTime = closeTime;
+	}
+
+	public String getOpneYN() {
+		return opneYN;
+	}
+
+	public void setOpneYN(String opneYN) {
+		this.opneYN = opneYN;
 	}
 }
