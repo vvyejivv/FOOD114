@@ -3,4 +3,62 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="teamProject.food114.mapper.BoardMapper">
+	<!-- 이벤트 목록 -->
+	<select id="selectEventList" parameterType="hashmap" resultType="teamProject.food114.model.Board">
+		SELECT
+		b.*,
+		DATE_FORMAT(begintime, '%Y-%m-%d') AS begintime2,
+		DATE_FORMAT(endtime, '%Y-%m-%d') AS endtime2,
+		f.*
+		FROM
+		FOOD114_BOARD b
+		LEFT JOIN FOOD114_BOARD_FILE f ON b.boardno = f.boardno
+		WHERE
+		CODE = 3
+		AND f.USAGE = 1
+		AND b.ENDYN = #{endYn}
+	</select>
+
+	<!-- 이벤트 상세보기 -->
+	<select id="selectEventView" parameterType="hashmap" resultType="teamProject.food114.model.Board">
+		SELECT * FROM FOOD114_BOARD WHERE BOARDNO=#{boardNo}
+	</select>
+
+	<!-- 이벤트 기간마감시 게시물 종료 update -->
+	<update id="updateEndYn" parameterType="hashmap">
+		UPDATE FOOD114_BOARD SET
+		endyn='Y' WHERE NOW()>endtime AND endyn='N'
+	</update>
+
+	<!-- 공지사항 목록 -->
+	<select id="selectBoardList" parameterType="hashmap" resultType="teamProject.food114.model.Board">
+		SELECT *
+		FROM FOOD114_BOARD
+		WHERE CODE = 1
+
+	</select>
+
+	<!-- 공지사항 게시글 개수 -->
+	<select id="selectBoardListCnt" parameterType="hashmap" resultType="int">
+		SELECT *
+		FROM FOOD114_BOARD
+		WHERE CODE = 1
+		ORDER BY BOARDNO
+		LIMIT 1 OFFSET 10
+	</select>
+
+	<!-- 공지사항 상세보기 -->
+	<select id="selectBoardInfo" parameterType="hashmap" resultType="teamProject.food114.model.Board">
+		SELECT *
+		FROM FOOD114_BOARD
+		WHERE BOARDNO = #{boardNo} AND
+		CODE = 1
+	</select>
+	
+	<!-- 게시글 작성 -->
+	<insert id="insertQnaBoard" parameterType="hashmap" useGeneratedKeys="true" keyProperty="BOARDNO" keyColumn="BOARDNO">
+		INSERT INTO FOOD114_BOARD
+		VALUES(, #{title}, #{contents}, 1, #{userId}, 1, SYSDATE, SYSDATE, null, null, null)
+	</insert>
+
 </mapper>

@@ -90,9 +90,8 @@
 
 	</section>
 
-	<footer>
 		<%@include file="main(footer).html"%>
-	</footer>
+
 </body>
 
 </html>
