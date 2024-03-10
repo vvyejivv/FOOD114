@@ -37,6 +37,8 @@
 	text-align: center;
 	margin-bottom: 0px;
 	margin-top: 0px;
+	height: 370px;
+	overflow: hidden;
 }
 </style>
 <body>
@@ -61,7 +63,7 @@
 	<section>
 		<div class="eventSlide">
 			<!-- <h1>이벤트 슬라이드</h1> -->
-			<img src="../boardFile/event1.png" width="100%" height="370px">
+			<img src="../boardFile/event1.png" width="1550px" height="370px">
 		</div>
 		<div class="clickBoxList">
 			<div class="clickBox">

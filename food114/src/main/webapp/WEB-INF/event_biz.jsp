@@ -81,6 +81,10 @@ a{
 text-decoration: none;
 color: rgb(72,72,72);
 }
+
+.sortText > a:hover{
+font-weight: 500;
+}
 </style>
 
 
@@ -116,9 +120,11 @@ color: rgb(72,72,72);
 				<div class="subTitleText">
 					<span>|</span>현재 이벤트 중인 가게
 				</div>
-				<div>
-					<a href="javascript:;">최근등록순</a> | <a ref="javascript:;">리뷰높은순</a>
+				<div class="sortText">
+					<a href="javascript:;" style="margin-right: 10px;">최근등록순</a><a href="javascript:;">리뷰높은순</a>
 				</div>
+				
+				<!-- 이벤트 중인 가게 리스트 -->
 				<div class="ingEventBizContainer">
 					<!-- 가게 목록 1 -->
 					<div class="EventBizBox">
