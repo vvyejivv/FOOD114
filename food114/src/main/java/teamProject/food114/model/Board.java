@@ -10,6 +10,8 @@ public class Board {
 	   private String contents;
 	   private String beginTime;
 	   private String endTime;
+	   private String setBeginTime;
+	   private String setEndTime;
 	   private String userId;
 	   private int hit;
 	   private int recommend;
@@ -27,5 +29,14 @@ public class Board {
 	   private String fileOrgName;
 	   private String fileEtc;
 	   private String usage;
+	   // biz join시
+	   private String bizId;
+
+		private String bizName;
+	   private String bizFileNo;
+		private String bizCategory;
+		private String openTime;
+		private String closeTime;
+		private String opneYN;
 
 }

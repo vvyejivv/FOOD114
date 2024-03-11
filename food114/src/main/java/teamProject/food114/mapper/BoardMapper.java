@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import teamProject.food114.model.Biz;
 import teamProject.food114.model.Board;
 
 @Mapper
@@ -27,5 +28,8 @@ public interface BoardMapper {
 
 	// 이벤트 상세보기
 	Board selectEventView(HashMap<String, Object> map);
+	
+	// biz 이벤트 목록 select
+	List<Board> selectBizEventList(HashMap<String,Object> map);
 
 }
