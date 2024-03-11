@@ -26,7 +26,7 @@
 					<ul class="tab">
 						<li>
 							<div class="tabBox" :class="{'selectTab' : selectTab === 'menu'}"
-								@click="fnChangeTab('menu')">
+								@click="fnChangeTab('menu') ">
 								<a href="javascript:;">메뉴</a>
 							</div>
 						</li>
@@ -139,7 +139,7 @@
 	var shopInfoHeader = new Vue({
 		el : '#shopInfoHeader',
 		data : {
-			selectTab : 'menu', /* 선택한 탭 */
+			selectTab : '${map.selectTab}', /* 선택한 탭 */
 			bizId : "hi123",/* 가게 누른 파라미터값 불러와야함 */
 			bizInfo : {}, /* DB 가게정보  */
 			map : null,
@@ -165,7 +165,16 @@
 			},
 			fnChangeTab : function(type){
 				var self = this;
-				self.selectTab = type;
+				if(type == 'menu'){
+					self.selectTab = type;
+					$.pageChange("/shopInfo.do", { bizId: self.bizId, selectTab: type });
+				}else if(type == 'event'){
+					self.selectTab = type;
+					$.pageChange("/shopEvent.do", { bizId: self.bizId, selectTab: type });
+				}else if(type == 'review'){
+					self.selectTab = type;
+					$.pageChange("/shopReview.do", { bizId: self.bizId, selectTab: type });
+				}
 			},
 		    setMapCenterAndAddMarker: function(latitude, longitude) {
 		        var self = this;

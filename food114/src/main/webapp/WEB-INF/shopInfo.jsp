@@ -29,24 +29,26 @@
 						<span>메뉴</span>
 					</div>
 					<!-- 메뉴 테이블 -->
-					<div class="menuInfo">
-						<div class="menuImgBox">
-							<!-- <img src="../image/kfood.jpg"> -->
+					<template v-for="item in menuList">
+						<div class="menuInfo">
+							<div class="menuImgBox">
+								<!-- <img src="../image/kfood.jpg"> -->
+							</div>
+							<div class="menuName">
+								<table>
+									<tr>
+										<th>{{item.menu}}</th>
+									</tr>
+									<tr>
+										<td>{{item.menuInfo}}</td>
+									</tr>
+									<tr>
+										<td style="border-bottom: none;">{{item.price}}</td>
+									</tr>
+								</table>
+							</div>
 						</div>
-						<div class="menuName">
-							<table>
-								<tr>
-									<th>메뉴이름</th>
-								</tr>
-								<tr>
-									<td>메뉴소개</td>
-								</tr>
-								<tr>
-									<td style="border-bottom: none;">10,000원</td>
-								</tr>
-							</table>
-						</div>
-					</div>
+					</template>
 				</div>
 				<div class="menuBox">
 					<div class="menuTitle">
@@ -75,7 +77,7 @@
 		</section>
 	</div>
 
-		<%@include file="main(footer).html"%>
+	<%@include file="main(footer).html"%>
 
 </body>
 </html>
@@ -83,13 +85,30 @@
 	var app = new Vue({
 		el : '#app',
 		data : {
-
+			bizId : "hi123",
+			menuList : [],
 		},
 		methods : {
-
+			fnView : function() {
+				var self = this;
+				var nparmap = {
+					bizId : self.bizId
+				};
+				$.ajax({
+					url : "menuList.dox",
+					dataType : "json",
+					type : "POST",
+					data : nparmap,
+					success : function(data) {
+						self.menuList = data.menuList;
+						console.log(data.menuList);
+					}
+				});
+			},
 		},
 		created : function() {
 			var self = this;
+			self.fnView();
 
 		}
 	});

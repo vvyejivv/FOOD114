@@ -38,4 +38,13 @@ public class MenuController {
 		resultMap = menuService.searchCategory(map);
 		return new Gson().toJson(resultMap);
 	}
+	
+	//가게 메뉴
+	@RequestMapping(value = "/menuList.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String menuList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = menuService.searchMenuList(map);
+		return new Gson().toJson(resultMap);
+	}
 }

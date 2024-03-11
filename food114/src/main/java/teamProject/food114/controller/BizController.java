@@ -2,6 +2,7 @@ package teamProject.food114.controller;
 
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,14 +48,23 @@ public class BizController {
 	}
 	//가게 정보
 	@RequestMapping("/shopInfo.do")
-	public String shopInfo(Model model) throws Exception {
+	public String shopInfo(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		request.setAttribute("map", map);
 		return "/shopInfo"; 
 	}
 	//가게 이벤트
 	@RequestMapping("/shopEvent.do")
-	public String shopEvent(Model model) throws Exception {
+	public String shopEvent(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		request.setAttribute("map", map);
 		return "/shopEvent"; 
 	}
+	//가게 리뷰
+	@RequestMapping("/shopReview.do")
+	public String shopReview(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		request.setAttribute("map", map);
+		return "/shopReview"; 
+	}
+	
 	
 //	@RequestMapping(value = "/bizSignup.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 //	@ResponseBody
