@@ -11,7 +11,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="../css/main.css">
 <link rel="stylesheet" href="../css/shopInfo.css">
-<title>가게이벤트</title>
+<title>가게리뷰</title>
 </head>
 <style>
 </style>
@@ -23,10 +23,22 @@
 	<div id="app">
 		<section>
 			<div id="menuContainer">
-				<div id="eventBox">
-					<div class="eventInfo" >
-						<img src="../img/메가커피_이벤트.jpg">
+				<div id="reviewContainer">
+					<div id="reviewBox">
+						<div class="totalReview">
+							<div id="totalText">4.5</div>
+							<div>⭐⭐⭐⭐⭐</div>
+						</div>
+						<div class="reviewBox">
+							<div class="consumerImg"><img src="../img/큰로고1.png"></div>
+							<div>아이디</div>
+							<div>날짜</div>
+							<div>⭐⭐⭐⭐⭐</div>
+							<div>사진</div>
+							<div>리뷰내용</div>
+						</div>
 					</div>
+					
 				</div>
 			</div>
 		</section>

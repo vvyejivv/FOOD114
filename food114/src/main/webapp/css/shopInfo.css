@@ -307,3 +307,58 @@ ul.tab {
 .menuName td {
     border-bottom: 1px solid #ccc;
 }
+
+/* 이벤트 페이지  */
+#eventBox{
+	width: 1000px; 
+	margin : 0px auto;
+}
+.eventInfo{
+	width: 980px; 
+	height: 1000px;
+	margin : 0px auto;
+	border : 1px solid #cccccc34;
+	border-radius: 3px;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.eventInfo img{
+	width:950px;
+	height: 1000px;
+}
+
+/* 리뷰 페이지 */
+#reviewContainer{
+	width: 1000px; 
+	margin : 0px auto;
+}
+#reviewBox{
+	width: 980px; 
+	height: 1000px;
+	margin : 0px auto;
+	border : 1px solid #cccccc34;
+	border-radius: 3px;
+}
+.totalReview{
+	width : 980px;
+	height : 50px;
+	background-color : #ff80c0;
+}
+#totalText{
+	font-size: 15px;
+}
+.reviewBox{
+	width : 980px;
+	height : 150px;
+	background-color : #ccc;
+}
+.consumerImg{
+	width : 100px;
+	height : 100px;
+}
+.consumerImg img{
+	width : 100px;
+	height : 100px;
+}
+
