@@ -87,7 +87,10 @@
 		<%@include file="sideBar_biz.html"%>
 		<div id="app">
 			<div class="mold">
-				상품조회/수정
+				<h2>
+               	<span style="color: #ff7f00; font-weight: bold;">| </span><span
+                  style="text-align: left; color: rgba(72, 72, 72);">상품조회/수정&nbsp;</span>
+            	</h2>
 				<div>
 					<div class="box">
 						<div class="box-text">전체</div>
@@ -132,7 +135,6 @@
 			</div>
 		</div>
 	</section>
-</style>
 	<%@include file="main(footer).html"%>
 </body>
 
