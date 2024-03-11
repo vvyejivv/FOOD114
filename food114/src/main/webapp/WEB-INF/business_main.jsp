@@ -13,10 +13,8 @@
 <title>Document</title>
 </head>
 <body>
-	<div id="app">
-		<header>
 			<%@include file="main(header)_biz.html" %>
-		</header>
+	<div id="app">
 
 		<section>
 			<div id="container">
@@ -234,8 +232,7 @@ var app = new Vue({
         } 
     }   
     , created: function () {
-    	var self = this;    	
-    	self.list();
+    	var self = this;   
 	}
 });
 </script>

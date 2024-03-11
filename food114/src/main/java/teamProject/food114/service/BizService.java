@@ -22,4 +22,5 @@ public interface BizService {
 	//가게 정보 확인
 	HashMap<String, Object> searchShopInfo(HashMap<String, Object> map);
 	
+	
 }

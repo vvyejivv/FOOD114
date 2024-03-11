@@ -94,11 +94,11 @@
 				<div>
 					<div class="box">
 						<div class="box-text">전체</div>
-						<div class="box-text"><span style="font-weight:bold;">9</span>건</div>
+						<div class="box-text"><span style="font-weight:bold;">{{menuCnt.cnt}}</span>건</div>
 					</div>
 					<div class="box">
 						<div class="box-text">판매중</div>
-						<div class="box-text"><span style="font-weight:bold;">9</span>건</div>
+						<div class="box-text"><span style="font-weight:bold;">{{menuCnt.ing}}</span>건</div>
 					</div>
 					<div class="box">
 						<div class="box-text">판매대기</div>
@@ -106,14 +106,14 @@
 					</div>
 					<div class="box">
 						<div class="box-text">판매중지</div>
-						<div class="box-text"><span style="font-weight:bold;">0</span>건</div>
+						<div class="box-text"><span style="font-weight:bold;">{{menuCnt.soldOut}}</span>건</div>
 					</div>
 					<div class="box">
 						<div class="box-text">판매종료</div>
-						<div class="box-text"><span style="font-weight:bold;">0</span>건</div>
+						<div class="box-text"><span style="font-weight:bold;">{{menuCnt.end}}</span>건</div>
 					</div>
 				</div>
-				<div style="margin-top:30px;">상품목록<small>(총9개)</small></div>
+				<div style="margin-top:30px;">상품목록<small>(총 {{menuCnt.cnt}}개)</small></div>
 				<table>
 					<tr>
 						<th>카테고리</th>
@@ -123,12 +123,12 @@
 						<th>판매가</th>
 						<th>수정</th>
 					</tr>
-					<tr v-for="item in 15">
-						<td>1</td>
-						<td>123123123</td>
-						<td>철판볶음밥</td>
-						<td>판매중</td>
-						<td>10,000</td>
+					<tr v-for="(item,index) in menuList">
+						<td>식음료</td>
+						<td>{{item.menuNo}}</td>
+						<td>{{item.menu}}</td>
+						<td>{{item.sta}}</td>
+						<td>{{item.price}}</td>
 						<td><button class="btn-modify">수정</button></td>
 					</tr>
 				</table>
@@ -143,14 +143,33 @@
 	var app = new Vue({
 		el : '#app',
 		data : {
-
+		    sessionId : "${sessionId}",
+			menuList : [],
+			menuCnt : ""
 		},
 		methods : {
-
+			fnMenuList : function() {
+				var self = this;
+				var nparmap = {
+					bizId : self.sessionId						
+				};
+				$.ajax({
+					url : "menuList.dox",
+					dataType : "json",
+					type : "POST",
+					data : nparmap,
+					success : function(data) {
+						self.menuList = data.menuList;
+						self.menuCnt = data.menuCnt;
+						console.log(data.menuList);
+						console.log(data.menuCnt);
+					}
+				});
+			}
 		},
 		created : function() {
 			var self = this;
-
+			self.fnMenuList();
 		}
 	});
 </script>

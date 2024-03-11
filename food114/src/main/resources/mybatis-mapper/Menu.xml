@@ -10,8 +10,23 @@
 	</select>
 	<!-- 메뉴 정보 검색  -->
 	<select id="selectMenuList" parameterType="hashmap" resultType="teamProject.food114.model.Menu">
-		SELECT * 
+		SELECT *, 
+			CASE WHEN STATUS = '1' THEN '판매종료'
+			WHEN STATUS = '0' THEN '판매중'
+			WHEN STATUS = '3' THEN '품절'
+			END AS STA
 		FROM FOOD114_MENU 
 		WHERE BIZID = #{bizId}
+	</select>
+	<select id="selectMenuCount" parameterType="hashmap"
+		resultType="teamProject.food114.model.Menu">
+		SELECT
+			COUNT(*) AS CNT,
+			SUM(CASE WHEN STATUS = '1' THEN 1 ELSE 0 END) AS "END",
+   			SUM(CASE WHEN STATUS = '0' THEN 1 ELSE 0 END) AS "ING",
+   			SUM(CASE WHEN STATUS = '3' THEN 1 ELSE 0 END) AS "SOLDOUT"
+		FROM FOOD114_MENU
+		WHERE BIZID = #{bizId}
+		GROUP BY BIZID;
 	</select>
 </mapper>

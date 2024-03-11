@@ -77,9 +77,15 @@
 .viewInfo {
 	
 }
+
+input {
+	height:17px;
+	border: 1px solid #ddd;
+	border-radius: 3px;
+}
 </style>
 <body>
-	<%@include file="main(header).html"%>
+	<%@include file="main(header)_biz.html"%>
 	<!-- 광고창 -->
 	<!-- <div class="ad">
         광고창
@@ -98,8 +104,7 @@
 						<div class="infoName">
 							사업자번호
 						</div>
-						<span v-if="!updateFlg" class="viewInfo">123-12-12345</span>
-						<input v-if="updateFlg" class="viewInfo" value="123-12-12345">
+						<span class="viewInfo">123-12-12345</span>
 					</div>
 					<div class="infoDiv">
 						<div class="infoName">
@@ -126,8 +131,8 @@
 						<div class="infoName">
 							대표연락처
 						</div>
-						<span v-if="!updateFlg" class="viewInfo">+82 010-5555-5555</span>
-						<input v-if="updateFlg" class="viewInfo" value="+82 010-5555-5555">
+						<span v-if="!updateFlg" class="viewInfo">01055555555</span>
+						<input v-if="updateFlg" class="viewInfo" value="01055555555">
 					</div>
 					<div class="infoDiv">
 						<div class="infoName">
@@ -147,8 +152,8 @@
 						<div class="infoName">
 							계좌번호
 						</div>
-						<span v-if="!updateFlg" class="viewInfo">110-439-130740</span>
-						<input v-if="updateFlg" class="viewInfo" value="110-439-130740">
+						<span v-if="!updateFlg" class="viewInfo">110439130740</span>
+						<input v-if="updateFlg" class="viewInfo" value="110439130740">
 					</div>
 				</div>
 				<button v-if="!updateFlg" class="btn-modify" @click="fnInfoUpdate()">정보 변경하기</button>

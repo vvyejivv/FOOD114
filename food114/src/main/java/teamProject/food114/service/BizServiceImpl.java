@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import teamProject.food114.mapper.BizMapper;
 import teamProject.food114.model.Area;
 import teamProject.food114.model.Biz;
+import teamProject.food114.model.Menu;
 
 @Service
 public class BizServiceImpl implements BizService {
@@ -51,7 +52,7 @@ public class BizServiceImpl implements BizService {
 					resultMap.put("pwd", "pwdSuccess");
 
 					// 세션 생성
-					session.setAttribute("bizId", biz.getBizId());
+					session.setAttribute("sessionId", biz.getBizId());
 
 				} else {
 					// 로그인 실패(패스워드가 다른 경우)

@@ -174,8 +174,7 @@ button img {
             	</h2>
 				<div class="inputBox">
 					<div class="inputDiv">
-						메뉴 이름<small><small style="color: #ff7f00;"> ＊ </small></small><small><small
-							style="color: #0066cc;"> 도움말</small></small>
+						메뉴 이름<small><small style="color: #ff7f00;"> ＊ </small></small>
 					</div>
 					<input type="text" class="menu_input" placeholder="상품명을 입력해 주세요">
 					<div class="type_limit">0/100</div>
@@ -183,8 +182,7 @@ button img {
 				</div>
 				<div class="inputBox">
 					<div class="inputDiv">
-						카테고리<small><small style="color: #ff7f00;"> ＊ </small></small><small><small
-							style="color: #0066cc;"> 도움말</small></small>
+						카테고리<small><small style="color: #ff7f00;"> ＊ </small></small>
 					</div>
 					<button class="cateBtn">카테고리 검색</button>
 					<button class="subCateBtn">카테고리 선택</button>
@@ -197,36 +195,32 @@ button img {
 				</div>
 				<div class="inputBox">
 					<div class="inputDiv">
-						가격<small><small style="color: #ff7f00;"> ＊ </small></small><small><small
-							style="color: #0066cc;"> 도움말</small></small>
+						가격<small><small style="color: #ff7f00;"> ＊ </small></small>
 					</div>
 					<input type="text" class="mod_input" placeholder="가격 입력">
 				</div>
 				<div class="inputBox">
 					<div class="inputDiv">
 						메뉴 설명(소개)<small><small style="color: #ff7f00;"> ＊
-						</small></small><small><small style="color: #0066cc;"> 도움말</small></small>
+						</small></small>
 					</div>
 					<input type="text" class="mod_input" placeholder="메뉴 설명(소개) 입력">
 				</div>
 				<div class="inputBox">
 					<div class="inputDiv">
-						원산지<small><small style="color: #ff7f00;"> ＊ </small></small><small><small
-							style="color: #0066cc;"> 도움말</small></small>
+						원산지<small><small style="color: #ff7f00;"> ＊ </small></small>
 					</div>
-					<input type="text" class="mod_input" placeholder="원산지 입력">
+					<input type="text" class="mod_input" placeholder="원산지 입력" disabled>
 				</div>
 				<div class="inputBox">
 					<div class="inputDiv">
-						메뉴 옵션<small><small style="color: #ff7f00;"> ＊ </small></small><small><small
-							style="color: #0066cc;"> 도움말</small></small>
+						메뉴 옵션<small><small style="color: #ff7f00;"> ＊ </small></small>
 					</div>
-					<input type="text" class="mod_input" placeholder="메뉴 옵션 입력">
+					<input type="text" class="mod_input" placeholder="메뉴 옵션 입력" disabled>
 				</div>
 				<div class="inputBox">
 					<div class="inputDiv">
-						메뉴 사진<small><small style="color: #ff7f00;"> ＊ </small></small><small><small
-							style="color: #0066cc;"> 도움말</small></small>
+						메뉴 사진<small><small style="color: #ff7f00;"> ＊ </small></small>
 					</div>
 					<input type="file" class="mod_input" id="file1" name="file1" accept=".jpg, .png, .gif" style="color: #ccc; font-size:12px; line-height:30px;">
 				</div>
