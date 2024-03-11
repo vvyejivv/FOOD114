@@ -1,0 +1,108 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+.notosanskr * {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        * {
+            font-family: 'Noto Sans KR';
+        }
+          body {
+            margin: 0px;
+        }
+
+        .container {
+            width: 1150px;
+            margin: 0 auto;
+            padding: 10px;
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+
+        .sidebar {
+            margin: 10px;
+            width: 200px;
+            /* height: 800px; */
+            background-color:none;
+            padding: 10px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            margin-bottom: 5px;
+        }
+
+        .sidebar ul li a {
+            display: block;
+            padding: 5px 10px;
+            text-decoration: none;
+            color: #333;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar ul li a:hover {
+            font-size: 15.5px;
+            color: #646464;
+            font-weight: bold;
+        }
+
+        .sidebar ul li ul {
+            margin-left: 15px;
+        }
+        a {
+            font-size : 15px;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .content{
+            margin: 10px;
+            margin-left: 20px;
+            padding: 5px;
+            padding-left: 30px;
+            width: 1000px;
+            height: 800px;
+            /* border: 1px solid black; */
+        }
+        .span{
+            color: #b1b0b0; 
+            border: 1px solid #d1d0d0; 
+            border-radius: 4px;
+            padding: 6px;
+            font-size: 13px;
+
+        }
+       
+        .table {
+            display: left;  
+         }
+        .row{
+            display: flex;
+            border-top: 1px solid #ccc;
+            height: 60px;
+        }
+        .cell1 {
+            line-height: 50px;
+            background-color: #f3f2f2b7;
+            width: 150px;
+            border: none;
+            text-align: center;
+            padding: 5px;
+        }
+        .cell2 {  
+            margin-left: 100px; 
+            line-height: 40px;  
+            font-size: 14px;
+            color: #747171;       
+            width: 690px;
+            border: none;
+            padding: 5px;
+            margin: 5px;
+        }

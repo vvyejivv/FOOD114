@@ -1,0 +1,26 @@
+.mold{
+	position:absolute;
+	margin-left: 335px;
+	margin-top: 20px;
+}
+.event_info_table{
+	width: 1000px;
+	height: 400px;
+	border: 1px solid #ff7f00;
+	border-radius: 5px;
+	list-style: none;
+}
+.button-detail{
+	background-color: white;
+	color: #ff7f00;
+	border: 1px solid #ff7f00;
+	border-radius: 5px;
+}
+.button-detail:hover{
+	background-color: #FBCEB1;
+	cursor: pointer;
+}
+.event_info_table img{
+	width: 100px;
+	height: 100px;
+}
