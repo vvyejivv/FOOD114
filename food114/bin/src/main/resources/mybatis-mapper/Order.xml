@@ -1,12 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
-<mapper namespace="teamProject.food114.mapper.OrderMapper">
-	<!-- 주문할 고객 주소 검색 쿼리  -->
-	<select id="selectUserAddr" parameterType="hashmap" resultType="teamProject.food114.model.CustomerAddr">
-		SELECT *
-		FROM FOOD114_CONSUMER_ADDR 
-		WHERE USERID = #{userId}
-	</select>
-</mapper>
+Unexpected error.  File contents could not be restored from local history during undo/redo.

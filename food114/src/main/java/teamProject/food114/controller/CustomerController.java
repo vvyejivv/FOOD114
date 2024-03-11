@@ -38,7 +38,7 @@ public class CustomerController {
 	@ResponseBody
 	public String myInfo(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		
+		resultMap = customerService.searchMyInfo(map);
 		return new Gson().toJson(resultMap);
 	}
 
