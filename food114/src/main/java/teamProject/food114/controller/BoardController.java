@@ -124,4 +124,13 @@ public class BoardController {
 	public String qnaAsk(Model model) throws Exception { 
 		return "/boardNoticeQnaAsk";
 	}
+	
+	// 마이페이지 - 나의정보 - 메인화면 myPage_myInfo(main)
+	@RequestMapping("/myPage_myInfo(main).do")
+	public String myPage(Model model) throws Exception { 
+		return "/myPage_myInfo(main)";
+	}
+	
+	
+	
 }
