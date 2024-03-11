@@ -21,6 +21,10 @@
 	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+input:focus {
+  outline: none; /* 포커스시 생기는 기본적인 아웃라인을 제거합니다. */
+}
+
 .btn-modify {
 	width: 200px;
 	margin-top: 30px;
@@ -203,34 +207,33 @@ button img {
 						메뉴 설명(소개)<small><small style="color: #ff7f00;"> ＊
 						</small></small><small><small style="color: #0066cc;"> 도움말</small></small>
 					</div>
-					<input type="text" class="mod_input" placeholder="메뉴 설명 입력">
+					<input type="text" class="mod_input" placeholder="메뉴 설명(소개) 입력">
 				</div>
 				<div class="inputBox">
 					<div class="inputDiv">
 						원산지<small><small style="color: #ff7f00;"> ＊ </small></small><small><small
 							style="color: #0066cc;"> 도움말</small></small>
 					</div>
-					<input type="text" class="mod_input" placeholder="가격 입력">
+					<input type="text" class="mod_input" placeholder="원산지 입력">
 				</div>
 				<div class="inputBox">
 					<div class="inputDiv">
 						메뉴 옵션<small><small style="color: #ff7f00;"> ＊ </small></small><small><small
 							style="color: #0066cc;"> 도움말</small></small>
 					</div>
-					<input type="text" class="mod_input" placeholder="가격 입력">
+					<input type="text" class="mod_input" placeholder="메뉴 옵션 입력">
 				</div>
 				<div class="inputBox">
 					<div class="inputDiv">
 						메뉴 사진<small><small style="color: #ff7f00;"> ＊ </small></small><small><small
 							style="color: #0066cc;"> 도움말</small></small>
 					</div>
-					<input type="text" class="mod_input" placeholder="가격 입력">
+					<input type="file" class="mod_input" id="file1" name="file1" accept=".jpg, .png, .gif" style="color: #ccc; font-size:12px; line-height:30px;">
 				</div>
 				<button class="btn-modify">메뉴 등록</button>
 			</div>
 		</div>
 	</section>
-	</style>
 	<%@include file="main(footer).html"%>
 </body>
 

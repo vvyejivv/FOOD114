@@ -13,17 +13,10 @@
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 </style>
 </head>
-<link rel="stylesheet" href="../css/boardNotice.css">
-<body>
-	<header>
-		<%@include file="main(header).html"%>
-	</header>
-	<style>
-.menuTitle {
-	font-size: 30px;
-	text-align: center;
-}
 
+<body>
+
+	<style>
 .eventSelect {
 	width: 500px;
 	height: 54px;
@@ -51,39 +44,67 @@
 	top: -1px;
 }
 
-</style>
+table {
+	border-collapse: collapse;
+}
 
+.borderTitle {
+	font-size: 14px;
+	background-color: #f9f9f9;
+	width: 100px;
+	min-width: 100px;
+	border-right: 1px solid #ccc;
+	max-width: 100px;
+}
+
+td {
+	border-bottom: 1px solid #ccc;
+	padding: 15px 25px;
+}
+
+.listButton {
+	background-color: #ff7f00;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	width: 80px;
+	height: 40px;
+	margin: 5px;
+	cursor: pointer;
+}
+</style>
+	<%@include file="main(header).html"%>
 	<section>
-		<div style="width:1200px; margin: 0px auto;">
+		<div style="width: 1200px; margin: 0px auto;">
 			<%@include file="event_header.jsp"%>
 			<div id="app">
 				<div
 					style="width: 1200px; color: rgb(72, 72, 72); margin-top: 35px; padding: 0px;">
 					<div style="width: 1100px; margin: 0px auto;">
-						<table border="1" style="width: 1100px;">
+						<table style="width: 1100px;">
 							<tr>
+								<td style="border-top: 2px solid rgba(72, 72, 72);"
+									class="borderTitle">제목</td>
 								<td
-									style="background-color: #f9f9f9; border-top: 2px solid rgba(72, 72, 72); width: 200px; min-width: 200px;">제목</td>
-								<td
-									style="border-top: 2px solid rgba(72, 72, 72); width: 800px; overflow: hidden;"><div
+									style="border-top: 2px solid rgba(72, 72, 72); overflow: hidden;"><div
 										style="white-space: nowrap; text-overflow: ellipsis; max-width: 900px; overflow: hidden">{{board.title}}</div></td>
 							</tr>
 							<tr>
-								<td style="background-color: #f9f9f9;">작성자</td>
+								<td class="borderTitle">작성자</td>
 								<td>{{board.userId}}</td>
 							</tr>
 							<tr>
-								<td style="background-color: #f9f9f9;">작성일</td>
+								<td class="borderTitle">작성일</td>
 								<td colspan="3">{{board.cdateTime}}</td>
 							</tr>
 							<tr>
-								<td colspan="4" style="border-bottom: #333; padding: 35px 0px;"
+								<td colspan="4" style="border-bottom: 1px solid #ccc; padding: 35px 0px;"
 									v-html="board.contents"></td>
 							</tr>
 						</table>
 						<div style="text-align: right">
 							<button
-								style="margin: 10px; margin-bottom: 35px; background-color: #ccc"
+								style="margin: 10px; margin-bottom: 35px; background-color: #ccc" class="listButton"
 								@click="fnGoList(endYn)">목록</button>
 						</div>
 					</div>
@@ -109,7 +130,6 @@
 					var nparmap = {
 						boardNo : self.boardNo
 					};
-					console.log(self.endYn);
 					$.ajax({
 						url : "event-view.dox",
 						dataType : "json",
