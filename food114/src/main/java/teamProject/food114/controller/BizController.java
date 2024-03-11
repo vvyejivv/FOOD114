@@ -86,6 +86,16 @@ public class BizController {
 	public String bizMenuInsert(Model model) throws Exception {
 		return "/biz_menu_insert"; // biz_menu_insert.jsp
 	}
+	
+	@RequestMapping("/biz-info.do")
+	public String bizInfo(Model model) throws Exception {
+		return "/biz_info"; // biz_info.jsp
+	}
+	
+	@RequestMapping("/biz-sales.do")
+	public String bizSales(Model model) throws Exception {
+		return "/biz_sales_data"; // biz_sales_data.jsp
+	}
 
 	@RequestMapping(value = "/bizSignup.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
