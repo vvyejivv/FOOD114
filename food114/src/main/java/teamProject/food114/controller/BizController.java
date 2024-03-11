@@ -46,6 +46,12 @@ public class BizController {
 	public String bizLogin(Model model) throws Exception {
 		return "/bizLogin"; 
 	}
+	
+	//사업자 메인
+	@RequestMapping("/business-main.do")
+	public String businessMain(Model model) throws Exception {
+		return "/business_main"; // business_main.jsp
+	}
 	//가게 정보
 	@RequestMapping("/shopInfo.do")
 	public String shopInfo(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
@@ -57,6 +63,9 @@ public class BizController {
 	public String shopEvent(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		request.setAttribute("map", map);
 		return "/shopEvent"; 
+	}
+	public String shopEvent(Model model) throws Exception {
+		return "/shopEvent";
 	}
 	//가게 리뷰
 	@RequestMapping("/shopReview.do")
@@ -98,6 +107,10 @@ public class BizController {
 		return "/mapTest3"; // mapTest3.jsp
 	}
 	
+	@RequestMapping("/bizView.do")
+	public String bizView(Model model) throws Exception {
+		return "/bizView"; // bizView.jsp
+	}
 	@RequestMapping("/biz-menu-update.do")
 	public String bizMenuUpdate(Model model) throws Exception {
 		return "/biz_menu_update"; // biz_menu_update.jsp
@@ -117,7 +130,27 @@ public class BizController {
 	public String bizSales(Model model) throws Exception {
 		return "/biz_sales_data"; // biz_sales_data.jsp
 	}
-
+	
+	@RequestMapping("/bizReview.do")
+	public String bizReview(Model model) throws Exception {
+		return "/bizReview"; // bizReview.jsp
+	}
+	
+	@RequestMapping("/bizReview_info.do")
+	public String bizReview_info(Model model) throws Exception {
+		return "/bizReview_info"; // bizReview_info.jsp
+	}
+	
+	@RequestMapping("/bizOrder.do")
+	public String bizOrder(Model model) throws Exception {
+		return "/bizOrder"; // bizOrder.jsp
+	}
+	
+	@RequestMapping("/bizEvent.do")
+	public String bizEvent(Model model) throws Exception {
+		return "/bizEvent"; // bizEvent.jsp
+	}
+	
 	@RequestMapping(value = "/bizSignup.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String bizSignup(Model model, @RequestParam HashMap<String, Object> map) throws Exception {

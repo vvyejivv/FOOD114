@@ -42,14 +42,15 @@ section {
 	float: right;
 }
 
+
 .mold {
-	position:absolute;
-	margin:15px 0px 0px 330px;
-	width:1520px;
+	position: absolute;
+	margin: 15px 0px 0px 330px;
+	width: 1520px;
 	height: 750px;
 	overflow-y: auto;
 }
 
 .mold::-webkit-scrollbar {
-    display: none;
+	display: none;
 }
