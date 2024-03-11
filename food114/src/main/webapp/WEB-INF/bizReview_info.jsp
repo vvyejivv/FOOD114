@@ -24,36 +24,43 @@
 				</h2>
 				<table class="review_info_table">
 					<tr>
-						<th>메뉴</th>
-						<td>오아저씨세트</td>
+						<td style="border-top: 2px solid rgba(72, 72, 72);"
+							class="event_title">메뉴</td>
+						<td
+							style="border-top: 2px solid rgba(72, 72, 72); overflow: hidden;"><div
+								style="white-space: nowrap; text-overflow: ellipsis; max-width: 900px; overflow: hidden">오아저씨세트</div></td>
 					</tr>
 					<tr>
-						<th>별점</th>
-						<td>★★★☆☆</td>
+						<td class="event_title">별점</td>
+						<td style="color: #ffcc00;">★★★☆☆</td>
 					</tr>
 					<tr>
-						<th>리뷰 내용</th>
+						<td class="event_title">리뷰 사진</td>
+						<td><img src="../img/pizza.JPG"></td>
+					</tr>
+					<tr>
+						<td class="event_title">리뷰 내용</td>
 						<td>리뷰 남겨요 존맛탱이네요.</td>
 					</tr>
 					<tr>
-						<th>작성자</th>
+						<td class="event_title">작성자</td>
 						<td>아무개</td>
 					</tr>
 					<tr>
-						<th>작성일</th>
+						<td class="event_title">작성일</td>
 						<td>2024.03.01</td>
 					</tr>
 					<tr>
-						<th>답글</th>
-						<td>감사합니다!</td>
+						<td class="event_title">리뷰 답글</td>
+						<td>리뷰 답글을 작성해주세요!</td>
 					</tr>
 				</table>
+				<button class="review_button">답글 달기</button>
 			</div>
 		</div>
 	</section>
 
 	<%@include file="main(footer).html"%>
-
 </body>
 </html>
 <script type="text/javascript">
