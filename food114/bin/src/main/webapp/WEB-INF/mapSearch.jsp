@@ -13,7 +13,7 @@
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=753d2e1bb03d5938bad9908725e5ad41"></script>
 <script type="text/javascript"
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<title>Document</title>
+<title>지도로 검색</title>
 </head>
 <body>
 	<div id="app">
@@ -40,12 +40,14 @@
         광고창
         <button class="adClose">x</button>
     </div> -->
+    
 		<section>
 			<div id="map"></div>
 			<input type="text" id="searchInput" placeholder="주소를 입력하세요">
 			<button onclick="searchAddress()">검색</button>
 			<button onclick="openAddressPopup()">주소검색</button>
 		</section>
+		
 		<footer>
 			<div class="footerImg">
 				<img src="../img/logo_gray.png">
@@ -317,8 +319,15 @@
             customOverlays = [];
         }
         
-     	// 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
+     // 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
         function closeOverlay() {
-            overlay.setMap(null);     
+            if (infowindow) {
+                infowindow.close(); // 기존 인포윈도우를 닫음
+            }
+            for (var i = 0; i < customOverlays.length; i++) {
+                customOverlays[i].setMap(null); // 모든 커스텀 오버레이를 지도에서 제거
+            }
+            // 배열을 비워줍니다
+            customOverlays = [];
         }
     </script>

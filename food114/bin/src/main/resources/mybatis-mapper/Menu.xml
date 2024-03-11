@@ -3,4 +3,9 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="teamProject.food114.mapper.MenuMapper">
+	<!-- 카테고리 전체 검색 -->
+	<select id="selectCategory" parameterType="hashmap"
+		resultType="teamProject.food114.model.Category">
+		SELECT * FROM FOOD114_CATEGORY
+	</select>
 </mapper>

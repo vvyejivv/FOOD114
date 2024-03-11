@@ -116,7 +116,7 @@ select {
 		data : {},
 		methods : {
 			fnLogin : function() {
-				location.href = "login.do";
+				location.href = "consumer-login.do";
 			}
 		},
 		created : function() {

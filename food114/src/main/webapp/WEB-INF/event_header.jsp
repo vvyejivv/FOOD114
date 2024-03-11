@@ -9,13 +9,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>웹 이벤트</title>
-<style>
-</style>
+
 </head>
 
 <body>
-
-
 	<style>
 section {
 	color: rgb(72, 72, 72);
@@ -24,7 +21,7 @@ section {
 .container {
 	width: 1300px;
 	margin: 0px auto;
-	margin-top: 35px;	
+	margin-top: 35px;
 }
 
 .menuTitle {
@@ -64,29 +61,29 @@ a {
 	color: rgb(72, 72, 72);
 }
 
-.container{
-	padding:10px;
+.container {
+	padding: 10px;
 }
-#eventHeader{}
+
 </style>
 
-		<div id="eventHeader">
-			<div class="container">
-				<div class="menuTitle">이벤트</div>
-				<div class="eventSelect">
-					<div class="eventSelectType">
-						<div class="nowWatchType" id="ingEventLine" hidden></div>
-						<a href="javascript:;" @click="fnSelect('N')">진행중인 이벤트</a>
-					</div>
+	<div id="eventHeader">
+		<div class="container">
+			<div class="menuTitle">이벤트</div>
+			<div class="eventSelect">
+				<div class="eventSelectType">
+					<div class="nowWatchType" id="ingEventLine" hidden></div>
+					<a href="javascript:;" @click="fnSelect('N')">진행중인 이벤트</a>
+				</div>
 
-					<div class="eventSelectType"
-						style="border-bottom: 1px solid #ccc; margin-left: -1px;">
-						<div class="nowWatchType" id="endEventLine" hidden></div>
-						<a href="javascript:;" @click="fnSelect('Y')">종료된 이벤트</a>
-					</div>
+				<div class="eventSelectType"
+					style="border-bottom: 1px solid #ccc; margin-left: -1px;">
+					<div class="nowWatchType" id="endEventLine" hidden></div>
+					<a href="javascript:;" @click="fnSelect('Y')">종료된 이벤트</a>
 				</div>
 			</div>
 		</div>
+	</div>
 
 </body>
 
@@ -98,20 +95,20 @@ a {
 			endYn : "${endYn}"
 		},
 		methods : {
-			fnLoad:function(){
-				var self=this;
-				if(self.endYn=="N"){
-					$("#ingEventLine").prop("hidden",false);
-					$("#endEventLine").prop("hidden",true);					
-				} else{
-					$("#ingEventLine").prop("hidden",true);
-					$("#endEventLine").prop("hidden",false);	
-				}				
-			}, 
-			
-			fnSelect : function(endYn){
+			fnLoad : function() {
 				var self = this;
-				$.pageChange("/event-web-list.do", {					
+				if (self.endYn == "N") {
+					$("#ingEventLine").prop("hidden", false);
+					$("#endEventLine").prop("hidden", true);
+				} else {
+					$("#ingEventLine").prop("hidden", true);
+					$("#endEventLine").prop("hidden", false);
+				}
+			},
+
+			fnSelect : function(endYn) {
+				var self = this;
+				$.pageChange("/event-web-list.do", {
 					endYn : endYn
 				});
 			}

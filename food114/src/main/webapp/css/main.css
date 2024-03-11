@@ -37,17 +37,18 @@ a{
 }
 
 .buttonBox {
-    padding: 0px 20px;
-    height: 40px;
+    padding: 0px 15px;
+    height: 30px;
     border: 1px solid #ff7f00;
     background-color: #ff7f00;
     border-radius: 15px;
-    font-size: 17px;
-    line-height: 40px;
+    font-size: 14px;
+    line-height: 30px;
     color: white;
     margin: 5px;
     float: right;
-    margin-left: 20px;
+    margin-left: 10px;
+    margin-top: 10px;
 }
 
 footer {
