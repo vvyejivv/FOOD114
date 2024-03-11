@@ -151,6 +151,11 @@ public class BizController {
 		return "/bizEvent"; // bizEvent.jsp
 	}
 	
+	@RequestMapping("/bizEvent_info.do")
+	public String bizEvent_info(Model model) throws Exception {
+		return "/bizEvent_info"; // bizEvent_info.jsp
+	}
+	
 	@RequestMapping(value = "/bizSignup.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String bizSignup(Model model, @RequestParam HashMap<String, Object> map) throws Exception {

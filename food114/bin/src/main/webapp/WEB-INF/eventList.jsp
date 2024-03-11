@@ -119,7 +119,6 @@
 		methods : {
 			fnList : function(str) {
 				var self = this;
-				console.log(self.endYn);
 				self.endYn = str;
 				if (self.endYn == "N") {
 					$("#ingEventLine").prop("hidden", false);

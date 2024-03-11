@@ -8,4 +8,10 @@
 		resultType="teamProject.food114.model.Category">
 		SELECT * FROM FOOD114_CATEGORY
 	</select>
+	<!-- 메뉴 정보 검색  -->
+	<select id="selectMenuList" parameterType="hashmap" resultType="teamProject.food114.model.Menu">
+		SELECT * 
+		FROM FOOD114_MENU 
+		WHERE BIZID = #{bizId}
+	</select>
 </mapper>

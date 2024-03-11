@@ -11,7 +11,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="../css/main.css">
 <link rel="stylesheet" href="../css/shopInfo.css">
-<title>가게정보 페이지</title>
+<title>가게이벤트</title>
 </head>
 <style>
 </style>
@@ -23,8 +23,11 @@
 	<div id="app">
 		<section>
 			<div id="menuContainer">
-
-				
+				<div id="eventBox">
+					<div class="eventInfo" >
+						<img src="../img/메가커피_이벤트.jpg">
+					</div>
+				</div>
 			</div>
 		</section>
 	</div>
@@ -37,7 +40,7 @@
 	var app = new Vue({
 		el : '#app',
 		data : {
-
+			selectTab : '${selectTab}', /* 선택한 탭 */
 		},
 		methods : {
 
