@@ -13,25 +13,8 @@
 <title>Document</title>
 </head>
 <body>
+			<%@include file="main(header)_biz.html" %>
 	<div id="app">
-		<header>
-			<div id="container" style="height: 50px;">
-				<div id="logo">
-					<img src="../img/logo.png" class="logo">
-				</div>
-				<div id="status">
-					<a class="buttonBox">로그인 </a> <a class="join"> 회원가입 </a> <a
-						class="join"> 사장님사이트 </a>
-				</div>
-			</div>
-			<!-- menuBar -->
-			<div id="menuBar">
-				<div id="container" class="menuBar">
-					<a class="menu">메뉴 </a> <a class="menu">지도로 찾기</a> <a class="menu">우리동네</a>
-					<a class="menu">이벤트</a> <a class="menu">고객지원</a>
-				</div>
-			</div>
-		</header>
 
 		<section>
 			<div id="container">
@@ -249,8 +232,7 @@ var app = new Vue({
         } 
     }   
     , created: function () {
-    	var self = this;    	
-    	self.list();
+    	var self = this;   
 	}
 });
 </script>

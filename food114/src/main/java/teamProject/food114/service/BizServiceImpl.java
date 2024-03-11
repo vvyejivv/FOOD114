@@ -51,7 +51,7 @@ public class BizServiceImpl implements BizService {
 					resultMap.put("pwd", "pwdSuccess");
 
 					// 세션 생성
-					session.setAttribute("bizId", biz.getBizId());
+					session.setAttribute("sessionId", biz.getBizId());
 
 				} else {
 					// 로그인 실패(패스워드가 다른 경우)

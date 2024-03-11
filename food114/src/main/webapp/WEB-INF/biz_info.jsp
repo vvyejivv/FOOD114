@@ -85,7 +85,7 @@ input {
 }
 </style>
 <body>
-	<%@include file="main(header).html"%>
+	<%@include file="main(header)_biz.html"%>
 	<!-- 광고창 -->
 	<!-- <div class="ad">
         광고창
