@@ -26,48 +26,69 @@
 					<table class="review">
 						<tr>
 							<th
-								style="width: 20px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+								style="width: 40px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
 								번호</th>
 							<th
-								style="width: 150px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
-								메뉴</th>	
+								style="width: 110px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+								메뉴</th>
 							<th
-								style="width: 300px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+								style="width: 50px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+								별점</th>		
+							<th
+								style="width: 180px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
 								리뷰 내용</th>
 							<th
 								style="width: 50px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
 								작성자</th>
 							<th
-								style="width: 100px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+								style="width: 60px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
 								작성일</th>
+							<th
+								style="width: 50px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+								답글</th>		
+							<th
+								style="width: 60px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+								관리</th>
 						</tr>
 						<tr>
 							<td>1</td>
 							<td>오아저씨세트</td>
+							<td style="color: #ffcc00;">★★★☆☆</td>
 							<td>리뷰 남겨요 존맛탱이네요.</td>
 							<td>아무개</td>
 							<td>2024.03.01</td>
+							<td><img width="23" height="20" src="https://img.icons8.com/sf-black-filled/64/ff7f00/x.png" alt="x"/></td>
+							<td><button class="review-detail">자세히</button></td>
 						</tr>
 						<tr>
 							<td>1</td>
 							<td>오아저씨세트</td>
+							<td style="color: #ffcc00;">★★★★★</td>
 							<td>리뷰 남겨요 존맛탱이네요.</td>
 							<td>아무개</td>
 							<td>2024.03.01</td>
+							<td><img width="23" height="20" src="https://img.icons8.com/sf-black-filled/64/ff7f00/x.png" alt="x"/></td>
+							<td><button class="review-detail">자세히</button></td>
 						</tr>
 						<tr>
 							<td>1</td>
 							<td>오아저씨세트</td>
+							<td style="color: #ffcc00;">★★★★☆</td>
 							<td>리뷰 남겨요 존맛탱이네요.</td>
 							<td>아무개</td>
 							<td>2024.03.01</td>
+							<td><img width="23" height="20" src="https://img.icons8.com/sf-black-filled/64/ff7f00/x.png" alt="x"/></td>
+							<td><button class="review-detail">자세히</button></td>
 						</tr>
 						<tr>
 							<td>1</td>
 							<td>오아저씨세트</td>
+							<td style="color: #ffcc00;">★★★☆☆</td>
 							<td>리뷰 남겨요 존맛탱이네요.</td>
 							<td>아무개</td>
 							<td>2024.03.01</td>
+							<td><img width="22" height="20" src="https://img.icons8.com/sf-black/64/ff7f00/circled.png" alt="circled"/></td>
+							<td><button class="review-detail">자세히</button></td>
 						</tr>
 					</table>
 				</div>

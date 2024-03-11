@@ -26,6 +26,8 @@ public class CustomerController {
 
 	@Autowired
 	HttpSession session;
+	
+
 
 	// 고객 메인 페이지
 	@RequestMapping("/food114.do")

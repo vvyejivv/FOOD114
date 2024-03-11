@@ -26,22 +26,22 @@ pageEncoding="UTF-8"%>
 					<template v-if="sessionId==null || sessionId==''">
 						<a class="buttonBox" href="consumer-login.do">로그인 </a>
 						<a class="join" href="consumer-join.do"> 회원가입 </a>
-						<a class="join" href="javascript:;"> 사장님사이트 </a>
+						<a class="join" href="order.do"> 주문하기 </a>
 					</template>
 					<template v-if="sessionId!=null && sessionId!=''">
 						<a class="join" href="javascript:;" @click="fnLogout"> 로그아웃 </a>
 						<a class="join" href="javascript:;"> 마이페이지 </a>
-						<a class="join" href="javascript:;"> 사장님사이트 </a>
+						<a class="join" href="order.do"> 주문하기 </a>
 					</template>
 				</div>
 			</div>
 			<!-- menuBar -->
 			<div id="menuBar">
 				<div id="container" class="menuBar">
-					<a class="menu">메뉴 </a>
-					<a class="menu">지도로 찾기</a>
-					<a class="menu">우리동네</a>
-					<a class="menu" href="event-web-list.do">이벤트</a>
+					<a class="menu" href="food114_foodfind.do">배달메뉴 </a>
+					<a class="menu" href="mapTest2.do">지도로 찾기</a>
+					<a class="menu" href="event-biz-list.do">우리동네</a>
+					<a class="menu" href="event-web-list.do" @click="fnClick('event-web-list.do','list')">이벤트</a>
 					<a class="menu">고객지원</a>
 				</div>
 			</div>
@@ -52,7 +52,7 @@ pageEncoding="UTF-8"%>
 
 </html>
 <script type="text/javascript">
-	var app = new Vue({
+	var header = new Vue({
 		el : '#header',
 		data : {
 			sessionId : "${sessionId}"
@@ -73,6 +73,12 @@ pageEncoding="UTF-8"%>
 	                	location.reload();
 	                }
 	            }); 
+			},
+			fnClick : function(link,str){
+				var self = this;
+				$.pageChange(link, {
+					type : str
+				});
 			}
 		},
 		created : function() {

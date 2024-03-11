@@ -8,8 +8,6 @@
 	<meta charset="UTF-8">
 	<title>첫번째 페이지</title>
 </head>
-<style>
-</style>
 <body>
 	<div id="app">
 	main

@@ -5,7 +5,8 @@
 <mapper namespace="teamProject.food114.mapper.CouponMapper">
 	<select id="couponCheck" parameterType="hashmap" resultType="teamProject.food114.model.Coupon">
 		SELECT * 
-		FROM FOOD114_COUPON 
+		FROM FOOD114_COUPON C
+		INNER JOIN FOOD114_COUPON_DETAIL D ON C.COUPONID = D.COUPONID
 		WHERE USERID = #{userId}
 	</select>
 </mapper>

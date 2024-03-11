@@ -51,6 +51,16 @@ public class BizController {
 	public String businessMain(Model model) throws Exception {
 		return "/business_main"; // business_main.jsp
 	}
+	//가게 정보
+	@RequestMapping("/shopInfo.do")
+	public String shopInfo(Model model) throws Exception {
+		return "/shopInfo"; 
+	}
+	//가게 이벤트
+	@RequestMapping("/shopEvent.do")
+	public String shopEvent(Model model) throws Exception {
+		return "/shopEvent";
+	}
 	
 //	@RequestMapping(value = "/bizSignup.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 //	@ResponseBody
@@ -88,10 +98,25 @@ public class BizController {
 	public String bizView(Model model) throws Exception {
 		return "/bizView"; // bizView.jsp
 	}
+	@RequestMapping("/biz-menu-update.do")
+	public String bizMenuUpdate(Model model) throws Exception {
+		return "/biz_menu_update"; // biz_menu_update.jsp
+	}
+	
+	@RequestMapping("/biz-menu-insert.do")
+	public String bizMenuInsert(Model model) throws Exception {
+		return "/biz_menu_insert"; // biz_menu_insert.jsp
+
+	}
 	
 	@RequestMapping("/bizReview.do")
 	public String bizReview(Model model) throws Exception {
 		return "/bizReview"; // bizReview.jsp
+	}
+	
+	@RequestMapping("/bizReview_info.do")
+	public String bizReview_info(Model model) throws Exception {
+		return "/bizReview_info"; // bizReview_info.jsp
 	}
 	
 	@RequestMapping("/bizOrder.do")
@@ -157,6 +182,14 @@ public class BizController {
 	public String dongList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap = bizService.searchDongList(map);
+		return new Gson().toJson(resultMap);
+	}
+	//가게정보
+	@RequestMapping(value = "/shopInfo.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String shopInfo(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = bizService.searchShopInfo(map);
 		return new Gson().toJson(resultMap);
 	}
 }

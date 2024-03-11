@@ -14,6 +14,7 @@
 		<%@include file="main(header).html"%>
 	</header>
 	<section>
+	
 		<%@include file="sideBar_biz.html"%>
 		<div id="app">
 			<div class="mold">
@@ -80,6 +81,7 @@
 				</div>
 			</div>
 		</div>
+		
 	</section>
 
 	<%@include file="main(footer).html"%>
