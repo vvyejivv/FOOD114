@@ -15,7 +15,7 @@
 
 <body>
 	<header>
-		<%@include file="main(header).html"%>
+		<%@include file="main(header)_biz.html"%>
 	</header>
 	<!-- 광고창 -->
 	<!-- <div class="ad">

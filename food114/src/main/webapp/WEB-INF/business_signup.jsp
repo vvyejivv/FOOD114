@@ -19,7 +19,7 @@
 </head>
 
 <body>
-		<%@include file="main(header).html"%>
+		<%@include file="main(header)_biz.html"%>
 	<!-- 주문하기(영수증창) -->
 	<!-- <div class="receipt" style="border-radius: 10px;">
         영수증
