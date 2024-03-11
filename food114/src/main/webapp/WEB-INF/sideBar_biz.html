@@ -15,26 +15,26 @@ pageEncoding="UTF-8"%>
 
 <body>
 	<div id="menu_list">
-		<div class="selectList">
+		<div class="selectList" onclick="fnMenuInsert()">
 			<img src="../img/icons8-store.png">상품등록<a href="javascript:;">❯</a>
 		</div>
-		<div class="selectList">
+		<div class="selectList" onclick="fnMenuUpdate()">
 			<img src="../img/icons8-update.png">상품조회/수정<a
 				href="javascript:;">❯</a>
 		</div>
-		<div class="selectList">
+		<div class="selectList" onclick="fnSearchOrder()">
 			<img src="../img/icons8-order.png">주문/배송<a href="javascript:;">❯</a>
 		</div>
-		<div class="selectList">
+		<div class="selectList" onclick="fnSearchReview()">
 			<img src="../img/icons8-review.png">리뷰관리<a href="javascript:;">❯</a>
 		</div>
-		<div class="selectList">
+		<div class="selectList" onclick="fnSearchEvent()">
 			<img src="../img/icons8-event.png">이벤트 관리<a href="javascript:;">❯</a>
 		</div>
-		<div class="selectList">
+		<div class="selectList" onclick="fnSalesData()">
 			<img src="../img/icons8-chart.png">판매 통계<a href="javascript:;">❯</a>
 		</div>
-		<div class="selectList">
+		<div class="selectList" onclick="fnStoreInfo()">
 			<img src="../img/icons8-profile.png">판매자정보<a
 				href="javascript:;">❯</a>
 		</div>
@@ -48,6 +48,29 @@ pageEncoding="UTF-8"%>
 			</div>
 		</div>
 	</div>
+	<script>
+		function fnMenuInsert() {
+			location.assign("/biz-menu-insert.do");
+		}
+		function fnMenuUpdate() {
+			location.assign("/biz-menu-update.do");
+		}
+		function fnSearchOrder() {
+			location.assign("/bizOrder.do");
+		}
+		function fnSearchReview() {
+			location.assign("/bizReview.do");
+		}
+		function fnSearchEvent() {
+			location.assign("/bizEvent.do");
+		}
+		function fnSalesData() {
+			location.assign("/biz-sales.do");
+		}
+		function fnStoreInfo() {
+			location.assign("/biz-info.do");
+		}
+	</script>
 </body>
 
 </html>
