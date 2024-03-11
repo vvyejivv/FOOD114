@@ -77,13 +77,13 @@ section {
 	border-radius: 5px;
 }
 
-a{
-text-decoration: none;
-color: rgb(72,72,72);
+a {
+	text-decoration: none;
+	color: rgb(72, 72, 72);
 }
 
-.sortText > a:hover{
-font-weight: 500;
+.sortText>a:hover {
+	font-weight: 500;
 }
 </style>
 
@@ -107,7 +107,7 @@ font-weight: 500;
 							<option value="">선택</option>
 							<option v-for="item in guList" :value="item.gu">{{item.gu}}</option>
 						</select>
-						<select v-model="selectDong">
+						<select v-model="selectDong" @change="fnBizList()">
 							<option value="">선택</option>
 							<option v-for="item in dongList" :value="item.dong">{{item.dong}}</option>
 						</select>
@@ -121,13 +121,14 @@ font-weight: 500;
 					<span>|</span>현재 이벤트 중인 가게
 				</div>
 				<div class="sortText">
-					<a href="javascript:;" style="margin-right: 10px;">최근등록순</a><a href="javascript:;">리뷰높은순</a>
+					<a href="javascript:;" style="margin-right: 10px;">최근등록순</a><a
+						href="javascript:;">리뷰높은순</a>
 				</div>
-				
+
 				<!-- 이벤트 중인 가게 리스트 -->
 				<div class="ingEventBizContainer">
-					<!-- 가게 목록 1 -->
-					<div class="EventBizBox">
+					<!-- 가게 박스 -->
+					<div class="EventBizBox" v-for="item in bizList" v-if="selectDong!=''">
 						<div style="overflow: hidden; margin: 10px; cursor: pointer;">
 							<!-- 가게 이미지 -->
 							<div
@@ -136,23 +137,18 @@ font-weight: 500;
 							<!-- 가게 설명 -->
 							<div
 								style="float: left; width: 230px; height: 80px; font-size: 14px; margin-left: 10px;">
-								<div>가게이름</div>
-								<div style="color: orange">★ 4.5</div>
-								<div>매일</div>
-								<div>20시~22시</div>
+								<div>{{item.bizName}}</div>
+								<div style="color: orange">★ 4.5(쿼리 작성 x)</div>
+								<div>{{item.beginTime2}} ~ {{item.endTime2}}</div>
+								<div>{{item.setBeginTime}}시 ~ {{item.setEndTime}}시</div>
 							</div>
 						</div>
 						<div
 							style="width: 330px; margin: 10px; height: 40px; overflow: hidden; text-overflow: ellipsis; font-size: 13px; word-break: break-all; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical">소주
-							한병공짜ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaㅁㅁaaaaaaaaaaaaa공짜
-						</div>
+							{{item.contents}}</div>
 					</div>
-					<div
-						style="border: 1px solid #ccc; width: 350px; height: 150px; border-radius: 5px;"></div>
-					<div
-						style="border: 1px solid #ccc; width: 350px; height: 150px; border-radius: 5px;"></div>
-					<div
-						style="border: 1px solid #ccc; width: 350px; height: 150px; border-radius: 5px;"></div>
+					<div style="font-weight: bold;" v-html="bizListMsg"></div>
+
 				</div>
 			</div>
 		</div>
@@ -171,10 +167,13 @@ font-weight: 500;
 			dongList : [],
 			selectSi : "",
 			selectGu : "",
-			selectDong : ""
+			selectDong : "",
+			bizList : [],
+			bizListMsg : "<div style='height:200px'>지역을 설정해주세요.</div>"
 
 		},
 		methods : {
+			/* select 시 불러오기 */
 			fnSiList : function() {
 				var self = this;
 				var nparmap = {
@@ -187,9 +186,11 @@ font-weight: 500;
 					data : nparmap,
 					success : function(data) {
 						self.siList = data.siList;
+						
 					}
 				});
 			},
+			/* select 구 불러오기 */
 			fnGuList : function() {
 				var self = this;
 				self.selectGu = "";
@@ -208,6 +209,7 @@ font-weight: 500;
 					}
 				});
 			},
+			/* select 동 불러오기 */
 			fnDongList : function() {
 				var self = this;
 				self.selectDong = "";
@@ -222,7 +224,31 @@ font-weight: 500;
 					data : nparmap,
 					success : function(data) {
 						self.dongList = data.dongList;
-						console.log(data.dongList);
+
+					}
+				});
+			},
+			/* 가게 목록 불러오기 */
+			fnBizList : function() {
+				var self = this;
+				var nparmap = {
+					selectSi : self.selectSi,
+					selectGu : self.selectGu,
+					selectDong : self.selectDong
+				};
+				$.ajax({
+					url : "eventBizList.dox",
+					dataType : "json",
+					type : "POST",
+					data : nparmap,
+					success : function(data) {
+						self.bizList = data.list;
+						console.log(data.list.length);
+						if(data.list.length==0){
+							self.bizListMsg="<div style='height:200px'>선택하신 지역에 현재 이벤트 중인 매장이 없습니다.</div>";
+						} else{
+							self.bizListMsg="";
+						}
 					}
 				});
 			}
