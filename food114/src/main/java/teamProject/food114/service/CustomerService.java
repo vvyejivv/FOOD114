@@ -14,4 +14,8 @@ public interface CustomerService {
 	// 로그인 아이디 확인
 	HashMap<String, Object> searchLoginUserId(HashMap<String, Object> map);
 	
+	// 마이페이지 내정보 불러오기
+	HashMap<String, Object> searchMyInfo(HashMap<String, Object> map);
+	
+	
 }

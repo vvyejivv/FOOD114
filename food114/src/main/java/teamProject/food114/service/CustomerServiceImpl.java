@@ -106,4 +106,24 @@ public class CustomerServiceImpl implements CustomerService {
 		}
 		return resultMap;
 	}
+
+	// 마이페이지 내정보 불러오기 : 수정중
+	@Override
+	public HashMap<String, Object> searchMyInfo(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> resultMap = new HashMap<>();
+		try {
+			Customer customer = customerMapper.selectEmail(map);
+			if (customer == null) {
+				resultMap.put("result", "success");
+			} else {				
+				resultMap.put("result", "dup");
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			resultMap.put("result", "error");
+			System.out.println(e.getMessage());
+		}
+		return resultMap;
+	}
 }
