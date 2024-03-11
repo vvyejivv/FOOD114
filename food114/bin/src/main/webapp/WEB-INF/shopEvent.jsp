@@ -41,9 +41,22 @@
 		el : '#app',
 		data : {
 			selectTab : '${selectTab}', /* 선택한 탭 */
+			bizId : '${bizId}', /* 가게정보 - 아이디  */
 		},
 		methods : {
+			fnView : function() {
+				var self = this;
+				var nparmap = {};
+				$.ajax({
+					url : "reviewList.dox",
+					dataType : "json",
+					type : "POST",
+					data : nparmap,
+					success : function(data) {
 
+					}
+				});
+			},
 		},
 		created : function() {
 			var self = this;

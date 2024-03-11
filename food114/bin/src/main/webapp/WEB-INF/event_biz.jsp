@@ -128,7 +128,7 @@ a {
 				<!-- 이벤트 중인 가게 리스트 -->
 				<div class="ingEventBizContainer">
 					<!-- 가게 박스 -->
-					<div class="EventBizBox" v-for="item in bizList" v-if="selectDong!=''">
+					<div class="EventBizBox" v-for="item in bizList" v-if="selectDong!=''" @click="fnShopInfo(item.bizId)">
 						<div style="overflow: hidden; margin: 10px; cursor: pointer;">
 							<!-- 가게 이미지 -->
 							<div
@@ -250,6 +250,13 @@ a {
 							self.bizListMsg="";
 						}
 					}
+				});
+			},
+			fnShopInfo : function(bizId) {
+				var self = this;
+				$.pageChange("shopInfo.do", {
+					bizId : bizId,
+					selectTab : "menu"
 				});
 			}
 		},

@@ -15,7 +15,7 @@
 
 <body>
 	<header>
-		<%@include file="main(header).html"%>
+		<%@include file="main(header)_biz.html"%>
 	</header>
 	<!-- 광고창 -->
 	<!-- <div class="ad">
@@ -94,7 +94,7 @@
 					data : nparmap,
 					success : function(data) {
 						if (data.pwd == "pwdSuccess") {
-							location.href="/main.do";							
+							location.href="/business-main.do";							
 						}else{
 							self.errormsg = data.message;						
 						}

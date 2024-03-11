@@ -91,12 +91,12 @@ input {
 							placeholder="주소를 입력하세요.">
 						<div
 							style="background-color: green; color: white; display: inline-block; width: 30px; height: 30px; font-size: 20px; border-radius: 50%; text-align: center; cursor: pointer;"
-							@click="fnAddrtrue" >ㅁ</div>
+							@click="fnAddrfalse">ㅁ</div>
 
 						<!-- 주소창 더보기 클릭시 display none상태-->
 						<template v-if="showAddr">
 							<div
-								style="width: 600px; margin: 0px auto; border: 1px solid #ff7f00; position: absolute;box-sizing: border-box; left: -2px; border-top: none; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; overflow: hidden; left:-1px;  padding-top:10px; top: 40px; ">
+								style="width: 600px; margin: 0px auto; border: 1px solid #ff7f00; position: absolute; box-sizing: border-box; left: -2px; border-top: none; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; overflow: hidden; left: -1px; padding-top: 10px; top: 40px;">
 								<!-- 등록된 주소창 v-for 사용할것 -->
 								<div
 									style="background-color: white; padding: 0px 10px; margin-top: 2px;">
@@ -144,7 +144,8 @@ input {
 
 						<!-- 가게 1개 -->
 						<div
-							style="border-radius: 4px; width: 460px; height: 100px; border: 1px solid #ccc; margin-bottom: 10px; display: flex; align-items: center; cursor: pointer;">
+							style="border-radius: 4px; width: 460px; height: 100px; border: 1px solid #ccc; margin-bottom: 10px; display: flex; align-items: center; cursor: pointer;"
+							@click="fnBizView()">
 							<!-- 가게 로고 -->
 							<div
 								style="width: 90px; height: 90px; border: 1px solid #ccc; margin-left: 4px;">img</div>
@@ -206,24 +207,19 @@ input {
 			},
 			fnAddrfalse : function() {
 				var self = this;
-				self.showAddr=false;
-				return;
-				if(self.showAddr==false){
-				self.showAddr=true;
-				} else{
-					self.showAddr=false;
-				}
+				self.showAddr = !self.showAddr;
+				
 			},
 			fnAddrtrue : function() {
 				var self = this;
-				self.showAddr=true;				
+				self.showAddr = true;
 			}
-
 
 		},
 		created : function() {
 			var self = this;
 			self.fnCategoryList();
+
 		}
 	});
 </script>

@@ -219,4 +219,12 @@ public class BizController {
 		resultMap = bizService.searchShopInfo(map);
 		return new Gson().toJson(resultMap);
 	}
+	//리뷰 정보
+	@RequestMapping(value = "/reviewList.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String reviewList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = bizService.searchReviewList(map);
+		return new Gson().toJson(resultMap);
+	}
 }

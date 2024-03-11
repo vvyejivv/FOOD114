@@ -16,25 +16,19 @@
 </head>
 <style>
 table {
-	margin-top: 30px;
-	width: 1100px;
+	border-left: none;
+	border-right: none;
+	width: 1000px;
+	border-top: 1px solid #c0c0c0;
 	border-collapse: collapse;
-	border-radius: 8px;
-	overflow: hidden;
 }
 
-th, td {
-	border: 1px solid #ddd;
-	padding: 8px;
+table th, td {
+	border-right: none;
+	border-bottom: 1px solid #e4e3e3;
+	padding: 15px 25px;
+	color: (72, 72, 72);
 	text-align: center;
-}
-
-th {
-	background-color: #f2f2f2;
-}
-
-tr:hover {
-	background-color: #ddd;
 }
 
 .btn-modify {
@@ -84,25 +78,38 @@ tr:hover {
 						:series="series"></apexchart>
 				</div>
 				<div class="thin"></div>
-				<strong>검색된 상품 </strong><small> 총 10건</small>
-				<table>
-					<tr>
-						<th>카테고리</th>
-						<th>등록상품ID</th>
-						<th>등록 상품명</th>
-						<th>판매상태</th>
-						<th>판매가</th>
-						<th>수정</th>
-					</tr>
-					<tr v-for="item in 10">
-						<td>1</td>
-						<td>123123123</td>
-						<td>철판볶음밥</td>
-						<td>판매중</td>
-						<td>10,000</td>
-						<td><button class="btn-modify">수정</button></td>
-					</tr>
-				</table>
+				<h2>
+					<span style="color: #ff7f00; font-weight: bold;">| </span><span
+						style="text-align: left; color: rgba(72, 72, 72);">판매이력&nbsp;</span>
+				</h2><small> 총 10건</small>
+				<div>
+					<table class="order">
+						<tr>
+							<th
+								style="width: 30px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+								번호</th>
+							<th
+								style="width: 150px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+								메뉴</th>
+							<th
+								style="width: 80px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+								주문 금액</th>	
+							<th
+								style="width: 50px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+								주문자</th>
+							<th
+								style="width: 100px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+								주문일</th>
+						</tr>
+						<tr v-for="(item,index) in 10">
+							<td>{{index+1}}</td>
+							<td>오아저씨세트</td>
+							<td>10,000원</td>
+							<td>아무개</td>
+							<td>2024.03.01</td>
+						</tr>
+					</table>
+				</div>
 			</div>
 		</div>
 	</section>

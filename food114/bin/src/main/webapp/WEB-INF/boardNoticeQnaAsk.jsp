@@ -68,7 +68,7 @@
 									style="width: 5px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
 									작성일</th>
 							</tr>
-							<!-- <tr v-for="(item, index) in paginatedList" :key="index">
+							<tr v-for="(item, index) in paginatedList" :key="index">
 								<td style="text-align: center;">{{item.boardNo}}</td>
 								<td>
 									<a href="javascript:;" style="font-size: 15px;" @click="toggleDetails(item)">{{item.title}}</a>
@@ -76,17 +76,17 @@
 								</td>
 								<td style="text-align: center; font-size: 14px;">{{item.userId}}</td>
 								<td style="text-align: center; font-size: 15px; color: #a3a2a2;">{{formatDate(item.cdateTime)}}</td>
-							</tr> -->
+							</tr>
 							
-							<tr v-for="(item, index) in paginatedList" :key="index">
-								<td style="text-align: center;"></td>
+							<!-- <tr v-for="(item, index) in paginatedList" :key="index"> -->
+						<!-- 		<td style="text-align: center;"></td>
 								<td>
 									<a href="javascript:;" style="font-size: 15px;" @click="toggleDetails(item)">{{item.title}}</a>
       								<div v-if="item.showDetails">{{item.contents}}</div>
 								</td>
 								<td style="text-align: center; font-size: 14px;"></td>
 								<td style="text-align: center; font-size: 15px; color: #a3a2a2;"></td>
-							</tr>
+							</tr> -->
 							
 						</table>
 						<br>

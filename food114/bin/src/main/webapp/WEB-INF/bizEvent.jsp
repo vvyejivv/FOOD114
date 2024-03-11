@@ -17,29 +17,65 @@
 		<%@include file="sideBar_biz.html"%>
 		<div id="app">
 			<div class="mold">
-				<h2 style="margin-bottom: 15px;">
+				<h2>
 					<span style="color: #ff7f00; font-weight: bold;">| </span><span
-						style="text-align: left; color: rgba(72, 72, 72);"> 이벤트
-						등록/관리&nbsp;</span> <span style="font-size: 18px;">여기서 한번에 관리 하세요!</span>
+						style="text-align: left; color: rgba(72, 72, 72);">이벤트&nbsp;</span>
+					<span style="font-size: 18px;">여기서 한번에 관리 하세요!</span>
 				</h2>
-				<div class="event_top">
-					<div class="topDiv">
-						이벤트 등록<small><small style="color: #ff7f00;"> ＊ </small></small><small><small
-							style="color: #0066cc;"> 예시</small></small>
-					</div>
-					<input type="text" class="event_input"
-						placeholder="＊우리동네 이벤트/금요일 사이드메뉴 테이블당 서비스!">
-					<div class="eventInfo">이벤트와 관련 없는 내용은 관리자에 의해 삭제될 수 있습니다.</div>
-				</div>
-				<div class="event_mid">
-					
-				</div>
-				<div class="event_bottom">
-					
-				</div>
-				<div class="event_jungle">
-					
-				</div>
+				<table class="event">
+					<tr>
+						<th
+							style="width: 40px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+							번호</th>
+						<th
+							style="width: 110px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+							이벤트 종류</th>
+						<th
+							style="width: 180px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+							이벤트 내용</th>
+						<th
+							style="width: 60px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+							이벤트 상태</th>	
+						<th
+							style="width: 60px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+							작성일</th>
+						<th
+							style="width: 60px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+							관리</th>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td>우리동네</td>
+						<td>우리동네 첫 오픈 이벤트!</td>
+						<td>종료</td>
+						<td>2024.03.01</td>
+						<td><button class="event-detail">자세히</button></td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>리뷰 이벤트</td>
+						<td>리뷰 작성 약속시 서비스!</td>
+						<td>종료</td>
+						<td>2024.03.01</td>
+						<td><button class="event-detail">자세히</button></td>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td>우리동네</td>
+						<td>우리동네 돌발 이벤트!</td>
+						<td>진행중</td>
+						<td>2024.03.01</td>
+						<td><button class="event-detail">자세히</button></td>
+					</tr>
+					<tr>
+						<td>4</td>
+						<td>리뷰 이벤트</td>
+						<td>찜, 리뷰, 사진 작성시 서비스!</td>
+						<td>상시 이벤트</td>
+						<td>2024.03.01</td>
+						<td><button class="event-detail">자세히</button></td>
+					</tr>
+				</table>
 			</div>
 		</div>
 	</section>
