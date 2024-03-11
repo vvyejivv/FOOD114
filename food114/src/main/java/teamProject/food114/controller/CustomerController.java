@@ -27,7 +27,20 @@ public class CustomerController {
 	@Autowired
 	HttpSession session;
 	
-
+	// 마이페이지 - 나의정보 - 메인화면 myPage_myInfo(main)
+	@RequestMapping("/food114-myPage.do")
+	public String myPage(Model model) throws Exception { 
+		return "/myPage_myInfo(main)";
+	}
+	
+	// 마이페이지-내정보 불러오기 <-userId
+	@RequestMapping(value = "/myInfo.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String myInfo(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		
+		return new Gson().toJson(resultMap);
+	}
 
 	// 고객 메인 페이지
 	@RequestMapping("/food114.do")
