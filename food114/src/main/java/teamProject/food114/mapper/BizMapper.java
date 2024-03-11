@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import teamProject.food114.model.Area;
 import teamProject.food114.model.Biz;
+import teamProject.food114.model.Menu;
 
 @Mapper
 public interface BizMapper {

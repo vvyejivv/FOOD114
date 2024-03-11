@@ -31,6 +31,7 @@ public class MenuServiceImpl implements MenuService {
 		HashMap<String,Object> resultMap = new HashMap<>();
 		try {
 			resultMap.put("menuList", menuMapper.selectMenuList(map));
+			resultMap.put("menuCnt", menuMapper.selectMenuCount(map));
 			resultMap.put("result", "success");
 		} catch (Exception e) {
 			// TODO: handle exception

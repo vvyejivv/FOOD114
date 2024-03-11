@@ -10,6 +10,12 @@ public class Menu {
 	private String menuInfo;
 	private String status;
 	private String menuFile;
+	private int cnt;
+	private String sta;
+	private String end;
+	private String ing;
+	private String soldOut;
+	
 	public int getMenuNo() {
 		return menuNo;
 	}
@@ -63,5 +69,35 @@ public class Menu {
 	}
 	public void setMenuFile(String menuFile) {
 		this.menuFile = menuFile;
+	}
+	public int getCnt() {
+		return cnt;
+	}
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
+	}
+	public String getEnd() {
+		return end;
+	}
+	public void setEnd(String end) {
+		this.end = end;
+	}
+	public String getIng() {
+		return ing;
+	}
+	public void setIng(String ing) {
+		this.ing = ing;
+	}
+	public String getSoldOut() {
+		return soldOut;
+	}
+	public void setSoldOut(String soldOut) {
+		this.soldOut = soldOut;
+	}
+	public String getSta() {
+		return sta;
+	}
+	public void setSta(String sta) {
+		this.sta = sta;
 	}
 }

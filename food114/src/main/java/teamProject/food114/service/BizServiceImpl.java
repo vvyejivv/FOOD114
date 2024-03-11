@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import teamProject.food114.mapper.BizMapper;
 import teamProject.food114.model.Area;
 import teamProject.food114.model.Biz;
+import teamProject.food114.model.Menu;
 
 @Service
 public class BizServiceImpl implements BizService {

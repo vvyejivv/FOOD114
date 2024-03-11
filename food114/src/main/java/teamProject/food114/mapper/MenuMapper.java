@@ -14,4 +14,5 @@ public interface MenuMapper {
 	List<Category> selectCategory(HashMap<String, Object> map);
 	//메뉴 검색
 	List<Menu> selectMenuList(HashMap<String, Object>map);
+	Menu selectMenuCount(HashMap<String, Object>map);
 }
