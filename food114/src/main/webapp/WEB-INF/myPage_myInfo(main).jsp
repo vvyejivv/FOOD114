@@ -11,6 +11,38 @@
 <title>MAIN</title>
 <style>
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+   /* 모달 스타일링 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fefefe;
+            padding: 20px;
+            border: 1px solid #888;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            margin-bottom: 10px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            margin-top: -5px;
+            margin-left: 2px;
+            font-size: 23px;
+            font-weight: bold;
+        }
+
+        .close:hover, .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
 </style>
 </head>
 <link rel="stylesheet" href="../css/myPage_myInfo(main).css">
@@ -68,46 +100,61 @@
 						<div class="table">
 							<div class="row">
 								<div class="cell1">아이디</div>
-								<div class="cell2">test123</div>
+								<div class="cell2">{{info.userId}}</div>
 							</div>
 							<div class="row">
 								<div class="cell1">이름</div>
 								<div class="cell2">
-									{{}}
-									<button class="buttonBox3">이름 변경</button>
+									<span id="name">{{info.name}}</span>
+									<button @click="openModal">이름 변경</button>
 								</div>
 							</div>
+							<!-- 모달 창 -->
+							<div id="myModal" class="modal">
+							    <div class="modal-content">
+							        <span class="close" @click="closeModal()">&times;</span>
+							        <input type="text" id="newNameInput" placeholder="새로운 이름을 입력하세요">
+							        <div><button @click="saveName()">저장</button>
+							        <button @click="closeModal()">취소</button></div>
+							    </div>
+							</div>
+							
+							<!-- <div id="popup" style="display: none;">
+							    <input type="text" id="newNameInput" placeholder="새로운 이름을 입력하세요">
+							    <button @click="changeName()">저장</button>
+							    <button @click="hidePopup()">취소</button>
+							</div> -->
 							<div class="row">
 								<div class="cell1">별명</div>
 								<div class="cell2">
-									홍사장
-									<button class="buttonBox3">별명 변경</button>
+									{{info.nickName}}
+									<button>별명 변경</button>
 								</div>
 							</div>
 							<div class="row">
 								<div class="cell1">생일</div>
 								<div class="cell2">
-									2000.01.01
+									{{info.birth}}
 									</button>
 								</div>
 							</div>
 							<div class="row">
 								<div class="cell1">휴대폰번호</div>
 								<div class="cell2">
-									010-1111-2222
-									<button class="buttonBox3">연락처 변경</button>
+									{{info.phone}}
+									<button>연락처 변경</button>
 								</div>
 							</div>
 							<div class="row">
 								<div class="cell1">이메일</div>
 								<div class="cell2">
-									test@naver.com
-									<button class="buttonBox3">이메일 변경</button>
+									{{info.email}}
+									<button>이메일 변경</button>
 								</div>
 							</div>
 							<div class="row">
 								<div class="cell1">회원가입일자</div>
-								<div class="cell2">2024.01.01</div>
+								<div class="cell2">{{info.cdate}}</div>
 							</div>
 							<div class="row">
 								<div
@@ -135,21 +182,10 @@
 				list : [],
 				info : {},
 				sessionId : "${sessionId}",
-				userInfo : {
-					userId : "",
-					name : "",
-					nickName : "",
-					birth : "",
-					phone : "",
-					email : "",
-					sysdate : ""
-				}
 			},
 			methods : {
 				fnList : function() {
 					var self = this;
-					console.log(self.sessionId);
-					return;
 					var nparmap = {
 						userId : self.sessionId
 					};
@@ -160,12 +196,33 @@
 						data : nparmap,
 						success : function(data) {
 							self.info = data.info;
+							console.log(data.info);
 
 						}
 
 					});
-				}
-
+				},
+				// 모달 창
+				openModal : function(){
+					 	var modal = document.getElementById('myModal');
+				        modal.style.display = 'block';
+		        },
+		        closeModal : function(){
+		        	 var modal = document.getElementById('myModal');
+		             modal.style.display = 'none';
+	        },
+	        saveName : function(){
+	        	  var newNameInput = document.getElementById('newNameInput').value;
+	              if (newNameInput !== "") {
+	                  document.getElementById('name').textContent = newNameInput;
+	                  closeModal();
+	              } else {
+	                  alert("이름을 입력하세요.");
+	              }
+        },
+				changeName : function(){
+					location.href="/boardNoticeList.do";
+		        }	
 			},
 			created : function() {
 				var self = this;

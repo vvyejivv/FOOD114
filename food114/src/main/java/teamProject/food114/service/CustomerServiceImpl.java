@@ -113,12 +113,9 @@ public class CustomerServiceImpl implements CustomerService {
 		// TODO Auto-generated method stub
 		HashMap<String, Object> resultMap = new HashMap<>();
 		try {
-			Customer customer = customerMapper.selectEmail(map);
-			if (customer == null) {
-				resultMap.put("result", "success");
-			} else {				
-				resultMap.put("result", "dup");
-			}
+			Customer customer = customerMapper.selectUserID(map);
+			resultMap.put("result", "success");			
+			resultMap.put("info", customer);			
 		} catch (Exception e) {
 			// TODO: handle exception
 			resultMap.put("result", "error");
