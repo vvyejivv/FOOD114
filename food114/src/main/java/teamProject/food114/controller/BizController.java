@@ -1,8 +1,11 @@
 package teamProject.food114.controller;
 
+import java.io.File;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
@@ -30,7 +34,7 @@ public class BizController {
 	public String businessSignup(Model model) throws Exception {
 		return "/business_signup"; // business_signup.jsp
 	}
-	
+
 	@RequestMapping("/orderTest.do")
 	public String orderTest(Model model) throws Exception {
 		return "/orderTest"; // orderTest.jsp
@@ -40,41 +44,47 @@ public class BizController {
 	public String mapSearch(Model model) throws Exception {
 		return "/mapSearch"; // mapSearch.jsp
 	}
-	
-	//사업자 로그인
+
+	// 사업자 로그인
 	@RequestMapping("/bizLogin.do")
 	public String bizLogin(Model model) throws Exception {
-		return "/bizLogin"; 
+		return "/bizLogin";
 	}
-	
-	//사업자 메인
+
+	// 사업자 메인
 	@RequestMapping("/business-main.do")
 	public String businessMain(Model model) throws Exception {
 		return "/business_main"; // business_main.jsp
 	}
-	//가게 정보
+
+	// 가게 정보
 	@RequestMapping("/shopInfo.do")
-	public String shopInfo(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+	public String shopInfo(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
+			throws Exception {
 		request.setAttribute("map", map);
-		return "/shopInfo"; 
+		return "/shopInfo";
 	}
-	//가게 이벤트
+
+	// 가게 이벤트
 	@RequestMapping("/shopEvent.do")
-	public String shopEvent(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+	public String shopEvent(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
+			throws Exception {
 		request.setAttribute("map", map);
-		return "/shopEvent"; 
+		return "/shopEvent";
 	}
+
 	public String shopEvent(Model model) throws Exception {
 		return "/shopEvent";
 	}
-	//가게 리뷰
+
+	// 가게 리뷰
 	@RequestMapping("/shopReview.do")
-	public String shopReview(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+	public String shopReview(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
+			throws Exception {
 		request.setAttribute("map", map);
-		return "/shopReview"; 
+		return "/shopReview";
 	}
-	
-	
+
 //	@RequestMapping(value = "/bizSignup.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 //	@ResponseBody
 //	public String bizSignup(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
@@ -82,7 +92,7 @@ public class BizController {
 //		resultMap = bizService.addBiz(map);
 //		return new Gson().toJson(resultMap);
 //	}
-	//사업자 로그인 
+	// 사업자 로그인
 	@RequestMapping(value = "/biz-login.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String consumerLogin(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
@@ -90,7 +100,6 @@ public class BizController {
 		resultMap = bizService.searchLoginBizId(map);
 		return new Gson().toJson(resultMap);
 	}
-	
 
 	@RequestMapping("/mapTest.do")
 	public String mapTest(Model model) throws Exception {
@@ -101,56 +110,63 @@ public class BizController {
 	public String mapTest2(Model model) throws Exception {
 		return "/mapTest2"; // mapTest2.jsp
 	}
-	
+
 	@RequestMapping("/mapTest3.do")
 	public String mapTest3(Model model) throws Exception {
 		return "/mapTest3"; // mapTest3.jsp
 	}
-	
+
 	@RequestMapping("/bizView.do")
 	public String bizView(Model model) throws Exception {
 		return "/bizView"; // bizView.jsp
 	}
+
 	@RequestMapping("/biz-menu-update.do")
 	public String bizMenuUpdate(Model model) throws Exception {
 		return "/biz_menu_update"; // biz_menu_update.jsp
 	}
-	
+
 	@RequestMapping("/biz-menu-insert.do")
 	public String bizMenuInsert(Model model) throws Exception {
 		return "/biz_menu_insert"; // biz_menu_insert.jsp
 	}
 	
+	@RequestMapping("/biz-menu-update-view.do")
+	public String bizMenuUpdateView(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		request.setAttribute("map", map);
+		return "/biz_menu_update_view"; // biz_menu_update_view.jsp
+	}
+
 	@RequestMapping("/biz-info.do")
 	public String bizInfo(Model model) throws Exception {
 		return "/biz_info"; // biz_info.jsp
 	}
-	
+
 	@RequestMapping("/biz-sales.do")
 	public String bizSales(Model model) throws Exception {
 		return "/biz_sales_data"; // biz_sales_data.jsp
 	}
-	
+
 	@RequestMapping("/bizReview.do")
 	public String bizReview(Model model) throws Exception {
 		return "/bizReview"; // bizReview.jsp
 	}
-	
+
 	@RequestMapping("/bizReview_info.do")
 	public String bizReview_info(Model model) throws Exception {
 		return "/bizReview_info"; // bizReview_info.jsp
 	}
-	
+
 	@RequestMapping("/bizOrder.do")
 	public String bizOrder(Model model) throws Exception {
 		return "/bizOrder"; // bizOrder.jsp
 	}
-	
+
 	@RequestMapping("/bizEvent.do")
 	public String bizEvent(Model model) throws Exception {
 		return "/bizEvent"; // bizEvent.jsp
 	}
-	
+
 	@RequestMapping(value = "/bizSignup.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String bizSignup(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
@@ -182,7 +198,7 @@ public class BizController {
 		resultMap = bizService.searchBizList(map);
 		return new Gson().toJson(resultMap);
 	}
-	
+
 	@RequestMapping(value = "/siList.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String siList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
@@ -190,7 +206,7 @@ public class BizController {
 		resultMap = bizService.searchSiList(map);
 		return new Gson().toJson(resultMap);
 	}
-	
+
 	@RequestMapping(value = "/guList.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String guList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
@@ -198,7 +214,7 @@ public class BizController {
 		resultMap = bizService.searchGuList(map);
 		return new Gson().toJson(resultMap);
 	}
-	
+
 	@RequestMapping(value = "/dongList.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String dongList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
@@ -206,12 +222,86 @@ public class BizController {
 		resultMap = bizService.searchDongList(map);
 		return new Gson().toJson(resultMap);
 	}
-	//가게정보
+
+	// 가게정보
 	@RequestMapping(value = "/shopInfo.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String shopInfo(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap = bizService.searchShopInfo(map);
 		return new Gson().toJson(resultMap);
+	}
+
+	@RequestMapping(value = "/bizView.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String bizView(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = bizService.searchBizInfo(map);
+		return new Gson().toJson(resultMap);
+	}
+
+	// file upload
+	@RequestMapping("/fileUpload.dox")
+	public String result(@RequestParam("file1") MultipartFile multi, @RequestParam("bizId") String bizId,
+			HttpServletRequest request, HttpServletResponse response, Model model) {
+		String url = null;
+		String path = "c:\\img";
+		try {
+
+			// String uploadpath = request.getServletContext().getRealPath(path);
+			String uploadpath = path;
+			String originFilename = multi.getOriginalFilename();
+			String extName = originFilename.substring(originFilename.lastIndexOf("."), originFilename.length());
+			long size = multi.getSize();
+			String saveFileName = genSaveFileName(extName);
+
+			System.out.println("uploadpath : " + uploadpath);
+			System.out.println("originFilename : " + originFilename);
+			System.out.println("extensionName : " + extName);
+			System.out.println("size : " + size);
+			System.out.println("saveFileName : " + saveFileName);
+			String path2 = System.getProperty("user.dir");
+			System.out.println("Working Directory = " + path2 + "\\src\\webapp\\img");
+			if (!multi.isEmpty()) {
+				File file = new File(path2 + "\\src\\main\\webapp\\img", saveFileName);
+				multi.transferTo(file);
+
+				HashMap<String, Object> map = new HashMap<String, Object>();
+				map.put("fileName", saveFileName);
+				map.put("path", "../img/");
+				map.put("bizId", bizId);
+				map.put("orgName", originFilename);
+				map.put("fileSize", size);
+				map.put("etc", extName);
+				// insert 쿼리 실행
+				bizService.addBizFile(map);
+				// testService.addBoardImg(map);
+
+				model.addAttribute("filename", multi.getOriginalFilename());
+				model.addAttribute("uploadPath", file.getAbsolutePath());
+
+				return "redirect:biz-info.do";
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return "redirect:biz-info.do";
+	}
+
+	// 현재 시간을 기준으로 파일 이름 생성
+	private String genSaveFileName(String extName) {
+		String fileName = "";
+
+		Calendar calendar = Calendar.getInstance();
+		fileName += calendar.get(Calendar.YEAR);
+		fileName += calendar.get(Calendar.MONTH);
+		fileName += calendar.get(Calendar.DATE);
+		fileName += calendar.get(Calendar.HOUR);
+		fileName += calendar.get(Calendar.MINUTE);
+		fileName += calendar.get(Calendar.SECOND);
+		fileName += calendar.get(Calendar.MILLISECOND);
+		fileName += extName;
+
+		return fileName;
 	}
 }

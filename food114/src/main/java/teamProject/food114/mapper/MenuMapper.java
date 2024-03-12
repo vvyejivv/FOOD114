@@ -15,4 +15,14 @@ public interface MenuMapper {
 	//메뉴 검색
 	List<Menu> selectMenuList(HashMap<String, Object>map);
 	Menu selectMenuCount(HashMap<String, Object>map);
+	
+	void insertMenu(HashMap<String, Object> map);
+	
+	void insertMenuNoFile(HashMap<String, Object> map);
+	
+	Menu selectMenuView(HashMap<String, Object> map);
+	
+	void updateMenu(HashMap<String, Object> map);
+	
+	void updateMenuNoFile(HashMap<String, Object> map);
 }

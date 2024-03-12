@@ -29,4 +29,36 @@
 		WHERE BIZID = #{bizId}
 		GROUP BY BIZID;
 	</select>
+	
+	<insert id="insertMenu" parameterType="hashmap">
+		INSERT INTO FOOD114_MENU 
+		VALUES(null, #{bizId}, null, #{menu}, #{price}, #{menuInfo}, '3', #{path}, #{fileName}, #{orgName}, #{fileSize}, #{etc})
+	</insert>
+	
+	<insert id="insertMenuNoFile" parameterType="hashmap">
+		INSERT INTO FOOD114_MENU 
+		VALUES(null, #{bizId}, null, #{menu}, #{price}, #{menuInfo}, '3', null, null, null, null, null)
+	</insert>
+	
+	<select id="selectMenuView" parameterType="hashmap" resultType="teamProject.food114.model.Menu">
+		SELECT * 
+		FROM FOOD114_MENU 
+		WHERE MENUNO = #{menuNo}
+	</select>
+	
+	<update id="updateMenu" parameterType="hashmap">
+		UPDATE FOOD114_MENU 
+			SET MENU = #{menu}, PRICE = #{price}, 
+				MENUINFO = #{menuInfo}, FILEPATH = #{path}, 
+				FILENAME = #{fileName}, FILEORGNAME = #{orgName}, 
+				FILESIZE = #{fileSize}, FILEETC = #{etc}, STATUS = #{status} 
+		WHERE MENUNO = #{menuNo}
+	</update>
+	
+	<update id="updateMenuNoFile" parameterType="hashmap">
+		UPDATE FOOD114_MENU 
+			SET MENU = #{menu}, PRICE = #{price}, 
+				MENUINFO = #{menuInfo}, STATUS = #{status} 
+		WHERE MENUNO = #{menuNo}
+	</update>
 </mapper>

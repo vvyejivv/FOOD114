@@ -8,4 +8,14 @@ public interface MenuService {
 	HashMap<String,Object> searchCategory(HashMap<String,Object> map);
 	// 메뉴 검색
 	HashMap<String,Object> searchMenuList(HashMap<String,Object> map);
+	
+	HashMap<String,Object> addMenu(HashMap<String,Object> map);
+	
+	HashMap<String,Object> addMenuNoFile(HashMap<String,Object> map);
+	
+	HashMap<String,Object> searchMenuView(HashMap<String,Object> map);
+	
+	HashMap<String,Object> editMenu(HashMap<String,Object> map);
+	
+	HashMap<String,Object> editMenuNoFile(HashMap<String,Object> map);
 }

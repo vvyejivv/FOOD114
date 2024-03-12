@@ -40,4 +40,74 @@ public class MenuServiceImpl implements MenuService {
 		}
 		return resultMap;
 	}
+	@Override
+	public HashMap<String, Object> addMenu(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		HashMap<String,Object> resultMap = new HashMap<>();
+		try {
+			menuMapper.insertMenu(map);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			resultMap.put("result", "fail");
+		}
+		return resultMap;
+	}
+	@Override
+	public HashMap<String, Object> addMenuNoFile(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		HashMap<String,Object> resultMap = new HashMap<>();
+		try {
+			menuMapper.insertMenuNoFile(map);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			resultMap.put("result", "fail");
+		}
+		return resultMap;
+	}
+	@Override
+	public HashMap<String, Object> searchMenuView(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		HashMap<String,Object> resultMap = new HashMap<>();
+		try {
+			resultMap.put("menuView", menuMapper.selectMenuView(map));
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			resultMap.put("result", "fail");
+		}
+		return resultMap;
+	}
+	@Override
+	public HashMap<String, Object> editMenu(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		HashMap<String,Object> resultMap = new HashMap<>();
+		try {
+			menuMapper.updateMenu(map);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			resultMap.put("result", "fail");
+		}
+		return resultMap;
+	}
+	@Override
+	public HashMap<String, Object> editMenuNoFile(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		HashMap<String,Object> resultMap = new HashMap<>();
+		try {
+			menuMapper.updateMenuNoFile(map);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			resultMap.put("result", "fail");
+		}
+		return resultMap;
+	}
 }
