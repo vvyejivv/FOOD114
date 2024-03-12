@@ -129,7 +129,7 @@
 						<td>{{item.menu}}</td>
 						<td>{{item.sta}}</td>
 						<td>{{item.price}}</td>
-						<td><button class="btn-modify">수정</button></td>
+						<td><button class="btn-modify" @click="fnUpdateView(item.menuNo)">수정</button></td>
 					</tr>
 				</table>
 			</div>
@@ -165,6 +165,11 @@
 						console.log(data.menuCnt);
 					}
 				});
+			},
+			fnUpdateView : function(menuNo) {
+				$.pageChange("/biz-menu-update-view.do",{
+	        		menuNo : menuNo
+	        	});
 			}
 		},
 		created : function() {
