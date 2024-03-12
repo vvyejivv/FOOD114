@@ -133,6 +133,20 @@ public class CustomerServiceImpl implements CustomerService {
 			
 		} catch (Exception e) {
 			// TODO: handle exception
+		}
+		return resultMap;
+	}
+	// myInfo 수정
+	@Override
+	public HashMap<String, Object> editMyInfo(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> resultMap = new HashMap<>();
+		try {
+			customerMapper.updateMyInfo(map);
+			resultMap.put("result", "success");			
+		} catch (Exception e) {
+			// TODO: handle exception
+			resultMap.put("result", "error");
 			System.out.println(e.getMessage());
 		}
 		return resultMap;

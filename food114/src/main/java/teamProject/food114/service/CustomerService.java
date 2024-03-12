@@ -21,4 +21,6 @@ public interface CustomerService {
 	// 고객 주소 리스트 불러오기
 	HashMap<String, Object> searchUserAddrList(HashMap<String, Object> map);
 
+	// myInfo 수정
+	HashMap<String, Object> editMyInfo(HashMap<String, Object> map);
 }

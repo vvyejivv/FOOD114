@@ -19,6 +19,10 @@ public interface CustomerMapper {
 	// select * consumer where email
 	Customer selectEmail(HashMap<String, Object> map);
 	
+
 	// select * addr where userid
 	List<Addr> selectUserAddr(HashMap<String,Object> map);
+
+	// myInfo 수정
+	void updateMyInfo(HashMap<String, Object> map);
 }

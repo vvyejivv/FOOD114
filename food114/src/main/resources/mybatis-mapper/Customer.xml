@@ -41,5 +41,16 @@
 		)
 	</select>
 	
+	<!-- myInfo 수정 -->
+	<update id="updateMyInfo" parameterType="hashmap">
+		UPDATE FOOD114_CUSTOMER 
+		SET
+			NAME = #{name},
+			NICKNAME = #{nickName},
+			PHONE = #{phone},
+			EMAIL = #{email}
+		WHERE USERID = #{userId}
+	</update>
+	
 	
 </mapper>

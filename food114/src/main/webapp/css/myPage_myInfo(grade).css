@@ -7,11 +7,11 @@
         * {
             font-family: 'Noto Sans KR';
         }
-          body {
+
+        body {
             margin: 0px;
         }
-
-        .container {
+.container {
             width: 1150px;
             margin: 0 auto;
             padding: 10px;
@@ -20,7 +20,81 @@
             justify-content: space-between;
         }
 
+        header {
+            height: 100px;
+            padding: 10px;
+           
+        }
 
+        #logo {
+            float: left;
+            margin-top: 20px;
+        }
+
+        .logo {
+            width: 200px;
+        }
+
+        #status {
+            float: right;
+            width: 500px;
+            height: 50px;
+            margin-top: 25px;
+        }
+
+        .buttonBox1 {
+            padding: 0px 20px;      
+            height: 40px;
+            border: 1px solid #ff7f00;
+            background-color: white;
+            border-radius: 3px;
+            font-size: 15px;
+            line-height: 40px;
+            color: #ff7f00;
+            margin: 5px;
+            float: right;
+            margin-left: 350px;
+            margin-top: 10px;
+        }
+        .buttonBox2 {
+            padding: 0px 20px;      
+            height: 40px;
+            border: 1px solid #d6d5d4;
+            background-color: #d6d5d4;
+            border-radius: 3px;
+            font-size: 15px;
+            line-height: 40px;
+            color: white;
+            margin: 5px;
+            float: right;
+            margin-left: 10px;
+            margin-top: 10px;
+        }
+        .buttonBox3 {
+            padding: 0px 20px;      
+            height: 30px;
+            border: 1px solid #ff7f00;
+            background-color: white;
+            border-radius: 3px;
+            font-size: 12px;
+            line-height: 30px;
+            color: #ff7f00;
+            margin: 5px;
+            float: right;
+            cursor: pointer;
+        }
+        .buttonBox1 :hover {
+            border: 1px solid #ff7f00;
+            background-color: #ff7f00;
+            color: white;
+        }
+
+        footer {
+            background-color: antiquewhite;
+            padding-top: 15px;
+            display: flex;
+            align-items: center;
+        }
         .sidebar {
             margin: 10px;
             width: 200px;
@@ -101,23 +175,16 @@
             line-height: 40px;  
             font-size: 14px;
             color: #747171;       
-            width: 690px;
+            width: 600px;
             border: none;
             padding: 5px;
             margin: 5px;
         }
-        
-        button {
-            padding: 0px 20px;      
-            height: 30px;
-            border: 1px solid #ff7f00;
-            background-color: white;
-            border-radius: 3px;
-            font-size: 12px;
-            line-height: 30px;
-            color: #ff7f00;
-            margin: 5px;
-            float: right;
-            cursor: pointer;
+        input[type="text"] {
+            border: none;
+            border-bottom: 1px solid #ccc;
+            margin-left: 10px;
         }
-        
+        input[type='text']:focus {
+            outline: none;
+        }
