@@ -74,14 +74,6 @@ public class BizController {
 	}
 
 
-	// 가게 리뷰
-	@RequestMapping("/shopReview.do")
-	public String shopReview(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
-			throws Exception {
-		request.setAttribute("map", map);
-		return "/shopReview";
-	}
-
 
 //	@RequestMapping(value = "/bizSignup.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 //	@ResponseBody

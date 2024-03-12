@@ -34,6 +34,7 @@ public class ReviewController {
 		/* System.out.println(map); */
 		return "/shopReview"; 
 	}
+	
 	//리뷰 정보
 	@RequestMapping(value = "/reviewList.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
