@@ -28,15 +28,15 @@
     -->
     <section>
     <div id="app">
-        <div class="container">
+         <div class="container">
             <div class="sidebar" id="sidebar">
                 <ul>
                     <li>
                         나의정보<span style="color: #b1b0b0;">───────────</span>
                         <ul>
-                            <li><a href="javascript:;" @click="fnMyInfo">MY정보 확인/변경</a></li>
+                            <li><a href="javascript:;"@click="fnMyInfo">MY정보 확인/변경</a></li>
                             <li><a href="javascript:;" @click="fnMyInfoPwd">비밀번호 변경</a></li>
-                            <li><a href="javascript:;">MY주소지 관리</a></li>
+                            <li><a href="javascript:;" @click="myInfoAddr">MY주소지 관리</a></li>
                             <li><a href="javascript:;" @click="fnMyInfoGrade">등급</a></li>
                         </ul>
                     </li>
@@ -57,32 +57,45 @@
                             <li><a href="javascript:;">포인트</a></li>
                         </ul>
                     </li>
+                    <br><br><br><br><br><br><br><br>      
                 </ul>
             </div>
             <div class="content"> 
                <h2><a href="javascript:;" style="font-size: 25px; color: #747171;"> <span style="color: #ff7f00; font-weight: bold;">| </span>비밀번호 변경</a></h2>
                 <div>
-                    <div style="font-size: 13px; color: #969393;">회원님의 정보를 안전하게 보호하기 위해 비밀번호를 다시 한 번 확인합니다.</div>
                     <div class="table">
-                    	<form id="passwodForm">
-	                        <div class="row">
-	                            <div class="cell1">아이디</div>
-	                            <div class="cell2"> {{info.userId}}</div>
-	                        </div>
-	                        <div class="row">
-	                            <div class="cell1">비밀번호</div>
-	                            <div class="cell2"> <input type="password" v-model="pwd"></div>
-	                        </div>
-	                        <div class="row">
-	                            <button style="background-color: #f9f9f9; color: rgb(72,72,72); border: 1px solid #ccc;">취소</button>
-	                            <button @click="checkPwd">확인</button>
-	                        </div>
-                       </form>
+                        <div class="row" style="height: 200px;">
+                            <div class="cell1">비밀번호 변경</div>
+                            <div class="cell2">
+                                <!-- 현재 비밀번호
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <input type="text" style="height: 20px;"> -->
+                                <!-- 공백 시: 
+                                    현재 비밀번호를 입력해주세요. -->
+                            <div>새 비밀번호
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <input type="text" style="height: 20px;"></div>
+                                <!-- 공백 시: 
+                                    영문/숫자/특수문자 2가지 이상 조합(8~20자)
+                                    3개 이상 연속되거나 동일한 문자/숫자 제외 
+                                -->
+                            <div>비밀번호 다시 입력&nbsp;<input type="text" style="height: 20px;"></div>
+                                <!-- 공백 시: 
+                                    확인을 위해 새 비밀번호를 다시 입력해주세요. -->
+                          </div>
+                        </div>
+                       
+                        <div class="row">
+                            <button>비밀번호 변경</button>
+                            <button>취소</button>
+                        </div>
+                       
                     </div>
                  
                    
                 </div>
 
+            </div>
             </div>
     </section>
 
@@ -106,7 +119,7 @@ var app = new Vue(
 						userId : self.sessionId
 					};
 					$.ajax({
-						url : "myInfo.dox",
+						url : "myInfoPwdUpdate.dox",
 						dataType : "json",
 						type : "POST",
 						data : nparmap,
@@ -130,12 +143,13 @@ var app = new Vue(
 				fnMyInfoPwd : function(){
 					location.href="/myInfoPwd.do";
 				},
+				myInfoAddr : function(){
+					location.href="/myInfoAddr.do";
+				},
 				fnMyInfoGrade : function(){
 					location.href="/myInfoGrade.do";
 				},
-				changeName : function() {
-					location.href = "/boardNoticeList.do";
-				}
+				
 			},
 			created : function() {
 				var self = this;
