@@ -178,19 +178,6 @@ public class BizServiceImpl implements BizService {
 				}
 				return resultMap;
 	}
-	//리뷰 리스트 확인
-	@Override
-	public HashMap<String, Object> searchReviewList(HashMap<String, Object> map) {
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		try {
-			List<Review> reviewList = bizMapper.selectReviewList(map);
-			resultMap.put("reviewList", reviewList);
-			resultMap.put("result", "success");
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			resultMap.put("result", "fail");
-		}
-		return resultMap;
-	}
+
 
 }

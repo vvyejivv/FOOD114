@@ -29,4 +29,10 @@
 		WHERE BIZID = #{bizId}
 		GROUP BY BIZID;
 	</select>
+	<!-- 선택 메뉴 확인  -->
+	<select id="selectMenu" parameterType="hashmap" resultType="teamProject.food114.model.Menu">
+		SELECT *
+		FROM FOOD114_MENU 
+		WHERE MENUNO = #{menuNo}
+	</select>
 </mapper>

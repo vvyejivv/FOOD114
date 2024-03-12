@@ -40,13 +40,5 @@
 		SELECT DONG FROM FOOD114_AREA WHERE SI = #{si} AND GU =
 		#{gu} GROUP BY DONG
 	</select>
-	<!-- 가게 리뷰 검색 -->
-	<select id="selectReviewList" parameterType="hashmap" resultType="teamProject.food114.model.Review">
-		SELECT *
-		FROM FOOD114_REVIEW R
-		INNER JOIN FOOD114_ORDERS O ON R.ORDERNO = O.ORDERNO
-		INNER JOIN FOOD114_ORDER_DETAIL D ON R.ORDERNO = D.ORDERNO
-		INNER JOIN FOOD114_MENU M ON D.MENUNO = M.MENUNO
-		WHERE BIZID = #{bizId}
-	</select>
+
 </mapper>

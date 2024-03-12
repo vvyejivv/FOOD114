@@ -33,14 +33,12 @@
 								</div>
 								<div class="userInfo">
 									<div class="userInfoBox">
-										<div class="userId">님</div>
+										<div class="userId">{{item.userId}}님</div>
 										<div class="reviewContents">
-											<div class="reviewMenu" style="">주문하신 메뉴 : </div>
+											<div class="reviewMenu" style="">주문하신 메뉴 : {{item.menu}}</div>
 											<div class="starRating">⭐⭐⭐⭐⭐</div>
-											<div class="reviewDate">2024.03.11</div>
-											<div class="foodContents">메가커피의 향쌀한 아로마와 부드러운 맛이 중독적!
-												다양한 커피 종류와 편안한 분위기는 언제나 기분 좋게 만들어줘. 커피 뿐만 아니라 서비스와 친절한 직원들까지
-												만족스럽다. 소소한 일상의 즐거움을 찾을 때 언제나 메가커피를 선택하게 돼.</div>
+											<div class="reviewDate">{{item.orderDate}}</div>
+											<div class="foodContents">{{item.contents}}</div>
 										</div>
 									</div>
 									<div class="reviewImg">
@@ -65,8 +63,8 @@
 	var app = new Vue({
 		el : '#app',
 		data : {
-			selectTab : '${selectTab}', /* 선택한 탭 */
-			bizId : '${bizId}',
+			selectTab : '${map.selectTab}', /* 선택한 탭 */
+			bizId : '${map.bizId}',
 			reviewList : {},
 		},
 		methods : {
@@ -82,14 +80,14 @@
 					data : nparmap,
 					success : function(data) {
 						self.reviewList = data.reviewList;
-
+						console.log(data.reviewList);
 					}
 				});
 			},
 		},
 		created : function() {
 			var self = this;
-
+			self.fnView();
 		}
 	});
 </script>
