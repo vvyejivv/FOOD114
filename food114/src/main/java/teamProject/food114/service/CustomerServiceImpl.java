@@ -123,4 +123,18 @@ public class CustomerServiceImpl implements CustomerService {
 		}
 		return resultMap;
 	}
+
+	@Override
+	public HashMap<String, Object> searchUserAddrList(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> resultMap = new HashMap<>();
+		try {
+			resultMap.put("addrList", customerMapper.selectUserAddr(map));
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+		}
+		return resultMap;
+	}
 }

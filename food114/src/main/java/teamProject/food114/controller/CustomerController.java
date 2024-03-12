@@ -26,13 +26,13 @@ public class CustomerController {
 
 	@Autowired
 	HttpSession session;
-	
+
 	// 마이페이지 - 나의정보 - 메인화면 myPage_myInfo(main)
 	@RequestMapping("/food114-myPage.do")
-	public String myPage(Model model) throws Exception { 
+	public String myPage(Model model) throws Exception {
 		return "/myPage_myInfo(main)";
 	}
-	
+
 	// 마이페이지-내정보 불러오기 <-userId
 	@RequestMapping(value = "/myInfo.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
@@ -68,6 +68,15 @@ public class CustomerController {
 	public String consumerJoinSuccess(HttpServletRequest request, Model model,
 			@RequestParam HashMap<String, Object> map) throws Exception {
 		return "/consumerJoinAfter";
+	}
+
+	// 고객 주소 목록 불러오기
+	@RequestMapping(value = "/consumerAddrList.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String consumerAddrList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap=customerService.searchUserAddrList(map);
+		return new Gson().toJson(resultMap);
 	}
 
 	// 고객 회원가입 클릭시
