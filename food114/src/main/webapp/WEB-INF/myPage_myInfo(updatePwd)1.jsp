@@ -36,7 +36,7 @@
                         <ul>
                             <li><a href="javascript:;" @click="fnMyInfo">MY정보 확인/변경</a></li>
                             <li><a href="javascript:;" @click="fnMyInfoPwd">비밀번호 변경</a></li>
-                            <li><a href="javascript:;">MY주소지 관리</a></li>
+                            <li><a href="javascript:;" @click="myInfoAddr">MY주소지 관리</a></li>
                             <li><a href="javascript:;" @click="fnMyInfoGrade">등급</a></li>
                         </ul>
                     </li>
@@ -119,7 +119,8 @@ var app = new Vue(
 				checkPwd : function() {
 					var self = this;
 					if(self.pwd == self.info.pwd){
-						alert("동일");
+						location.href="/myInfoPwdUpdate.do";
+						/* alert("동일"); */
 					}else{
 						alert("다름");
 					}
@@ -130,12 +131,12 @@ var app = new Vue(
 				fnMyInfoPwd : function(){
 					location.href="/myInfoPwd.do";
 				},
+				myInfoAddr : function(){
+					location.href="/myInfoAddr.do";
+				},
 				fnMyInfoGrade : function(){
 					location.href="/myInfoGrade.do";
 				},
-				changeName : function() {
-					location.href = "/boardNoticeList.do";
-				}
 			},
 			created : function() {
 				var self = this;
