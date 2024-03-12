@@ -128,17 +128,16 @@
 							<img src="../img/메가커피_아아.jpg">
 						</div>
 						<div id="menuListInfoBox">
-							<div id="menuNameBox">{{menu}}</div>
-							<div id="menuInfoBox">{{selectMenu.menuInfo}}</div>
+							<div id="menuNameBox">{{clickMenu.menu}}</div>
+							<div id="menuInfoBox">{{clickMenu.menuInfo}}</div>
 						</div>
 						<div id="menuListPrice">
 							<div class="menuPriceBox">가격</div>
-							<div class="menuPriceTxt">{{selectMenu.price}}원</div>
+							<div class="menuPriceTxt">{{clickMenu.price}}원</div>
 						</div>
 						<div id="menuListQuantity">
 							<div class="menuPriceBox">수량</div>
-							<a id="quantityDown">─</a><input id="quantityInput" type="text"
-								v-model="cnt"><a id="quantityUp">┼</a>
+							<div id="quantityDown" @click="fnCntUpDown('down')">─</div><input id="quantityInput" type="text" v-model="cnt"><div id="quantityUp" @click="fnCntUpDown('up')">┼</div>
 						</div>
 						<!-- 						<div id="menuListOption">
 							<div class="menuPriceBox">옵션</div>
@@ -170,8 +169,7 @@
 			bizId : "hi123",
 			menuList : [],
 			modalFlg : false,
-			menuNo : "",
-			cnt : "1",
+			cnt : 1,
 			selectMenu : [],
 			selectMenuPrice : "",
 			totalPrice : "",
@@ -191,39 +189,36 @@
 					data : nparmap,
 					success : function(data) {
 						self.menuList = data.menuList;
-						console.log(data.menuList);
 					}
 				});
 			},
 			fnMenuClick : function(type, index) {
-				var self = this;
-/* 				self.clickMenu =self.menuList[index];
-				console.log(self.clickMenu);
-				return;
-				self.menuNo = menuNo; */
-				var nparmap = {
-					menuNo : self.menuNo
-				};
+				var self = this;	
 				if (type == "open") {
-					/* $.ajax({
-						url : "selectMenu.dox",
-						dataType : "json",
-						type : "POST",
-						data : nparmap,
-						success : function(data) {
-							self.selectMenu = data.menu;
-							self.selectMenuPrice = data.menu.price;
-							self.totalPrice = self.selectMenuPrice * self.cnt;
-							self.modalFlg = true;
-							document.body.style.overflow = 'hidden';
-						}
-					}); */
+					self.clickMenu = self.menuList[index];
+					self.totalPrice = self.clickMenu.price * self.cnt;
+					self.modalFlg = true;
+					document.body.style.overflow = 'hidden';
 				}
 				if (type == "close") {
 					self.modalFlg = false;
 					document.body.style.overflow = 'auto';
 				}
 
+			},
+			fnCntUpDown : function(type){
+				var self = this;
+				if(type == "down"){
+					if(self.cnt > 0){					
+						self.cnt += -1;
+					}
+				}
+				if(type == "up"){
+					if(self.cnt < 100){
+						self.cnt = self.cnt+1;
+					}
+					
+				}
 			},
 			fnOrderAdd : function(type) {
 				var self = this;
