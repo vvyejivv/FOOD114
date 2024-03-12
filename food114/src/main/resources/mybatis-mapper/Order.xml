@@ -9,4 +9,5 @@
 		FROM FOOD114_CONSUMER_ADDR 
 		WHERE USERID = #{userId}
 	</select>
+
 </mapper>

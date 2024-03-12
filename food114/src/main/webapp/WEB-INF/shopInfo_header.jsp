@@ -157,7 +157,7 @@
 					data : nparmap,
 					success : function(data) {
 						self.bizInfo = data.bizInfo;
-						console.log(data.bizInfo);
+						/* console.log(data.bizInfo); */
 						// 데이터베이스에서 가져온 첫 번째 항목의 위치를 이용하여 지도 설정 및 마커 추가
 		                self.setMapCenterAndAddMarker(self.bizInfo.latitude, self.bizInfo.longitude);
 					}

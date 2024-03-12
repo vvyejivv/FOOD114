@@ -40,8 +40,8 @@
 	var app = new Vue({
 		el : '#app',
 		data : {
-			selectTab : '${selectTab}', /* 선택한 탭 */
-			bizId : '${bizId}', /* 가게정보 - 아이디  */
+			selectTab : '${map.selectTab}', /* 선택한 탭 */
+			bizId : '${map.bizId}', /* 가게정보 - 아이디  */
 		},
 		methods : {
 			fnView : function() {

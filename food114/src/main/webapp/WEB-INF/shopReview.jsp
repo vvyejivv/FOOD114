@@ -26,27 +26,27 @@
 				<div id="reviewContainer">
 					<div id="reviewList">
 						<!-- 리뷰 작성 -->
-						<div class="reviewBox">
-							<div class="userPhoto">
-								<img src="../img/기본_프로필.jpg">
-							</div>
-							<div class="userInfo">
-								<div class="userInfoBox">
-									<div class="userId">test123님</div>
-									<div class="reviewContents">
-										<div class="reviewMenu" style="">주문하신 메뉴 : 아메리카노</div>
-										<div class="starRating">⭐⭐⭐⭐⭐</div>
-										<div class="reviewDate">2024.03.11</div>
-										<div class="foodContents">메가커피의 향쌀한 아로마와 부드러운 맛이 중독적!
-											다양한 커피 종류와 편안한 분위기는 언제나 기분 좋게 만들어줘. 커피 뿐만 아니라 서비스와 친절한 직원들까지
-											만족스럽다. 소소한 일상의 즐거움을 찾을 때 언제나 메가커피를 선택하게 돼.</div>
+						<template v-for="item in reviewList">
+							<div class="reviewBox">
+								<div class="userPhoto">
+									<img src="../img/기본_프로필.jpg">
+								</div>
+								<div class="userInfo">
+									<div class="userInfoBox">
+										<div class="userId">{{item.userId}}님</div>
+										<div class="reviewContents">
+											<div class="reviewMenu" style="">주문하신 메뉴 : {{item.menu}}</div>
+											<div class="starRating">⭐⭐⭐⭐⭐</div>
+											<div class="reviewDate">{{item.orderDate}}</div>
+											<div class="foodContents">{{item.contents}}</div>
+										</div>
+									</div>
+									<div class="reviewImg">
+										<img src="../img/메가커피_리뷰사진.jpg">
 									</div>
 								</div>
-								<div class="reviewImg">
-									<img src="../img/메가커피_리뷰사진.jpg">
-								</div>
 							</div>
-						</div>
+						</template>
 
 					</div>
 
@@ -63,14 +63,31 @@
 	var app = new Vue({
 		el : '#app',
 		data : {
-			selectTab : '${selectTab}', /* 선택한 탭 */
+			selectTab : '${map.selectTab}', /* 선택한 탭 */
+			bizId : '${map.bizId}',
+			reviewList : {},
 		},
 		methods : {
-
+			fnView : function() {
+				var self = this;
+				var nparmap = {
+					bizId : self.bizId
+				};
+				$.ajax({
+					url : "reviewList.dox",
+					dataType : "json",
+					type : "POST",
+					data : nparmap,
+					success : function(data) {
+						self.reviewList = data.reviewList;
+						console.log(data.reviewList);
+					}
+				});
+			},
 		},
 		created : function() {
 			var self = this;
-
+			self.fnView();
 		}
 	});
 </script>

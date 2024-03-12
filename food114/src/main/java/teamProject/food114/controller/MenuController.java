@@ -33,6 +33,14 @@ public class MenuController {
 		return "/foodFind";
 	}
 	
+	// 메뉴 목록
+	@RequestMapping("/menuList.do")
+	public String menuList(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
+			throws Exception {
+		
+		return "/menuList";
+	}
+	
 	// 배달 카테고리 전체 검색
 	@RequestMapping(value = "/foodCategoryAll.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
@@ -48,6 +56,14 @@ public class MenuController {
 	public String menuList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap = menuService.searchMenuList(map);
+		return new Gson().toJson(resultMap);
+	}
+	//선택한 메뉴 검색
+	@RequestMapping(value = "/selectMenu.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String selectMenu(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = menuService.searchMenu(map);
 		return new Gson().toJson(resultMap);
 	}
 }

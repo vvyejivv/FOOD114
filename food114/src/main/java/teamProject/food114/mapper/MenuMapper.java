@@ -15,4 +15,6 @@ public interface MenuMapper {
 	//메뉴 검색
 	List<Menu> selectMenuList(HashMap<String, Object>map);
 	Menu selectMenuCount(HashMap<String, Object>map);
+	//선택한 메뉴 검색
+	Menu selectMenu(HashMap<String, Object>map);
 }

@@ -40,4 +40,17 @@ public class MenuServiceImpl implements MenuService {
 		}
 		return resultMap;
 	}
+	//선택한 메뉴 검색
+	@Override
+	public HashMap<String, Object> searchMenu(HashMap<String, Object> map) {
+		HashMap<String,Object> resultMap = new HashMap<>();
+		try {
+			resultMap.put("menu", menuMapper.selectMenu(map));
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			resultMap.put("result", "fail");
+			System.out.println(e.getMessage());
+		}
+		return resultMap;
+	}
 }

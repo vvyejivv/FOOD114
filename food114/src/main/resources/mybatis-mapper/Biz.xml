@@ -40,6 +40,5 @@
 		SELECT DONG FROM FOOD114_AREA WHERE SI = #{si} AND GU =
 		#{gu} GROUP BY DONG
 	</select>
-	<!-- 가게 리뷰 검색 -->
-	
+
 </mapper>

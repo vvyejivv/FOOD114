@@ -8,4 +8,7 @@ public interface MenuService {
 	HashMap<String,Object> searchCategory(HashMap<String,Object> map);
 	// 메뉴 검색
 	HashMap<String,Object> searchMenuList(HashMap<String,Object> map);
+	// 선택한 메뉴 검색
+	HashMap<String,Object> searchMenu(HashMap<String,Object> map);
+	
 }
