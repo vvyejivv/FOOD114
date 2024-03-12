@@ -74,21 +74,28 @@ public class CustomerController {
 			return new Gson().toJson(resultMap);
 		}
 	
+	// 마이페이지 - 나의정보 - 비밀번호변경 두번째 페이지(새로운 비밀번호 입력)
+	@RequestMapping("/myInfoPwdUpdate.do")
+	public String myPagePwd2(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception { 
+		request.setAttribute("map", map);
+		return "/myPage_myInfo(updatePwd)2";
+	}
 	
 	// 마이페이지 - 나의정보 - 비밀번호변경 두번째 페이지(새로운 비밀번호 입력)
-//	@RequestMapping("/myInfoPwd2.do")
-//	public String myPagePwd2(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception { 
-//		request.setAttribute("map", map);
-//		return "/myPage_myInfo(updatePwd)2";
-		
-	// 마이페이지 - 나의정보 - 비밀번호변경 두번째 페이지(새로운 비밀번호 입력)
-	@RequestMapping(value = "/myInfoPwd2.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@RequestMapping(value = "/myInfoPwdUpdate.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 		@ResponseBody
 		public String myInfoPwd2(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 			resultMap = customerService.searchLoginUserId(map);
 			return new Gson().toJson(resultMap);
 		}
+	
+	// 마이페이지 - 나의정보 - 주소지
+	@RequestMapping("/myInfoAddr.do")
+		public String myInfoAddr(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception { 
+			request.setAttribute("map", map);
+			return "/myPage_myInfo(addr)";
+		}	
 	
 		
 	// 마이페이지 - 나의정보 - 등급

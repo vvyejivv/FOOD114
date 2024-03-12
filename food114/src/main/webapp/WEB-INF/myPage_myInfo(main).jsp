@@ -12,37 +12,58 @@
 <style>
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 /* 모달 스타일링 */
-.modal {
-	display: none;
+	.modal {
+		display: none;
+		position: fixed;
+		top: 47%;
+		left: 70%;
+		transform: translate(-50%, -50%);
+		background-color: #fefefe;
+		padding: 25px;
+		border: 1px solid #888;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		z-index: 1000;
+	}
+	
+	.modal-content {
+		margin-bottom: 10px;
+	}
+	
+	.close {
+		color: #aaa;
+		float: right;
+		margin-top: -5px;
+		margin-left: 2px;
+		font-size: 23px;
+		font-weight: bold;
+	}
+	
+	.close:hover, .close:focus {
+		color: black;
+		text-decoration: none;
+		cursor: pointer;
+	}
+
+	/* 모달 추가 css */
+	.modal-backdrop {
 	position: fixed;
-	top: 47%;
-	left: 70%;
-	transform: translate(-50%, -50%);
-	background-color: #fefefe;
-	padding: 25px;
-	border: 1px solid #888;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
 	z-index: 1000;
-}
-
-.modal-content {
-	margin-bottom: 10px;
-}
-
-.close {
-	color: #aaa;
-	float: right;
-	margin-top: -5px;
-	margin-left: 2px;
-	font-size: 23px;
-	font-weight: bold;
-}
-
-.close:hover, .close:focus {
-	color: black;
-	text-decoration: none;
-	cursor: pointer;
-}
+	}
+	
+	.modal-content {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: white;
+	padding: 20px;
+	z-index: 1001;
+	}
 </style>
 </head>
 <link rel="stylesheet" href="../css/myPage_myInfo(main).css">
@@ -63,6 +84,7 @@
 		<div id="app">
 			<div class="container">
 				<%@include file="myPage_header.jsp" %>
+				
 				<div class="content">
 					<h2>
 						<a href="javascript:;" style="font-size: 25px; color: #747171;">
@@ -80,7 +102,7 @@
 								<div class="cell1">이름</div>
 								<div class="cell2">
 										{{info.name}}
-									<button @click="openNameModal">이름 변경</button>
+									<button @click="openNameModal('open')">이름 변경</button>
 								</div>
 							</div>
 							<!-- name 모달 창 -->
@@ -188,7 +210,8 @@
 					list : [],
 					info : {},
 					sessionId : "${sessionId}",
-					newName : ''
+					newName : '',
+					modalFlg: false
 				},
 				methods : {
 					fnList : function() {
@@ -213,14 +236,29 @@
 					fnMyInfoPwd : function(){
 						location.href="/myInfoPwd.do";
 					},
+					myInfoAddr : function(){
+						location.href="/myInfoAddr.do";
+					},
 					fnMyInfoGrade : function(){
 						location.href="/myInfoGrade.do";
 					},
 					// openNameModal 클릭시 오픈 모달창
-					openNameModal : function() {
+					openNameModal : function(type) {
+						var self = this;
+						if(type == "open"){
+							self.modalFlg = true;
+							document.body.style.overflow = 'hidden';
+						}
+						if(type == "close"){
+							self.modalFlg = false;
+							document.body.style.overflow = 'auto';
+						}
+					},
+					// openNameModal 클릭시 오픈 모달창
+					/* openNameModal : function() {
 						var nameModal = document.getElementById('nameModal');
 						nameModal.style.display = 'block';
-					},
+					}, */
 					// openNickNameModal 클릭시 오픈 모달창
 					openNickNameModal : function() {
 						var nickNameModal = document.getElementById('nickNameModal');
