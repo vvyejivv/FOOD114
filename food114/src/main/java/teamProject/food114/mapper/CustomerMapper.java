@@ -16,4 +16,7 @@ public interface CustomerMapper {
 	
 	// select * consumer food114 where email
 	Customer selectEmail(HashMap<String, Object> map);
+	
+	// myInfo 수정
+	void updateMyInfo(HashMap<String, Object> map);
 }

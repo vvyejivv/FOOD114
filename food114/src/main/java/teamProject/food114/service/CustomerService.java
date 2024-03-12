@@ -17,5 +17,6 @@ public interface CustomerService {
 	// 마이페이지 내정보 불러오기
 	HashMap<String, Object> searchMyInfo(HashMap<String, Object> map);
 	
-	
+	// myInfo 수정
+	HashMap<String, Object> editMyInfo(HashMap<String, Object> map);
 }
