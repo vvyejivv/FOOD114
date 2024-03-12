@@ -22,7 +22,7 @@
 }
 
 input:focus {
-  outline: none; /* 포커스시 생기는 기본적인 아웃라인을 제거합니다. */
+	outline: none; /* 포커스시 생기는 기본적인 아웃라인을 제거합니다. */
 }
 
 .btn-modify {
@@ -68,22 +68,22 @@ input:focus {
 }
 
 .type_limit {
-	display:inline-block;
-	width:65px;
-	background-color:#ddd;
-	height:32px;
+	display: inline-block;
+	width: 65px;
+	background-color: #ddd;
+	height: 32px;
 	border: 1px solid #ddd;
 	border-radius: 2px;
 	font-size: 12px;
-	text-align:center;
-	line-height:34px;
-	color:#aaa;
-	margin-left:-7px;
+	text-align: center;
+	line-height: 34px;
+	color: #aaa;
+	margin-left: -7px;
 }
 
 .nameInfo {
 	font-size: 12px;
-	color:#aaa;
+	color: #aaa;
 	margin-top: 5px;
 	margin-left: 20px;
 }
@@ -104,9 +104,9 @@ input:focus {
 	border: 1px solid #ddd;
 	border-radius: 2px;
 	margin-top: 5px;
-	background-color:#fff;
+	background-color: #fff;
 	padding: 2px 4px;
-	margin-left:-3px;
+	margin-left: -3px;
 }
 
 .cate_input {
@@ -115,7 +115,7 @@ input:focus {
 	margin-top: 5px;
 	margin-left: -5px;
 	border: 1px solid #ddd;
-	border-left:none;
+	border-left: none;
 	border-top-right-radius: 2px;
 	border-bottom-right-radius: 2px;
 }
@@ -129,20 +129,20 @@ input:focus {
 button img {
 	width: 13px;
 	height: 13px;
-	margin-left:5px;
+	margin-left: 5px;
 }
 
 .searchIcon {
-	height:34px;
+	height: 34px;
 	border: 1px solid #ddd;
-	border-right:none;
+	border-right: none;
 	border-top-left-radius: 2px;
 	border-bottom-left-radius: 2px;
-	background-color:#fff;
+	background-color: #fff;
 	margin-left: 20px;
 }
 
-.mod_input{
+.mod_input {
 	width: 765px;
 	height: 30px;
 	margin-top: 30px;
@@ -155,6 +155,27 @@ button img {
 	padding-left: 10px;
 	font-size: 12px;
 	color: #ccc;
+}
+
+.file_input {
+	width: 645px;
+	height: 30px;
+	margin-top: 30px;
+	margin-left: 20px;
+	border: 1px solid #ddd;
+	border-radius: 2px;
+}
+
+.file_input::placeholder {
+	padding-left: 10px;
+	font-size: 12px;
+	color: #ccc;
+}
+
+.menuImg {
+	width: 100px;
+	height: 50px;
+	margin-left: 20px;
 }
 </style>
 <body>
@@ -169,16 +190,18 @@ button img {
 		<div id="app">
 			<div class="mold">
 				<h2>
-               	<span style="color: #ff7f00; font-weight: bold;">| </span><span
-                  style="text-align: left; color: rgba(72, 72, 72);">상품등록&nbsp;</span>
-            	</h2>
+					<span style="color: #ff7f00; font-weight: bold;">| </span><span
+						style="text-align: left; color: rgba(72, 72, 72);">상품수정&nbsp;</span>
+				</h2>
 				<div class="inputBox">
 					<div class="inputDiv">
 						메뉴 이름<small><small style="color: #ff7f00;"> ＊ </small></small>
 					</div>
-					<input v-model="menu" type="text" class="menu_input" placeholder="상품명을 입력해 주세요">
-					<div class="type_limit">{{menu.length}}/100</div>
-					<div class="nameInfo">판매 상품과 직접 관련이 없는 상품명은 관리자에 의해 변경될 수 있습니다.</div>
+					<input type="text" v-model="menuView.menu" class="menu_input"
+						placeholder="상품명을 입력해 주세요">
+					<div v-if="menuView.menu" class="type_limit">{{menuView.menu.length}}/100</div>
+					<div class="nameInfo">판매 상품과 직접 관련이 없는 상품명은 관리자에 의해 변경될 수
+						있습니다.</div>
 				</div>
 				<div class="inputBox">
 					<div class="inputDiv">
@@ -190,21 +213,24 @@ button img {
 						<button class="searchIcon">
 							<img src="../img/magnifying-glass-gray-solid.png">
 						</button>
-					<input type="text" class="cate_input" placeholder="카테고리명 입력" disabled>
+						<input type="text" class="cate_input" placeholder="카테고리명 입력"
+							disabled>
 					</div>
 				</div>
 				<div class="inputBox">
 					<div class="inputDiv">
 						가격<small><small style="color: #ff7f00;"> ＊ </small></small>
 					</div>
-					<input v-model="price" type="text" class="mod_input" placeholder="가격 입력">
+					<input type="text" v-model="menuView.price" class="mod_input"
+						placeholder="가격 입력">
 				</div>
 				<div class="inputBox">
 					<div class="inputDiv">
 						메뉴 설명(소개)<small><small style="color: #ff7f00;"> ＊
 						</small></small>
 					</div>
-					<input v-model="menuInfo" type="text" class="mod_input" placeholder="메뉴 설명(소개) 입력">
+					<input type="text" v-model="menuView.menuInfo" class="mod_input"
+						placeholder="메뉴 설명(소개) 입력">
 				</div>
 				<div class="inputBox">
 					<div class="inputDiv">
@@ -216,15 +242,30 @@ button img {
 					<div class="inputDiv">
 						메뉴 옵션<small><small style="color: #ff7f00;"> ＊ </small></small>
 					</div>
-					<input type="text" class="mod_input" placeholder="메뉴 옵션 입력" disabled>
+					<input type="text" class="mod_input" placeholder="메뉴 옵션 입력"
+						disabled>
+				</div>
+				<div class="inputBox">
+					<div class="inputDiv">
+						판매 상태<small><small style="color: #ff7f00;"> ＊ </small></small>
+					</div>
+					<select v-model="menuView.status" class="mod_input">
+						<option value="0">판매중</option>
+						<option value="1">판매종료</option>
+						<option value="3">품절</option>
+					</select>
 				</div>
 				<div class="inputBox">
 					<div class="inputDiv">
 						메뉴 사진<small><small style="color: #ff7f00;"> ＊ </small></small>
 					</div>
-					<input type="file" class="mod_input" id="file1" name="file1" accept=".jpg, .png, .gif" style="color: #ccc; font-size:12px; line-height:30px;">
+					<img v-if="menuView.filePath"
+						:src="menuView.filePath + menuView.fileName" class="menuImg"
+						alt="이미지 미등록"> <input type="file" class="file_input"
+						id="file1" name="file1" accept=".jpg, .png, .gif"
+						style="color: #ccc; font-size: 12px; line-height: 30px;">
 				</div>
-				<button class="btn-modify" @click="fnMenuUpload()">메뉴 등록</button>
+				<button class="btn-modify" @click="fnMenuUpdate()">정보 변경</button>
 			</div>
 		</div>
 	</section>
@@ -237,23 +278,39 @@ button img {
 		el : '#app',
 		data : {
 			sessionId : "${sessionId}",
-			menu : "",
-			price : "",
-			menuInfo : ""
+			menuNo : ${map.menuNo},
+			menuView : {}
 		},
 		methods : {
-			fnMenuUpload : function(){
-	       		var self = this;
+			fnMenuView : function() {
+				var self = this;
+				var nparmap = {
+					menuNo : self.menuNo						
+				};
+				$.ajax({
+					url : "/menuView.dox",
+					dataType : "json",
+					type : "POST",
+					data : nparmap,
+					success : function(data) {
+						self.menuView = data.menuView;
+					}
+				});
+			},
+			fnMenuUpdate : function(){
+				var self = this;
 				var form = new FormData();
 				var fileInput = document.getElementById('file1');
 			    if (fileInput.files.length > 0) {
 			        // 파일이 선택된 경우에만 FormData에 파일 추가
 			        form.append( "file1",  fileInput.files[0] );
 			    }
-			    form.append( "bizId",  self.sessionId);
-	   	     	form.append( "menu",  self.menu);
-	   	     	form.append( "price",  self.price);
-	   	     	form.append( "menuInfo",  self.menuInfo);
+	   	     	form.append( "bizId",  self.sessionId);
+	   	     	form.append( "menu",  self.menuView.menu);
+	   	     	form.append( "price",  self.menuView.price);
+	   	     	form.append( "menuInfo",  self.menuView.menuInfo);
+	   	     	form.append( "menuNo",  self.menuNo);
+	   	     	form.append( "status",  self.menuView.status);
 	   	     	
 	   	  		// 파일이 선택되었을 때만 업로드 실행
 	   	     	if (fileInput.files.length > 0) {
@@ -261,14 +318,14 @@ button img {
 	   	         	$.pageChange("/biz-menu-update.do", {});
 	   	     	} else {
 	   	         	// 파일이 선택되지 않았을 때 다른 동작 수행
-	   	         	self.fnSubMenuUpload();
+	   	         	self.fnSubMenuUpdate();
 	   	     	}
 	        }
 			// 파일 업로드
 		    , upload : function(form){
 		    	var self = this;
 		         $.ajax({
-		             url : "/menuUpload.dox"
+		             url : "/menuUpdate.dox"
 		           , type : "POST"
 		           , processData : false
 		           , contentType : false
@@ -278,16 +335,18 @@ button img {
 		           }	           
 		       });
 			},
-			fnSubMenuUpload : function() {
+			fnSubMenuUpdate : function() {
 				var self = this;
 				var nparmap = {
+					menuNo : self.menuNo,
 					bizId : self.sessionId,
-					price : self.price,
-					menuInfo : self.menuInfo,
-					menu : self.menu
+					price : self.menuView.price,
+					menuInfo : self.menuView.menuInfo,
+					menu : self.menuView.menu,
+					status : self.menuView.status
 				};
 				$.ajax({
-					url : "/menuUploadNoFile.dox",
+					url : "/menuUpdateNoFile.dox",
 					dataType : "json",
 					type : "POST",
 					data : nparmap,
@@ -299,7 +358,7 @@ button img {
 		},
 		created : function() {
 			var self = this;
-
+			self.fnMenuView();
 		}
 	});
 </script>

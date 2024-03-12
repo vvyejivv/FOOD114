@@ -22,6 +22,8 @@ public class Biz {
 	private String openTime;
 	private String closeTime;
 	private String opneYN;
+	private String categoryName;
+	private String bankName;
 
 	public String getBizId() {
 		return bizId;
@@ -182,12 +184,28 @@ public class Biz {
 	public void setCloseTime(String closeTime) {
 		this.closeTime = closeTime;
 	}
-
+	
 	public String getOpneYN() {
 		return opneYN;
 	}
-
+	
 	public void setOpneYN(String opneYN) {
 		this.opneYN = opneYN;
+	}
+
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+	
+	public String getBankName() {
+		return bankName;
+	}
+	
+	public void setBankName(String bankName) {
+		this.bankName = bankName;
 	}
 }

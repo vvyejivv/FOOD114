@@ -11,7 +11,8 @@ import org.springframework.stereotype.Service;
 import teamProject.food114.mapper.BizMapper;
 import teamProject.food114.model.Area;
 import teamProject.food114.model.Biz;
-import teamProject.food114.model.Review;
+import teamProject.food114.model.BizFile;
+
 
 @Service
 public class BizServiceImpl implements BizService {
@@ -163,20 +164,58 @@ public class BizServiceImpl implements BizService {
 		}
 		return resultMap;
 	}
-	//가게 정보 확인
+
+	// 가게 정보 확인
 	@Override
 	public HashMap<String, Object> searchShopInfo(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
-				Biz biz = bizMapper.idCheck(map);
-				HashMap<String, Object> resultMap = new HashMap<String, Object>();
-				try {
-					resultMap.put("bizInfo", biz);
-					resultMap.put("result", "success");
-				} catch (Exception e) {
-					System.out.println(e.getMessage());
-					resultMap.put("result", "fail");
-				}
-				return resultMap;
+		Biz biz = bizMapper.idCheck(map);
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			resultMap.put("bizInfo", biz);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			resultMap.put("result", "fail");
+		}
+		return resultMap;
+	}
+
+	@Override
+	public HashMap<String, Object> searchBizInfo(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		Biz biz = bizMapper.selectBizInfo(map);
+		BizFile bizFile = bizMapper.selectBizFile(map);
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			resultMap.put("bizInfo", biz);
+			resultMap.put("bizFile", bizFile);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			resultMap.put("result", "fail");
+		}
+		return resultMap;
+	}
+
+	@Override
+	public HashMap<String, Object> addBizFile(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			if(bizMapper.selectBizFile(map) == null) {				
+				bizMapper.insertBizFile(map);
+			} else {
+				bizMapper.updateBizFile(map);
+				bizMapper.insertBizFile(map);
+			}
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			resultMap.put("result", "fail");
+		}
+		return resultMap;
 	}
 
 

@@ -9,7 +9,11 @@ public class Menu {
 	private String salePrice;
 	private String menuInfo;
 	private String status;
-	private String menuFile;
+	private String filePath;
+	private String fileName;
+	private String fileOrgName;
+	private String fileSize;
+	private String fileEtc;
 	private int cnt;
 	private String sta;
 	private String end;
@@ -64,12 +68,6 @@ public class Menu {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public String getMenuFile() {
-		return menuFile;
-	}
-	public void setMenuFile(String menuFile) {
-		this.menuFile = menuFile;
-	}
 	public int getCnt() {
 		return cnt;
 	}
@@ -99,5 +97,35 @@ public class Menu {
 	}
 	public void setSta(String sta) {
 		this.sta = sta;
+	}
+	public String getFilePath() {
+		return filePath;
+	}
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+	public String getFileOrgName() {
+		return fileOrgName;
+	}
+	public void setFileOrgName(String fileOrgName) {
+		this.fileOrgName = fileOrgName;
+	}
+	public String getFileSize() {
+		return fileSize;
+	}
+	public void setFileSize(String fileSize) {
+		this.fileSize = fileSize;
+	}
+	public String getFileEtc() {
+		return fileEtc;
+	}
+	public void setFileEtc(String fileEtc) {
+		this.fileEtc = fileEtc;
 	}
 }
