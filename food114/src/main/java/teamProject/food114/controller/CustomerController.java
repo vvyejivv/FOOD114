@@ -34,6 +34,13 @@ public class CustomerController {
 		return "/myPage_myInfo(main)";
 	}
 	
+	// 마이페이지 - 나의정보 - 메인화면 myPage_myInfo(main)
+	@RequestMapping("/myInfo_header.do")
+	public String myPageHeader(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception { 
+		request.setAttribute("map", map);
+		return "/myPage_header";
+	}
+	
 	// 마이페이지 - 나의 정보 수정
 	@RequestMapping(value = "/updateMyInfo.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody

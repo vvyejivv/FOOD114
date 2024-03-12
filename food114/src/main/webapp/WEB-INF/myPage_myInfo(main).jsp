@@ -62,33 +62,7 @@
 	<section>
 		<div id="app">
 			<div class="container">
-				<div class="sidebar" id="sidebar">
-					<ul>
-						<li>나의정보<span style="color: #b1b0b0;">───────────</span>
-							<ul>
-								<li><a href="javascript:;" @click="fnMyInfo">MY정보 확인/변경</a></li>
-								<li><a href="javascript:;" @click="fnMyInfoPwd">비밀번호 변경</a></li>
-								<li><a href="javascript:;">MY주소지 관리</a></li>
-								<li><a href="javascript:;" @click="fnMyInfoGrade">등급</a></li>
-							</ul>
-						</li>
-						<br>
-						<li>결제/주문/리뷰<span style="color: #b1b0b0;">───────────</span>
-							<ul>
-								<li><a href="javascript:;">결제수단 관리</a></li>
-								<li><a href="javascript:;">주문내역</a></li>
-								<li><a href="javascript:;">MY리뷰목록</a></li>
-							</ul>
-						</li>
-						<br>
-						<li>이벤트<span style="color: #b1b0b0;">───────────</span>
-							<ul>
-								<li><a href="javascript:;">쿠폰</a></li>
-								<li><a href="javascript:;">포인트</a></li>
-							</ul>
-						</li>
-					</ul>
-				</div>
+				<%@include file="myPage_header.jsp" %>
 				<div class="content">
 					<h2>
 						<a href="javascript:;" style="font-size: 25px; color: #747171;">
