@@ -45,6 +45,7 @@
 					</li>
 				</ul>
 			</div>
+		</div>
 	</section>
 
 </body>
@@ -52,8 +53,7 @@
 <script type="text/javascript">
 	var myPageHeader = new Vue({
 		el : '#myPageHeader',
-		data : {			
-		},
+		data : {},
 		methods : {
 			fnMyInfo : function() {
 				location.href = "/myInfo.do";
