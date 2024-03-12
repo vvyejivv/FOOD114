@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import teamProject.food114.mapper.BizMapper;
 import teamProject.food114.model.Area;
 import teamProject.food114.model.Biz;
-import teamProject.food114.model.Menu;
+import teamProject.food114.model.Review;
 
 @Service
 public class BizServiceImpl implements BizService {
@@ -178,5 +178,6 @@ public class BizServiceImpl implements BizService {
 				}
 				return resultMap;
 	}
+
 
 }

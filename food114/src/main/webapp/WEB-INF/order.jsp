@@ -135,7 +135,10 @@
 				<div class="deliveryBox">
 					<div id="couponBox" class="infoText">
 						<div id="couponDiv">쿠폰</div>
-						<div id="couponInput"><input type="text" placeholder="쿠폰 목록에서 선택해주세요" class="couponInput" v-model="couponTitle" disabled="disabled"></div>
+						<div id="couponInput">
+							<input type="text" placeholder="쿠폰 목록에서 선택해주세요"
+								class="couponInput" v-model="couponTitle" disabled="disabled">
+						</div>
 						<!-- <button @click="fnUseCoupon">적용</button> -->
 						<button @click="fnCouponPopupOpen">쿠폰 목록</button>
 					</div>
@@ -149,6 +152,44 @@
 				<div>
 					<button @click="fnOrder">결제하기</button>
 				</div>
+
+				<!-- 주문하기(영수증창) -->
+				<div class="orderListContainer">
+					<div class="orderListBox">
+						<div class="orderList">주문 내역</div>
+						<div class="hrLine"></div>
+						<table class="orderListTable">
+							<tr>
+								<th class="thFirst">제품명</th>
+								<th>수량</th>
+								<th class="thSecond">금액</th>
+								<th>삭제</th>
+							</tr>
+							<tr>
+								<td class="tdFirst">메뉴이름</td>
+								<td>2</td>
+								<td class="tdSecond">1,008,000원</td>
+								<td>
+									<div class="removeBtn">x</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="orderListDelivery">배달료</td>
+								<td></td>
+								<td>1,000원</td>
+								<td></td>
+							</tr>
+
+						</table>
+						<div class="hrLine"></div>
+						<div class="priceBox">
+							<div class="totalPrice">원</div>
+						</div>
+
+						<div class="orderBtn" @click="fnOrder">결제하기</div>
+					</div>
+				</div>
+
 			</div>
 		</div>
 	</section>

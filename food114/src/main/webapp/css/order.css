@@ -235,3 +235,84 @@ hr {
     width : 75px; 
     margin-right: 5px;
 }
+/* 주문하기(영수증) */
+.orderListContainer{
+	position: relative;
+}
+.orderListBox{
+	position: fixed; 
+	width: 465px; 
+	right: 20px; 
+	top: 250px; 
+	border-radius: 5px; 
+	border: 1px solid #e4e4e4; 
+	padding: 10px; 
+	background-color: white; 
+}
+.hrLine{
+	height: 1px; 
+	background-color: #e4e4e4;
+	border: none;
+}
+.orderList{
+	background-color: white; 
+	font-size: 25px; 
+	text-align: center;
+	color: rgb(72, 72, 72); 
+	padding: 10px; 
+	font-weight: bold;
+}
+.orderListTable{
+	text-align: center; 
+	width: 430px;
+	font-size: 14px;
+    color: rgb(72, 72, 72);
+}
+
+.orderListTable th,td{
+	padding : 5px;
+}
+.thFirst{
+	width: 200px;
+}
+.thSecond{
+	width: 100px;	
+}
+.tdFirst{
+	width: 200px; 
+	max-width: 200px; 
+	overflow: hidden; 
+	word-break: break-all;
+}
+.tdSecond{
+	width: 100px; 
+	max-width: 100px; 
+	word-break: break-all;
+}
+.removeBtn{
+	cursor: pointer;
+}
+.orderListDelivery{
+	padding: 10px 0px;
+}
+.priceBox{
+	height: 10px; 
+	position: relative;
+}
+.totalPrice{
+	position: absolute; 
+	right: 49px; 
+	top: 0px;
+}
+.orderBtn{
+	font-size: 15px; 
+	text-align: center; 
+	border-radius: 4px; 
+	margin-top: 25px; 
+	padding: 10px 20px; 
+	background-color: #ff7f00; 
+	color: white; 
+	font-weight: 500;
+	cursor: pointer;
+}
+

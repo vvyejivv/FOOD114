@@ -1,1 +1,49 @@
+<<<<<<< HEAD
 Unexpected error.  File contents could not be restored from local history during undo/redo.
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="teamProject.food114.mapper.BizMapper">
+	<insert id="insertBiz" parameterType="hashmap">
+		INSERT INTO
+		FOOD114_BIZ_INFO
+		VALUES(#{bizId},#{bizPwd},#{bizNo},#{bizName},#{ownerName},#{email},#{phone},#{newAddr},#{oldAddr},#{detail},#{latitude},#{longitude},NOW(),NOW(),#{bank},#{accountNum},null,'1',null,null,'Y')
+	</insert>
+	<select id="selectBizId" parameterType="hashmap"
+		resultType="teamProject.food114.model.Biz">
+		SELECT *
+		FROM FOOD114_BIZ_INFO
+		WHERE BIZID = #{bizId}
+	</select>
+
+	<select id="idCheck" parameterType="hashmap"
+		resultType="teamProject.food114.model.Biz">
+		SELECT * FROM FOOD114_BIZ_INFO WHERE BIZID = #{bizId}
+	</select>
+	<select id="emailCheck" parameterType="hashmap"
+		resultType="teamProject.food114.model.Biz">
+		SELECT * FROM FOOD114_BIZ_INFO WHERE EMAIL = #{email}
+	</select>
+	<select id="selectBizList" parameterType="hashmap"
+		resultType="teamProject.food114.model.Biz">
+		SELECT * FROM FOOD114_BIZ_INFO
+	</select>
+	<select id="selectSiList" parameterType="hashmap"
+		resultType="teamProject.food114.model.Area">
+		SELECT SI FROM FOOD114_AREA GROUP BY SI
+	</select>
+	<select id="selectGuList" parameterType="hashmap"
+		resultType="teamProject.food114.model.Area">
+		SELECT GU FROM FOOD114_AREA WHERE SI = #{si} GROUP BY GU
+	</select>
+	<select id="selectDongList" parameterType="hashmap"
+		resultType="teamProject.food114.model.Area">
+		SELECT DONG FROM FOOD114_AREA WHERE SI = #{si} AND GU =
+		#{gu} GROUP BY DONG
+	</select>
+	<!-- 가게 리뷰 검색 -->
+	
+</mapper>
+>>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
