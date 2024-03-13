@@ -302,7 +302,7 @@ ul, ol {
 						</div>
 					</div>
 					<div class="restList" v-if="areaRestList.length == 0" v-for="item in locationRestList">
-						<img src="" alt="Hi" class="restImg">
+						<img :src="item.path" alt="Hi" class="restImg">
 						<h3 style="margin-top: 8px;">
 							<a style="font-size: 1.5em;" href="javascript:;"
 								@click="fnRestView()">{{item.bizName}}</a>
@@ -313,7 +313,7 @@ ul, ol {
 						</div>
 					</div>
 					<div class="restList" v-if="areaRestList.length > 0" v-for="item in areaRestList">
-						<img src="" alt="Hi" class="restImg">
+						<img :src="item.path" alt="Hi" class="restImg">
 						<h3 style="margin-top: 8px;">
 							<a style="font-size: 1.5em;" href="javascript:;"
 								@click="fnRestView()">{{item.bizName}}</a>

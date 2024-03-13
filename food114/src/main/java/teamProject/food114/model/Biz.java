@@ -24,7 +24,10 @@ public class Biz {
 	private String opneYN;
 	private String categoryName;
 	private String bankName;
-
+	
+	// 파일 path (biz_file)
+	private String path;
+	
 	public String getBizId() {
 		return bizId;
 	}
@@ -207,5 +210,13 @@ public class Biz {
 	
 	public void setBankName(String bankName) {
 		this.bankName = bankName;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
 	}
 }
