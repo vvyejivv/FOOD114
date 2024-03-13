@@ -11,4 +11,6 @@ import teamProject.food114.model.Review;
 @Mapper
 public interface ReviewMapper {
 	List<Review> selectReviewList(HashMap<String, Object> map); //리뷰 리스트 조회
+	
+	List<Review> selectBizReviewList(HashMap<String, Object> map); //리뷰 사업자
 }
