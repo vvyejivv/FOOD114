@@ -1,1 +1,27 @@
-Unexpected error.  File contents could not be restored from local history during undo/redo.
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="teamProject.food114.mapper.ReviewMapper">
+	<!-- 가게 리뷰 검색 -->
+	<select id="selectReviewList" parameterType="hashmap" resultType="teamProject.food114.model.Review">
+		SELECT R.*, DATE_FORMAT(O.ORDERDATE, '%y-%m-%d') AS
+		orderDate, O.*, D.*, M.*
+		FROM FOOD114_REVIEW R
+		INNER JOIN FOOD114_ORDER_DETAIL D ON R.ORDERNO = D.ORDERNO
+		INNER JOIN FOOD114_ORDERS O ON O.ORDERNO = D.ORDERNO
+		INNER JOIN FOOD114_MENU M ON D.MENUNO = M.MENUNO
+		WHERE M.BIZID = #{bizId}
+	</select>
+	
+	<!-- 리뷰 정보 -->
+	<select id="selectBizReviewList" parameterType="hashmap" resultType="teamProject.food114.model.Review">
+		SELECT R.REVIEWNO, O.USERID, R.RAITING, P.FILENAME, R.CONTENTS, R.ORDERNO, GROUP_CONCAT(CONCAT(M.MENU, '(', D.COUNT, ')') SEPARATOR ', ') AS MENULIST, O.ORDERDATE
+		FROM FOOD114_REVIEW R
+		INNER JOIN FOOD114_ORDERS O ON R.ORDERNO = O.ORDERNO
+		INNER JOIN FOOD114_ORDER_DETAIL D ON O.ORDERNO = D.ORDERNO
+		INNER JOIN FOOD114_MENU M ON D.MENUNO = M.MENUNO
+		LEFT JOIN FOOD114_REVIEW_PHOTO P ON R.REVIEWNO = P.REVIEWNO
+		GROUP BY R.REVIEWNO, O.USERID, R.RAITING, P.FILENAME, R.CONTENTS, R.ORDERNO, O.ORDERDATE
+	</select>
+</mapper>

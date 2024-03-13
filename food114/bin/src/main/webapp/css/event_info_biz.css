@@ -1,30 +1,101 @@
-<<<<<<< HEAD
-Unexpected error.  File contents could not be restored from local history during undo/redo.
-=======
-.mold{
-	position:absolute;
-	margin-left: 335px;
-	margin-top: 20px;
-}
-.event_info_table{
+.infoBox {
 	width: 1000px;
-	height: 400px;
+	/* height: 495px; */
+	margin-top: 13px;
+	border: 1px solid #ddd;
+	border-radius: 2px;
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+	color: #555;
+}
+
+.btn-modify {
+	width: 200px;
+	margin-top: 30px;
+	margin-left: 370px;
+	background-color: #ffffff;
 	border: 1px solid #ff7f00;
-	border-radius: 5px;
-	list-style: none;
+	color: #ff7f00; 
+	padding: 8px 12px; /* 내부 여백 */
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 14px;
+	transition-duration: 0.4s; /* 트랜지션 효과 지속 시간 */
+	cursor: pointer;
+	border-radius: 4px; /* 버튼에 border-radius 적용 */
+}
+
+.btn-modify:hover {
+	background-color: #ff7f00;
+	border: 1px solid #FBCEB1;
+	color: #ffffff;
+}
+
+.infoBox .infoDiv {
+	margin: 15px 0 25px 20px;
+}
+
+.infoName {
+	display: inline-block;
+	width: 250px;
+}
+
+.updateBtn {
+	width: 98px;
+	margin-top: 30px;
+	background-color: #ffffff; 
+	border: 1px solid #ff7f00; 
+	color: #ff7f00; 
+	padding: 8px 12px; /* 내부 여백 */
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 14px;
+	transition-duration: 0.4s; /* 트랜지션 효과 지속 시간 */
+	cursor: pointer;
+	border-radius: 4px; /* 버튼에 border-radius 적용 */
+}
+
+.updateBtn:hover {
+	background-color: #ff7f00;
+	border: 1px solid #FBCEB1;
+	color: #ffffff;
+}
+
+.viewInfo {
+	
+}
+
+.updateInput {
+	height: 17px;
+	border: 1px solid #ddd;
+	border-radius: 3px;
+}
+
+input[type="file"] {
+	border: 1px solid #ccc;
+	border-radius: 3px;
+}
+
+.mainImg {
+	width: 100px;
+	height: 50px;
 }
 .button-detail{
-	background-color: white;
-	color: #ff7f00;
-	border: 1px solid #ff7f00;
-	border-radius: 5px;
+	background-color: #ffffff; 
+	border: 1px solid #ff7f00; 
+	color: #ff7f00; 
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 14px;
+	transition-duration: 0.4s; /* 트랜지션 효과 지속 시간 */
+	cursor: pointer;
+	border-radius: 4px; /* 버튼에 border-radius 적용 */
+	padding: 2px;
 }
 .button-detail:hover{
-	background-color: #FBCEB1;
-	cursor: pointer;
+	background-color: #ff7f00;
+	border: 1px solid #FBCEB1;
+	color: #ffffff;
 }
-.event_info_table img{
-	width: 100px;
-	height: 100px;
-}
->>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git

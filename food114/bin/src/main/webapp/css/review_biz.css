@@ -1,1 +1,43 @@
-Unexpected error.  File contents could not be restored from local history during undo/redo.
+.mold{
+	position:absolute;
+	margin-left: 335px;
+	margin-top: 20px;
+}
+
+.review {
+	border-left: none;
+	border-right: none;
+	width: 1200px;
+	border-top: 1px solid #c0c0c0;
+	border-collapse: collapse;
+}
+
+.review th, td {
+	border-right: none;
+	border-bottom: 1px solid #e4e3e3;
+	padding: 15px 25px;
+	color: (72, 72, 72);
+	text-align: center;
+}
+.review-detail{
+	background-color: #ffffff; 
+	border: 1px solid #ff7f00; 
+	color: #ff7f00; 
+	transition-duration: 0.4s; /* 트랜지션 효과 지속 시간 */
+	cursor: pointer;
+	border-radius: 4px; /* 버튼에 border-radius 적용 */
+}
+.review-detail:hover{
+	background-color: #ff7f00;
+	border: 1px solid #FBCEB1;
+	color: #ffffff;
+}
+.review img{
+	margin-bottom: -4px;
+}
+.review span {
+	color: #ffcc00;
+}
+.reviewFont {
+	font-size: 13px;
+}

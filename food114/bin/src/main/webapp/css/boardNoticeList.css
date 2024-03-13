@@ -1,1 +1,115 @@
-Unexpected error.  File contents could not be restored from local history during undo/redo.
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+.notosanskr * {
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+* {
+	font-family: 'Noto Sans KR';
+}
+
+body {
+	margin: 0px;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+	width: 950px;
+	border-top: 1px solid #c0c0c0;
+	border-collapse: collapse;
+}
+
+th, td {
+	border-right: none;
+	border-bottom: 1px solid #e4e3e3;
+	padding: 15px 25px;
+	color: (72, 72, 72);
+}
+
+th:first-child, td:first-child {
+	border-left: none;
+}
+
+.container {
+	width: 1200px;
+	margin: 5px auto;
+	padding: 10px;
+}
+
+a {
+	font-size: 15px;
+	text-decoration: none;
+	color: #333;
+}
+
+.content {
+	width: 910px;
+	display: left;
+	margin: 10px;
+	padding: 5px;
+}
+
+a {
+	font-size: 14px;
+}
+
+.border {
+	border-width: 0 0 1px;
+	border-width: 0;
+}
+
+textarea {
+	border: none;
+	resize: none;
+	width: 700px;
+	height: 100px;
+	resize: none;
+}
+
+textarea:focus {
+	outline: none;
+}
+
+button {
+	background-color: white;
+	border: 1px solid #f8dec7;
+	border-radius: 4px;
+	width: 50px;
+	height: 40px;
+	margin: 5px;
+	cursor: pointer;
+	font-size: 12px;
+}
+
+.span {
+	font-size: 14px;
+	color: #979696c9;
+}
+
+.sidebar {
+	margin-top: 103px;
+	margin-left: 15px;
+	margin-right: 60px;
+	width: 150px;
+	padding: 10px;
+}
+
+li {
+	border: 1px solid #e9e7e7b0;
+	width: 170px;
+	height: 40px;
+	list-style-type: none;
+	text-align: left;
+	padding: 10px;
+	margin: auto;
+}
+
+li:hover {
+	background-color: #f5f3f3;
+	font-weight: bold;
+}
+
+h2 {
+	display: left;
+}

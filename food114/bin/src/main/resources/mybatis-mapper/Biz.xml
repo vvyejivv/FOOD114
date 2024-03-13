@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-Unexpected error.  File contents could not be restored from local history during undo/redo.
-=======
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -43,7 +40,94 @@ Unexpected error.  File contents could not be restored from local history during
 		SELECT DONG FROM FOOD114_AREA WHERE SI = #{si} AND GU =
 		#{gu} GROUP BY DONG
 	</select>
-	<!-- 가게 리뷰 검색 -->
-	
+
+	<select id="selectBizInfo" parameterType="hashmap"
+		resultType="teamProject.food114.model.Biz">
+		SELECT I.*, CATEGORYNAME, NAME AS BANKNAME
+		FROM
+		FOOD114_BIZ_INFO I
+		INNER JOIN FOOD114_CATEGORY C1 ON I.BIZCATEGORY =
+		C1.CATEGORYNO
+		INNER JOIN FOOD114_CODE C2 ON I.BANK = C2.VALUE AND
+		C2.KIND = 'bank'
+		WHERE
+		BIZID = #{bizId}
+	</select>
+
+	<!-- 파일 대기상태로 INSERT -->
+	<insert id="insertBizFile" parameterType="hashmap">
+		INSERT INTO
+		FOOD114_BIZ_FILE VALUES(null, #{bizId}, #{path}, #{fileName},
+		#{orgName}, #{fileSize}, #{etc}, null,"WAIT")
+	</insert>
+
+	<!-- 상태 COMPLETE, 삭제되지 않은 사진만 조회 -->
+	<select id="selectBizFile" parameterType="hashmap"
+		resultType="teamProject.food114.model.BizFile">
+		SELECT B.*, CONCAT(FILEPATH, FILENAME) AS PATH FROM
+		FOOD114_BIZ_FILE B WHERE BIZID = #{bizId} AND DELETETIME IS NULL AND
+		STATUS ="COMPLETE"
+	</select>
+
+	<!-- 상태 WAIT, 삭제되지 않은 사진만 조회 -->
+	<select id="selectWaitBizFile" parameterType="hashmap"
+		resultType="teamProject.food114.model.BizFile">
+		SELECT B.*, CONCAT(FILEPATH, FILENAME) AS PATH FROM
+		FOOD114_BIZ_FILE B WHERE BIZID = #{bizId} AND DELETETIME IS NULL AND
+		STATUS ="WAIT"
+	</select>
+
+	<select id="selectCategory" parameterType="hashmap"
+		resultType="teamProject.food114.model.Category">
+		SELECT * FROM FOOD114_CATEGORY
+	</select>
+
+	<!-- 이미지 파일 미리보기 실행시 -->
+	<update id="updateBizFile" parameterType="hashmap">
+		UPDATE FOOD114_BIZ_FILE
+		SET DELETETIME = NOW(),
+		STATUS="DELETE"
+		WHERE BIZID = #{bizId} AND
+		DELETETIME IS NULL AND STATUS="WAIT"
+	</update>
+
+	<!-- 사업자 정보 수정시 -->
+	<update id="updateBizInfo" parameterType="hashmap">
+		UPDATE FOOD114_BIZ_INFO
+		SET bizname=#{bizName},
+		ownername=#{ownerName},
+		phone=#{phone},
+		udate=now(),
+		bank=#{bank},
+		accountnumber=#{accountNumber},
+		bizcategory=#{bizCategory},
+		opentime=#{openTime},
+		closetime=#{closeTime}
+		WHERE bizid=#{bizId};
+	</update>
+
+	<!-- biz 로고사진 파일 수정시1 -->
+	<update id="updateBizFileCompleteToDelete"
+		parameterType="hashmap">
+		UPDATE FOOD114_BIZ_FILE
+		SET DELETETIME = NOW(),
+		STATUS="DELETE"
+		WHERE BIZID = #{bizId} AND
+		DELETETIME IS NULL AND
+		STATUS="COMPLETE"
+	</update>
+
+	<!-- biz 로고사진 파일 수정시2 -->
+	<update id="updateBizFileWaitToComplete"
+		parameterType="hashmap">
+		UPDATE FOOD114_BIZ_FILE
+		SET STATUS="COMPLETE"
+		WHERE BIZID
+		= #{bizId} AND
+		DELETETIME IS NULL AND STATUS="WAIT"
+	</update>
+
+	<select id="selectAreaList" parameterType="hashmap" resultType="teamProject.food114.model.Biz">
+		SELECT * FROM FOOD114_BIZ_INFO WHERE OLDADDR LIKE CONCAT(#{area},'%')
+	</select>
 </mapper>
->>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git

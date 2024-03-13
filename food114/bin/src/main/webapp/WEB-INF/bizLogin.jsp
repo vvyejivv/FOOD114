@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-Unexpected error.  File contents could not be restored from local history during undo/redo.
-=======
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -52,7 +49,7 @@ Unexpected error.  File contents could not be restored from local history during
 	</section>
 
 	<footer>
-		<%@include file="main(footer).html"%>
+		<%@include file="main(footer)_biz.html"%>
 	</footer>
 </body>
 
@@ -121,4 +118,3 @@ Unexpected error.  File contents could not be restored from local history during
 		}
 	});
 </script>
->>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git

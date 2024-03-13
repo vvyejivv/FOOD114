@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-Unexpected error.  File contents could not be restored from local history during undo/redo.
-=======
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -14,7 +11,7 @@ Unexpected error.  File contents could not be restored from local history during
 </head>
 <body>
 	<header>
-		<%@include file="main(header).html"%>
+		<%@include file="main(header)_biz.html"%>
 	</header>
 	<section>
 		<%@include file="sideBar_biz.html"%>
@@ -35,7 +32,7 @@ Unexpected error.  File contents could not be restored from local history during
 							이벤트 종류</th>
 						<th
 							style="width: 180px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
-							이벤트 내용</th>
+							이벤트 제목</th>
 						<th
 							style="width: 60px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
 							이벤트 상태</th>	
@@ -83,7 +80,7 @@ Unexpected error.  File contents could not be restored from local history during
 		</div>
 	</section>
 
-	<%@include file="main(footer).html"%>
+	<%@include file="main(footer)_biz.html"%>
 
 </body>
 </html>
@@ -111,4 +108,3 @@ Unexpected error.  File contents could not be restored from local history during
 		}
 	});
 </script>
->>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git

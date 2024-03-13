@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-Unexpected error.  File contents could not be restored from local history during undo/redo.
-=======
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -43,8 +40,8 @@ Unexpected error.  File contents could not be restored from local history during
 	var app = new Vue({
 		el : '#app',
 		data : {
-			selectTab : '${selectTab}', /* 선택한 탭 */
-			bizId : '${bizId}', /* 가게정보 - 아이디  */
+			selectTab : '${map.selectTab}', /* 선택한 탭 */
+			bizId : '${map.bizId}', /* 가게정보 - 아이디  */
 		},
 		methods : {
 			fnView : function() {
@@ -67,4 +64,3 @@ Unexpected error.  File contents could not be restored from local history during
 		}
 	});
 </script>
->>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
