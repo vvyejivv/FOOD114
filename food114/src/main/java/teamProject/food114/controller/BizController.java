@@ -128,7 +128,9 @@ public class BizController {
 	}
 
 	@RequestMapping("/biz-info.do")
-	public String bizInfo(Model model) throws Exception {
+	public String bizInfo(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		
+		
 		return "/biz_info"; // biz_info.jsp
 	}
 
@@ -163,7 +165,15 @@ public class BizController {
 		return "/bizEvent_info"; // bizEvent_info.jsp
 	}
 	
-
+	// 은행,카테고리,이메일 불러오기
+	@RequestMapping(value = "/selectAll.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String selectAll(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = bizService.searchSelect(map);
+		return new Gson().toJson(resultMap);
+	}
+	
 	@RequestMapping(value = "/bizSignup.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String bizSignup(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
@@ -229,13 +239,27 @@ public class BizController {
 		return new Gson().toJson(resultMap);
 	}
 
-
+	@RequestMapping(value = "/bizFile.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String bizFile(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = bizService.searchBizFile(map);
+		return new Gson().toJson(resultMap);
+	}
 
 	@RequestMapping(value = "/bizView.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String bizView(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap = bizService.searchBizInfo(map);
+		return new Gson().toJson(resultMap);
+	}
+	
+	@RequestMapping(value = "/bizInfoUpdate.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String bizInfoUpdate(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap=bizService.editBizInfo(map);
 		return new Gson().toJson(resultMap);
 	}
 

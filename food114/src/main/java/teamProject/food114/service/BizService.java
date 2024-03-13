@@ -1,6 +1,9 @@
 package teamProject.food114.service;
 
 import java.util.HashMap;
+import java.util.List;
+
+import teamProject.food114.model.Category;
 
 public interface BizService {
 	HashMap<String, Object> addBiz(HashMap<String, Object> map);
@@ -25,5 +28,13 @@ public interface BizService {
 	
 	HashMap<String, Object> searchBizInfo(HashMap<String, Object> map);
 	
+	// 대기상태의 파일 조회	
+	HashMap<String, Object> searchBizFile(HashMap<String, Object> map);
 	HashMap<String, Object> addBizFile(HashMap<String, Object> map);
+	
+	// 은행,카테고리,이메일 불러오기
+	HashMap<String, Object> searchSelect(HashMap<String, Object> map);
+	
+	// 사업자 정보 수정시
+	HashMap<String, Object> editBizInfo(HashMap<String, Object> map);
 }
