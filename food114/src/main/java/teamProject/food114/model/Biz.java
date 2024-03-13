@@ -27,6 +27,9 @@ public class Biz {
 	
 	// 파일 path (biz_file)
 	private String path;
+	private String reviewAvg;
+	private String reviewCnt;
+	
 	
 	public String getBizId() {
 		return bizId;
@@ -218,5 +221,21 @@ public class Biz {
 
 	public void setPath(String path) {
 		this.path = path;
+	}
+
+	public String getReviewAvg() {
+		return reviewAvg;
+	}
+
+	public void setReviewAvg(String reviewAvg) {
+		this.reviewAvg = reviewAvg;
+	}
+
+	public String getReviewCnt() {
+		return reviewCnt;
+	}
+
+	public void setReviewCnt(String reviewCnt) {
+		this.reviewCnt = reviewCnt;
 	}
 }
