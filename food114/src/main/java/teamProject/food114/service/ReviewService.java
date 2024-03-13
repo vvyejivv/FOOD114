@@ -5,4 +5,6 @@ import java.util.HashMap;
 public interface ReviewService {
 	//리뷰 리스트
 	HashMap<String, Object> searchReviewList(HashMap<String, Object> map);
+	//리뷰 사업자
+	HashMap<String, Object> searchBizReviewList(HashMap<String, Object> map);
 }

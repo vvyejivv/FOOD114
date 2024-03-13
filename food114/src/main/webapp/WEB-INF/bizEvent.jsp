@@ -32,7 +32,7 @@
 							이벤트 종류</th>
 						<th
 							style="width: 180px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
-							이벤트 내용</th>
+							이벤트 제목</th>
 						<th
 							style="width: 60px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
 							이벤트 상태</th>	

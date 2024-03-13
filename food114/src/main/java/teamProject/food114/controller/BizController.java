@@ -135,17 +135,7 @@ public class BizController {
 	@RequestMapping("/biz-sales.do")
 	public String bizSales(Model model) throws Exception {
 		return "/biz_sales_data"; // biz_sales_data.jsp
-	}
-
-	@RequestMapping("/bizReview.do")
-	public String bizReview(Model model) throws Exception {
-		return "/bizReview"; // bizReview.jsp
-	}
-
-	@RequestMapping("/bizReview_info.do")
-	public String bizReview_info(Model model) throws Exception {
-		return "/bizReview_info"; // bizReview_info.jsp
-	}
+	}	
 
 	@RequestMapping("/bizOrder.do")
 	public String bizOrder(Model model) throws Exception {
