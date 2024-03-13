@@ -41,6 +41,7 @@ public class OrderServiceImpl implements OrderService {
 			Order cnt = orderMapper.selectOrderCount(map);
 			resultMap.put("cnt", cnt);
 			resultMap.put("orderList", orderList);
+			resultMap.put("result", "success");
 		} catch (Exception e) {
 			// TODO: handle exception
 			resultMap.put("result", "error");
