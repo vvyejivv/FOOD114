@@ -95,7 +95,7 @@
 	
 }
 #quantityInput{
-	width: 20px;
+	width: 25px;
     padding: 5px;
     border: 1px solid #ccc;
     margin-top: 15px;
@@ -104,6 +104,14 @@
 #quantityInput:focus {
     outline:  #ff7f00 solid thin;
     border: none;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance: textfield;
 }
 #menuListPrice {
 	width: 500px;
@@ -146,7 +154,7 @@
 	color: #fff;
 	border: none;
 	font-weight: bold;
-	width: 350px;
+	width: 500px;
 }
 
 #menuListOrderBtn {

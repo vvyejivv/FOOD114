@@ -37,20 +37,16 @@
 					<div class="infoBox" id="addr">
 						<!-- 설정 주소 불러오기 -->
 						<div class="infoText">주소</div>
-						<input type="text" :value="userAddr.newAddr" disabled>
-						<!-- 상세주소 -->
-						<div>
-							<input type="text" :value="userAddr.detail" disabled>
-						</div>
+							<input type="text" :value="selectMenuList[0].newAddr" disabled>
+							<!-- 상세주소 -->
+							<div>
+								<input type="text" :value="selectMenuList[0].detail" disabled>
+							</div>
 					</div>
 					<div class="infoBox" id="phone">
 						<div class="infoText">휴대전화번호</div>
-						<input type="text" name="phone1" v-model="phone1"> - <input
-							type="text" name="phone2" v-model="phone2"> - <input
-							type="text" name="phone3" v-model="phone3"> <span
-							id="securePhone"> <label><input type="checkbox">
-								안심번호 사용</label>
-
+						<input type="text" name="phone1" v-model="phone1"> - <input type="text" name="phone2" v-model="phone2"> - <input type="text" name="phone3" v-model="phone3">
+							<!-- <span id="securePhone"> <label><input type="checkbox">안심번호 사용</label> -->
 						</span>
 					</div>
 				</div>
@@ -149,9 +145,7 @@
                     <button>전체 포인트</button>
                 </div> -->
 				</div>
-				<div>
-					<button @click="fnOrder">결제하기</button>
-				</div>
+
 
 				<!-- 주문하기(영수증창) -->
 				<div class="orderListContainer">
@@ -165,25 +159,20 @@
 								<th class="thSecond">금액</th>
 								<th>삭제</th>
 							</tr>
-							<tr>
-								<td class="tdFirst">메뉴이름</td>
-								<td>2</td>
-								<td class="tdSecond">1,008,000원</td>
+							<template>
+							<tr v-for="item in selectMenuList">
+								<td class="tdFirst">{{item.menuName}}</td>
+								<td>{{item.cnt}}</td>
+								<td class="tdSecond">{{item.price.toLocaleString()}}원</td>
 								<td>
 									<div class="removeBtn">x</div>
 								</td>
 							</tr>
-							<tr>
-								<td class="orderListDelivery">배달료</td>
-								<td></td>
-								<td>1,000원</td>
-								<td></td>
-							</tr>
-
+							</template>
 						</table>
 						<div class="hrLine"></div>
 						<div class="priceBox">
-							<div class="totalPrice">원</div>
+							<div class="totalPrice">{{selectTotalPrice.toLocaleString()}}원</div>
 						</div>
 
 						<div class="orderBtn" @click="fnOrder">결제하기</div>
@@ -193,21 +182,21 @@
 			</div>
 		</div>
 	</section>
-	<footer>
+
 		<%@include file="main(footer).html"%>
-	</footer>
+
 </body>
 </html>
 <script type="text/javascript">
 	var app = new Vue({
 		el : '#app',
 		data : {
-			userId : "yeji",
-			/* sessionId : "${userId}" */
+			sessionId : "${sessionId}",
 			userAddr : {},
 			phone1 : "",
 			phone2 : "",
 			phone3 : "",
+			phone : "", /* 전화번호  */
 			ecoYNChecked : false, /* 일회용 수저,포크 체크여부 전달  */
 			orderRequest : "", /* 주문 요청사항  */
 			deliveryRequest : "", /* 배달 요청사항  */
@@ -217,13 +206,14 @@
 			couponNum : "", /* 쿠폰번호  */
 			couponTitle : "", /* 쿠폰 이름  */
 			couponList : {}, /* 쿠폰 목록  */
+			selectTotalPrice : 0, /* 총 금액  */
+			selectMenuList : ${map.selectMenuList}, /* 장바구니에 담아온 메뉴  */
 		},
 		methods : {
 			fnView : function() {
 				var self = this;
 				var nparmap = {
-					/* userId : self.sessionId */
-					userId : self.userId
+					userId : self.sessionId
 				};
 				$.ajax({
 					url : "consumer-addr.dox",
@@ -233,6 +223,8 @@
 					success : function(data) {
 						self.userAddr = data.customerAddr;
 						console.log(data.customerAddr);
+						self.selectTotalPrice = self.fnTotalPrice(self.selectMenuList);
+					
 					}
 				});
 			},
@@ -304,7 +296,21 @@
 			/* 결제하기  */
 			fnOrder : function(){
 				var self = this;
-				if (self.paymentType == 'card') {
+				self.phone = self.phone1 + self.phone2 + self.phone3;
+				var nparmap = {
+					phone : self.phone,
+					
+				};
+	            $.ajax({
+	                url:"test.dox",
+	                dataType:"json",	
+	                type : "POST", 
+	                data : nparmap,
+	                success : function(data) { 
+	                
+	                }
+	            }); 
+				/* if (self.paymentType == 'card') {
 					self.fnCreditCard();
 				} else if (self.paymentType == 'phone') {
 					self.fnPhonePayment();
@@ -318,18 +324,16 @@
 					alert("현금결제");					
 				}  else {
 					alert("다시 시도하세요");
-				}
-/* 				var nparmap = {};
-	            $.ajax({
-	                url:"test.dox",
-	                dataType:"json",	
-	                type : "POST", 
-	                data : nparmap,
-	                success : function(data) { 
-	                
-	                }
-	            }); */ 
-				
+				}		 */	
+			},
+			/* 장바구니 총 금액  */
+			fnTotalPrice : function(menuList){
+				var self = this;
+				var totalPrice = 0;
+				for (var i = 0; i < menuList.length; i++) {
+		            totalPrice += parseInt(menuList[i].price, 10);
+		        }
+		        return totalPrice;
 			},
 			/* 신용카드 결제  */
 			fnCreditCard : function() {
@@ -423,6 +427,13 @@
 					}
 				});
 			}
+		},
+		watch : {
+			/* 장바구니 총 금액 */
+			selectMenuList: function (newMenuList, oldMenuList) {
+                var self = this;
+                self.selectTotalPrice = self.fnTotalPrice(newMenuList);
+            }	
 		},
 		created : function() {
 			var self = this;

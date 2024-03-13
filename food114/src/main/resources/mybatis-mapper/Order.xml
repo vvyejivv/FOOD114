@@ -30,4 +30,15 @@
 	<select id="selectOrderCount" parameterType="hashmap" resultType="teamProject.food114.model.Order">
 		SELECT COUNT(*) AS CNT FROM FOOD114_ORDERS WHERE BIZID = #{bizId}
 	</select>
+	
+	<!-- 주문하기  -->	
+	<insert id="insertOrderAdd" parameterType="hashmap">
+		INSERT INTO FOOD114_ORDERS (USERID, BIZID, ORDERDATE)
+		VALUES(NULL,#{userId}, #{bizId}, NOW())
+	</insert>
+	<insert id="insertOrderDetailAdd" parameterType="hashmap">
+		INSERT INTO FOOD114_ORDER_DETAIL
+		VALUES(NULL,#{menuNo}, #{count}, #{unitPrice})
+	</insert>
+	
 </mapper>

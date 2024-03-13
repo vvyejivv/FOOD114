@@ -7,4 +7,6 @@ public interface OrderService {
 	HashMap<String, Object> searchOrderUser(HashMap<String, Object> map);
 	
 	HashMap<String, Object> searchOrderList(HashMap<String, Object> map);
+	//주문 접수
+	HashMap<String, Object> addOrder(HashMap<String, Object> map);
 }
