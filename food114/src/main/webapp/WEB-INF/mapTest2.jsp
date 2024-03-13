@@ -294,7 +294,7 @@ ul, ol {
 									<option value="">선택</option>
 									<option v-for="item in dongList" :value="item.dong">{{item.dong}}</option>
 								</select>
-								<button
+								<button @click="fnAreaSearch()"
 									style="background-color: white; margin: 0; border: none;">
 									<img src="../img/magnifying-glass-solid.png">
 								</button>
@@ -455,6 +455,30 @@ ul, ol {
 					var self = this;
 					self.searchFlg1 = false;
 					self.searchFlg2 = true;
+				},
+				fnAreaSearch : function() {
+					var self = this;
+					self.dong = "";
+					var area = "";
+					if(!self.si){
+						return;
+					} else if(self.si && !self.gu){
+						area = self.si;
+					} else if(self.si && self.gu && !self.dong){
+						area = self.si + ' ' + self.gu;
+					} else if(self.si && self.gu && self.dong){
+						area = self.si + ' ' + self.gu + ' ' + self.dong;
+					}
+					var nparmap = {area : area};
+					$.ajax({
+						url : "dongList.dox",
+						dataType : "json",
+						type : "POST",
+						data : nparmap,
+						success : function(data) {
+							self.dongList = data.dongList;
+						}
+					});
 				},
 				addMarkers: function () {
 	                var self = this;

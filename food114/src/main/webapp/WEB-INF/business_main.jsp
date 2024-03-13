@@ -13,7 +13,7 @@
 <title>Document</title>
 </head>
 <body>
-			<%@include file="main(header)_biz.html" %>
+	<%@include file="main(header)_biz.html"%>
 	<div id="app">
 
 		<section>
@@ -77,8 +77,8 @@
 							<h2>사장님 반갑습니다!</h2>
 							<button class="button-style wide-button">로그인</button>
 							<div>
-								<span><a href="javascript:;" class="loginTag">회원가입</a></span>
-								<span><a href="javascript:;" class="loginTag">아이디/비밀번호 찾기</a></span>
+								<span><a href="javascript:;" class="loginTag">회원가입</a></span> <span><a
+									href="javascript:;" class="loginTag">아이디/비밀번호 찾기</a></span>
 							</div>
 						</div>
 					</div>
@@ -152,7 +152,7 @@
 										style="margin-left: 153px;">❯</span></a></li>
 								<li class="sideLi"><a href="javascript:;">광고 배너 문의</a> <a
 									href="javascript:;" style="font-size: 17px; color: #ff7f00;"><span
-										style="margin-left: 167px;">❯</span></a></li>		
+										style="margin-left: 167px;">❯</span></a></li>
 								<li class="sideLi"><a href="javascript:;">1:1 문의</a> <a
 									href="javascript:;" style="font-size: 17px; color: #ff7f00;"><span
 										style="margin-left: 204px;">❯</span></a></li>
@@ -162,27 +162,7 @@
 				</div>
 			</div>
 		</section>
-
-		<footer>
-			<div class="footerImg">
-				<img src="../img/logo_gray.png">
-			</div>
-			<div style="float: right; padding-right: 50px;">가맹점 문의</div>
-			<div style="clear: both; font-size: 12px;">
-				<div>주소 : 인천광역시 부평구 경원대로 1366(부평동. 스테이션타워 7F)</div>
-				<div>
-					대표이사 : 박경빈 <span class="partition"> | </span>사업자등록번호 :
-					010-6382-4246
-				</div>
-
-				<div>
-					제휴문의 : djl01@naver.com <span class="partition"> | </span>고객만족센터 :
-					1588-****
-				</div>
-				안심센터 FOOD114 클린리뷰 고객만족센터 1588-****(유료) 24시간, 연중무휴
-				<div>호스팅 제공자 : 더조은 FOOD114</div>
-			</div>
-		</footer>
+		<%@include file="main(footer)_biz.html"%>
 	</div>
 </body>
 <script>
@@ -193,6 +173,7 @@ window.onload = function() {
     function showSlides() {
         var slides = document.querySelector('#slides');
         var firstImage = slides.children[0].cloneNode(true);
+       
         slides.appendChild(firstImage);
         setInterval(() => {
             slideIndex++;

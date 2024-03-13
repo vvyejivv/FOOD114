@@ -9,5 +9,25 @@
 		FROM FOOD114_CONSUMER_ADDR 
 		WHERE USERID = #{userId}
 	</select>
-
+	
+	<select id="selectOrderList" parameterType="hashmap" resultType="teamProject.food114.model.Order">
+		SELECT
+		    FO.ORDERNO,
+		    GROUP_CONCAT(CONCAT(FM.MENU, ' (', FD.COUNT, ')') SEPARATOR ', ') AS 'MENULIST',
+		    SUM(FD.COUNT * FD.UNITPRICE) AS 'TOTALAMOUNT',
+		    FO.USERID,
+		    FO.ORDERDATE
+		FROM
+		    FOOD114_ORDERS FO
+		    INNER JOIN FOOD114_ORDER_DETAIL FD ON FO.ORDERNO = FD.ORDERNO
+		    INNER JOIN FOOD114_MENU FM ON FD.MENUNO = FM.MENUNO
+		WHERE
+    		FO.BIZID = #{bizId}
+		GROUP BY
+    		FO.ORDERNO, FO.USERID, FO.ORDERDATE
+	</select>
+	
+	<select id="selectOrderCount" parameterType="hashmap" resultType="teamProject.food114.model.Order">
+		SELECT COUNT(*) AS CNT FROM FOOD114_ORDERS WHERE BIZID = #{bizId}
+	</select>
 </mapper>

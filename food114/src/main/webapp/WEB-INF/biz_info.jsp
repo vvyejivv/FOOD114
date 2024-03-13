@@ -50,7 +50,7 @@
 
 .infoName {
 	display:inline-block;
-	width:300px;
+	width:250px;
 }
 
 .updateBtn {
@@ -75,7 +75,6 @@
 }
 
 .viewInfo {
-	
 }
 
 .updateInput {
@@ -90,8 +89,11 @@ input[type="file"] {
 }
 
 .mainImg {
-	width:100px;
-	height:50px;
+	position: absolute;
+	width:200px;
+	height:200px;
+	border: 1px solid #ccc;
+	margin-left:100px; 
 }
 </style>
 <body>
@@ -115,11 +117,11 @@ input[type="file"] {
 							메인 이미지
 						</div>
 						<span class="viewInfo">
-							<img class="mainImg" v-if="bizFile" :src="bizFile.path">
 							<input type="file" id="file1" name="file1" accept=".jpg, .png, .gif">
 							<button v-if="!bizFile" @click="fnFileUpload()">저장</button>
 							<button v-if="bizFile" @click="fnFileUpload()">변경</button>
 						</span>
+							<img class="mainImg" v-if="bizFile" :src="bizFile.path">
 					</div>
 					<div class="infoDiv">
 						<div class="infoName">
@@ -192,7 +194,7 @@ input[type="file"] {
 			</div>
 		</div>
 	</section>
-	<%@include file="main(footer).html"%>
+	<%@include file="main(footer)_biz.html"%>
 </body>
 
 </html>

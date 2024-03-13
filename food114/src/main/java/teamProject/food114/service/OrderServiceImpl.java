@@ -1,14 +1,14 @@
 package teamProject.food114.service;
 
 import java.util.HashMap;
-
-import javax.servlet.http.HttpSession;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import teamProject.food114.mapper.OrderMapper;
 import teamProject.food114.model.CustomerAddr;
+import teamProject.food114.model.Order;
 
 
 
@@ -29,6 +29,25 @@ public class OrderServiceImpl implements OrderService {
 			resultMap.put("result","success");
 				
 			
+		} catch (Exception e) {
+			// TODO: handle exception
+			resultMap.put("result", "error");
+			System.out.println(e.getMessage());
+		}
+		return resultMap;
+	}
+
+
+	@Override
+	public HashMap<String, Object> searchOrderList(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> resultMap = new HashMap<>();
+		try {
+			List<Order> orderList = orderMapper.selectOrderList(map);
+			Order cnt = orderMapper.selectOrderCount(map);
+			resultMap.put("cnt", cnt);
+			resultMap.put("orderList", orderList);
+			resultMap.put("result","success");
 		} catch (Exception e) {
 			// TODO: handle exception
 			resultMap.put("result", "error");
