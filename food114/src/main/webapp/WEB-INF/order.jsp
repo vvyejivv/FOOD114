@@ -37,10 +37,11 @@
 					<div class="infoBox" id="addr">
 						<!-- 설정 주소 불러오기 -->
 						<div class="infoText">주소</div>
-							<input type="text" :value="selectMenuList[0].newAddr" disabled>
+							<!--:value="userAddr[0].newAddr"  -->
+							<input type="text"  disabled>
 							<!-- 상세주소 -->
 							<div>
-								<input type="text" :value="selectMenuList[0].detail" disabled>
+								<input type="text"  disabled>
 							</div>
 					</div>
 					<div class="infoBox" id="phone">
@@ -160,12 +161,12 @@
 								<th>삭제</th>
 							</tr>
 							<template>
-							<tr v-for="item in selectMenuList">
+							<tr v-for="(item,index) in selectMenuList">
 								<td class="tdFirst">{{item.menuName}}</td>
 								<td>{{item.cnt}}</td>
 								<td class="tdSecond">{{item.price.toLocaleString()}}원</td>
 								<td>
-									<div class="removeBtn">x</div>
+									<div class="removeBtn" @click="fnRemoveMenu(index)">x</div>
 								</td>
 							</tr>
 							</template>
@@ -222,7 +223,7 @@
 					data : nparmap,
 					success : function(data) {
 						self.userAddr = data.customerAddr;
-						console.log(data.customerAddr);
+						console.log(self.selectMenuList);
 						self.selectTotalPrice = self.fnTotalPrice(self.selectMenuList);
 					
 					}
@@ -325,6 +326,11 @@
 				}  else {
 					alert("다시 시도하세요");
 				}		 */	
+			},
+			fnRemoveMenu : function(index){
+				var self = this;
+				self.selectMenuList.splice(index,1);
+				self.selectTotalPrice = self.fnTotalPrice(self.selectMenuList);
 			},
 			/* 장바구니 총 금액  */
 			fnTotalPrice : function(menuList){

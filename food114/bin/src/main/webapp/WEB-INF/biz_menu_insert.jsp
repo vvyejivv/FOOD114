@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-Unexpected error.  File contents could not be restored from local history during undo/redo.
-=======
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -179,8 +176,8 @@ button img {
 					<div class="inputDiv">
 						메뉴 이름<small><small style="color: #ff7f00;"> ＊ </small></small>
 					</div>
-					<input type="text" class="menu_input" placeholder="상품명을 입력해 주세요">
-					<div class="type_limit">0/100</div>
+					<input v-model="menu" type="text" class="menu_input" placeholder="상품명을 입력해 주세요">
+					<div class="type_limit">{{menu.length}}/100</div>
 					<div class="nameInfo">판매 상품과 직접 관련이 없는 상품명은 관리자에 의해 변경될 수 있습니다.</div>
 				</div>
 				<div class="inputBox">
@@ -193,21 +190,21 @@ button img {
 						<button class="searchIcon">
 							<img src="../img/magnifying-glass-gray-solid.png">
 						</button>
-					<input type="text" class="cate_input" placeholder="카테고리명 입력">
+					<input type="text" class="cate_input" placeholder="카테고리명 입력" disabled>
 					</div>
 				</div>
 				<div class="inputBox">
 					<div class="inputDiv">
 						가격<small><small style="color: #ff7f00;"> ＊ </small></small>
 					</div>
-					<input type="text" class="mod_input" placeholder="가격 입력">
+					<input v-model="price" type="text" class="mod_input" placeholder="가격 입력">
 				</div>
 				<div class="inputBox">
 					<div class="inputDiv">
 						메뉴 설명(소개)<small><small style="color: #ff7f00;"> ＊
 						</small></small>
 					</div>
-					<input type="text" class="mod_input" placeholder="메뉴 설명(소개) 입력">
+					<input v-model="menuInfo" type="text" class="mod_input" placeholder="메뉴 설명(소개) 입력">
 				</div>
 				<div class="inputBox">
 					<div class="inputDiv">
@@ -227,7 +224,7 @@ button img {
 					</div>
 					<input type="file" class="mod_input" id="file1" name="file1" accept=".jpg, .png, .gif" style="color: #ccc; font-size:12px; line-height:30px;">
 				</div>
-				<button class="btn-modify">메뉴 등록</button>
+				<button class="btn-modify" @click="fnMenuUpload()">메뉴 등록</button>
 			</div>
 		</div>
 	</section>
@@ -239,10 +236,66 @@ button img {
 	var app = new Vue({
 		el : '#app',
 		data : {
-
+			sessionId : "${sessionId}",
+			menu : "",
+			price : "",
+			menuInfo : ""
 		},
 		methods : {
-
+			fnMenuUpload : function(){
+	       		var self = this;
+				var form = new FormData();
+				var fileInput = document.getElementById('file1');
+			    if (fileInput.files.length > 0) {
+			        // 파일이 선택된 경우에만 FormData에 파일 추가
+			        form.append( "file1",  fileInput.files[0] );
+			    }
+			    form.append( "bizId",  self.sessionId);
+	   	     	form.append( "menu",  self.menu);
+	   	     	form.append( "price",  self.price);
+	   	     	form.append( "menuInfo",  self.menuInfo);
+	   	     	
+	   	  		// 파일이 선택되었을 때만 업로드 실행
+	   	     	if (fileInput.files.length > 0) {
+	   	         	self.upload(form);
+	   	         	$.pageChange("/biz-menu-update.do", {});
+	   	     	} else {
+	   	         	// 파일이 선택되지 않았을 때 다른 동작 수행
+	   	         	self.fnSubMenuUpload();
+	   	     	}
+	        }
+			// 파일 업로드
+		    , upload : function(form){
+		    	var self = this;
+		         $.ajax({
+		             url : "/menuUpload.dox"
+		           , type : "POST"
+		           , processData : false
+		           , contentType : false
+		           , data : form
+		           , success:function(response) { 
+		        	   
+		           }	           
+		       });
+			},
+			fnSubMenuUpload : function() {
+				var self = this;
+				var nparmap = {
+					bizId : self.sessionId,
+					price : self.price,
+					menuInfo : self.menuInfo,
+					menu : self.menu
+				};
+				$.ajax({
+					url : "/menuUploadNoFile.dox",
+					dataType : "json",
+					type : "POST",
+					data : nparmap,
+					success : function(data) {
+						$.pageChange("/biz-menu-update.do", {});
+					}
+				});
+			}
 		},
 		created : function() {
 			var self = this;
@@ -250,4 +303,3 @@ button img {
 		}
 	});
 </script>
->>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git

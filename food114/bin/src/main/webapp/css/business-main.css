@@ -1,1 +1,217 @@
-Unexpected error.  File contents could not be restored from local history during undo/redo.
+/* Additional CSS rules for this document */
+#container {
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+#margin-top {
+	margin-top: -22px;
+}
+
+#margin-bottom {
+	margin-bottom: 20px;
+}
+
+#border-container {
+	width: 880px;
+	height: 170px;
+	border-radius: 5px;
+	overflow: hidden;
+}
+
+#flex-row {
+	display: flex;
+	justify-content: space-between; /* 아이콘 사이의 간격을 동일하게 설정 */
+}
+
+#flex-cell {
+	flex: 1;
+	padding: 10px;
+	margin-top: 35px;
+	position: relative; /* 아이콘 컨테이너의 위치를 상대적으로 설정 */
+}
+
+#flex-cell:not(:last-child)::after {
+	content: ''; /* 가상 요소를 추가하여 선을 생성 */
+	position: absolute;
+	top: 50%;
+	right: 0;
+	transform: translateY(-50%);
+	height: 80%; /* 선의 높이 설정 */
+	width: 1px; /* 선의 너비 설정 */
+	background-color: #ff7f00; /* 선의 색상 설정 */
+}
+
+#flex-cell .icon-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+#flex-cell .icon-container i {
+	font-size: 40px;
+}
+
+#bold-notice {
+	margin-top: 30px;
+	font-weight: bold;
+	margin-bottom: 10px;
+	display: ruby;
+}
+
+#slideshow {
+	position: relative;
+	max-width: 100%;
+	margin: auto;
+	height: 300px;
+	overflow: hidden;
+}
+
+#slides {
+	display: flex;
+}
+
+#slides img {
+	flex: 0 0 auto;
+	width: 100%;
+	height: 300px;
+	transition: transform 3s ease;
+}
+
+#content {
+	display: flex;
+	flex: 1;
+	margin-top: 20px;
+}
+
+#border-container.right-margin {
+	margin-right: 30px;
+	border: 1px solid #ff7f00;
+	border-radius: 10px;
+}
+
+#sidebar {
+	border: 1px solid #ff7f00;
+	border-radius: 10px;
+	width: 360px;
+	height: 170px;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+#sideBar2 {
+	width: 360px;
+	height: 170px;
+	text-align: center;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-top: -24px
+}
+
+#side-bar-container {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 20px;
+}
+
+#notice-table-container {
+	width: 900px; /* Adjust table width */
+	overflow-x: auto; /* Add horizontal scrollbar if needed */
+	border-collapse: collapse;
+}
+
+#notice-table {
+	width: 96%; /* Adjust table width */
+	border-collapse: collapse;
+}
+
+#notice-table th, #notice-table td {
+	border-right: none;
+	border-bottom: 1px solid #e4e3e3;
+	padding: 7px 25px;
+	color: (72, 72, 72);
+}
+
+#notice-table th {
+	color: #000;
+	font-weight: bold;
+}
+
+.button-style {
+	padding: 0px 20px;
+	height: 40px;
+	border: 1px solid #ff7f00;
+	background-color: #ff7f00;
+	border-radius: 15px;
+	font-size: 17px;
+	line-height: 40px;
+	color: white;
+	margin: 10px;
+}
+
+.wide-button {
+	width: 180px;
+}
+
+.wider-button {
+	width: 250px;
+	margin: 5px 25px 5px 0;
+}
+
+.icon-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.icon-container i {
+	font-size: 40px;
+}
+
+.aTag {
+	font-size: 13px;
+	text-decoration: none;
+	color: #333;
+}
+
+.loginTag{
+	text-decoration: none;
+	color: #ff7f00;
+	font-size: 13px;
+	margin: 25px;
+}
+
+.iconTag {
+	text-decoration: none;
+	color: #ff7f00;
+}
+
+.side {
+	padding: 10px;
+}
+
+.side a {
+	font-size: 15px;
+	text-decoration: none;
+	color: #333;
+}
+
+.sideLi {
+	border-radius: 5px;
+	border: 1px solid #e9e7e7b0;
+	list-style-type: none;
+	text-align: left;
+	padding: 11px;
+	margin: auto;
+}
+
+.sideLi:hover {
+	background-color: #f5f3f3;
+	font-weight: bold;
+}

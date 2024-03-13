@@ -94,7 +94,7 @@
 								<td class="tdAmount">{{order.cnt}}</td>
 								<td class="tdSecond">{{order.price.toLocaleString()}}</td>
 								<td class="tdremove">
-									<div class="removeBtn">×</div>
+									<div class="removeBtn" @click="fnRemoveMenu(index)">×</div>
 								</td>
 							</tr>
 							<!-- 						<tr>
@@ -107,6 +107,7 @@
 					</div>
 					<div class="hrLine"></div>
 					<div class="priceBox">
+						<div class="totalPriceTxt">총 주문금액</div>
 						<div class="totalPrice">{{selectTotalPrice.toLocaleString()}}원</div>
 					</div>
 					<div class="orderBtn" @click="fnOrder">주문하기</div>
@@ -264,7 +265,6 @@
 											});
 					}
 				self.selectTotalPrice = self.fnTotalPrice(self.selectMenuList);
-				console.log(self.selectMenuList);
 				self.fnMenuClick('close',self.selectMenu);
 			},
 			/* 장바구니 총 금액  */
@@ -276,18 +276,21 @@
 		        }
 		        return totalPrice;
 			},
+			fnRemoveMenu : function(index){
+				var self = this;
+				self.selectMenuList.splice(index,1);
+				self.selectTotalPrice = self.fnTotalPrice(self.selectMenuList);
+			},
 			/* 주문하기 */
 			fnOrder : function(){
-				var self = this;
+				var self = this;	
 				/* 주문하기 DB 생성  */
-				var nparmap = {
+			/*	var nparmap = {
 						userId : self.sessionId,
 						bizId : self.bizId,
-						count : self.selectMenuList.cnt,
-						menuNo : self.selectMenuList.menuNo,
-						unitPrice : self.selectMenuList.price,
-					};				
-					/* $.ajax({
+					};
+				
+					 $.ajax({
 						url : "orderAdd.dox",
 						dataType : "json",
 						type : "POST",
@@ -296,7 +299,7 @@
 							
 						}
 					}); */ 
-				/* $.pageChange("/order.do", {userId : self.sessionId, selectMenuList: self.selectMenuList}); */
+				$.pageChange("/order.do", {userId : self.sessionId, selectMenuList: self.selectMenuList});
 			}
 			
 

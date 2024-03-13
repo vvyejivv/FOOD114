@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-Unexpected error.  File contents could not be restored from local history during undo/redo.
-=======
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -43,7 +40,28 @@ Unexpected error.  File contents could not be restored from local history during
 		SELECT DONG FROM FOOD114_AREA WHERE SI = #{si} AND GU =
 		#{gu} GROUP BY DONG
 	</select>
-	<!-- 가게 리뷰 검색 -->
 	
+	<select id="selectBizInfo" parameterType="hashmap"
+		resultType="teamProject.food114.model.Biz">
+		SELECT I.*, CATEGORYNAME, NAME AS BANKNAME
+			FROM FOOD114_BIZ_INFO I
+			INNER JOIN FOOD114_CATEGORY C1 ON I.BIZCATEGORY = C1.CATEGORYNO
+			INNER JOIN FOOD114_CODE C2 ON I.BANK = C2.VALUE AND C2.KIND = 'bank'
+		WHERE BIZID = #{bizId}
+	</select>
+	
+	<insert id="insertBizFile" parameterType="hashmap">
+		INSERT INTO FOOD114_BIZ_FILE VALUES(null, #{bizId}, #{path}, #{fileName}, #{orgName}, #{fileSize}, #{etc}, null)
+	</insert>
+	
+	<select id="selectBizFile" parameterType="hashmap" resultType="teamProject.food114.model.BizFile">
+		SELECT B.*, CONCAT(FILEPATH, FILENAME) AS PATH FROM FOOD114_BIZ_FILE B WHERE BIZID = #{bizId} AND DELETETIME IS NULL
+	</select>
+	
+	<update id="updateBizFile" parameterType="hashmap">
+		UPDATE FOOD114_BIZ_FILE 
+			SET DELETETIME = NOW() 
+		WHERE BIZID = #{bizId} AND DELETETIME IS NULL
+	</update>
+
 </mapper>
->>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git

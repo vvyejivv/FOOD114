@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-Unexpected error.  File contents could not be restored from local history during undo/redo.
-=======
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -17,7 +14,7 @@ Unexpected error.  File contents could not be restored from local history during
 <style>
 .infoBox {
 	width: 1000px;
-	height: 405px;
+	/* height: 495px; */
 	margin-top: 13px;
 	border: 1px solid #ddd;
 	border-radius: 2px;
@@ -81,10 +78,20 @@ Unexpected error.  File contents could not be restored from local history during
 	
 }
 
-input {
+.updateInput {
 	height:17px;
 	border: 1px solid #ddd;
 	border-radius: 3px;
+}
+
+input[type="file"] {
+    border: 1px solid #ddd;
+	border-radius: 3px;
+}
+
+.mainImg {
+	width:100px;
+	height:50px;
 }
 </style>
 <body>
@@ -105,58 +112,76 @@ input {
 				<div class="infoBox">
 					<div class="infoDiv">
 						<div class="infoName">
+							메인 이미지
+						</div>
+						<span class="viewInfo">
+							<img class="mainImg" v-if="bizFile" :src="bizFile.path">
+							<input type="file" id="file1" name="file1" accept=".jpg, .png, .gif">
+							<button v-if="!bizFile" @click="fnFileUpload()">저장</button>
+							<button v-if="bizFile" @click="fnFileUpload()">변경</button>
+						</span>
+					</div>
+					<div class="infoDiv">
+						<div class="infoName">
 							사업자번호
 						</div>
-						<span class="viewInfo">123-12-12345</span>
+						<span class="viewInfo">{{bizInfo.bizNo}}</span>
 					</div>
 					<div class="infoDiv">
 						<div class="infoName">
 							상호
 						</div>
-						<span v-if="!updateFlg" class="viewInfo">오아저씨철판</span>
-						<input v-if="updateFlg" class="viewInfo" value="오아저씨철판">
+						<span v-if="!updateFlg" class="viewInfo">{{bizInfo.bizName}}</span>
+						<input v-if="updateFlg" class="updateInput" :value="bizInfo.bizName">
+					</div>
+					<div class="infoDiv">
+						<div class="infoName">
+							판매 카테고리
+						</div>
+						<span v-if="!updateFlg" class="viewInfo">{{bizInfo.categoryName}}</span>
+						<input v-if="updateFlg" class="updateInput" :value="bizInfo.categoryName">
 					</div>
 					<div class="infoDiv">
 						<div class="infoName">
 							사업장 주소
 						</div>
-						<span v-if="!updateFlg" class="viewInfo">인천 부평구 경원대로 1366</span>
-						<input v-if="updateFlg" class="viewInfo" value="인천 부평구 경원대로 1366">
+						<span v-if="!updateFlg" class="viewInfo">{{bizInfo.newAddr}} {{bizInfo.detail}}</span>
+						<input v-if="updateFlg" class="updateInput" :value="bizInfo.newAddr +' '+ bizInfo.detail">
 					</div>
 					<div class="infoDiv">
 						<div class="infoName">
 							대표 이름
 						</div>
-						<span v-if="!updateFlg" class="viewInfo">오아재</span>
-						<input v-if="updateFlg" class="viewInfo" value="오아재">
+						<span v-if="!updateFlg" class="viewInfo">{{bizInfo.ownerName}}</span>
+						<input v-if="updateFlg" class="updateInput" :value="bizInfo.ownerName">
 					</div>
 					<div class="infoDiv">
 						<div class="infoName">
 							대표연락처
 						</div>
-						<span v-if="!updateFlg" class="viewInfo">01055555555</span>
-						<input v-if="updateFlg" class="viewInfo" value="01055555555">
+						<span v-if="!updateFlg" class="viewInfo">{{bizInfo.phone}}</span>
+						<input v-if="updateFlg" class="updateInput" :value="bizInfo.phone">
 					</div>
 					<div class="infoDiv">
 						<div class="infoName">
 							대표이메일주소
 						</div>
-						<span v-if="!updateFlg" class="viewInfo">honghong@hong.co.kr</span>
-						<input v-if="updateFlg" class="viewInfo" value="honghong@hong.co.kr">
+						<span v-if="!updateFlg" class="viewInfo">{{bizInfo.email}}</span>
+						<input v-if="updateFlg" class="updateInput" :value="bizInfo.email">
 					</div>
 					<div class="infoDiv">
 						<div class="infoName">
 							은행
 						</div>
-						<span v-if="!updateFlg" class="viewInfo">신한은행</span>
-						<input v-if="updateFlg" class="viewInfo" value="신한은행">
+						<span v-if="!updateFlg" class="viewInfo">{{bizInfo.bankName}}</span>
+						<input v-if="updateFlg" class="updateInput" :value="bizInfo.bankName">
 					</div>
 					<div class="infoDiv">
 						<div class="infoName">
 							계좌번호
 						</div>
-						<span v-if="!updateFlg" class="viewInfo">110439130740</span>
-						<input v-if="updateFlg" class="viewInfo" value="110439130740">
+						<span v-if="!updateFlg" class="viewInfo">{{bizInfo.accountNumber}}</span>
+						<input v-if="updateFlg" class="updateInput" :value="bizInfo.accountNumber">
 					</div>
 				</div>
 				<button v-if="!updateFlg" class="btn-modify" @click="fnInfoUpdate()">정보 변경하기</button>
@@ -175,18 +200,60 @@ input {
 	var app = new Vue({
 		el : '#app',
 		data : {
-			updateFlg : false
+			updateFlg : false,
+			sessionId : "${sessionId}",
+			bizInfo : {},
+			bizFile : {}
 		},
 		methods : {
 			fnInfoUpdate : function() {
 				var self = this;	
 				self.updateFlg = !self.updateFlg;
+			},
+			fnBizView : function() {
+				var self = this;
+				var nparmap = {
+					bizId : self.sessionId						
+				};
+				$.ajax({
+					url : "bizView.dox",
+					dataType : "json",
+					type : "POST",
+					data : nparmap,
+					success : function(data) {
+						self.bizInfo = data.bizInfo;
+						if(data.bizFile){
+							self.bizFile = data.bizFile;
+						}
+					}
+				});
+			},
+			fnFileUpload : function(){
+				var self = this;
+				var form = new FormData();
+	   	        form.append( "file1",  $("#file1")[0].files[0] );
+	   	     	form.append( "bizId",  self.sessionId);
+	       		self.upload(form);
+	       		$.pageChange("/biz-info.do", {});
+	        }
+			// 파일 업로드
+		    , upload : function(form){
+		    	var self = this;
+		         $.ajax({
+		             url : "/fileUpload.dox"
+		           , type : "POST"
+		           , processData : false
+		           , contentType : false
+		           , data : form
+		           , success:function(response) { 
+		        	   
+		           }	           
+		       });
 			}
 		},
 		created : function() {
 			var self = this;
-
+			self.fnBizView();
 		}
 	});
 </script>
->>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git

@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-Unexpected error.  File contents could not be restored from local history during undo/redo.
-=======
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -132,7 +129,7 @@ Unexpected error.  File contents could not be restored from local history during
 						<td>{{item.menu}}</td>
 						<td>{{item.sta}}</td>
 						<td>{{item.price}}</td>
-						<td><button class="btn-modify">수정</button></td>
+						<td><button class="btn-modify" @click="fnUpdateView(item.menuNo)">수정</button></td>
 					</tr>
 				</table>
 			</div>
@@ -168,6 +165,11 @@ Unexpected error.  File contents could not be restored from local history during
 						console.log(data.menuCnt);
 					}
 				});
+			},
+			fnUpdateView : function(menuNo) {
+				$.pageChange("/biz-menu-update-view.do",{
+	        		menuNo : menuNo
+	        	});
 			}
 		},
 		created : function() {
@@ -176,4 +178,3 @@ Unexpected error.  File contents could not be restored from local history during
 		}
 	});
 </script>
->>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
