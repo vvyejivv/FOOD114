@@ -17,14 +17,16 @@
 		</choose>
 		),"1",now(),now(),"N","Y")
 	</insert>
-	<select id="selectUserID" parameterType="hashmap" resultType="teamProject.food114.model.Customer">
+	<select id="selectUserID" parameterType="hashmap"
+		resultType="teamProject.food114.model.Customer">
 		SELECT *
-		FROM FOOD114_CONSUMER 
+		FROM FOOD114_CONSUMER
 		WHERE USERID=#{userId}
 	</select>
-	<select id="selectUserAddr" parameterType="hashmap" resultType="teamProject.food114.model.Addr">
+	<select id="selectUserAddr" parameterType="hashmap"
+		resultType="teamProject.food114.model.Addr">
 		SELECT *
-		FROM FOOD114_CONSUMER_ADDR 
+		FROM FOOD114_CONSUMER_ADDR
 		WHERE USERID=#{userId}
 	</select>
 	<select id="selectEmail" parameterType="hashmap"
@@ -40,17 +42,27 @@
 		</choose>
 		)
 	</select>
-	
+
 	<!-- myInfo 수정 -->
 	<update id="updateMyInfo" parameterType="hashmap">
-		UPDATE FOOD114_CUSTOMER 
+		UPDATE FOOD114_CUSTOMER
 		SET
-			NAME = #{name},
-			NICKNAME = #{nickName},
-			PHONE = #{phone},
-			EMAIL = #{email}
+		NAME = #{name},
+		NICKNAME = #{nickName},
+		PHONE = #{phone},
+		EMAIL = #{email}
 		WHERE USERID = #{userId}
 	</update>
-	
-	
+
+	<select id="selectUserSiGuDong" parameterType="hashmap"
+		resultType="teamProject.food114.model.CustomerAddr">
+		SELECT
+		*
+		FROM
+		FOOD114_CONSUMER_ADDR A1
+		INNER JOIN FOOD114_AREA A2 ON A1.OLDADDR LIKE CONCAT('%', A2.SI, '%')
+		AND A1.OLDADDR LIKE CONCAT('%', A2.GU, '%')
+		AND A1.OLDADDR LIKE CONCAT('%', A2.DONG, '%');
+	</select>
+
 </mapper>

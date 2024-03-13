@@ -25,4 +25,7 @@ public interface CustomerMapper {
 
 	// myInfo 수정
 	void updateMyInfo(HashMap<String, Object> map);
+	
+	// 메뉴->고객 주소 입력시
+	Addr selectUserSiGuDong(HashMap<String, Object> map);
 }
