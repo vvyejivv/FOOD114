@@ -39,4 +39,5 @@ public interface BizMapper {
 	
 	
 
+	List<Biz> selectAreaList(HashMap<String, Object> map); // 시구동 검색 식당 리스트 조회
 }

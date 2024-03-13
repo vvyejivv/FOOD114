@@ -37,4 +37,6 @@ public interface BizService {
 	
 	// 사업자 정보 수정시
 	HashMap<String, Object> editBizInfo(HashMap<String, Object> map);
+	
+	HashMap<String, Object> searchAreaList(HashMap<String, Object> map);
 }

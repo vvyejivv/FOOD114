@@ -259,5 +259,20 @@ public class BizServiceImpl implements BizService {
 		}
 		return resultMap;
 	}
+	
+	public HashMap<String, Object> searchAreaList(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		List<Biz> areaRestList = bizMapper.selectAreaList(map);
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			resultMap.put("areaRestList", areaRestList);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			resultMap.put("result", "fail");
+		}
+		return resultMap;
+	}
+
 
 }
