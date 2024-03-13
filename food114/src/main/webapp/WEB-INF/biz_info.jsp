@@ -307,6 +307,7 @@ section {
 				self.bizInfo.openTime=self.openHour+self.openMinute;
 				self.bizInfo.closeTime=self.closeHour+self.closeMinute;				
 				
+				self.bizInfo["imgFlg"] = self.changeImgFlg;
 				var nparmap = self.bizInfo;
 				$.ajax({
 					url : "bizInfoUpdate.dox",
@@ -370,6 +371,7 @@ section {
 			// 파일업로드1
 			fnFileUpload : function() {
 				var self = this;
+				self.changeImgFlg=true;
 				var form = new FormData();
 				form.append("file1", $("#file1")[0].files[0]);
 				form.append("bizId", self.sessionId);

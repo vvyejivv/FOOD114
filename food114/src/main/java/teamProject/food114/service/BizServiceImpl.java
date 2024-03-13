@@ -248,8 +248,10 @@ public class BizServiceImpl implements BizService {
 		HashMap<String, Object> resultMap = new HashMap<>();
 		try {
 			bizMapper.updateBizInfo(map);
-			bizMapper.updateBizFileCompleteToDelete(map);
-			bizMapper.updateBizFileWaitToComplete(map);
+			System.out.println((boolean)map.get("imgFlg"));
+//			bizMapper.updateBizFileCompleteToDelete(map);
+//			bizMapper.updateBizFileWaitToComplete(map);
+			
 			resultMap.put("result", "success");
 
 		} catch (Exception e) {
