@@ -25,7 +25,10 @@
 	</select>
 	<select id="selectBizList" parameterType="hashmap"
 		resultType="teamProject.food114.model.Biz">
-		SELECT * FROM FOOD114_BIZ_INFO
+		SELECT I.*, CONCAT(F.FILEPATH,F.FILENAME) AS PATH
+			FROM FOOD114_BIZ_INFO I
+		LEFT JOIN FOOD114_BIZ_FILE F ON I.BIZID = F.BIZID 
+		AND F.DELETETIME IS NULL AND STATUS = 'COMPLETE'
 	</select>
 	<select id="selectSiList" parameterType="hashmap"
 		resultType="teamProject.food114.model.Area">
@@ -128,6 +131,9 @@
 	</update>
 
 	<select id="selectAreaList" parameterType="hashmap" resultType="teamProject.food114.model.Biz">
-		SELECT * FROM FOOD114_BIZ_INFO WHERE OLDADDR LIKE CONCAT(#{area},'%')
+		SELECT I.*, CONCAT(F.FILEPATH,F.FILENAME) AS PATH
+		FROM FOOD114_BIZ_INFO I  
+		LEFT JOIN FOOD114_BIZ_FILE F ON I.BIZID = F.BIZID AND F.DELETETIME IS NULL AND STATUS = 'COMPLETE'
+		WHERE OLDADDR LIKE CONCAT(#{area},'%')
 	</select>
 </mapper>
