@@ -27,7 +27,7 @@
    			SUM(CASE WHEN STATUS = '3' THEN 1 ELSE 0 END) AS "SOLDOUT"
 		FROM FOOD114_MENU
 		WHERE BIZID = #{bizId}
-		GROUP BY BIZID;
+		GROUP BY BIZID
 	</select>
 
 	<!-- 선택 메뉴 확인  -->
