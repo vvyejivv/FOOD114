@@ -193,11 +193,11 @@ var main = new Vue({
         fnMoveClick : function(num){
         	var self=this;
         	clearInterval(self.interval);
-        	self.move(num);          	
-        	setTimeout(() => {        		
-        	}, self.speedTime);   
-        	self.interval=setInterval(function() {
-                self.sliding();
+        	self.move(num);    	
+            setTimeout(() => {        		
+            }, self.speedTime);   
+            self.interval=setInterval(function() {
+            	self.sliding();
             }, self.speedTime);
         }
     },   
