@@ -238,6 +238,14 @@ public class BizController {
 		resultMap = bizService.searchBizInfo(map);
 		return new Gson().toJson(resultMap);
 	}
+	
+	@RequestMapping(value = "/areaRestList.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String areaRestList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = bizService.searchAreaList(map);
+		return new Gson().toJson(resultMap);
+	}
 
 	// file upload
 	@RequestMapping("/fileUpload.dox")

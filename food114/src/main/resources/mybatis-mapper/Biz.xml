@@ -64,4 +64,7 @@
 		WHERE BIZID = #{bizId} AND DELETETIME IS NULL
 	</update>
 
+	<select id="selectAreaList" parameterType="hashmap" resultType="teamProject.food114.model.Biz">
+		SELECT * FROM FOOD114_BIZ_INFO WHERE OLDADDR LIKE CONCAT(#{area},'%')
+	</select>
 </mapper>
