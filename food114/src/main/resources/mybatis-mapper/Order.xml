@@ -9,5 +9,14 @@
 		FROM FOOD114_CONSUMER_ADDR 
 		WHERE USERID = #{userId}
 	</select>
-
+	<!-- 주문하기  -->	
+	<insert id="insertOrderAdd" parameterType="hashmap">
+		INSERT INTO FOOD114_ORDERS (USERID, BIZID, ORDERDATE)
+		VALUES(NULL,#{userId}, #{bizId}, NOW())
+	</insert>
+	<insert id="insertOrderDetailAdd" parameterType="hashmap">
+		INSERT INTO FOOD114_ORDER_DETAIL
+		VALUES(NULL,#{menuNo}, #{count}, #{unitPrice})
+	</insert>
+	
 </mapper>

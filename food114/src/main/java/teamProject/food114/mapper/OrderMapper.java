@@ -2,6 +2,7 @@ package teamProject.food114.mapper;
 
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -9,6 +10,8 @@ import teamProject.food114.model.CustomerAddr;
 
 @Mapper
 public interface OrderMapper {
-	CustomerAddr selectUserAddr(HashMap<String, Object> map);
+	List<CustomerAddr> selectUserAddr(HashMap<String, Object> map); //고객 주소
+	void insertOrderAdd(HashMap<String, Object> map); // 주문 접수
+	void insertOrderDetailAdd(HashMap<String, Object> map); // 주문 접수(자세히)
 	
 }

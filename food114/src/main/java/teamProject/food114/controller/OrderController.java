@@ -37,4 +37,12 @@ public class OrderController {
 		resultMap = orderService.searchOrderUser(map);
 		return new Gson().toJson(resultMap);
 	}
+	// 주문 저장
+	@RequestMapping(value = "/orderAdd.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String addOrder(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = orderService.addOrder(map);
+		return new Gson().toJson(resultMap);
+	}
 }
