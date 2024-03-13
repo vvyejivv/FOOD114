@@ -41,23 +41,23 @@
 						<div style="font-size: 13px; color: #969393;">회원님의 정보를 안전하게
 							보호하기 위해 비밀번호를 다시 한 번 확인합니다.</div>
 						<div class="table">
-							<form id="passwodForm">
-								<div class="row">
-									<div class="cell1">아이디</div>
-									<div class="cell2">{{info.userId}}</div>
+
+							<div class="row">
+								<div class="cell1">아이디</div>
+								<div class="cell2">{{info.userId}}</div>
+							</div>
+							<div class="row">
+								<div class="cell1">비밀번호</div>
+								<div class="cell2">
+									<input type="password" v-model="pwd">
 								</div>
-								<div class="row">
-									<div class="cell1">비밀번호</div>
-									<div class="cell2">
-										<input type="password" v-model="pwd">
-									</div>
-								</div>
-								<div class="row">
-									<button
-										style="background-color: #f9f9f9; color: rgb(72, 72, 72); border: 1px solid #ccc;">취소</button>
-									<button @click="checkPwd">확인</button>
-								</div>
-							</form>
+
+							</div>
+							<div class="row">
+								<button class="buttonSubmit" @click="checkPwd" style=" margin-left: 450px">확인</button>
+								<button class="buttonRemove" >취소</button>
+								
+							</div>
 						</div>
 
 
@@ -78,7 +78,8 @@
 			info : {},
 			sessionId : "${sessionId}",
 			newName : '',
-			pwd : ''
+			pwd : '',
+			errorMessage : ''
 		},
 		methods : {
 			fnList : function() {
@@ -100,10 +101,15 @@
 			checkPwd : function() {
 				var self = this;
 				if (self.pwd == self.info.pwd) {
-					location.href = "/myInfoPwdUpdate.do";
+					$.pageChange("myInfoPwdUpdate.do", {
+						result : "success"
+					});
+					
 					/* alert("동일"); */
-				} else {
-					alert("다름");
+				} else if(self.pwd == ""){
+					alert("비밀번호를 입력해주세요.");
+				} else{
+					alert("비밀번호가 다릅니다.");
 				}
 			},
 			fnMyInfo : function() {

@@ -25,4 +25,7 @@ public interface CustomerMapper {
 
 	// myInfo 수정
 	void updateMyInfo(HashMap<String, Object> map);
+	
+	// pwd 수정(myInfo)
+	void updatePwd(HashMap<String, Object> map);
 }

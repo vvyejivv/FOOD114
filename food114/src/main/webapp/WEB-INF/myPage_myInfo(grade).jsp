@@ -38,23 +38,6 @@
 						</a>
 					</h2>
 					<div>
-						<!--  <div style="font-size: 13px; color: #969393;">회원님의 정보를 안전하게 보호하기 위해 비밀번호를 다시 한 번 확인합니다.</div>
-                    <div class="table">
-                        <div class="row">
-                            <div class="cell1">아이디</div>
-                            <div class="cell2"> test123</div>
-                        </div>
-                        <div class="row">
-                            <div class="cell1">비밀번호</div>
-                            <div class="cell2"> <input type="text"></div>
-                        </div>
-                        <div class="row">
-                            <button class="buttonBox1">확인</button>
-                            <button class="buttonBox2">취소</button>
-                        </div>
-                       
-                    </div>
-                  -->
 						<div class="row">
 							<div style="margin-top: 100px; color: #747171;">
 								<h1 style="margin-left: 300px; font-size: 30px;">아직 개발
