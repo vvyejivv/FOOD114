@@ -27,6 +27,9 @@
 
 .modal-content {
 	margin-bottom: 10px;
+	width: 400px;
+	height: 200px;
+	border-radius: 10px;
 }
 
 .close {
@@ -63,6 +66,60 @@
 	background-color: white;
 	padding: 20px;
 	z-index: 1001;
+	text-align: center;
+}
+
+.modalButton {
+	border: none;
+	background-color: white;
+	font-size: 14px;
+	color: rgb(161, 1, 161);
+	font-weight: bold;
+	margin-top: 10px;
+	margin-left: 50px;
+	float: left;
+	cursor: pointer;
+	
+}
+
+.modalButton:hover {
+	/* color: white; */
+	color: #ff7f00;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.modalCancel {
+	border: none;
+	background-color:white;
+	font-size: 14px;
+	font-weight: bold;
+	color: rgb(72, 72, 72);
+	margin-top: 10px;
+	cursor: pointer;
+	margin-right: 100px;
+}
+
+.modalCancel:hover {
+	color: white;
+	font-weight: bold;
+}
+
+.modalInput {
+	width: 300px;
+	height: 40px;
+	border: 1px solid #f9f9f9;
+	background-color: #f9f9f9;
+	border-radius: 4px;
+}
+
+input[type="text"] {
+	border: none;
+	margin-left: 10px;
+}
+
+input[type='text']:focus {
+	outline: none;
 }
 </style>
 </head>
@@ -102,27 +159,26 @@
 								<div class="cell1">이름</div>
 								<div class="cell2">
 									{{info.name}}
-									<button @click="openNameModal('open')">이름 변경</button>
+									<button class="buttonSubmit" @click="openNameModal('open')">이름 변경</button>
 								</div>
 							</div>
 							<!-- name 모달 창 -->
-							<div id="nameModal" class="modal">
-								<div class="modal-content">
-									<input v-model="newName" type="text" id="newNameInput"
-										placeholder="새로운 이름을 입력하세요.">
-									<div>
-										<button @click="closeNameModal()"
-											style="background-color: #f9f9f9; color: rgb(72, 72, 72); border: 1px solid #ccc;">취소</button>
-										<button @click="saveName()">저장</button>
+							<div class="modal-backdrop" v-if="modalFlg">
+									<div  id="nameModal"  class="modal-content">
+										<h2>이름 변경</h2>
+										<p style="color: #888; margin-top:none;">변경할 이름을 입력해주세요.</p>
+										<input class="modalInput" v-model="newName" type="text" id="newNameInput" placeholder="새로운 이름을 입력하세요.">
+										<div>
+										<button class="modalCancel" @click="fnClick">닫기</button>
+											<button class="modalButton" @click="saveName()">저장</button>
+										</div>
 									</div>
-								</div>
 							</div>
-
 							<div class="row">
 								<div class="cell1">별명</div>
 								<div class="cell2">
 									{{info.nickName}}
-									<button @click="openNickNameModal">별명 변경</button>
+									<button class="buttonSubmit" @click="openNickNameModal">별명 변경</button>
 								</div>
 							</div>
 							<!-- nickName 모달 창 -->
@@ -131,9 +187,8 @@
 									<input type="text" id="newNickNameInput"
 										placeholder="새로운 별명을 입력하세요.">
 									<div>
-										<button @click="closeNickNameModal()"
-											style="background-color: #f9f9f9; color: rgb(72, 72, 72); border: 1px solid #ccc;">취소</button>
-										<button @click="saveNickName()">저장</button>
+										<button @click="fnClick" style="background-color: #f9f9f9; color: rgb(72, 72, 72); border: 1px solid #ccc;">취소</button>
+										<button class="buttonSubmit" @click="savenickName()">저장</button>
 									</div>
 								</div>
 							</div>
@@ -149,7 +204,7 @@
 								<div class="cell1">휴대폰번호</div>
 								<div class="cell2">
 									{{info.phone}}
-									<button @click="openPhoneModal">연락처 변경</button>
+									<button class="buttonSubmit" style="padding: none;" @click="openPhoneModal">연락처 변경</button>
 								</div>
 							</div>
 							<!-- phone 모달 창 -->
@@ -158,9 +213,8 @@
 									<input type="text" id="newPhoneInput"
 										placeholder="새로운 번호를 입력하세요.">
 									<div>
-										<button @click="closePhoneModal()"
-											style="background-color: #f9f9f9; color: rgb(72, 72, 72); border: 1px solid #ccc;">취소</button>
-										<button @click="savePhone()">저장</button>
+										<button @click="fnClick" style="background-color: #f9f9f9; color: rgb(72, 72, 72); border: 1px solid #ccc;">취소</button>
+										<button class="buttonSubmit" @click="savePhone()">저장</button>
 									</div>
 								</div>
 							</div>
@@ -169,7 +223,7 @@
 								<div class="cell1">이메일</div>
 								<div class="cell2">
 									<span id="email">{{info.email}}</span>
-									<button @click="openEmailModal">이메일 변경</button>
+									<button class="buttonSubmit" @click="openEmailModal">이메일 변경</button>
 								</div>
 							</div>
 							<!-- email 모달 창 -->
@@ -178,9 +232,8 @@
 									<input type="text" id="newEmailInput"
 										placeholder="새로운 이메일을 입력하세요.">
 									<div>
-										<button @click="closeEmailModal()"
-											style="background-color: #f9f9f9; color: rgb(72, 72, 72); border: 1px solid #ccc;">취소</button>
-										<button @click="saveEmail()">저장</button>
+										<button @click="fnClick" style="background-color: #f9f9f9; color: rgb(72, 72, 72); border: 1px solid #ccc;">취소</button>
+										<button class="buttonSubmit" class="buttonSubmit" @click="saveEmail()">저장</button>
 									</div>
 								</div>
 							</div>
@@ -189,16 +242,14 @@
 								<div class="cell2">{{info.cdate}}</div>
 							</div>
 							<div class="row">
-								<div
-									style="margin-top: 10px; margin-left: 520px; right; font-size: 13px; color: #747171;">
+								<div style="margin-top: 10px; margin-left: 520px; right; font-size: 13px; color: #747171;">
 									탈퇴를 원하시면 우측의 회원탈퇴 버튼을 눌러주세요.&nbsp; <a href="javascript:;"><span
 										class="span">회원탈퇴</span></a>
 								</div>
 							</div>
 							<div style="text-align: center; margin-top: 5px;">
-								<button style="float: none;">등록하기</button>
-								<button
-									style="background-color: #f9f9f9; color: rgb(72, 72, 72); border: 1px solid #ccc; float: none;">취소</button>
+								<button class="buttonSubmit" style="float: none;">등록하기</button>
+								<button class="buttonRemove" @click="fnClick" style="float: none;">취소</button>
 								<!--  <button @click="fnInsert" style="float:none;">등록하기</button>
 		                        <button @click="fnRemove" style="background-color: #f9f9f9; color: rgb(72,72,72); border: 1px solid #ccc; float: none;">취소</button> -->
 							</div>
@@ -239,6 +290,10 @@
 								console.log(data.info);
 							}
 						});
+					},
+					/* 모달창 닫기, 취소 모두 fnClick  */
+					fnClick : function() {
+						location.href = "/myInfo.do";
 					},
 					fnMyInfo : function() {
 						location.href = "/myInfo.do";
@@ -285,35 +340,17 @@
 						var emailModal = document.getElementById('emailModal');
 						emailModal.style.display = 'block';
 					},
-					// 취소시 closeNameModal
-					closeNameModal : function() {
-						var nameModal = document.getElementById('nameModal');
-						nameModal.style.display = 'none';
-					},
-					// 취소시 closeNickNameModal
-					closeNickNameModal : function() {
-						var nickNameModal = document
-								.getElementById('nickNameModal');
-						nickNameModal.style.display = 'none';
-					},
-					// 취소시 closePhoneModal
-					closePhoneModal : function() {
-						var phoneModal = document.getElementById('phoneModal');
-						phoneModal.style.display = 'none';
-					},
-					// 취소시 closeEmailModal
-					closeEmailModal : function() {
-						var emailModal = document.getElementById('emailModal');
-						emailModal.style.display = 'none';
-					},
 					// saveName 모달창
 					saveName : function() {
 						var self = this;
 						if (self.newName == self.info.name) {
 							alert("동일한 이름입니다.");
 							return;
-						} else {
+						} else if(self.newName == '' || self.newName == 'null'){
+							alert("이름을 입력해주세요.");
+						}else {
 							alert("사용 가능합니다.");
+							
 						}
 						var nparmap = {
 							name : newNameInput

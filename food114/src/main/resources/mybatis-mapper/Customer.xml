@@ -64,5 +64,14 @@
 		AND A1.OLDADDR LIKE CONCAT('%', A2.GU, '%')
 		AND A1.OLDADDR LIKE CONCAT('%', A2.DONG, '%');
 	</select>
-
+	
+	<!-- pwd 수정(myInfo) -->
+	<!-- <update id="updatePwd" parameterType="hashmap">
+		UPDATE FOOD114_CONSUMER
+		SET
+			PWD = #{newPwd}
+		WHERE USERID = #{userId}
+	</update> -->
+	
+	
 </mapper>

@@ -95,7 +95,7 @@
 								<label><input type="checkbox">기본 주소지로 선택</label>
 							</div>
 							<div class="row">
-								<button class="buttonBox1" style="margin-left: 400px;">추가</button>
+								<button class="buttonSubmit" style="margin-left: 400px;">추가</button>
 							</div>
 						</div>
 						<br>
@@ -133,8 +133,8 @@
 									<label><input type="checkbox">기본 주소지로 선택</label>
 								</div>
 								<div class="row">
-									<button class="buttonBox1">추가</button>
-									<button class="buttonBox2">취소</button>
+									<button class="buttonSubmit" style="margin-left: 450px">추가</button>
+									<button class="buttonRemove">취소</button>
 								</div>
 							</div>
 						</div>

@@ -23,4 +23,7 @@ public interface CustomerService {
 
 	// myInfo 수정
 	HashMap<String, Object> editMyInfo(HashMap<String, Object> map);
+	
+	//  pwd 수정(myInfo)
+	HashMap<String, Object> editPwd(HashMap<String, Object> map);
 }
