@@ -81,7 +81,7 @@ table th, td {
 				<h2>
 					<span style="color: #ff7f00; font-weight: bold;">| </span><span
 						style="text-align: left; color: rgba(72, 72, 72);">판매이력&nbsp;</span>
-				</h2><small> 총 10건</small>
+				</h2><small> 총 {{orderCnt.cnt}}건</small>
 				<div>
 					<table class="order">
 						<tr>
@@ -101,12 +101,12 @@ table th, td {
 								style="width: 100px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
 								주문일</th>
 						</tr>
-						<tr v-for="(item,index) in 10">
-							<td>{{index+1}}</td>
-							<td>오아저씨세트</td>
-							<td>10,000원</td>
-							<td>아무개</td>
-							<td>2024.03.01</td>
+						<tr v-for="(item,index) in orderList">
+							<td>{{item.orderNo}}</td>
+							<td>{{item.menuList}}</td>
+							<td>{{item.totalAmount}}원</td>
+							<td>{{item.userId}}</td>
+							<td>{{item.orderDate}}</td>
 						</tr>
 					</table>
 				</div>
@@ -125,6 +125,10 @@ table th, td {
 		},
 		data : {
 			updateFlg : false,
+			orderList : [],
+			sessionId : "${sessionId}",
+			orderCnt : "",
+			
 			series : [ {
 				name : "철판볶음밥",
 				data : [ 10, 41, 35, 51, 49, 62, 69, 91, 148, 205 ]
@@ -162,11 +166,27 @@ table th, td {
 			fnInfoUpdate : function() {
 				var self = this;
 				self.updateFlg = !self.updateFlg;
+			},
+			fnOrderList : function() {
+				var self = this;
+				var nparmap = {
+					bizId : self.sessionId
+				};
+				$.ajax({
+					url : "/orderList.dox",
+					dataType : "json",
+					type : "POST",
+					data : nparmap,
+					success : function(data) {
+						self.orderList = data.orderList;
+						self.orderCnt = data.cnt;
+					}
+				});
 			}
 		},
 		created : function() {
 			var self = this;
-
+			self.fnOrderList();
 		}
 	});
 </script>

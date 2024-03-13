@@ -69,5 +69,5 @@
 				MENUINFO = #{menuInfo}, STATUS = #{status} 
 		WHERE MENUNO = #{menuNo}
 	</update>
-
+	
 </mapper>
