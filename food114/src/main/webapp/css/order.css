@@ -98,6 +98,10 @@
     border: 1px solid #ccc;
     border-radius: 4px;
 }
+#phone input[type="text"]:focus {
+    outline:  #ff7f00 solid thin;
+    border: none;
+}
 
 #addr input[type="text"],
 .deliveryBox textarea {
@@ -106,6 +110,10 @@
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+}
+.deliveryBox textarea:focus {
+	outline:  #ff7f00 solid thin;
+    border: none;
 }
 
 #ecoYN {

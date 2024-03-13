@@ -43,7 +43,7 @@
 										<td>{{item.menuInfo}}</td>
 									</tr>
 									<tr>
-										<td style="border-bottom: none;">{{item.price}}원</td>
+										<td style="border-bottom: none;">{{parseInt(item.price).toLocaleString()}}원</td>
 									</tr>
 								</table>
 							</div>
@@ -89,27 +89,27 @@
 					<div class="receiptt"
 						style="height: 400px; overflow-y: scroll; width: 405px;">
 						<table class="orderListTable">
-							<tr>
-								<td class="tdFirst">메뉴이름</td>
-								<td class="tdAmount">1</td>
-								<td class="tdSecond">1,008,000</td>
+							<tr v-for="(order, index) in selectMenuList">
+								<td class="tdFirst">{{order.menuName}}</td>
+								<td class="tdAmount">{{order.cnt}}</td>
+								<td class="tdSecond">{{order.price.toLocaleString()}}</td>
 								<td class="tdremove">
 									<div class="removeBtn">×</div>
 								</td>
 							</tr>
-							<tr>
+							<!-- 						<tr>
 								<td class="orderListDelivery">배달료</td>
 								<td></td>
 								<td>1,000</td>
 								<td></td>
-							</tr>
+							</tr> -->
 						</table>
 					</div>
 					<div class="hrLine"></div>
 					<div class="priceBox">
-						<div class="totalPrice">원</div>
+						<div class="totalPrice">{{selectTotalPrice.toLocaleString()}}원</div>
 					</div>
-					<div class="orderBtn">주문하기</div>
+					<div class="orderBtn" @click="fnOrder">주문하기</div>
 				</div>
 			</div>
 
@@ -122,7 +122,7 @@
 					<div id="menuListContainer">
 						<div id="menuListHeader">
 							<div id="menuListDetail">메뉴 상세</div>
-							<div id="menuClose" @click="fnMenuClick('close',0)">Ⅹ</div>
+							<div id="menuClose" @click="fnMenuClick('close',0)">×</div>
 						</div>
 						<div id="menuListImg">
 							<img src="../img/메가커피_아아.jpg">
@@ -133,11 +133,14 @@
 						</div>
 						<div id="menuListPrice">
 							<div class="menuPriceBox">가격</div>
-							<div class="menuPriceTxt">{{clickMenu.price}}원</div>
+							<div class="menuPriceTxt">{{parseInt(clickMenu.price).toLocaleString()}}원</div>
 						</div>
 						<div id="menuListQuantity">
 							<div class="menuPriceBox">수량</div>
-							<div id="quantityDown" @click="fnCntUpDown('down')">─</div><input id="quantityInput" type="text" v-model="cnt"><div id="quantityUp" @click="fnCntUpDown('up')">┼</div>
+							<div id="quantityDown" @click="fnCntUpDown('down')">─</div>
+							<input id="quantityInput" type="number" v-model="cnt" :max="1000"
+								@input="onInput">
+							<div id="quantityUp" @click="fnCntUpDown('up')">┼</div>
 						</div>
 						<!-- 						<div id="menuListOption">
 							<div class="menuPriceBox">옵션</div>
@@ -145,12 +148,10 @@
 						</div> -->
 						<div id="menuListTotalPrice">
 							<div class="menuPriceBox">총 주문금액</div>
-							<div class="menuPriceTxt">{{totalPrice}}원</div>
+							<div class="menuPriceTxt">{{totalPrice.toLocaleString()}}원</div>
 						</div>
 						<div id="menuListBtnBox">
-							<button id="menuListAddBtn" @click="fnOrderAdd('add')">주문표에
-								추가</button>
-							<button id="menuListOrderBtn" @click="fnOrderAdd('order')">주문하기</button>
+							<button id="menuListAddBtn" @click="fnOrderAdd">주문표에 추가</button>
 						</div>
 					</div>
 				</div>
@@ -167,14 +168,17 @@
 		el : '#app',
 		data : {
 			bizId : "hi123",
-			menuList : [],
-			modalFlg : false,
-			cnt : 1,
-			selectMenu : [],
-			selectMenuPrice : "",
-			totalPrice : "",
-			clickMenu : {},
-			
+			sessionId : "${sessionId}",
+			addr : "",		/* 주소값 */
+			menuList : [], /* 메뉴 목록  */
+			modalFlg : false, /* modal창 */
+			cnt : 1, /* modal창 수량  */
+			totalPrice : 0, /* modal창 총 금액 */
+			clickMenu : {},/* 클릭한 메뉴  */
+			selectMenu : "", /* 클릭한 메뉴 index  */
+			selectMenuList : [],/* 장바구니에 담은 메뉴  */
+			selectTotalPrice : 0, /* 장바구니 총 금액  */
+
 		},
 		methods : {
 			fnView : function() {
@@ -191,9 +195,13 @@
 						self.menuList = data.menuList;
 					}
 				});
+				
 			},
+			/* 메뉴 선택 */
 			fnMenuClick : function(type, index) {
-				var self = this;	
+				var self = this;
+				self.cnt = 1;
+				self.selectMenu = index;
 				if (type == "open") {
 					self.clickMenu = self.menuList[index];
 					self.totalPrice = self.clickMenu.price * self.cnt;
@@ -206,33 +214,121 @@
 				}
 
 			},
-			fnCntUpDown : function(type){
+			/* - / + 버튼  */
+			fnCntUpDown : function(type) {
 				var self = this;
-				if(type == "down"){
-					if(self.cnt > 0){					
-						self.cnt += -1;
-					}
+				var total = parseInt(self.clickMenu.price, 10);
+				self.cnt = parseInt(self.cnt, 10);
+				/* cnt값이 0이거나, null일때 0으로 처리  */
+				if (!self.cnt || isNaN(parseInt(self.cnt, 10))) {
+					self.cnt = 0;
+					self.totalPrice = 0;
+					return;
 				}
-				if(type == "up"){
-					if(self.cnt < 100){
-						self.cnt = self.cnt+1;
-					}
-					
+				/* 문자열로 받아온 값 숫자로 변경, 1000단위 구분 기호  */
+				if (type === "down" && parseInt(self.cnt, 10) > 0) {
+					self.cnt = (parseInt(self.cnt, 10) - 1);
+					self.totalPrice = (total * parseInt(self.cnt, 10)).toLocaleString();
 				}
+
+				if (type === "up" && parseInt(self.cnt, 10) < 1000) {
+					self.cnt = (parseInt(self.cnt, 10) + 1);
+					self.totalPrice = (total * parseInt(self.cnt, 10)).toLocaleString();
+				}else if (type === "up" && parseInt(self.cnt, 10) >= 1000) {
+			        // 최대값(1000)으로 설정
+			        self.cnt = "1000";
+			        self.totalPrice = (total * parseInt(self.cnt, 10)).toLocaleString();
+			    }
 			},
-			fnOrderAdd : function(type) {
+			/* 수량 input */
+			onInput: function(event) {
+		        var self = this;
+		        self.cnt = parseInt(event.target.value, 10);
+		    },
+		    /* 주문표에 추가 / 주문하기  */
+			fnOrderAdd : function() {
 				var self = this;
+				/* 중복메뉴 확인  */
+				var checkMenu = self.selectMenuList.find(item => item.menuNo === self.clickMenu.menuNo);
+				if(checkMenu){
+					/* 중복메뉴일 경우  */
+					checkMenu.cnt += parseInt(self.cnt,10); /* 수량추가  */
+					checkMenu.price += parseInt(self.totalPrice, 10); /* 가격 추가  */	
+				}else{						
+					/* 장바구니에 메뉴 추가 */
+					self.selectMenuList.push({ 	menuName : self.clickMenu.menu,
+												cnt : self.cnt, 
+												index : self.selectMenu,
+												price : parseInt(self.totalPrice, 10),
+												menuNo : self.clickMenu.menuNo
+											});
+					}
+				self.selectTotalPrice = self.fnTotalPrice(self.selectMenuList);
+				console.log(self.selectMenuList);
+				self.fnMenuClick('close',self.selectMenu);
+			},
+			/* 장바구니 총 금액  */
+			fnTotalPrice : function(menuList){
+				var self = this;
+				var totalPrice = 0;
+				for (var i = 0; i < menuList.length; i++) {
+		            totalPrice += parseInt(menuList[i].price, 10);
+		        }
+		        return totalPrice;
+			},
+			/* 주문하기 */
+			fnOrder : function(){
+				var self = this;
+				/* 주문하기 DB 생성  */
 				var nparmap = {
-
-				};
-				if (type == "add") {
-
-				}
-				if (type == "order") {
-
-				}
+						userId : self.sessionId,
+						bizId : self.bizId,
+						count : self.selectMenuList.cnt,
+						menuNo : self.selectMenuList.menuNo,
+						unitPrice : self.selectMenuList.price,
+					};				
+					/* $.ajax({
+						url : "orderAdd.dox",
+						dataType : "json",
+						type : "POST",
+						data : nparmap,
+						success : function(data) {
+							
+						}
+					}); */ 
+				/* $.pageChange("/order.do", {userId : self.sessionId, selectMenuList: self.selectMenuList}); */
 			}
+			
 
+		},
+		watch : {
+			/* modal창 수량 */
+			cnt : function(newCnt, oldCnt) {
+				var self = this;
+				var total = parseInt(self.clickMenu.price, 10);
+				if (!self.cnt || isNaN(parseInt(self.cnt, 10))) {
+					self.cnt = 0;
+					self.totalPrice = 0;
+					return;
+				}
+				 // cnt 값이 1000 이하인 경우에만 totalPrice 업데이트
+	            if (newCnt >= 0 && newCnt <= 1000) {
+	                self.totalPrice = (total * parseInt(newCnt, 10));
+	            } else {
+	                // 1001 이상이면 cnt를 0으로 초기화
+	                self.cnt = 0;
+	                self.totalPrice = 0;
+	            }
+				if (newCnt >= 0 && newCnt <= 100) {
+					self.totalPrice = (total * parseInt(newCnt, 10));
+				}
+				self.selectTotalPrice = self.fnTotalPrice(self.selectMenuList);
+			},
+			/* 장바구니 총 금액 */
+			selectMenuList: function (newMenuList, oldMenuList) {
+                var self = this;
+                self.selectTotalPrice = self.fnTotalPrice(newMenuList);
+            }
 		},
 		created : function() {
 			var self = this;

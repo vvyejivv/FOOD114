@@ -77,7 +77,7 @@
         
 </style>
 <body>
-	<%@include file="main(header).html"%>
+	<%@include file="main(header)_biz.html"%>
 	<!-- 광고창 -->
 	<!-- <div class="ad">
         광고창
@@ -135,7 +135,7 @@
 			</div>
 		</div>
 	</section>
-	<%@include file="main(footer).html"%>
+	<%@include file="main(footer)_biz.html"%>
 </body>
 
 </html>

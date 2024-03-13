@@ -23,6 +23,7 @@ public class Review {
 	private String fileOrgName;
 	private String fileSize;
 	private String fileETC;
+	private String menuList;
 	public int getReviewNo() {
 		return reviewNo;
 	}
@@ -148,6 +149,12 @@ public class Review {
 	}
 	public void setFileETC(String fileETC) {
 		this.fileETC = fileETC;
+	}
+	public String getMenuList() {
+		return menuList;
+	}
+	public void setMenuList(String menuList) {
+		this.menuList = menuList;
 	}
 	
 }

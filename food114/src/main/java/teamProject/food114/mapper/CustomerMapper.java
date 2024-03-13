@@ -17,12 +17,16 @@ public interface CustomerMapper {
 	Customer selectUserID(HashMap<String, Object> map);
 	
 	// select * consumer where email
-	Customer selectEmail(HashMap<String, Object> map);
-	
+	Customer selectEmail(HashMap<String, Object> map);	
 
 	// select * addr where userid
 	List<Addr> selectUserAddr(HashMap<String,Object> map);
 
 	// myInfo 수정
 	void updateMyInfo(HashMap<String, Object> map);
+	
+	// 메뉴->고객 주소 입력시
+	Addr selectUserSiGuDong(HashMap<String, Object> map);
+	// pwd 수정(myInfo)
+	void updatePwd(HashMap<String, Object> map);
 }

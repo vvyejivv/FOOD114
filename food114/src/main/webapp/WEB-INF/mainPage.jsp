@@ -140,8 +140,7 @@ var main = new Vue({
     	/* 슬라이드 이동 함수 */
         move: function(direction) {    		
             var self = this;
-            self.translate += direction * self.slideWidth;
-            console.log(self.currentIdx);
+            self.translate += direction * self.slideWidth;            
             $("#slider").css({
                 "transform": "translateX(" + self.translate + "px)"
             });
@@ -165,7 +164,8 @@ var main = new Vue({
         },
         /* 슬라이드 실행 */
         showSliding: function() {
-            var self = this;            
+            var self = this;       
+            console.log(self.slides[0]);
             self.slideWidth=self.slides[0].offsetWidth;
             self.interval=setInterval(function() {
                 self.sliding();

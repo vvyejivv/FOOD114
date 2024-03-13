@@ -151,4 +151,20 @@ public class CustomerServiceImpl implements CustomerService {
 		}
 		return resultMap;
 	}
+
+	// pwd 수정(myInfo)
+	@Override
+	public HashMap<String, Object> editPwd(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> resultMap = new HashMap<>();
+		try {
+			customerMapper.updatePwd(map);
+			resultMap.put("result", "success");			
+		} catch (Exception e) {
+			// TODO: handle exception
+			resultMap.put("result", "error");
+			System.out.println(e.getMessage());
+		}
+		return resultMap;
+	}
 }

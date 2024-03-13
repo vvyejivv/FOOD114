@@ -19,7 +19,7 @@
 </head>
 
 <body>
-		<%@include file="main(header)_biz.html"%>
+	<%@include file="main(header)_biz.html"%>
 	<!-- 주문하기(영수증창) -->
 	<!-- <div class="receipt" style="border-radius: 10px;">
         영수증
@@ -174,14 +174,15 @@ select {
 				<div
 					style="border-bottom: 1px solid #ccc; font-size: 13px; height: 25px; margin-bottom: 5px;">
 					<div style="float: right; color: rgb(72, 72, 72);">
-						<span class="star">*</span>필수입력사항
+						<span class="star">*</span>
+						필수입력사항
 					</div>
 				</div>
 				<table>
 					<tr>
 						<th>사업자등록번호<span class="star">*</span></th>
 						<td><input type="text" placeholder="사업자등록번호를 입력해주세요."
-							id="businessNum" v-model="businessNo">
+								id="businessNum" v-model="businessNo">
 							<div class="errorMessage"></div></td>
 						<td style="padding: 0px;"><button @click="business()"
 								v-if="!bizNumFlg">등록 확인</button></td>
@@ -190,13 +191,13 @@ select {
 					<tr>
 						<th>상호명<span class="star">*</span></th>
 						<td><input type="text" placeholder="상호명을 입력해주세요."
-							v-model="businessName">
+								v-model="businessName">
 							<div class="errorMessage"></div></td>
 					</tr>
 					<tr>
 						<th>대표자 이름<span class="star">*</span></th>
 						<td><input type="text" placeholder="대표자 이름을 입력해주세요."
-							v-model="businessRename">
+								v-model="businessRename">
 							<div class="errorMessage"></div></td>
 					</tr>
 					<tr>
@@ -215,15 +216,15 @@ select {
 					<tr>
 						<td></td>
 						<td style="padding-bottom: 20px;"><input type="text"
-							style="margin-top: 0px;" placeholder="상세주소를 입력해주세요."
-							v-model="businessDetailAddr"></td>
+								style="margin-top: 0px;" placeholder="상세주소를 입력해주세요."
+								v-model="businessDetailAddr"></td>
 						<td></td>
 
 					</tr>
 					<tr>
 						<th>휴대폰<span class="star">*</span></th>
 						<td><input id="phoneNum" v-model="phone" type="text"
-							placeholder="'-'를 제외한 휴대폰번호를 입력해주세요.">
+								placeholder="'-'를 제외한 휴대폰번호를 입력해주세요.">
 							<div class="errorMessage"></div></td>
 						<td style="padding: 0px;"><button id="success" v-if="!flg2"
 								@click="fnSmsTest()">인증 요청</button></td>
@@ -231,18 +232,19 @@ select {
 					<tr v-if="flg">
 						<td></td>
 						<td><input type="text" v-model="hello"
-							:placeholder="timerPlaceholder">
+								:placeholder="timerPlaceholder">
 							<div class="errorMessage"></div></td>
 						<td style="padding: 0px;"><button @click="authentication()">인증</button></td>
 					</tr>
 					<tr>
 						<th>아이디<span class="star">*</span></th>
 						<td><input type="text" placeholder="아이디를 입력해주세요."
-							v-model="businessId" @keyup="idCheck()">
+								v-model="businessId" @keyup="idCheck()">
 							<div class="errorMessage">
 								<template v-if="businessId != ''">
 									<span style="color: blue;" v-if="checkFlg">사용 가능한
-										아이디입니다.</span> <span v-else>중복된 아이디입니다.</span>
+										아이디입니다.</span>
+									<span v-else>중복된 아이디입니다.</span>
 								</template>
 							</div></td>
 						<td></td>
@@ -250,7 +252,7 @@ select {
 					<tr>
 						<th>비밀번호<span class="star">*</span></th>
 						<td><input type="password" placeholder="비밀번호를 입력해주세요."
-							v-model="businessPwd" @keyup="validatePassword">
+								v-model="businessPwd" @keyup="validatePassword">
 							<div class="errorMessage">
 								<template v-if="businessPwd != ''">
 									<div v-if="!valid">영어, 숫자, 특수문자 조합, 8글자 이상이어야 합니다.</div>
@@ -262,7 +264,7 @@ select {
 					<tr>
 						<th>비밀번호 확인<span class="star">*</span></th>
 						<td><input type="password" placeholder="비밀번호를 한번 더 입력해주세요."
-							v-model="businessPwd2" @keyup="validatePassword2">
+								v-model="businessPwd2" @keyup="validatePassword2">
 							<div class="errorMessage">
 								<template v-if="businessPwd2 != '' && valid">
 									<div v-if="!valid2">비밀번호가 일치하지 않습니다.</div>
@@ -277,9 +279,9 @@ select {
 							<div>
 								<input type="text" style="width: 150px; margin-right: 5px;"
 									placeholder="이메일을 입력해주세요." v-model="businessEmail"
-									@keyup="emailChange()"> <span
-									style="margin-right: 5px; font-size: 17px;">@</span> <select
-									id="emailDomain" v-model="businessDomain"
+									@keyup="emailChange()">
+								<span style="margin-right: 5px; font-size: 17px;">@</span>
+								<select id="emailDomain" v-model="businessDomain"
 									@change="fnEmailInputOnOff">
 									<option value="">직접입력</option>
 									<option v-for="item in emailList" :value="item.value">{{item.name}}</option>
@@ -300,13 +302,13 @@ select {
 						<td><select style="width: 320px;" v-model="businessBank">
 								<option value="">은행을 선택하세요</option>
 								<option v-for="item in bankList" :value="item.value">{{item.name}}</option>
-						</select>
+							</select>
 							<div class="errorMessage"></div></td>
 					</tr>
 					<tr>
 						<th>입금 계좌번호<span class="star">*</span></th>
 						<td><input type="text" placeholder="계좌번호를 입력해주세요."
-							v-model="businessAccountNum">
+								v-model="businessAccountNum">
 							<div class="errorMessage"></div></td>
 					</tr>
 
@@ -315,21 +317,28 @@ select {
 				<table>
 					<tr>
 						<th rowspan="4">이용약관동의<span class="star">*</span></th>
-						<td style="font-size: 20px; font-weight: 500;"><label><input
-								v-model="allChecked" @change="checkAll" type="checkbox">전체
-								동의합니다.</label></td>
+						<td style="font-size: 20px; font-weight: 500;"><label>
+								<input v-model="allChecked" @change="checkAll" type="checkbox">
+								전체 동의합니다.
+							</label></td>
 					</tr>
 					<tr>
-						<td><label><input type="checkbox"
-								v-model="termsChecked">이용약관 동의(필수)</label></td>
+						<td><label>
+								<input type="checkbox" v-model="termsChecked">
+								이용약관 동의(필수)
+							</label></td>
 					</tr>
 					<tr>
-						<td><label><input type="checkbox"
-								v-model="privacyChecked">개인정보 수집·이용 동의(필수)</label></td>
+						<td><label>
+								<input type="checkbox" v-model="privacyChecked">
+								개인정보 수집·이용 동의(필수)
+							</label></td>
 					</tr>
 					<tr>
-						<td><label><input type="checkbox"
-								v-model="offerChecked">할인쿠폰 등 혜택/정보 수신 동의(선택)</label></td>
+						<td><label>
+								<input type="checkbox" v-model="offerChecked">
+								할인쿠폰 등 혜택/정보 수신 동의(선택)
+							</label></td>
 					</tr>
 				</table>
 				<div style="border-bottom: 1px solid #ccc; padding-top: 25px;"></div>
@@ -340,7 +349,7 @@ select {
 			</div>
 		</div>
 	</section>
-		<%@include file="main(footer).html"%>
+	<%@include file="main(footer)_biz.html"%>
 </body>
 
 </html>

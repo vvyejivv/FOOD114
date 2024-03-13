@@ -294,18 +294,29 @@ ul, ol {
 									<option value="">선택</option>
 									<option v-for="item in dongList" :value="item.dong">{{item.dong}}</option>
 								</select>
-								<button
+								<button @click="fnAreaSearch()"
 									style="background-color: white; margin: 0; border: none;">
 									<img src="../img/magnifying-glass-solid.png">
 								</button>
 							</div>
 						</div>
 					</div>
-					<div class="restList">
+					<div class="restList" v-if="areaRestList.length == 0" v-for="item in locationRestList">
 						<img src="" alt="Hi" class="restImg">
 						<h3 style="margin-top: 8px;">
 							<a style="font-size: 1.5em;" href="javascript:;"
-								@click="fnRestView()">List 1</a>
+								@click="fnRestView()">{{item.bizName}}</a>
+						</h3>
+						<div id="placesList1">
+							<span style="color: #ff7f00;">★ 점수</span> | 리뷰개수
+							<p style="margin-left: 60px;">이벤트정보이벤트이벤트이벤트이벤트이벤트이벤트이벤트이이벤트이벤트이벤트이벤트이벤트이벤</p>
+						</div>
+					</div>
+					<div class="restList" v-if="areaRestList.length > 0" v-for="item in areaRestList">
+						<img src="" alt="Hi" class="restImg">
+						<h3 style="margin-top: 8px;">
+							<a style="font-size: 1.5em;" href="javascript:;"
+								@click="fnRestView()">{{item.bizName}}</a>
 						</h3>
 						<div id="placesList1">
 							<span style="color: #ff7f00;">★ 점수</span> | 리뷰개수
@@ -344,11 +355,13 @@ ul, ol {
     async function updateMapOptionsWithCurrentLocation() {
         try {
             const coords = await getCurrentLocation();
-            const mapOptions = {
-                center: new kakao.maps.LatLng(coords.latitude, coords.longitude),
-                level: 5
-            };
+	        var mapOptions = {
+	            center: new kakao.maps.LatLng(coords.latitude, coords.longitude),
+	            level: 5
+	        };
+
             return mapOptions;
+            
         } catch (error) {
             console.error('Error getting current location:', error.message);
             // 기본 위치 (서울)를 반환할 수 있도록 기본적인 오류 처리를 수행할 수 있습니다.
@@ -378,14 +391,19 @@ ul, ol {
 				searchFlg1: true,
 				searchFlg2: false,
 				restList: [],
+				locationRestList: [],
 				markers: [],
+				overlays : [],
 				map: null,
 				siList : [],
 				guList : [],
 				dongList : [],
 				si : "",
 				gu : "",
-				dong : ""
+				dong : "",
+				latitude : "",
+				longitude : "",
+				areaRestList : []
 			},
 			methods: {
 				fnRestList : function() {
@@ -456,14 +474,89 @@ ul, ol {
 					self.searchFlg1 = false;
 					self.searchFlg2 = true;
 				},
-				addMarkers: function () {
+				fnAreaSearch : function() {
+					var self = this;
+					var area = "";
+					if(!self.si){
+						return;
+					} else if(self.si && !self.gu){
+						area = self.si;
+					} else if(self.si && self.gu && !self.dong){
+						area = self.si + ' ' + self.gu;
+					} else if(self.si && self.gu && self.dong){
+						area = self.si + ' ' + self.gu + ' ' + self.dong;
+					}
+					
+					self.convertAddressToCoordinates(area, function() {
+				        var nparmap = { area : area };
+				        $.ajax({
+				            url: "areaRestList.dox",
+				            dataType: "json",
+				            type: "POST",
+				            data: nparmap,
+				            success: function(data) {
+				                self.areaRestList = data.areaRestList;
+				                // 좌표 변환 작업이 완료된 후에 setCenter 함수 호출
+				                self.setCenter();
+				            }
+				        });
+				    });
+				},
+				convertAddressToCoordinates: function(addr, callback) {
+				    var self = this;
+				    var geocoder = new kakao.maps.services.Geocoder();
+
+				    geocoder.addressSearch(addr, function(result, status) {
+				        if (status === kakao.maps.services.Status.OK) {
+				            self.latitude = result[0].y;
+				            self.longitude = result[0].x;
+				            
+				         	// 기존 마커 제거
+						    self.markers.forEach(function(marker) {
+						        marker.setMap(null);
+						    }); 
+						    
+						    self.markers = [];
+						    
+						 	// 기존 오버레이 제거
+						    self.overlays.forEach(function(overlay) {
+						        overlay.setMap(null);
+						    }); 
+
+						    self.overlays = [];
+						    
+				            callback(); // 콜백 함수 호출하여 비동기 작업 완료를 알림
+				        }
+				    });
+				},
+				setCenter : function() {
+					var self = this;
+				    // 이동할 위도 경도 위치를 생성합니다
+				    var moveLatLon = new kakao.maps.LatLng(self.latitude, self.longitude);
+				    // 지도 중심을 이동 시킵니다
+				    self.map.setCenter(moveLatLon);
+				    
+				    console.log(self.areaRestList);
+				    for(var i = 0; i < self.areaRestList.length; i++){
+				    	self.searchAddMarkers(self.areaRestList[i].oldAddr, self.areaRestList[i].bizName);
+				    }
+				},
+				// 현위치 기반 반경 2km 가게들 마커찍기
+				addMarkers : function () {
 	                var self = this;
 	                // 기존 마커 제거
-	                /* self.markers.forEach(function(marker) {
+	                self.markers.forEach(function(marker) {
 	                    marker.setMap(null);
 	                }); 
+	                
 	                self.markers = [];
-	                */
+	                
+	             	// 기존 오버레이 제거
+	                self.overlays.forEach(function(overlay) {
+	                    overlay.setMap(null);
+	                }); 
+
+	                self.overlays = [];
 	                
 	                var markerImage = new kakao.maps.MarkerImage('../img/free-icon-restaurant-4551357.png',
 	                        new kakao.maps.Size(30, 30), // 이미지 크기
@@ -475,7 +568,7 @@ ul, ol {
 	                
 	                getCurrentLocation().then(function(currentLocation) {
 		                self.restList.forEach(function (place) {
-		                    
+		                	
 		                 	// 현재 위치와 각 장소의 위치 사이의 거리를 계산합니다.
 		                    var distance = calculateDistance(currentLocation.latitude, currentLocation.longitude, place.latitude, place.longitude);
 		                    
@@ -512,11 +605,134 @@ ul, ol {
 		                    overlay.setMap(null);
 		                    marker.setMap(self.map); // 마커를 지도에 표시
 		                    self.markers.push(marker);
+		                    self.overlays.push(overlay);
+		                    self.locationRestList.push(place);
 		                }
 		            })
 		                console.log(self.markers);
+		                console.log(self.locationRestList);
 	             })
 			  },
+			  // 검색한 위치 기반 반경 2km 마커 찍기
+			  areaAddMarkers : function (latitude, longitude) {
+				    var self = this;
+				 	// 기존 마커 제거
+				    self.markers.forEach(function(marker) {
+				        marker.setMap(null);
+				    }); 
+				    
+				    self.markers = [];
+				    
+				 	// 기존 오버레이 제거
+				    self.overlays.forEach(function(overlay) {
+				        overlay.setMap(null);
+				    }); 
+
+				    self.overlays = [];
+				    
+				    var markerImage = new kakao.maps.MarkerImage('../img/free-icon-restaurant-4551357.png',
+				            new kakao.maps.Size(30, 30), // 이미지 크기
+				            { offset: new kakao.maps.Point(15, 30) } // 이미지 위치 설정 (가운데 아래로 지정)
+				        );
+				    
+				    // 현재 위치를 기준으로 반경을 설정합니다. 예를 들어 반경을 1km로 설정합니다.
+				    const radius = 2000; // meter
+				    
+				    getCurrentLocation().then(function(currentLocation) {
+				        self.areaRestList.forEach(function (place) {
+				            
+				            // 현재 위치와 각 장소의 위치 사이의 거리를 계산합니다.
+				            var distance = calculateDistance(latitude, longitude, place.latitude, place.longitude);
+				            
+				            // 반경 내에 있는지 확인 후 마커 생성.
+				            if (distance <= radius) {
+				                var markerPosition = new kakao.maps.LatLng(place.latitude, place.longitude); // 위도와 경도 정보 활용
+				                var marker = new kakao.maps.Marker({
+				                    position: markerPosition,
+				                    image: markerImage
+				                });
+				            
+				            // 오버레이 내용 설정
+				            var overlayContent = '<div class="customoverlay">' +
+				                        '  <a href="https://map.kakao.com/link/map/11394059" target="_blank">' +
+				                        '    <span class="title">'+place.bizName+'</span>' +
+				                        '  </a>' +
+				                        '</div>';
+				            var overlay = new kakao.maps.CustomOverlay({
+				                content: overlayContent, // 오버레이에 표시할 내용
+				                map: self.map, // 오버레이를 표시할 지도
+				                position: markerPosition, // 오버레이를 표시할 위치
+				                yAnchor: 0.00001 // 오버레이를 마커 아래에 표시하도록 설정
+				            });
+				            var isOverlayVisible = false;
+				            kakao.maps.event.addListener(marker, 'click', function() {
+				                if (!isOverlayVisible) {
+				                    overlay.setMap(self.map); // 오버레이를 지도에 표시
+				                    isOverlayVisible = true; // 오버레이가 보이는 상태로 설정
+				                } else {
+				                    overlay.setMap(null); // 오버레이를 지도에서 숨김
+				                    isOverlayVisible = false; // 오버레이가 숨겨진 상태로 설정
+				                }
+				            });
+				            overlay.setMap(null);
+				            marker.setMap(self.map); // 마커를 지도에 표시
+				            self.markers.push(marker);
+				            self.overlays.push(overlay);
+				            }
+				        })
+				            console.log(self.markers);
+				    })
+				},
+				// 검색된 지역에 해당하는 가게들 마커찍기
+				searchAddMarkers : function (searchedLocation,bizName) {
+				    var self = this;
+				    
+				    var markerImage = new kakao.maps.MarkerImage('../img/free-icon-restaurant-4551357.png',
+				        new kakao.maps.Size(30, 30), // 이미지 크기
+				        { offset: new kakao.maps.Point(15, 30) } // 이미지 위치 설정 (가운데 아래로 지정)
+				    );
+
+				    // 검색한 위치를 좌표로 변환합니다.
+				    var geocoder = new kakao.maps.services.Geocoder();
+				    geocoder.addressSearch(searchedLocation, function (result, status) {
+				        if (status === kakao.maps.services.Status.OK) {
+				            var markerPosition = new kakao.maps.LatLng(result[0].y, result[0].x); // 변환된 좌표
+				            var marker = new kakao.maps.Marker({
+				                position: markerPosition,
+				                image: markerImage
+				            });
+
+				            // 오버레이 내용 설정
+				            var overlayContent = '<div class="customoverlay">' +
+				                '  <a href="https://map.kakao.com/link/map/11394059" target="_blank">' +
+				                '    <span class="title">' + bizName + '</span>' +
+				                '  </a>' +
+				                '</div>';
+				            var overlay = new kakao.maps.CustomOverlay({
+				                content: overlayContent,
+				                map: self.map,
+				                position: markerPosition,
+				                yAnchor: 0.00001
+				            });
+				            var isOverlayVisible = false;
+				            kakao.maps.event.addListener(marker, 'click', function () {
+				                if (!isOverlayVisible) {
+				                    overlay.setMap(self.map);
+				                    isOverlayVisible = true;
+				                } else {
+				                    overlay.setMap(null);
+				                    isOverlayVisible = false;
+				                }
+				            });
+				            overlay.setMap(null);
+				            marker.setMap(self.map); // 마커를 지도에 표시
+				            self.markers.push(marker);
+				            self.overlays.push(overlay);
+				        } else {
+				            console.error('Geocoder failed due to: ' + status);
+				        }
+				    });
+				},
 			  fnRestView: function() {
 				    var self = this;
 				    var menuView = document.getElementById("menu_view");
