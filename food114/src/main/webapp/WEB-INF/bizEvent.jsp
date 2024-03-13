@@ -11,7 +11,7 @@
 </head>
 <body>
 	<header>
-		<%@include file="main(header).html"%>
+		<%@include file="main(header)_biz.html"%>
 	</header>
 	<section>
 		<%@include file="sideBar_biz.html"%>
@@ -80,7 +80,7 @@
 		</div>
 	</section>
 
-	<%@include file="main(footer).html"%>
+	<%@include file="main(footer)_biz.html"%>
 
 </body>
 </html>

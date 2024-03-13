@@ -192,7 +192,7 @@ input[type="file"] {
 			</div>
 		</div>
 	</section>
-	<%@include file="main(footer).html"%>
+	<%@include file="main(footer)_biz.html"%>
 </body>
 
 </html>
