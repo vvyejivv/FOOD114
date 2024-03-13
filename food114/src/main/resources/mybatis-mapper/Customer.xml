@@ -53,12 +53,12 @@
 	</update>
 	
 	<!-- pwd 수정(myInfo) -->
-	<update id="updatePwd" parameterType="hashmap">
+	<!-- <update id="updatePwd" parameterType="hashmap">
 		UPDATE FOOD114_CONSUMER
 		SET
 			PWD = #{newPwd}
 		WHERE USERID = #{userId}
-	</update>
+	</update> -->
 	
 	
 	
