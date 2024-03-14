@@ -145,8 +145,9 @@ section {
 		<div id="app">
 			<div class="mold" style="height: auto;">
 				<h2>
-					<span style="color: #ff7f00; font-weight: bold;">| </span>
-					<span style="text-align: left; color: rgba(72, 72, 72);">판매자정보&nbsp;</span>
+					<span style="color: #ff7f00; font-weight: bold;">| </span> <span
+						style="text-align: left; color: rgba(72, 72, 72);">판매자정보<span
+						v-if="updateFlg"> 변경</span></span>
 				</h2>
 				<div class="infoBox" style="position: relative;">
 					<div class="infoDiv">
@@ -209,12 +210,14 @@ section {
 					<div class="infoDiv">
 						<div class="infoName">대표연락처</div>
 						<span v-if="!updateFlg" class="viewInfo">{{bizInfo.phone}}</span>
-						<input v-if="updateFlg" class="updateInput" v-model="bizInfo.phone">
+						<input v-if="updateFlg" class="updateInput"
+							v-model="bizInfo.phone">
 					</div>
 					<div class="infoDiv">
 						<div class="infoName">대표이메일주소</div>
 						<span v-if="!updateFlg" class="viewInfo">{{bizInfo.email}}</span>
-						<input v-if="updateFlg" class="updateInput" v-model="bizInfo.email" disabled>
+						<input v-if="updateFlg" class="updateInput"
+							v-model="bizInfo.email" disabled>
 					</div>
 					<div class="infoDiv">
 						<div class="infoName">은행</div>
@@ -235,10 +238,9 @@ section {
 
 						<span v-if="!updateFlg" class="viewInfo">
 							{{openHour}}시{{openMinute}}분
-							<div v-if="bizInfo.openTime==null" class="nullSpace"></div>
-							부터 {{closeHour}}시{{closeMinute}}분
-							<div v-if="bizInfo.closeTime==null" class="nullSpace"></div>
-							까지
+							<div v-if="bizInfo.openTime==null" class="nullSpace"></div> 부터
+							{{closeHour}}시{{closeMinute}}분
+							<div v-if="bizInfo.closeTime==null" class="nullSpace"></div> 까지
 						</span>
 						<template v-if="updateFlg">
 							<select class="timeSelect" v-model="openHour">
@@ -251,8 +253,7 @@ section {
 							<select class="timeSelect" v-model="openMinute">
 								<option v-for="item in 6" :value="(item-1)*10">{{(item-1)*10}}</option>
 							</select>
-							분
-							<span style="margin: 0px 10px;">~</span>
+							분 <span style="margin: 0px 10px;">~</span>
 							<select class="timeSelect" v-model="closeHour">
 								<template v-for="item in 24">
 									<option :value="'0'+(item-1)" v-if="item<=10">0{{item-1}}</option>
@@ -298,15 +299,17 @@ section {
 			openMinute : "",
 			closeHour : "",
 			closeMinute : "",
-			changeImgFlg: false
+			changeImgFlg : false,
+			email : "",
+			emailAddr : ""
 		},
 		methods : {
 			// 수정버튼 클릭시
 			fnInfoUpdateComplete : function() {
 				var self = this;
-				self.bizInfo.openTime=self.openHour+self.openMinute;
-				self.bizInfo.closeTime=self.closeHour+self.closeMinute;				
-				
+				self.bizInfo.openTime = self.openHour + self.openMinute;
+				self.bizInfo.closeTime = self.closeHour + self.closeMinute;
+
 				self.bizInfo["imgFlg"] = self.changeImgFlg;
 				var nparmap = self.bizInfo;
 				$.ajax({
@@ -315,13 +318,13 @@ section {
 					type : "POST",
 					data : nparmap,
 					success : function(data) {
-						if(data.result=="success"){
+						if (data.result == "success") {
 							alert("정보변경완료");
-							location.href="biz-info.do";
-						} else{
+							location.href = "biz-info.do";
+						} else {
 							alert("잠시 후 다시 시도해주세요. 해당 오류가 지속된다면 관리자에게 문의하세요.")
 						}
-						
+
 					}
 				});
 			},
@@ -360,6 +363,14 @@ section {
 										.substring(0, 2);
 								self.closeMinute = data.bizInfo.closeTime
 										.substring(2, 4);
+								/* self.email = data.bizInfo.email.substring(0,instr("@")) */
+								self.email = data.bizInfo.email.substring(0,
+										data.bizInfo.email.indexOf("@"));
+								self.emailAddr = data.bizInfo.email
+										.substring(data.bizInfo.email
+												.indexOf("@") + 1);
+								console.log(self.email);
+								console.log(self.emailAddr);
 								if (data.bizFile) {
 									self.bizFile = data.bizFile;
 								} else {
@@ -371,7 +382,7 @@ section {
 			// 파일업로드1
 			fnFileUpload : function() {
 				var self = this;
-				self.changeImgFlg=true;
+				self.changeImgFlg = true;
 				var form = new FormData();
 				form.append("file1", $("#file1")[0].files[0]);
 				form.append("bizId", self.sessionId);

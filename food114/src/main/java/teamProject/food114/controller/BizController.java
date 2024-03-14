@@ -80,6 +80,7 @@ public class BizController {
 //		resultMap = bizService.addBiz(map);
 //		return new Gson().toJson(resultMap);
 //	}
+	
 	// 사업자 로그인
 	@RequestMapping(value = "/biz-login.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
@@ -280,14 +281,14 @@ public class BizController {
 			System.out.println("size : " + size);
 			System.out.println("saveFileName : " + saveFileName);
 			String path2 = System.getProperty("user.dir");
-			System.out.println("Working Directory = " + path2 + "\\src\\webapp\\img");
+			System.out.println("Working Directory = " + path2 + "\\src\\webapp\\bizFile");
 			if (!multi.isEmpty()) {
-				File file = new File(path2 + "\\src\\main\\webapp\\img", saveFileName);
+				File file = new File(path2 + "\\src\\main\\webapp\\bizFile", saveFileName);
 				multi.transferTo(file);
 
 				HashMap<String, Object> map = new HashMap<String, Object>();
 				map.put("fileName", saveFileName);
-				map.put("path", "../img/");
+				map.put("path", "../bizFile/");
 				map.put("bizId", bizId);
 				map.put("orgName", originFilename);
 				map.put("fileSize", size);

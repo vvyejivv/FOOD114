@@ -250,13 +250,9 @@ public class BizServiceImpl implements BizService {
 			bizMapper.updateBizInfo(map);
 			String imgFlg = (String)map.get("imgFlg");
 			if(imgFlg.equals("true")) {
-				System.out.println("true");
-			} else {
-				System.out.println("false");
-			}
-//			bizMapper.updateBizFileCompleteToDelete(map);
-//			bizMapper.updateBizFileWaitToComplete(map);
-			
+				bizMapper.updateBizFileCompleteToDelete(map);
+				bizMapper.updateBizFileWaitToComplete(map);	
+			}					
 			resultMap.put("result", "success");
 
 		} catch (Exception e) {
