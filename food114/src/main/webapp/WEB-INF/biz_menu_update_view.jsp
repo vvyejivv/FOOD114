@@ -232,13 +232,13 @@ button img {
 					<input type="text" v-model="menuView.menuInfo" class="mod_input"
 						placeholder="메뉴 설명(소개) 입력">
 				</div>
-				<div class="inputBox">
+				<div class="inputBox" hidden>
 					<div class="inputDiv">
 						원산지<small><small style="color: #ff7f00;"> ＊ </small></small>
 					</div>
 					<input type="text" class="mod_input" placeholder="원산지 입력" disabled>
 				</div>
-				<div class="inputBox">
+				<div class="inputBox" hidden>
 					<div class="inputDiv">
 						메뉴 옵션<small><small style="color: #ff7f00;"> ＊ </small></small>
 					</div>
@@ -277,7 +277,7 @@ button img {
 	var app = new Vue({
 		el : '#app',
 		data : {
-			sessionId : "${sessionId}",
+			sessionId : "${sessionBizId}",
 			menuNo : ${map.menuNo},
 			menuView : {}
 		},
