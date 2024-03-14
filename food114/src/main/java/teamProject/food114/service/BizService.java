@@ -42,4 +42,6 @@ public interface BizService {
 	
 	// Biz 이벤트 목록 출력
 	HashMap<String, Object> searchBizEventList(HashMap<String, Object> map);
+	
+	HashMap<String, Object> searchBizView(HashMap<String, Object> map);
 }

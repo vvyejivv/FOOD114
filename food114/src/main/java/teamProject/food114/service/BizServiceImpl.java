@@ -9,17 +9,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import teamProject.food114.mapper.BizMapper;
+import teamProject.food114.mapper.BoardMapper;
 import teamProject.food114.mapper.CodeMapper;
 import teamProject.food114.model.Area;
 import teamProject.food114.model.Biz;
 import teamProject.food114.model.BizFile;
-import teamProject.food114.model.Category;
 
 @Service
 public class BizServiceImpl implements BizService {
 
 	@Autowired
 	BizMapper bizMapper;
+	
+	@Autowired
+	BoardMapper boardMapper;
 
 	@Autowired
 	CodeMapper codeMapper;
@@ -111,6 +114,7 @@ public class BizServiceImpl implements BizService {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		try {
 			List<Biz> list = bizMapper.selectBizList(map);
+			boardMapper.updateEndYn();
 			resultMap.put("list", list);
 			resultMap.put("result", "success");
 		} catch (Exception e) {
@@ -290,4 +294,21 @@ public class BizServiceImpl implements BizService {
 		}
 		return resultMap;
 	}
+
+	@Override
+	public HashMap<String, Object> searchBizView(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		Biz restView = bizMapper.selectBizView(map);
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			resultMap.put("restView", restView);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			resultMap.put("result", "fail");
+		}
+		return resultMap;
+	}
+
+
 }

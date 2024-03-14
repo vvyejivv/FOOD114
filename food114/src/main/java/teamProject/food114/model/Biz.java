@@ -36,7 +36,13 @@ public class Biz {
 	// 파일 path (biz_file)
 	private String path;
 	private String fileName;
-
+	private String reviewAvg;
+	private String reviewCnt;
+	
+	// 이벤트 내용
+	private String title;
+	private String contents;
+	
 	public String getBizId() {
 		return bizId;
 	}
@@ -227,5 +233,37 @@ public class Biz {
 
 	public void setPath(String path) {
 		this.path = path;
+	}
+
+	public String getReviewAvg() {
+		return reviewAvg;
+	}
+
+	public void setReviewAvg(String reviewAvg) {
+		this.reviewAvg = reviewAvg;
+	}
+
+	public String getReviewCnt() {
+		return reviewCnt;
+	}
+
+	public void setReviewCnt(String reviewCnt) {
+		this.reviewCnt = reviewCnt;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getContents() {
+		return contents;
+	}
+
+	public void setContents(String contents) {
+		this.contents = contents;
 	}
 }
