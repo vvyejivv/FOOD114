@@ -69,5 +69,9 @@
 				MENUINFO = #{menuInfo}, STATUS = #{status} 
 		WHERE MENUNO = #{menuNo}
 	</update>
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 </mapper>

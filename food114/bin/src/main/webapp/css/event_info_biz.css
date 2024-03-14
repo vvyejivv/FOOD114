@@ -1,4 +1,13 @@
+<<<<<<< HEAD
 .infoBox {
+=======
+.mold{
+	position:absolute;
+	margin-left: 335px;
+	margin-top: 20px;
+}
+.event_info_table{
+>>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 	width: 1000px;
 	/* height: 495px; */
 	margin-top: 13px;
@@ -95,7 +104,16 @@ input[type="file"] {
 	padding: 2px;
 }
 .button-detail:hover{
+<<<<<<< HEAD
 	background-color: #ff7f00;
 	border: 1px solid #FBCEB1;
 	color: #ffffff;
+=======
+	background-color: #FBCEB1;
+	cursor: pointer;
+}
+.event_info_table img{
+	width: 100px;
+	height: 100px;
+>>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 }

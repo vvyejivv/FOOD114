@@ -81,6 +81,7 @@ body {
 	margin-bottom: 5px;
 }
 
+<<<<<<< HEAD
 .sidebar ul li a {
 	display: block;
 	padding: 5px 10px;
@@ -178,3 +179,48 @@ input[type="password"] {
 input[type="password"]:focus {
 	outline: none;
 }
+=======
+        }
+       
+        .table {
+            display: left;  
+         }
+        .row{
+            display: flex;
+            border-top: 1px solid #ccc;
+            height: 60px;
+        }
+        .cell1 {
+            line-height: 50px;
+            background-color: #f3f2f2b7;
+            width: 150px;
+            border: none;
+            text-align: center;
+            padding: 5px;
+        }
+        .cell2 {  
+            margin-left: 100px; 
+            line-height: 40px;  
+            font-size: 14px;
+            color: #747171;       
+            width: 690px;
+            border: none;
+            padding: 5px;
+            margin: 5px;
+        }
+        
+        button {
+            padding: 0px 20px;      
+            height: 30px;
+            border: 1px solid #ff7f00;
+            background-color: white;
+            border-radius: 3px;
+            font-size: 12px;
+            line-height: 30px;
+            color: #ff7f00;
+            margin: 5px;
+            float: right;
+            cursor: pointer;
+        }
+        
+>>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git

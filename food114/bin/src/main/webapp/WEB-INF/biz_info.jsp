@@ -79,7 +79,11 @@
 }
 
 .updateInput {
+<<<<<<< HEAD
 	height: 17px;
+=======
+	height:17px;
+>>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 	border: 1px solid #ddd;
 	border-radius: 3px;
 	padding: 10px 15px;
@@ -136,6 +140,16 @@ section {
 	display: inline-block;
 	border-bottom: 1px solid #ccc
 }
+
+input[type="file"] {
+    border: 1px solid #ddd;
+	border-radius: 3px;
+}
+
+.mainImg {
+	width:100px;
+	height:50px;
+}
 </style>
 <body>
 	<%@include file="main(header)_biz.html"%>
@@ -150,6 +164,7 @@ section {
 				</h2>
 				<div class="infoBox" style="position: relative;">
 					<div class="infoDiv">
+<<<<<<< HEAD
 						<div class="infoName">메인 이미지</div>
 						<span class="viewInfo">
 							<template v-if="updateFlg">
@@ -170,21 +185,64 @@ section {
 									v-if="bizFile=='nothing'">현재 등록된 이미지가 없습니다.</div>
 								<div style="position: absolute; bottom: -15px; left: 70px">300x300</div>
 							</div>
+=======
+						<div class="infoName">
+							메인 이미지
 						</div>
-
-
+						<span class="viewInfo">
+							<img class="mainImg" v-if="bizFile" :src="bizFile.path">
+							<input type="file" id="file1" name="file1" accept=".jpg, .png, .gif">
+							<button v-if="!bizFile" @click="fnFileUpload()">저장</button>
+							<button v-if="bizFile" @click="fnFileUpload()">변경</button>
+						</span>
 					</div>
 					<div class="infoDiv">
+						<div class="infoName">
+							사업자번호
+>>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
+						</div>
+<<<<<<< HEAD
+
+
+=======
+						<span class="viewInfo">{{bizInfo.bizNo}}</span>
+>>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
+					</div>
+					<div class="infoDiv">
+<<<<<<< HEAD
 						<div class="infoName">사업자번호</div>
 						<span class="viewInfo">{{bizInfo.bizNo}}</span>
+=======
+						<div class="infoName">
+							상호
+						</div>
+						<span v-if="!updateFlg" class="viewInfo">{{bizInfo.bizName}}</span>
+						<input v-if="updateFlg" class="updateInput" :value="bizInfo.bizName">
 					</div>
 					<div class="infoDiv">
+						<div class="infoName">
+							판매 카테고리
+						</div>
+						<span v-if="!updateFlg" class="viewInfo">{{bizInfo.categoryName}}</span>
+						<input v-if="updateFlg" class="updateInput" :value="bizInfo.categoryName">
+>>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
+					</div>
+					<div class="infoDiv">
+<<<<<<< HEAD
 						<div class="infoName">상호</div>
 						<span v-if="!updateFlg" class="viewInfo">{{bizInfo.bizName}}</span>
 						<input v-if="updateFlg" class="updateInput"
 							v-model="bizInfo.bizName">
+=======
+						<div class="infoName">
+							사업장 주소
+						</div>
+						<span v-if="!updateFlg" class="viewInfo">{{bizInfo.newAddr}} {{bizInfo.detail}}</span>
+						<input v-if="updateFlg" class="updateInput" :value="bizInfo.newAddr +' '+ bizInfo.detail">
+>>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 					</div>
 					<div class="infoDiv">
+<<<<<<< HEAD
 						<div class="infoName">판매 카테고리</div>
 						<span v-if="!updateFlg" class="viewInfo">{{bizInfo.categoryName}}</span>
 						<select v-model="bizInfo.bizCategory" v-if="updateFlg"
@@ -192,26 +250,58 @@ section {
 							<option value="">선택</option>
 							<option v-for="item in categoryList" :value="item.categoryNo">{{item.categoryName}}</option>
 						</select>
+=======
+						<div class="infoName">
+							대표 이름
+						</div>
+						<span v-if="!updateFlg" class="viewInfo">{{bizInfo.ownerName}}</span>
+						<input v-if="updateFlg" class="updateInput" :value="bizInfo.ownerName">
+>>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 					</div>
 					<div class="infoDiv">
+<<<<<<< HEAD
 						<div class="infoName">사업장 주소</div>
 						<span v-if="!updateFlg" class="viewInfo">{{bizInfo.newAddr}}
 							{{bizInfo.detail}}</span>
 						<input v-if="updateFlg" class="updateInput"
 							v-model="bizInfo.newAddr +' '+ bizInfo.detail" disabled>
+=======
+						<div class="infoName">
+							대표연락처
+						</div>
+						<span v-if="!updateFlg" class="viewInfo">{{bizInfo.phone}}</span>
+						<input v-if="updateFlg" class="updateInput" :value="bizInfo.phone">
+>>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 					</div>
 					<div class="infoDiv">
+<<<<<<< HEAD
 						<div class="infoName">대표 이름</div>
 						<span v-if="!updateFlg" class="viewInfo">{{bizInfo.ownerName}}</span>
 						<input v-if="updateFlg" class="updateInput"
 							v-model="bizInfo.ownerName">
+=======
+						<div class="infoName">
+							대표이메일주소
+						</div>
+						<span v-if="!updateFlg" class="viewInfo">{{bizInfo.email}}</span>
+						<input v-if="updateFlg" class="updateInput" :value="bizInfo.email">
+>>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 					</div>
 					<div class="infoDiv">
+<<<<<<< HEAD
 						<div class="infoName">대표연락처</div>
 						<span v-if="!updateFlg" class="viewInfo">{{bizInfo.phone}}</span>
 						<input v-if="updateFlg" class="updateInput" v-model="bizInfo.phone">
+=======
+						<div class="infoName">
+							은행
+						</div>
+						<span v-if="!updateFlg" class="viewInfo">{{bizInfo.bankName}}</span>
+						<input v-if="updateFlg" class="updateInput" :value="bizInfo.bankName">
+>>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 					</div>
 					<div class="infoDiv">
+<<<<<<< HEAD
 						<div class="infoName">대표이메일주소</div>
 						<span v-if="!updateFlg" class="viewInfo">{{bizInfo.email}}</span>
 						<input v-if="updateFlg" class="updateInput" v-model="bizInfo.email" disabled>
@@ -266,6 +356,13 @@ section {
 							분
 						</template>
 
+=======
+						<div class="infoName">
+							계좌번호
+						</div>
+						<span v-if="!updateFlg" class="viewInfo">{{bizInfo.accountNumber}}</span>
+						<input v-if="updateFlg" class="updateInput" :value="bizInfo.accountNumber">
+>>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 					</div>
 				</div>
 				<button v-if="!updateFlg" class="btn-modify" @click="fnInfoUpdate()">정보
@@ -287,6 +384,7 @@ section {
 		el : '#app',
 		data : {
 			updateFlg : false,
+<<<<<<< HEAD
 			sessionId : "${sessionBizId}",
 			bizInfo : {},
 			bizFile : {},
@@ -299,6 +397,11 @@ section {
 			closeHour : "",
 			closeMinute : "",
 			changeImgFlg: false
+=======
+			sessionId : "${sessionId}",
+			bizInfo : {},
+			bizFile : {}
+>>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 		},
 		methods : {
 			// 수정버튼 클릭시
@@ -333,6 +436,7 @@ section {
 			},
 			// 정보 변경하기 클릭시
 			fnInfoUpdate : function() {
+<<<<<<< HEAD
 				var self = this;
 				self.updateFlg = true;
 			},
@@ -427,13 +531,61 @@ section {
 						}
 					}
 				});
+=======
+				var self = this;	
+				self.updateFlg = !self.updateFlg;
+			},
+			fnBizView : function() {
+				var self = this;
+				var nparmap = {
+					bizId : self.sessionId						
+				};
+				$.ajax({
+					url : "bizView.dox",
+					dataType : "json",
+					type : "POST",
+					data : nparmap,
+					success : function(data) {
+						self.bizInfo = data.bizInfo;
+						if(data.bizFile){
+							self.bizFile = data.bizFile;
+						}
+					}
+				});
+			},
+			fnFileUpload : function(){
+				var self = this;
+				var form = new FormData();
+	   	        form.append( "file1",  $("#file1")[0].files[0] );
+	   	     	form.append( "bizId",  self.sessionId);
+	       		self.upload(form);
+	       		$.pageChange("/biz-info.do", {});
+	        }
+			// 파일 업로드
+		    , upload : function(form){
+		    	var self = this;
+		         $.ajax({
+		             url : "/fileUpload.dox"
+		           , type : "POST"
+		           , processData : false
+		           , contentType : false
+		           , data : form
+		           , success:function(response) { 
+		        	   
+		           }	           
+		       });
+>>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 			}
 		},
 		created : function() {
 			var self = this;
+<<<<<<< HEAD
 			self.fnSelectAll();
 			self.fnBizView();
 
+=======
+			self.fnBizView();
+>>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 		}
 	});
 </script>

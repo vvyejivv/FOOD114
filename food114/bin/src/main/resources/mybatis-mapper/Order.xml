@@ -9,6 +9,7 @@
 		FROM FOOD114_CONSUMER_ADDR 
 		WHERE USERID = #{userId}
 	</select>
+<<<<<<< HEAD
 	
 	<select id="selectOrderList" parameterType="hashmap" resultType="teamProject.food114.model.Order">
 		SELECT
@@ -41,4 +42,7 @@
 		VALUES(NULL,#{menuNo}, #{count}, #{unitPrice})
 	</insert>
 	
+=======
+
+>>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 </mapper>

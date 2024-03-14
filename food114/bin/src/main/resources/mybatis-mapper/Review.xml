@@ -13,6 +13,7 @@
 		INNER JOIN FOOD114_MENU M ON D.MENUNO = M.MENUNO
 		WHERE M.BIZID = #{bizId}
 	</select>
+<<<<<<< HEAD
 	
 	<!-- 리뷰 정보 -->
 	<select id="selectBizReviewList" parameterType="hashmap" resultType="teamProject.food114.model.Review">
@@ -24,4 +25,6 @@
 		LEFT JOIN FOOD114_REVIEW_PHOTO P ON R.REVIEWNO = P.REVIEWNO
 		GROUP BY R.REVIEWNO, O.USERID, R.RAITING, P.FILENAME, R.CONTENTS, R.ORDERNO, O.ORDERDATE
 	</select>
+=======
+>>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 </mapper>

@@ -67,6 +67,7 @@ input {
 }
 
 .addrContainer {
+<<<<<<< HEAD
 	width: 450px;
 	height: 50px;
 	border-radius: 5px;
@@ -131,6 +132,72 @@ input {
 
 .addrText>div>span {
 	margin-right: 5px;
+=======
+	width: 600px;
+	height: 50px;
+	border-radius: 5px;
+	margin: 0px auto;
+	display: flex;
+	align-items: center;
+	border: 1px solid #ccc;
+	position: relative;
+	background-color: white;
+	box-sizing: border-box;
+}
+
+.addrInput {
+	font-size: 17px;
+	line-height: 20px;
+	margin: 0px 20px;
+	width: 550px;
+}
+
+.addrListBox {
+	width: 600px;
+	margin: 0px auto;
+	border: 1px solid #ccc;
+	position: absolute;
+	box-sizing: border-box;
+	left: -2px;
+	border-top: none;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	overflow: hidden;
+	left: -1px;
+	padding-top: 10px;
+	top: 40px;
+}
+
+.addrListOne {
+	background-color: white;
+	padding: 0px 20px;
+	margin-top: 2px;
+	cursor: pointer;
+}
+
+.addrAs {
+	font-size: 17px;
+	margin-bottom: 5px;
+	padding-top: 10px;
+	font-weight: 500;
+}
+
+.addrText {
+	font-size: 14px;
+	padding-bottom: 5px;
+	border-bottom: 1px solid #ccc;
+	margin-bottom: -1px;
+	padding-bottom: 10px;
+	word-break: break-all
+}
+
+.addrText>div {
+	margin-bottom: 5px;
+}
+
+.addrText>div>span{
+	margin-right:5px;
+>>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 }
 </style>
 	<div id="app">
@@ -144,7 +211,10 @@ input {
 					<div class="category" v-for="item in categoryList"
 						@click="fnCategorySelect(item.categoryNo)"
 						:style='{"font-weight" : nowCategory==item.categoryNo ? "bold" : "none"}'>{{item.categoryName}}</div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 				</div>
 				<div class="search">검색</div>
 
@@ -158,6 +228,7 @@ input {
 				<div style="padding: 20px; margin-bottom: 30px;">
 					<!-- 현재 입력된 주소 -->
 					<div class="addrContainer">
+<<<<<<< HEAD
 
 						<input class="addrInput" placeholder="주소를 입력하세요."
 							v-model="inputAddr" @focus="fnShowAddr()">
@@ -167,15 +238,26 @@ input {
 								style="position: absolute; top: 10px; right: -40px;"
 								@click="fnCompleteAddr">
 						</div>
+=======
+						<input class="addrInput" placeholder="주소를 입력하세요."
+							@focus="fnShowAddr()" @blur="fnHiddenAddr()">
+>>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 
 						<!-- 주소창 더보기 클릭시 display none상태-->
 						<template v-if="showAddr">
+<<<<<<< HEAD
 							<div @click="fnHiddenAddr"
 								style="position: fixed; top: 0px; left: 0px; right: 0px; bottom: 0px;"></div>
+=======
+>>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 							<div class="addrListBox">
 								<!-- 등록된 주소창 v-for 사용할것 -->
+<<<<<<< HEAD
 								<div class="addrListOne" v-for="(item,index) in addrList"
 									@click="fnAddrSelect(index)">
+=======
+								<div class="addrListOne" v-for="item in addrList" @click="">
+>>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 									<div class="addrAs">{{item.addrAs}}</div>
 									<div class="addrText">
 										<div>
@@ -263,13 +345,22 @@ input {
 			sessionId : "${sessionId}", // 현재 로그인된 아이디
 			nowCategory : "${map.category}", // 현재 선택된 카테고리
 			sortType : "기본 정렬 순", // 정렬
+<<<<<<< HEAD
 			showAddr : false, // 현재 아이디의 주소 목록 보이기 여부
 			addrList : [], // 현재 아이디의 주소 목록
 			inputAddr : "",
 			addrNo : ""
+=======
+			showAddr : false, // 현재 아이디의 주소 목록 보기
+			addrList : []
+>>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 		},
 		methods : {
+<<<<<<< HEAD
 			fnAddrClick : function() {
+=======
+			fnAddrClick : function(){
+>>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 				alert("안녕");
 			},
 			/* 카테고리 목록 불러오기 */
@@ -326,6 +417,7 @@ input {
 					}
 				});
 			},
+<<<<<<< HEAD
 			/* 회원 주소 선택시 */
 			fnAddrSelect : function(idx) {
 				var self = this;
@@ -347,6 +439,8 @@ input {
 						}
 					});
 			},
+=======
+>>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 			fnShowAddr : function() {
 				var self = this;
 				self.showAddr = true;

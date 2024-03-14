@@ -179,6 +179,7 @@ button img {
 }
 </style>
 <body>
+<<<<<<< HEAD
 	<%@include file="main(header)_biz.html"%>
 	<!-- 광고창 -->
 	<!-- <div class="ad">
@@ -270,6 +271,99 @@ button img {
 		</div>
 	</section>
 	<%@include file="main(footer)_biz.html"%>
+=======
+	<%@include file="main(header).html"%>
+	<!-- 광고창 -->
+	<!-- <div class="ad">
+        광고창
+        <button class="adClose">x</button>
+    </div> -->
+	<section>
+		<%@include file="sideBar_biz.html"%>
+		<div id="app">
+			<div class="mold">
+				<h2>
+					<span style="color: #ff7f00; font-weight: bold;">| </span><span
+						style="text-align: left; color: rgba(72, 72, 72);">상품수정&nbsp;</span>
+				</h2>
+				<div class="inputBox">
+					<div class="inputDiv">
+						메뉴 이름<small><small style="color: #ff7f00;"> ＊ </small></small>
+					</div>
+					<input type="text" v-model="menuView.menu" class="menu_input"
+						placeholder="상품명을 입력해 주세요">
+					<div v-if="menuView.menu" class="type_limit">{{menuView.menu.length}}/100</div>
+					<div class="nameInfo">판매 상품과 직접 관련이 없는 상품명은 관리자에 의해 변경될 수
+						있습니다.</div>
+				</div>
+				<div class="inputBox">
+					<div class="inputDiv">
+						카테고리<small><small style="color: #ff7f00;"> ＊ </small></small>
+					</div>
+					<button class="cateBtn">카테고리 검색</button>
+					<button class="subCateBtn">카테고리 선택</button>
+					<div>
+						<button class="searchIcon">
+							<img src="../img/magnifying-glass-gray-solid.png">
+						</button>
+						<input type="text" class="cate_input" placeholder="카테고리명 입력"
+							disabled>
+					</div>
+				</div>
+				<div class="inputBox">
+					<div class="inputDiv">
+						가격<small><small style="color: #ff7f00;"> ＊ </small></small>
+					</div>
+					<input type="text" v-model="menuView.price" class="mod_input"
+						placeholder="가격 입력">
+				</div>
+				<div class="inputBox">
+					<div class="inputDiv">
+						메뉴 설명(소개)<small><small style="color: #ff7f00;"> ＊
+						</small></small>
+					</div>
+					<input type="text" v-model="menuView.menuInfo" class="mod_input"
+						placeholder="메뉴 설명(소개) 입력">
+				</div>
+				<div class="inputBox">
+					<div class="inputDiv">
+						원산지<small><small style="color: #ff7f00;"> ＊ </small></small>
+					</div>
+					<input type="text" class="mod_input" placeholder="원산지 입력" disabled>
+				</div>
+				<div class="inputBox">
+					<div class="inputDiv">
+						메뉴 옵션<small><small style="color: #ff7f00;"> ＊ </small></small>
+					</div>
+					<input type="text" class="mod_input" placeholder="메뉴 옵션 입력"
+						disabled>
+				</div>
+				<div class="inputBox">
+					<div class="inputDiv">
+						판매 상태<small><small style="color: #ff7f00;"> ＊ </small></small>
+					</div>
+					<select v-model="menuView.status" class="mod_input">
+						<option value="0">판매중</option>
+						<option value="1">판매종료</option>
+						<option value="3">품절</option>
+					</select>
+				</div>
+				<div class="inputBox">
+					<div class="inputDiv">
+						메뉴 사진<small><small style="color: #ff7f00;"> ＊ </small></small>
+					</div>
+					<img v-if="menuView.filePath"
+						:src="menuView.filePath + menuView.fileName" class="menuImg"
+						alt="이미지 미등록"> <input type="file" class="file_input"
+						id="file1" name="file1" accept=".jpg, .png, .gif"
+						style="color: #ccc; font-size: 12px; line-height: 30px;">
+				</div>
+				<button class="btn-modify" @click="fnMenuUpdate()">정보 변경</button>
+			</div>
+		</div>
+	</section>
+	<%@include file="main(footer).html"%>
+>>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 </body>
 
 </html>

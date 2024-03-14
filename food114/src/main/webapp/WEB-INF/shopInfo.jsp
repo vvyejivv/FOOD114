@@ -94,7 +94,7 @@
 								<td class="tdAmount">{{order.cnt}}</td>
 								<td class="tdSecond">{{order.price.toLocaleString()}}</td>
 								<td class="tdremove">
-									<div class="removeBtn">×</div>
+									<div class="removeBtn" @click="fnRemoveMenu(index)">×</div>
 								</td>
 							</tr>
 							<!-- 						<tr>
@@ -107,6 +107,7 @@
 					</div>
 					<div class="hrLine"></div>
 					<div class="priceBox">
+						<div class="totalPriceTxt">총 주문금액</div>
 						<div class="totalPrice">{{selectTotalPrice.toLocaleString()}}원</div>
 					</div>
 					<div class="orderBtn" @click="fnOrder">주문하기</div>
@@ -178,6 +179,8 @@
 			selectMenu : "", /* 클릭한 메뉴 index  */
 			selectMenuList : [],/* 장바구니에 담은 메뉴  */
 			selectTotalPrice : 0, /* 장바구니 총 금액  */
+			status : "결제전", /* 주문상태  */
+			orderNo : "", /* 주문번호  */
 
 		},
 		methods : {
@@ -264,7 +267,6 @@
 											});
 					}
 				self.selectTotalPrice = self.fnTotalPrice(self.selectMenuList);
-				console.log(self.selectMenuList);
 				self.fnMenuClick('close',self.selectMenu);
 			},
 			/* 장바구니 총 금액  */
@@ -276,27 +278,31 @@
 		        }
 		        return totalPrice;
 			},
+			fnRemoveMenu : function(index){
+				var self = this;
+				self.selectMenuList.splice(index,1);
+				self.selectTotalPrice = self.fnTotalPrice(self.selectMenuList);
+			},
 			/* 주문하기 */
 			fnOrder : function(){
-				var self = this;
+				var self = this;	
 				/* 주문하기 DB 생성  */
-				var nparmap = {
-						userId : self.sessionId,
-						bizId : self.bizId,
-						count : self.selectMenuList.cnt,
-						menuNo : self.selectMenuList.menuNo,
-						unitPrice : self.selectMenuList.price,
-					};				
-					/* $.ajax({
+				 var nparmap = {
+						userId : self.sessionId, 
+						bizId : self.bizId, 
+						selectMenuList: JSON.stringify(self.selectMenuList),
+						status : self.status, /* 결제전  */
+					};
+					$.ajax({
 						url : "orderAdd.dox",
 						dataType : "json",
 						type : "POST",
 						data : nparmap,
 						success : function(data) {
-							
+							self.orderNo = data.orderNo;
+							$.pageChange("/order.do", {userId : self.sessionId, selectMenuList: self.selectMenuList, orderNo : self.orderNo});
 						}
-					}); */ 
-				/* $.pageChange("/order.do", {userId : self.sessionId, selectMenuList: self.selectMenuList}); */
+					});  
 			}
 			
 

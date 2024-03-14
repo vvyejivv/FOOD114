@@ -14,8 +14,8 @@ public interface OrderMapper {
 	List<CustomerAddr> selectUserAddr(HashMap<String, Object> map); //고객 주소
 	void insertOrderAdd(HashMap<String, Object> map); // 주문 접수
 	void insertOrderDetailAdd(HashMap<String, Object> map); // 주문 접수(자세히)
-	
 	List<Order> selectOrderList(HashMap<String, Object> map);
-	
 	Order selectOrderCount(HashMap<String, Object> map);
+	void updateOrderStatus(HashMap<String, Object> map);//주문상태
+	void updateOrder(HashMap<String, Object> map);//주문완료 후 저장
 }

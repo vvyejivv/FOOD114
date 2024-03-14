@@ -294,6 +294,7 @@ ul, ol {
 									<option value="">선택</option>
 									<option v-for="item in dongList" :value="item.dong">{{item.dong}}</option>
 								</select>
+<<<<<<< HEAD
 								<button @click="fnAreaSearch()"
 									style="background-color: white; margin: 0; border: none;">
 									<img src="../img/magnifying-glass-solid.png">
@@ -733,6 +734,231 @@ ul, ol {
 				        }
 				    });
 				},
+=======
+								<button
+									style="background-color: white; margin: 0; border: none;">
+									<img src="../img/magnifying-glass-solid.png">
+								</button>
+							</div>
+						</div>
+					</div>
+					<div class="restList">
+						<img src="" alt="Hi" class="restImg">
+						<h3 style="margin-top: 8px;">
+							<a style="font-size: 1.5em;" href="javascript:;"
+								@click="fnRestView()">List 1</a>
+						</h3>
+						<div id="placesList1">
+							<span style="color: #ff7f00;">★ 점수</span> | 리뷰개수
+							<p style="margin-left: 60px;">이벤트정보이벤트이벤트이벤트이벤트이벤트이벤트이벤트이이벤트이벤트이벤트이벤트이벤트이벤</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+	<%@include file="main(footer).html"%>
+
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=753d2e1bb03d5938bad9908725e5ad41&libraries=services"></script>
+	<script>
+	// 현재 위치를 얻는 함수
+    function getCurrentLocation() {
+        return new Promise((resolve, reject) => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    position => {
+                        resolve(position.coords);
+                    },
+                    error => {
+                        reject(error);
+                    }
+                );
+            } else {
+                reject(new Error('Geolocation is not supported by this browser.'));
+            }
+        });
+    }
+
+    // 현재 위치를 얻어서 mapOptions를 업데이트하는 함수
+    async function updateMapOptionsWithCurrentLocation() {
+        try {
+            const coords = await getCurrentLocation();
+            const mapOptions = {
+                center: new kakao.maps.LatLng(coords.latitude, coords.longitude),
+                level: 5
+            };
+            return mapOptions;
+        } catch (error) {
+            console.error('Error getting current location:', error.message);
+            // 기본 위치 (서울)를 반환할 수 있도록 기본적인 오류 처리를 수행할 수 있습니다.
+            return {
+                center: new kakao.maps.LatLng(37.566826, 126.9786567),
+                level: 5
+            };
+        }
+    }
+    
+    // 반경 계산
+    function calculateDistance(lat1, lon1, lat2, lon2) {
+        var R = 6371; // 지구의 반지름 (단위: km)
+        var dLat = (lat2 - lat1) * (Math.PI / 180);
+        var dLon = (lon2 - lon1) * (Math.PI / 180);
+        var a =
+            Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        var distance = R * c; // 두 지점 사이의 거리 (단위: km)
+        return distance * 1000; // 거리를 미터로 변환하여 반환
+    }
+		var app = new Vue({
+			el: '#app',
+			data: {
+				searchFlg1: true,
+				searchFlg2: false,
+				restList: [],
+				markers: [],
+				map: null,
+				siList : [],
+				guList : [],
+				dongList : [],
+				si : "",
+				gu : "",
+				dong : ""
+			},
+			methods: {
+				fnRestList : function() {
+					var self = this;
+					var nparmap = {};
+					$.ajax({
+						url : "bizList.dox",
+						dataType : "json",
+						type : "POST",
+						data : nparmap,
+						success : function(data) {
+							self.restList = data.list;
+							console.log(self.restList);
+							self.addMarkers();
+						}
+					});
+				},
+				fnSiList : function() {
+					var self = this;
+					var nparmap = {};
+					$.ajax({
+						url : "siList.dox",
+						dataType : "json",
+						type : "POST",
+						data : nparmap,
+						success : function(data) {
+							self.siList = data.siList;
+						}
+					});
+				},
+				fnGuList : function() {
+					var self = this;
+					self.gu = "";
+					self.dong ="";
+					self.dongList = [];
+					var nparmap = {si : self.si};
+					$.ajax({
+						url : "guList.dox",
+						dataType : "json",
+						type : "POST",
+						data : nparmap,
+						success : function(data) {
+							self.guList = data.guList;
+						}
+					});
+				},
+				fnDongList : function() {
+					var self = this;
+					self.dong = "";
+					var nparmap = {si : self.si, gu : self.gu};
+					$.ajax({
+						url : "dongList.dox",
+						dataType : "json",
+						type : "POST",
+						data : nparmap,
+						success : function(data) {
+							self.dongList = data.dongList;
+						}
+					});
+				},
+				fnSearchType1: function () {
+					var self = this;
+					self.searchFlg1 = true;
+					self.searchFlg2 = false;
+				},
+				fnSearchType2: function () {
+					var self = this;
+					self.searchFlg1 = false;
+					self.searchFlg2 = true;
+				},
+				addMarkers: function () {
+	                var self = this;
+	                // 기존 마커 제거
+	                /* self.markers.forEach(function(marker) {
+	                    marker.setMap(null);
+	                }); 
+	                self.markers = [];
+	                */
+	                
+	                var markerImage = new kakao.maps.MarkerImage('../img/free-icon-restaurant-4551357.png',
+	                        new kakao.maps.Size(30, 30), // 이미지 크기
+	                        { offset: new kakao.maps.Point(15, 30) } // 이미지 위치 설정 (가운데 아래로 지정)
+	                    );
+	                
+	             	// 현재 위치를 기준으로 반경을 설정합니다. 예를 들어 반경을 1km로 설정합니다.
+	                const radius = 2000; // meter
+	                
+	                getCurrentLocation().then(function(currentLocation) {
+		                self.restList.forEach(function (place) {
+		                    
+		                 	// 현재 위치와 각 장소의 위치 사이의 거리를 계산합니다.
+		                    var distance = calculateDistance(currentLocation.latitude, currentLocation.longitude, place.latitude, place.longitude);
+		                    
+		                 	// 반경 내에 있는지 확인 후 마커 생성.
+		                    if (distance <= radius) {
+		                    	var markerPosition = new kakao.maps.LatLng(place.latitude, place.longitude); // 위도와 경도 정보 활용
+		                        var marker = new kakao.maps.Marker({
+		                            position: markerPosition,
+		                            image: markerImage
+		                        });
+		                    
+		                    // 오버레이 내용 설정
+		                    var overlayContent = '<div class="customoverlay">' +
+	    								'  <a href="https://map.kakao.com/link/map/11394059" target="_blank">' +
+	    								'    <span class="title">'+place.bizName+'</span>' +
+	    								'  </a>' +
+	   									'</div>';
+		                    var overlay = new kakao.maps.CustomOverlay({
+		                        content: overlayContent, // 오버레이에 표시할 내용
+		                        map: self.map, // 오버레이를 표시할 지도
+		                        position: markerPosition, // 오버레이를 표시할 위치
+		                        yAnchor: 0.00001 // 오버레이를 마커 아래에 표시하도록 설정
+		                    });
+		                    var isOverlayVisible = false;
+		                    kakao.maps.event.addListener(marker, 'click', function() {
+		                        if (!isOverlayVisible) {
+		                            overlay.setMap(self.map); // 오버레이를 지도에 표시
+		                            isOverlayVisible = true; // 오버레이가 보이는 상태로 설정
+		                        } else {
+		                            overlay.setMap(null); // 오버레이를 지도에서 숨김
+		                            isOverlayVisible = false; // 오버레이가 숨겨진 상태로 설정
+		                        }
+		                    });
+		                    overlay.setMap(null);
+		                    marker.setMap(self.map); // 마커를 지도에 표시
+		                    self.markers.push(marker);
+		                }
+		            })
+		                console.log(self.markers);
+	             })
+			  },
+>>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 			  fnRestView: function() {
 				    var self = this;
 				    var menuView = document.getElementById("menu_view");

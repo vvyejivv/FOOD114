@@ -24,6 +24,7 @@
 						<ul>
 							<li><a href="javascript:;" @click="fnMyInfo">MY정보 확인/변경</a></li>
 							<li><a href="javascript:;" @click="fnMyInfoPwd">비밀번호 변경</a></li>
+<<<<<<< HEAD
 							<li><a href="javascript:;" @click="myInfoAddr">MY주소지 관리</a></li>
 							<li><a href="javascript:;" @click="fnMyInfoGrade">등급</a></li>
 						</ul>
@@ -63,6 +64,44 @@
 			},
 			myInfoAddr : function(){
 				location.href="/myInfoAddr.do";
+=======
+							<li><a href="javascript:;">MY주소지 관리</a></li>
+							<li><a href="javascript:;" @click="fnMyInfoGrade">등급</a></li>
+						</ul>
+					</li>
+					<br>
+					<li>결제/주문/리뷰<span style="color: #b1b0b0;">───────────</span>
+						<ul>
+							<li><a href="javascript:;">결제수단 관리</a></li>
+							<li><a href="javascript:;">주문내역</a></li>
+							<li><a href="javascript:;">MY리뷰목록</a></li>
+						</ul>
+					</li>
+					<br>
+					<li>이벤트<span style="color: #b1b0b0;">───────────</span>
+						<ul>
+							<li><a href="javascript:;">쿠폰</a></li>
+							<li><a href="javascript:;">포인트</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+	</section>
+
+</body>
+
+<script type="text/javascript">
+	var myPageHeader = new Vue({
+		el : '#myPageHeader',
+		data : {			
+		},
+		methods : {
+			fnMyInfo : function() {
+				location.href = "/myInfo.do";
+			},
+			fnMyInfoPwd : function() {
+				location.href = "/myInfoPwd.do";
+>>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 			},
 			fnMyInfoGrade : function() {
 				location.href = "/myInfoGrade.do";

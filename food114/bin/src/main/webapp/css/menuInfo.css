@@ -95,6 +95,7 @@
 	
 }
 #quantityInput{
+<<<<<<< HEAD
 	width: 25px;
     padding: 5px;
     border: 1px solid #ccc;
@@ -155,6 +156,60 @@ input[type="number"] {
 	border: none;
 	font-weight: bold;
 	width: 500px;
+=======
+	width: 20px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    margin-top: 15px;
+    text-align: center;
+}
+#quantityInput:focus {
+    outline:  #ff7f00 solid thin;
+    border: none;
+}
+#menuListPrice {
+	width: 500px;
+	height: 60px;
+	border-bottom: 1px solid #ccc;
+}
+.menuPriceBox{
+	font-weight: bold;
+	color : rgb(72, 72, 72);
+	font-size : 18px;
+	float:left;
+	width: 300px;
+	margin-top: 15px;
+	margin-left: 15px;
+}
+.menuPriceTxt{
+	font-weight: bold;
+	color : rgb(72, 72, 72);
+	font-size : 17px;
+	float: right;
+	margin-top: 15px;
+	margin-right : 5px;
+}
+#menuListTotalPrice {
+	width: 500px;
+	height: 60px;
+}
+
+#menuListBtnBox {
+	width: 500px;
+	margin: 0px auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#menuListAddBtn {
+	padding: 21px 15px;
+	background-color: rgb(72, 72, 72);
+	color: #fff;
+	border: none;
+	font-weight: bold;
+	width: 350px;
+>>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 }
 
 #menuListOrderBtn {

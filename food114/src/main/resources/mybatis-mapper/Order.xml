@@ -32,13 +32,30 @@
 	</select>
 	
 	<!-- 주문하기  -->	
-	<insert id="insertOrderAdd" parameterType="hashmap">
-		INSERT INTO FOOD114_ORDERS (USERID, BIZID, ORDERDATE)
-		VALUES(NULL,#{userId}, #{bizId}, NOW())
+	<insert id="insertOrderAdd" parameterType="hashmap" useGeneratedKeys="true" keyProperty="ORDERNO" keyColumn="ORDERNO">
+		INSERT INTO FOOD114_ORDERS (USERID, BIZID, ORDERDATE,STATUS)
+		VALUES(#{userId}, #{bizId}, NOW(),#{status})
 	</insert>
-	<insert id="insertOrderDetailAdd" parameterType="hashmap">
+	<insert id="insertOrderDetailAdd" parameterType="hashmap" >
 		INSERT INTO FOOD114_ORDER_DETAIL
-		VALUES(NULL,#{menuNo}, #{count}, #{unitPrice})
+		VALUES (#{ORDERNO},#{menuNo}, #{count}, #{unitPrice})
 	</insert>
+	<!-- 주문상태  -->
+	<update id="updateOrderStatus" parameterType="hashmap">
+		UPDATE FOOD114_ORDERS
+		SET STATUS = #{status}
+		WHERE ORDERNO = #{orderNo}
+	</update>
+	<!-- 주문 내용 저장  -->
+	<update id="updateOrder" parameterType="hashmap">
+		UPDATE FOOD114_ORDERS
+		SET 
+			ADDR = #{addr},
+			DETAIL = #{detail},
+			PHONE = #{phone},
+			ORDERREQUEST = #{orderRequest},
+			DELIVERYREQUEST = #{deliveryRequest}
+		WHERE ORDERNO = #{orderNo}
+	</update>
 	
 </mapper>

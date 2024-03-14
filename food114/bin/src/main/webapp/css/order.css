@@ -98,6 +98,7 @@
     border: 1px solid #ccc;
     border-radius: 4px;
 }
+<<<<<<< HEAD
 #phone input[type="text"]:focus {
     outline:  #ff7f00 solid thin;
     border: none;
@@ -114,6 +115,16 @@
 .deliveryBox textarea:focus {
 	outline:  #ff7f00 solid thin;
     border: none;
+=======
+
+#addr input[type="text"],
+.deliveryBox textarea {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+>>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 }
 
 #ecoYN {

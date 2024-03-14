@@ -140,6 +140,7 @@ var main = new Vue({
     	/* 슬라이드 이동 함수 */
         move: function(direction) {    		
             var self = this;
+<<<<<<< HEAD
             self.translate += direction * self.slideWidth;            
             $("#slider").css({
                 "transform": "translateX(" + self.translate + "px)"
@@ -198,6 +199,66 @@ var main = new Vue({
             }, self.speedTime);   
             self.interval=setInterval(function() {
             	self.sliding();
+=======
+            self.translate += direction * self.slideWidth;
+            console.log(self.currentIdx);
+            $("#slider").css({
+                "transform": "translateX(" + self.translate + "px)"
+            });
+            self.currentIdx += direction; 
+        },
+        /* 슬라이드 함수 */
+        sliding: function() {
+            var self = this;
+            if (self.currentIdx == 1){
+                self.move(self.slides.length - 1);
+                setTimeout(() => {                    
+                    self.currentIdx = self.slides.length;
+                    self.translate = 0;
+                    $("#slider").css({                	
+                        "transform": "translateX(" + self.translate + "px)"
+                    });
+                }, self.speedTime);
+            } else {
+                self.move(-1); 
+            }
+        },
+        /* 슬라이드 실행 */
+        showSliding: function() {
+            var self = this;            
+            self.slideWidth=self.slides[0].offsetWidth;
+            self.interval=setInterval(function() {
+                self.sliding();
+            }, self.speedTime);
+        },
+        /* 이벤트 슬라이드 이전으로 */
+        fnPrevEvent : function(){
+        	var self=this;
+        	if(self.currentIdx!=5){
+        	self.fnMoveClick(1);
+        	} else{
+        		self.fnMoveClick(-4);
+        	}
+        },
+        /* 이벤트 슬라이드 다음으로 */
+        fnNextEvent : function(){
+        	var self=this;
+        	if(self.currentIdx!=1){
+            	self.fnMoveClick(-1);
+            	} else{
+            		self.fnMoveClick(4);
+            	}    	
+        },
+        /* 이벤트 슬라이드 화살표 클릭시 함수 정리 */
+        fnMoveClick : function(num){
+        	var self=this;
+        	clearInterval(self.interval);
+        	self.move(num);          	
+        	setTimeout(() => {        		
+        	}, self.speedTime);   
+        	self.interval=setInterval(function() {
+                self.sliding();
+>>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
             }, self.speedTime);
         }
     },   
