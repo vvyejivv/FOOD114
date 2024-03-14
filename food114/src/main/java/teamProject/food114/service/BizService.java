@@ -39,4 +39,6 @@ public interface BizService {
 	HashMap<String, Object> editBizInfo(HashMap<String, Object> map);
 	
 	HashMap<String, Object> searchAreaList(HashMap<String, Object> map);
+	
+	HashMap<String, Object> searchBizView(HashMap<String, Object> map);
 }

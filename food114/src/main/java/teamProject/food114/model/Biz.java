@@ -30,6 +30,9 @@ public class Biz {
 	private String reviewAvg;
 	private String reviewCnt;
 	
+	// 이벤트 내용
+	private String title;
+	private String contents;
 	
 	public String getBizId() {
 		return bizId;
@@ -237,5 +240,21 @@ public class Biz {
 
 	public void setReviewCnt(String reviewCnt) {
 		this.reviewCnt = reviewCnt;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getContents() {
+		return contents;
+	}
+
+	public void setContents(String contents) {
+		this.contents = contents;
 	}
 }

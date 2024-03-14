@@ -233,14 +233,32 @@ ul, ol {
 	top: 0;
 	left: 0;
 	bottom: 0;
-	width: 400px;
-	padding: 20px;
+	width: 440px;
 	overflow-y: auto;
 	background: rgba(255, 255, 255, 1);
 	z-index: 1;
-	font-size: 14px;
 	border-right: 1px solid #ddd;
 	/* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+}
+
+.backBtn {
+	position : absolute;
+	left: 15px;
+	top: 10px;
+	font-size:1.5em;
+}
+
+.restViewImg {
+	width: 100%;
+	height: 200px;
+	object-fit: contain;
+}
+
+.solidImg {
+	width:18px;
+	height:15px;
+	object-fit: contain;
+	margin-right:5px;
 }
 </style>
 </head>
@@ -253,7 +271,32 @@ ul, ol {
 				<div id="map"
 					style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
 				<div id="menu_view" class="bg_white">
-					<button @click="fnRestClose()">닫기</button>
+					<img :src="restView.path" class="restViewImg">
+					<a href="javascript:;" @click="fnRestClose()" class="backBtn">❮</a>
+					<div style="margin:10px;">
+						<h1 style="font-size: 1.5em;">{{restView.bizName}}<span style="color:#ccc;"> {{restView.categoryName}}</span></h1>
+						리뷰 {{restView.reviewCnt}}
+					</div>
+						<div style="border-top:1px solid #ccc; width:100%; margin:20px 0 20px 0;"></div>
+					<div style="margin:10px;">
+						<div>
+							<img class="solidImg" src="../img/location-dot-solid.png">
+							<span style="font-size:17px;">{{restView.newAddr}} {{restView.detail}}</span>
+						</div>
+						<div>
+							<img class="solidImg" src="../img/clock-solid.png">
+							<span style="font-size:17px;">{{restView.openTime}} - {{restView.closeTime}}</span>
+						</div>
+						<div>
+							<img class="solidImg" src="../img/phone-solid.png">
+							<span style="font-size:17px;">{{restView.phone}}</span>
+						</div>
+						<div>
+							<img class="solidImg" src="../img/store-solid.png">
+							<span style="font-size:17px;">포장</span>
+						</div>
+						<button>정보 더보기 ❯</button>
+					</div>
 				</div>
 				<div id="menu_wrap" class="bg_white">
 					<div class="option">
@@ -301,27 +344,32 @@ ul, ol {
 							</div>
 						</div>
 					</div>
-					<div class="restList" v-if="areaRestList.length == 0" v-for="item in locationRestList">
+					<div class="restList" v-if="areaRestList.length == 0 && searchFlg" v-for="item in locationRestList">
 						<img :src="item.path" alt="Hi" class="restImg">
 						<h3 style="margin-top: 8px;">
 							<a style="font-size: 1.5em;" href="javascript:;"
-								@click="fnRestView(item.bizId)">{{item.bizName}}</a>
+								@click="fnRestView(item.bizId)">{{item.bizName}}</a><span style="color: #aaa;"> {{item.categoryName}}</span>
 						</h3>
 						<div id="placesList1">
-							<span style="color: #ff7f00;">★ {{item.reviewAvg}}</span> | 리뷰개수 {{item.reviewCnt}}개
-							<p style="margin-left: 60px;">이벤트정보이벤트이벤트이벤트이벤트이벤트이벤트이벤트이이벤트이벤트이벤트이벤트이벤트이벤</p>
+							<span style="color: #ff7f00;">★ {{item.reviewAvg}}</span> | 리뷰 {{item.reviewCnt}}
+							<p style="margin-left: 60px;">{{item.title}}</p>
+							<p style="margin-left: 60px;">{{item.contents}}</p>
 						</div>
 					</div>
 					<div class="restList" v-if="areaRestList.length > 0" v-for="item in areaRestList">
 						<img :src="item.path" alt="Hi" class="restImg">
 						<h3 style="margin-top: 8px;">
 							<a style="font-size: 1.5em;" href="javascript:;"
-								@click="fnRestView(item.bizId)">{{item.bizName}}</a>
+								@click="fnRestView(item.bizId)">{{item.bizName}}</a><span style="color: #aaa;"> {{item.categoryName}}</span>
 						</h3>
 						<div id="placesList1">
-							<span style="color: #ff7f00;">★ {{item.reviewAvg}}</span> | 리뷰개수 {{item.reviewCnt}}개
-							<p style="margin-left: 60px;">이벤트정보이벤트이벤트이벤트이벤트이벤트이벤트이벤트이이벤트이벤트이벤트이벤트이벤트이벤</p>
+							<span style="color: #ff7f00;">★ {{item.reviewAvg}}</span> | 리뷰 {{item.reviewCnt}}
+							<p style="margin-left: 60px;">{{item.title}}</p>
+							<p style="margin-left: 60px;">{{item.contents}}</p>
 						</div>
+					</div>
+					<div class="restList" v-if="areaRestList.length == 0 && !searchFlg">
+						<span style="color: #aaa;">검색된 매장이 없습니다.</span>
 					</div>
 				</div>
 			</div>
@@ -388,6 +436,7 @@ ul, ol {
 		var app = new Vue({
 			el: '#app',
 			data: {
+				searchFlg: true,
 				searchFlg1: true,
 				searchFlg2: false,
 				restList: [],
@@ -403,7 +452,8 @@ ul, ol {
 				dong : "",
 				latitude : "",
 				longitude : "",
-				areaRestList : []
+				areaRestList : [],
+				restView : {}
 			},
 			methods: {
 				fnRestList : function() {
@@ -495,7 +545,13 @@ ul, ol {
 				            type: "POST",
 				            data: nparmap,
 				            success: function(data) {
-				                self.areaRestList = data.areaRestList;
+				            	if(data.areaRestList.length == 0){
+				            		self.areaRestList = [];
+				            		self.searchFlg = false;
+				            	} else {
+				                	self.areaRestList = data.areaRestList;
+				            		self.searchFlg = true;
+				            	}
 				                // 좌표 변환 작업이 완료된 후에 setCenter 함수 호출
 				                self.setCenter();
 				            }
@@ -535,7 +591,7 @@ ul, ol {
 				    var moveLatLon = new kakao.maps.LatLng(self.latitude, self.longitude);
 				    // 지도 중심을 이동 시킵니다
 				    self.map.setCenter(moveLatLon);
-				    
+				    self.map.setLevel(5);
 				    console.log(self.areaRestList);
 				    for(var i = 0; i < self.areaRestList.length; i++){
 				    	self.searchAddMarkers(self.areaRestList[i].oldAddr, self.areaRestList[i].bizName);
@@ -740,12 +796,12 @@ ul, ol {
 				    menuView.style.left = "441px";
 					var nparmap = {bizId : bizId};
 					$.ajax({
-						url : "dongList.dox",
+						url : "restView.dox",
 						dataType : "json",
 						type : "POST",
 						data : nparmap,
 						success : function(data) {
-							
+							self.restView = data.restView;
 						}
 					});
 				},
