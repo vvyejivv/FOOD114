@@ -171,17 +171,16 @@ input[type='text']:focus {
 									<p style="color: #888; margin-top: none;" v-html="modalText">변경할
 										이름을 입력해주세요.</p>
 									<input class="modalInput" v-model="changeValue" type="text"
-										placeholder="이름" v-if="modalType=='name'">
-									<input class="modalInput" v-model="changeValue" type="text"
-										placeholder="닉네임" v-if="modalType=='nickName'">
-									<input class="modalInput" v-model="changeValue" type="text"
+										placeholder="이름" v-if="modalType=='name'"> <input
+										class="modalInput" v-model="changeValue" type="text"
+										placeholder="닉네임" v-if="modalType=='nickName'"> <input
+										class="modalInput" v-model="changeValue" type="text"
 										placeholder="연락처" v-if="modalType=='phone'">
 									<template v-if="modalType=='email'">
 										<input class="modalInput" v-model="email" type="text"
 											@input="fnConcat" placeholder="이메일"
-											style="width: 130px; margin-right: 5px;">
-										@
-										<input class="modalInput" v-model="emailAddr" type="text"
+											style="width: 130px; margin-right: 5px;"> @ <input
+											class="modalInput" v-model="emailAddr" type="text"
 											@input="fnConcat" style="width: 130px;" placeholder="주소">
 									</template>
 									<div>
@@ -267,15 +266,15 @@ input[type='text']:focus {
 			modalTitle : "", // 모달창 제목 (이름변경/닉네임변경 등)
 			modalText : "", // 모달창 내용 (이름을 변경해주세요 등)
 			modalType : "",
-			changeValue :"",
-			email :"",
-			emailAddr :""
+			changeValue : "",
+			email : "",
+			emailAddr : ""
 
 		},
 		methods : {
-			fnConcat : function(){
-				var self=this;				
-				self.changeValue=self.email+"@"+self.emailAddr;
+			fnConcat : function() {
+				var self = this;
+				self.changeValue = self.email + "@" + self.emailAddr;
 				console.log(self.changeValue);
 			},
 			/* 유저 정보 호출 */
@@ -295,29 +294,30 @@ input[type='text']:focus {
 				});
 			},
 			/* 모달창에서 저장 - map 키 2개 column, value */
-			fnSubmit : function(map) { 
-				var self = this;	
+			fnSubmit : function(map) {
+				var self = this;
 				var regex = /^[^\d\s가-힣]*\..*$/; // 이메일 정규식
-				
-				map["userId"]=self.info.userId;
-				
-				if(self.changeValue==""){
+
+				map["userId"] = self.info.userId;
+
+				if (self.changeValue == "") {
 					alert("최소 한글자 이상 입력해주세요");
 					return;
 				}
-				if(self.modalType=="email"&& !emailAddr.test(self.email))
-				
+				if (self.modalType == "email" && !emailAddr.test(self.email)) {
+				}
+
 				$.ajax({
 					url : "updateMyInfo.dox",
 					dataType : "json",
 					type : "POST",
 					data : map,
 					success : function(data) {
-						if(data.result=="success"){
+						if (data.result == "success") {
 							alert("정보가 수정되었습니다");
-							self.modalFlg=false;
+							self.modalFlg = false;
 							self.fnList();
-						} else{
+						} else {
 							alert("실패");
 						}
 					}
@@ -353,12 +353,12 @@ input[type='text']:focus {
 					return;
 				}
 			},
-			cancelModal : function(){
-				var self=this;
-				self.modalFlg=false;
-				self.changeValue="";
-				self.email="";
-				self.emailAddr="";
+			cancelModal : function() {
+				var self = this;
+				self.modalFlg = false;
+				self.changeValue = "";
+				self.email = "";
+				self.emailAddr = "";
 			}
 		},
 		created : function() {
