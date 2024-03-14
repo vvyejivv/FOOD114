@@ -4,6 +4,10 @@
 <html lang="en">
 
 <head>
+<script type="text/javascript"
+	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=753d2e1bb03d5938bad9908725e5ad41&libraries=services"></script>
 <script src="js/jquery.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <meta charset="UTF-8">
@@ -157,8 +161,8 @@ input {
 				<!-- 주소 container -->
 				<div style="padding: 20px; margin-bottom: 30px;">
 					<!-- 현재 입력된 주소 -->
+					<button @click=openAddressSearch>주소검색</button>
 					<div class="addrContainer">
-
 						<input class="addrInput" placeholder="주소를 입력하세요."
 							v-model="inputAddr" @focus="fnShowAddr()">
 						<div>
@@ -266,9 +270,41 @@ input {
 			showAddr : false, // 현재 아이디의 주소 목록 보이기 여부
 			addrList : [], // 현재 아이디의 주소 목록
 			inputAddr : "",
-			addrNo : ""
+			addrNo : "",
+			oldAddr : "",
+			newAddr : "",
+			bizInfo : [],
+			latitude : "",
+			longitude : ""
+			
 		},
 		methods : {
+			// 해당 주소의 위도 경도 구하기
+			convertAddressToCoordinates : function(addr) {
+				var self = this;
+				// 주소-좌표 변환 객체를 생성합니다
+				var geocoder = new kakao.maps.services.Geocoder();
+
+				var callback = function(result, status) {
+					if (status === kakao.maps.services.Status.OK) {								
+						self.latitude = result[0].y;
+						self.longitude = result[0].x;								
+					}
+				};
+				geocoder.addressSearch(addr, callback);
+			},
+			//주소조회 api
+			openAddressSearch : function() {
+				var self = this;
+				new daum.Postcode({
+					oncomplete : function(data) {
+					self.oldAddr = data.jibunAddress != "" ? data.jibunAddress: data.autoJibunAddress;
+					self.inputAddr = data.roadAddress;
+					self.newAddr = data.roadAddress;
+					self.convertAddressToCoordinates(data.address);
+					}
+				}).open();
+			},
 			fnAddrClick : function() {
 				alert("안녕");
 			},
@@ -333,19 +369,19 @@ input {
 				self.inputAddr = self.addrList[idx].oldAddr
 			},
 			fnCompleteAddr : function() {
-				var self=this;
+				var self = this;
 				var nparmap = {
-						userId : self.sessionId
-					};
-					$.ajax({
-						url : "consumerAddrList.dox",
-						dataType : "json",
-						type : "POST",
-						data : nparmap,
-						success : function(data) {
-							self.addrList = data.addrList;
-						}
-					});
+					userId : self.sessionId
+				};
+				$.ajax({
+					url : "consumerAddrList.dox",
+					dataType : "json",
+					type : "POST",
+					data : nparmap,
+					success : function(data) {
+						self.addrList = data.addrList;
+					}
+				});
 			},
 			fnShowAddr : function() {
 				var self = this;
