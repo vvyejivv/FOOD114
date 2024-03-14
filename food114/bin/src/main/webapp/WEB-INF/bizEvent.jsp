@@ -35,7 +35,7 @@
 							이벤트 제목</th>
 						<th
 							style="width: 60px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
-							이벤트 상태</th>	
+							이벤트 상태</th>
 						<th
 							style="width: 60px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
 							작성일</th>
@@ -44,35 +44,11 @@
 							관리</th>
 					</tr>
 					<tr>
-						<td>1</td>
-						<td>우리동네</td>
-						<td>우리동네 첫 오픈 이벤트!</td>
-						<td>종료</td>
-						<td>2024.03.01</td>
-						<td><button class="event-detail">자세히</button></td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td>리뷰 이벤트</td>
-						<td>리뷰 작성 약속시 서비스!</td>
-						<td>종료</td>
-						<td>2024.03.01</td>
-						<td><button class="event-detail">자세히</button></td>
-					</tr>
-					<tr>
-						<td>3</td>
-						<td>우리동네</td>
-						<td>우리동네 돌발 이벤트!</td>
-						<td>진행중</td>
-						<td>2024.03.01</td>
-						<td><button class="event-detail">자세히</button></td>
-					</tr>
-					<tr>
-						<td>4</td>
-						<td>리뷰 이벤트</td>
-						<td>찜, 리뷰, 사진 작성시 서비스!</td>
-						<td>상시 이벤트</td>
-						<td>2024.03.01</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
 						<td><button class="event-detail">자세히</button></td>
 					</tr>
 				</table>
@@ -87,17 +63,20 @@
 <script type="text/javascript">
 	var app = new Vue({
 		el : '#app',
-		data : {},
+		data : {
+			events : []
+		},
 		methods : {
 			list : function() {
 				var self = this;
 				var nparmap = {};
 				$.ajax({
-					url : "test.dox",
+					url : "listBizEvent.dox",
 					dataType : "json",
 					type : "POST",
 					data : nparmap,
 					success : function(data) {
+						self.events = data.listBizEvent;
 					}
 				});
 			}

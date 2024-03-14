@@ -97,7 +97,7 @@
 
 #menu_wrap .option input:focus {
 	outline: none; /* 포커싱이 맞춰질 때 외곽선 제거 */
-	border: none; /* 포커싱이 맞춰질 때 테두리 제거 */
+	border: 1px solid #ccc;
 }
 
 /* 페이지네이션 스타일 */
@@ -233,14 +233,32 @@ ul, ol {
 	top: 0;
 	left: 0;
 	bottom: 0;
-	width: 400px;
-	padding: 20px;
+	width: 440px;
 	overflow-y: auto;
 	background: rgba(255, 255, 255, 1);
 	z-index: 1;
-	font-size: 14px;
 	border-right: 1px solid #ddd;
 	/* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+}
+
+.backBtn {
+	position : absolute;
+	left: 15px;
+	top: 10px;
+	font-size:1.5em;
+}
+
+.restViewImg {
+	width: 100%;
+	height: 200px;
+	object-fit: contain;
+}
+
+.solidImg {
+	width:18px;
+	height:15px;
+	object-fit: contain;
+	margin-right:5px;
 }
 </style>
 </head>
@@ -251,9 +269,34 @@ ul, ol {
 		<section>
 			<div class="map_wrap">
 				<div id="map"
-					style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
+					style="width: 100%; height: 100%; position: relative; overflow: hidden; margin-left:400px;"></div>
 				<div id="menu_view" class="bg_white">
-					<button @click="fnRestClose()">닫기</button>
+					<img :src="restView.path" class="restViewImg">
+					<a href="javascript:;" @click="fnRestClose()" class="backBtn">❮</a>
+					<div style="margin:10px;">
+						<h1 style="font-size: 1.5em;">{{restView.bizName}}<span style="color:#ccc;"> {{restView.categoryName}}</span></h1>
+						리뷰 {{restView.reviewCnt}}
+					</div>
+						<div style="border-top:1px solid #ccc; width:100%; margin:20px 0 20px 0;"></div>
+					<div style="margin:10px;">
+						<div>
+							<img class="solidImg" src="../img/location-dot-solid.png">
+							<span style="font-size:17px;">{{restView.newAddr}} {{restView.detail}}</span>
+						</div>
+						<div>
+							<img class="solidImg" src="../img/clock-solid.png">
+							<span style="font-size:17px;">{{restView.openTime}} - {{restView.closeTime}}</span>
+						</div>
+						<div>
+							<img class="solidImg" src="../img/phone-solid.png">
+							<span style="font-size:17px;">{{restView.phone}}</span>
+						</div>
+						<div>
+							<img class="solidImg" src="../img/store-solid.png">
+							<span style="font-size:17px;">포장</span>
+						</div>
+						<button @click="fnShopInfo()">정보 더보기 ❯</button>
+					</div>
 				</div>
 				<div id="menu_wrap" class="bg_white">
 					<div class="option">
@@ -272,8 +315,8 @@ ul, ol {
 								</div>
 							</div>
 							<div v-if="searchFlg2" class="search-bar">
-								<input type="text" size="30" placeholder="가게명을 입력해주세요">
-								<button>
+								<input v-model="restNameInput" type="text" size="30" placeholder="가게명을 입력해주세요" @keyup.enter="restNameSearch()">
+								<button @click="restNameSearch()">
 									<img src="../img/magnifying-glass-solid.png">
 								</button>
 							</div>
@@ -294,7 +337,6 @@ ul, ol {
 									<option value="">선택</option>
 									<option v-for="item in dongList" :value="item.dong">{{item.dong}}</option>
 								</select>
-<<<<<<< HEAD
 								<button @click="fnAreaSearch()"
 									style="background-color: white; margin: 0; border: none;">
 									<img src="../img/magnifying-glass-solid.png">
@@ -302,27 +344,32 @@ ul, ol {
 							</div>
 						</div>
 					</div>
-					<div class="restList" v-if="areaRestList.length == 0" v-for="item in locationRestList">
-						<img src="" alt="Hi" class="restImg">
+					<div class="restList" v-if="areaRestList.length == 0 && searchFlg" v-for="item in locationRestList">
+						<img :src="item.path" alt="Hi" class="restImg">
 						<h3 style="margin-top: 8px;">
 							<a style="font-size: 1.5em;" href="javascript:;"
-								@click="fnRestView()">{{item.bizName}}</a>
+								@click="fnRestView(item.bizId)">{{item.bizName}}</a><span style="color: #aaa;"> {{item.categoryName}}</span>
 						</h3>
 						<div id="placesList1">
-							<span style="color: #ff7f00;">★ 점수</span> | 리뷰개수
-							<p style="margin-left: 60px;">이벤트정보이벤트이벤트이벤트이벤트이벤트이벤트이벤트이이벤트이벤트이벤트이벤트이벤트이벤</p>
+							<span style="color: #ff7f00;">★ {{item.reviewAvg}}</span> | 리뷰 {{item.reviewCnt}}
+							<p style="margin-left: 60px;">{{item.title}}</p>
+							<p style="margin-left: 60px;">{{item.contents}}</p>
 						</div>
 					</div>
 					<div class="restList" v-if="areaRestList.length > 0" v-for="item in areaRestList">
-						<img src="" alt="Hi" class="restImg">
+						<img :src="item.path" alt="Hi" class="restImg">
 						<h3 style="margin-top: 8px;">
 							<a style="font-size: 1.5em;" href="javascript:;"
-								@click="fnRestView()">{{item.bizName}}</a>
+								@click="fnRestView(item.bizId)">{{item.bizName}}</a><span style="color: #aaa;"> {{item.categoryName}}</span>
 						</h3>
 						<div id="placesList1">
-							<span style="color: #ff7f00;">★ 점수</span> | 리뷰개수
-							<p style="margin-left: 60px;">이벤트정보이벤트이벤트이벤트이벤트이벤트이벤트이벤트이이벤트이벤트이벤트이벤트이벤트이벤</p>
+							<span style="color: #ff7f00;">★ {{item.reviewAvg}}</span> | 리뷰 {{item.reviewCnt}}
+							<p style="margin-left: 60px;">{{item.title}}</p>
+							<p style="margin-left: 60px;">{{item.contents}}</p>
 						</div>
+					</div>
+					<div class="restList" v-if="areaRestList.length == 0 && !searchFlg">
+						<span style="color: #aaa;">검색된 매장이 없습니다.</span>
 					</div>
 				</div>
 			</div>
@@ -358,7 +405,7 @@ ul, ol {
             const coords = await getCurrentLocation();
 	        var mapOptions = {
 	            center: new kakao.maps.LatLng(coords.latitude, coords.longitude),
-	            level: 5
+	            level: 4
 	        };
 
             return mapOptions;
@@ -368,7 +415,7 @@ ul, ol {
             // 기본 위치 (서울)를 반환할 수 있도록 기본적인 오류 처리를 수행할 수 있습니다.
             return {
                 center: new kakao.maps.LatLng(37.566826, 126.9786567),
-                level: 5
+                level: 4
             };
         }
     }
@@ -389,6 +436,7 @@ ul, ol {
 		var app = new Vue({
 			el: '#app',
 			data: {
+				searchFlg: true,
 				searchFlg1: true,
 				searchFlg2: false,
 				restList: [],
@@ -404,7 +452,9 @@ ul, ol {
 				dong : "",
 				latitude : "",
 				longitude : "",
-				areaRestList : []
+				areaRestList : [],
+				restView : {},
+				restNameInput : ""
 			},
 			methods: {
 				fnRestList : function() {
@@ -477,6 +527,7 @@ ul, ol {
 				},
 				fnAreaSearch : function() {
 					var self = this;
+					self.fnRestClose();
 					var area = "";
 					if(!self.si){
 						return;
@@ -496,7 +547,13 @@ ul, ol {
 				            type: "POST",
 				            data: nparmap,
 				            success: function(data) {
-				                self.areaRestList = data.areaRestList;
+				            	if(data.areaRestList.length == 0){
+				            		self.areaRestList = [];
+				            		self.searchFlg = false;
+				            	} else {
+				                	self.areaRestList = data.areaRestList;
+				            		self.searchFlg = true;
+				            	}
 				                // 좌표 변환 작업이 완료된 후에 setCenter 함수 호출
 				                self.setCenter();
 				            }
@@ -536,11 +593,33 @@ ul, ol {
 				    var moveLatLon = new kakao.maps.LatLng(self.latitude, self.longitude);
 				    // 지도 중심을 이동 시킵니다
 				    self.map.setCenter(moveLatLon);
-				    
+				    self.map.setLevel(4);
 				    console.log(self.areaRestList);
 				    for(var i = 0; i < self.areaRestList.length; i++){
-				    	self.searchAddMarkers(self.areaRestList[i].oldAddr, self.areaRestList[i].bizName);
+				    	self.searchAddMarkers(self.areaRestList[i].newAddr, self.areaRestList[i].bizName);
 				    }
+				},
+				searchSetCenter : function(latitude, longitude) {
+					var self = this;
+				    // 이동할 위도 경도 위치를 생성합니다
+				    var moveLatLon = new kakao.maps.LatLng(latitude, longitude);
+				    // 지도 중심을 이동 시킵니다
+				    console.log(self.overlays);
+				    for(var i = 0; i < self.overlays.length; i++){
+				    	var overlayPosition = self.overlays[i].getPosition();
+				        var overlayLatitude = overlayPosition.getLat();
+				        var overlayLongitude = overlayPosition.getLng();
+				     	// 위치의 근접성을 확인하도록 수정 (좌표의 오차가 약간 있을 수 있음)
+				        var distance = calculateDistance(overlayLatitude, overlayLongitude, latitude, longitude);
+				     	// 10미터 이내에 있으면 일치하는 것으로 간주
+				        if (distance < 10) {
+				            self.overlays[i].setMap(self.map);
+				        } else {
+				        	self.overlays[i].setMap(null);
+				        }
+				    }
+				    self.map.setCenter(moveLatLon);
+				    self.map.setLevel(4);
 				},
 				// 현위치 기반 반경 2km 가게들 마커찍기
 				addMarkers : function () {
@@ -583,7 +662,7 @@ ul, ol {
 		                    
 		                    // 오버레이 내용 설정
 		                    var overlayContent = '<div class="customoverlay">' +
-	    								'  <a href="https://map.kakao.com/link/map/11394059" target="_blank">' +
+	    								'  <a href="/shopInfo.do" target="_blank">' +
 	    								'    <span class="title">'+place.bizName+'</span>' +
 	    								'  </a>' +
 	   									'</div>';
@@ -655,7 +734,7 @@ ul, ol {
 				            
 				            // 오버레이 내용 설정
 				            var overlayContent = '<div class="customoverlay">' +
-				                        '  <a href="https://map.kakao.com/link/map/11394059" target="_blank">' +
+				                        '  <a href="/shopInfo.do" target="_blank">' +
 				                        '    <span class="title">'+place.bizName+'</span>' +
 				                        '  </a>' +
 				                        '</div>';
@@ -705,7 +784,7 @@ ul, ol {
 
 				            // 오버레이 내용 설정
 				            var overlayContent = '<div class="customoverlay">' +
-				                '  <a href="https://map.kakao.com/link/map/11394059" target="_blank">' +
+				                '  <a href="/shopInfo.do" target="_blank">' +
 				                '    <span class="title">' + bizName + '</span>' +
 				                '  </a>' +
 				                '</div>';
@@ -734,243 +813,77 @@ ul, ol {
 				        }
 				    });
 				},
-=======
-								<button
-									style="background-color: white; margin: 0; border: none;">
-									<img src="../img/magnifying-glass-solid.png">
-								</button>
-							</div>
-						</div>
-					</div>
-					<div class="restList">
-						<img src="" alt="Hi" class="restImg">
-						<h3 style="margin-top: 8px;">
-							<a style="font-size: 1.5em;" href="javascript:;"
-								@click="fnRestView()">List 1</a>
-						</h3>
-						<div id="placesList1">
-							<span style="color: #ff7f00;">★ 점수</span> | 리뷰개수
-							<p style="margin-left: 60px;">이벤트정보이벤트이벤트이벤트이벤트이벤트이벤트이벤트이이벤트이벤트이벤트이벤트이벤트이벤</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-	</div>
-	<%@include file="main(footer).html"%>
-
-	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-	<script type="text/javascript"
-		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=753d2e1bb03d5938bad9908725e5ad41&libraries=services"></script>
-	<script>
-	// 현재 위치를 얻는 함수
-    function getCurrentLocation() {
-        return new Promise((resolve, reject) => {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    position => {
-                        resolve(position.coords);
-                    },
-                    error => {
-                        reject(error);
-                    }
-                );
-            } else {
-                reject(new Error('Geolocation is not supported by this browser.'));
-            }
-        });
-    }
-
-    // 현재 위치를 얻어서 mapOptions를 업데이트하는 함수
-    async function updateMapOptionsWithCurrentLocation() {
-        try {
-            const coords = await getCurrentLocation();
-            const mapOptions = {
-                center: new kakao.maps.LatLng(coords.latitude, coords.longitude),
-                level: 5
-            };
-            return mapOptions;
-        } catch (error) {
-            console.error('Error getting current location:', error.message);
-            // 기본 위치 (서울)를 반환할 수 있도록 기본적인 오류 처리를 수행할 수 있습니다.
-            return {
-                center: new kakao.maps.LatLng(37.566826, 126.9786567),
-                level: 5
-            };
-        }
-    }
-    
-    // 반경 계산
-    function calculateDistance(lat1, lon1, lat2, lon2) {
-        var R = 6371; // 지구의 반지름 (단위: km)
-        var dLat = (lat2 - lat1) * (Math.PI / 180);
-        var dLon = (lon2 - lon1) * (Math.PI / 180);
-        var a =
-            Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-            Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) *
-            Math.sin(dLon / 2) * Math.sin(dLon / 2);
-        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        var distance = R * c; // 두 지점 사이의 거리 (단위: km)
-        return distance * 1000; // 거리를 미터로 변환하여 반환
-    }
-		var app = new Vue({
-			el: '#app',
-			data: {
-				searchFlg1: true,
-				searchFlg2: false,
-				restList: [],
-				markers: [],
-				map: null,
-				siList : [],
-				guList : [],
-				dongList : [],
-				si : "",
-				gu : "",
-				dong : ""
-			},
-			methods: {
-				fnRestList : function() {
-					var self = this;
-					var nparmap = {};
-					$.ajax({
-						url : "bizList.dox",
-						dataType : "json",
-						type : "POST",
-						data : nparmap,
-						success : function(data) {
-							self.restList = data.list;
-							console.log(self.restList);
-							self.addMarkers();
-						}
-					});
-				},
-				fnSiList : function() {
-					var self = this;
-					var nparmap = {};
-					$.ajax({
-						url : "siList.dox",
-						dataType : "json",
-						type : "POST",
-						data : nparmap,
-						success : function(data) {
-							self.siList = data.siList;
-						}
-					});
-				},
-				fnGuList : function() {
-					var self = this;
-					self.gu = "";
-					self.dong ="";
-					self.dongList = [];
-					var nparmap = {si : self.si};
-					$.ajax({
-						url : "guList.dox",
-						dataType : "json",
-						type : "POST",
-						data : nparmap,
-						success : function(data) {
-							self.guList = data.guList;
-						}
-					});
-				},
-				fnDongList : function() {
-					var self = this;
-					self.dong = "";
-					var nparmap = {si : self.si, gu : self.gu};
-					$.ajax({
-						url : "dongList.dox",
-						dataType : "json",
-						type : "POST",
-						data : nparmap,
-						success : function(data) {
-							self.dongList = data.dongList;
-						}
-					});
-				},
-				fnSearchType1: function () {
-					var self = this;
-					self.searchFlg1 = true;
-					self.searchFlg2 = false;
-				},
-				fnSearchType2: function () {
-					var self = this;
-					self.searchFlg1 = false;
-					self.searchFlg2 = true;
-				},
-				addMarkers: function () {
-	                var self = this;
-	                // 기존 마커 제거
-	                /* self.markers.forEach(function(marker) {
-	                    marker.setMap(null);
-	                }); 
-	                self.markers = [];
-	                */
-	                
-	                var markerImage = new kakao.maps.MarkerImage('../img/free-icon-restaurant-4551357.png',
-	                        new kakao.maps.Size(30, 30), // 이미지 크기
-	                        { offset: new kakao.maps.Point(15, 30) } // 이미지 위치 설정 (가운데 아래로 지정)
-	                    );
-	                
-	             	// 현재 위치를 기준으로 반경을 설정합니다. 예를 들어 반경을 1km로 설정합니다.
-	                const radius = 2000; // meter
-	                
-	                getCurrentLocation().then(function(currentLocation) {
-		                self.restList.forEach(function (place) {
-		                    
-		                 	// 현재 위치와 각 장소의 위치 사이의 거리를 계산합니다.
-		                    var distance = calculateDistance(currentLocation.latitude, currentLocation.longitude, place.latitude, place.longitude);
-		                    
-		                 	// 반경 내에 있는지 확인 후 마커 생성.
-		                    if (distance <= radius) {
-		                    	var markerPosition = new kakao.maps.LatLng(place.latitude, place.longitude); // 위도와 경도 정보 활용
-		                        var marker = new kakao.maps.Marker({
-		                            position: markerPosition,
-		                            image: markerImage
-		                        });
-		                    
-		                    // 오버레이 내용 설정
-		                    var overlayContent = '<div class="customoverlay">' +
-	    								'  <a href="https://map.kakao.com/link/map/11394059" target="_blank">' +
-	    								'    <span class="title">'+place.bizName+'</span>' +
-	    								'  </a>' +
-	   									'</div>';
-		                    var overlay = new kakao.maps.CustomOverlay({
-		                        content: overlayContent, // 오버레이에 표시할 내용
-		                        map: self.map, // 오버레이를 표시할 지도
-		                        position: markerPosition, // 오버레이를 표시할 위치
-		                        yAnchor: 0.00001 // 오버레이를 마커 아래에 표시하도록 설정
-		                    });
-		                    var isOverlayVisible = false;
-		                    kakao.maps.event.addListener(marker, 'click', function() {
-		                        if (!isOverlayVisible) {
-		                            overlay.setMap(self.map); // 오버레이를 지도에 표시
-		                            isOverlayVisible = true; // 오버레이가 보이는 상태로 설정
-		                        } else {
-		                            overlay.setMap(null); // 오버레이를 지도에서 숨김
-		                            isOverlayVisible = false; // 오버레이가 숨겨진 상태로 설정
-		                        }
-		                    });
-		                    overlay.setMap(null);
-		                    marker.setMap(self.map); // 마커를 지도에 표시
-		                    self.markers.push(marker);
-		                }
-		            })
-		                console.log(self.markers);
-	             })
-			  },
->>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
-			  fnRestView: function() {
+			  fnRestView: function(bizId) {
 				    var self = this;
 				    var menuView = document.getElementById("menu_view");
 				    menuView.style.transition = "left 0.5s ease"; // 슬라이드 효과를 위한 CSS transition 속성 적용
 				    menuView.style.left = "441px";
+					var nparmap = {bizId : bizId};
+					$.ajax({
+						url : "restView.dox",
+						dataType : "json",
+						type : "POST",
+						data : nparmap,
+						success : function(data) {
+							self.restView = data.restView;
+							console.log(data.restView.latitude);
+							self.searchSetCenter(data.restView.latitude, data.restView.longitude);
+						}
+					});
+				},
+				restNameSearch : function() {
+					var self = this;
+					if(!self.restNameInput){
+						return;
+					}
+					self.fnRestClose();
+					var nparmap = {bizName : self.restNameInput};
+					$.ajax({
+						url : "nameRestList.dox",
+						dataType : "json",
+						type : "POST",
+						data : nparmap,
+						success : function(data) {
+							if(data.nameRestList.length == 0){
+			            		self.areaRestList = [];
+			            		self.searchFlg = false;
+			            	} else {
+			                	self.areaRestList = data.nameRestList;
+			            		self.searchFlg = true;
+			            		console.log(data.nameRestList[0].latitude);
+							    var moveLatLon = new kakao.maps.LatLng(data.nameRestList[0].latitude, data.nameRestList[0].longitude);
+							 	// 기존 마커 제거
+							    self.markers.forEach(function(marker) {
+							        marker.setMap(null);
+							    }); 
+							    
+							    self.markers = [];
+							    
+							 	// 기존 오버레이 제거
+							    self.overlays.forEach(function(overlay) {
+							        overlay.setMap(null);
+							    }); 
+
+							    self.overlays = [];
+							    
+							    for(var i = 0; i < self.areaRestList.length; i++){
+							    	self.searchAddMarkers(self.areaRestList[i].newAddr, self.areaRestList[i].bizName);
+							    }
+							    self.map.setCenter(moveLatLon);
+							    self.map.setLevel(4);
+			            	}
+						}
+					});
 				},
 			  fnRestClose: function() {
 				    var self = this;
 				    var menuView = document.getElementById("menu_view");
 				    menuView.style.transition = "left 0.5s ease"; // 슬라이드 효과를 위한 CSS transition 속성 적용
 				    menuView.style.left = "0";
-				}
+				},
+			  fnShopInfo: function() {
+				  window.open('/shopInfo.do');
+			  }
 			},
 			mounted() {
 				 updateMapOptionsWithCurrentLocation().then(mapOptions => {

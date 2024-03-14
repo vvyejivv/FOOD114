@@ -10,7 +10,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vue-apexcharts"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="../css/main.css">
+<link rel="stylesheet" href="../css/all.css">
 <link rel="stylesheet" href="../css/sideBar_biz.css">
 <title>로그인</title>
 </head>
@@ -56,6 +56,20 @@ table th, td {
 	margin: 15px 0 30px 0;
 	width: 800px;
 	border-top: 1px solid #ddd;
+}
+
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px; /* 스크롤바 둥근 테두리 */
+    background: #ccc; /* 스크롤바 색상 */
+}
+
+::-webkit-scrollbar-track {
+    background: white;  /*스크롤바 뒷 배경 색상*/
+}
+
+::-webkit-scrollbar {
+    width: 10px;  
 }
 </style>
 <body>
@@ -126,7 +140,7 @@ table th, td {
 		data : {
 			updateFlg : false,
 			orderList : [],
-			sessionId : "${sessionId}",
+			sessionId : "${sessionBizId}",
 			orderCnt : "",
 			
 			series : [ {

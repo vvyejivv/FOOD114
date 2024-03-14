@@ -3,10 +3,12 @@
 	margin-left: 335px;
 	margin-top: 20px;
 }
-.review_info_table{
+
+.review_info_table {
 	width: 1100px;
 	border-collapse: collapse;
 }
+
 .event_title {
 	font-size: 14px;
 	background-color: #f9f9f9;
@@ -15,22 +17,58 @@
 	border-right: 1px solid #ccc;
 	max-width: 100px;
 }
+
 .review_info_table td {
 	border-bottom: 1px solid #ccc;
 	padding: 15px 25px;
 }
 
-.review_button{
+.review_button {
 	width: 70px;
 	height: 35px;
-	background-color: white;
-	color: #ff7f00;
-	border: 1px solid #ff7f00;
-	border-radius: 5px;
-	margin-left: 1030px;
+	background-color: #ffffff; 
+	border: 1px solid #ff7f00; 
+	color: #ff7f00; 
+	transition-duration: 0.4s; /* 트랜지션 효과 지속 시간 */
+	cursor: pointer;
+	border-radius: 4px; /* 버튼에 border-radius 적용 */
 	margin-top: 5px;
 }
-.review_button:hover{
-	background-color: #FBCEB1;
+
+.review_button:hover {
+	background-color: #ff7f00;
+	border: 1px solid #FBCEB1;
+	color: #ffffff;
+}
+
+.review_button2 {
+	width: 70px;
+	height: 35px;
+	background-color: #ffffff; 
+	border: 1px solid #ff7f00; 
+	color: #ff7f00; 
+	transition-duration: 0.4s; /* 트랜지션 효과 지속 시간 */
 	cursor: pointer;
+	border-radius: 4px; /* 버튼에 border-radius 적용 */
+	margin-left: 955px;
+	margin-top: 5px;
+}
+
+.review_button2:hover {
+	background-color: #ff7f00;
+	border: 1px solid #FBCEB1;
+	color: #ffffff;
+}
+.addReview {
+	background-color: #ffffff; 
+	border: 1px solid #ff7f00; 
+	color: #ff7f00; 
+	transition-duration: 0.4s; /* 트랜지션 효과 지속 시간 */
+	cursor: pointer;
+	border-radius: 4px; /* 버튼에 border-radius 적용 */
+}
+.addReview:hover {
+	background-color: #ff7f00;
+	border: 1px solid #FBCEB1;
+	color: #ffffff;
 }

@@ -48,10 +48,12 @@
 .slide {
 	width: 2000px;
 	height: 370px;
+	cursor: pointer;
 }
 
 #slider {
 	transition: transform 0.5s ease-in-out;
+	height: 370px;
 }
 
 .slider {
@@ -69,13 +71,10 @@
 				style="margin: 0px auto; width: 1900px; overflow: hidden; position: relative;">
 				<div class="slider" id="slider"
 					style="background: white; margin-top: 2px;">
-					<!-- <h1>이벤트 슬라이드</h1> -->
-					<img src="../img/main_event1.jpg" class="slide">
-					<img src="../img/main_event2.jpg" class="slide">
-					<img src="../img/main_event3.jpg" class="slide">
-					<img src="../img/main_event4.jpg" class="slide">
-					<img src="../img/main_event5.jpg" class="slide">
+					<!-- <h1>이벤트 슬라이드</h1> -->					
+					<img :src="item.filePath+item.fileName" class="slide" v-for="item in eventList" @click="fnLink({boardNo:item.boardNo, endYn:'N'},'event-web-view.do')">
 				</div>
+				
 				<div
 					style="position: absolute; top: 150px; left: 50px; font-size: 50px; color: white;">
 					<a href="javascript:;" style="color: white;" @click="fnPrevEvent">❮</a>
@@ -87,7 +86,7 @@
 			</div>
 			<div class="clickBoxList">
 				<div class="clickBox">
-					<div style="cursor: pointer">
+					<div style="cursor: pointer" @click="fnLink({},'mapTest2.do')">
 						<div
 							style="color: green; font-size: 40px; height: 100px; display: flex; align-items: center; gap: 10px;">
 							지도로검색 <a
@@ -97,7 +96,7 @@
 					</div>
 				</div>
 				<div class="clickBox">
-					<div style="cursor: pointer">
+					<div style="cursor: pointer"  @click="fnLink({},'food114_foodfind.do')">
 						<div
 							style="color: orange; font-size: 32px; height: 100px; display: flex; align-items: center; gap: 10px;">
 							배달시키기 <a
@@ -107,7 +106,7 @@
 					</div>
 				</div>
 				<div class="clickBox">
-					<div style="cursor: pointer">
+					<div style="cursor: pointer" @click="fnLink({},'event-biz-list.do')">
 						<div
 							style="color: #ff7f00; font-size: 32px; height: 100px; display: flex; align-items: center; gap: 10px;">
 							우리동네이벤트 <a
@@ -131,16 +130,42 @@ var main = new Vue({
     data: {
         translate : 0,
         slideWidth : 0,
-        slides : document.querySelectorAll('.slide'),
+        slides : 0,
         speedTime : 4000,
-        currentIdx : 5,
-        interval : ""
+        currentIdx : 0,
+        interval : "",
+        eventList : []
     },   
     methods: {
+    	/* 웹 주관 이벤트 목록 호출 */
+    	fnEventList:function(){
+    		var self=this;
+    		var nparmap = {
+					endYn:"N"
+				};
+				$.ajax({
+					url : "event-list.dox",
+					dataType : "json",
+					type : "POST",
+					data : nparmap,
+					success : function(data) {		
+						self.eventList=data.list;
+						self.currentIdx=data.list.length;						
+						self.slides=data.list.length;							
+						self.showSliding();
+					}
+				});
+    		
+    	},    	
+    	/* 페이지 이동 */
+    	fnLink : function(map,link){
+    		var self=this;
+    		$.pageChange(link, map);
+    		
+    	},
     	/* 슬라이드 이동 함수 */
         move: function(direction) {    		
             var self = this;
-<<<<<<< HEAD
             self.translate += direction * self.slideWidth;            
             $("#slider").css({
                 "transform": "translateX(" + self.translate + "px)"
@@ -151,9 +176,9 @@ var main = new Vue({
         sliding: function() {
             var self = this;
             if (self.currentIdx == 1){
-                self.move(self.slides.length - 1);
+                self.move(self.slides - 1);
                 setTimeout(() => {                    
-                    self.currentIdx = self.slides.length;
+                    self.currentIdx = self.slides;
                     self.translate = 0;
                     $("#slider").css({                	
                         "transform": "translateX(" + self.translate + "px)"
@@ -165,9 +190,10 @@ var main = new Vue({
         },
         /* 슬라이드 실행 */
         showSliding: function() {
-            var self = this;       
-            console.log(self.slides[0]);
-            self.slideWidth=self.slides[0].offsetWidth;
+            var self = this;
+            /* self.slideWidth=self.slides[0].offsetWidth; */
+            self.slideWidth=2000;
+            
             self.interval=setInterval(function() {
                 self.sliding();
             }, self.speedTime);
@@ -175,10 +201,10 @@ var main = new Vue({
         /* 이벤트 슬라이드 이전으로 */
         fnPrevEvent : function(){
         	var self=this;
-        	if(self.currentIdx!=5){
+        	if(self.currentIdx!=self.slides){
         	self.fnMoveClick(1);
         	} else{
-        		self.fnMoveClick(-4);
+        		self.fnMoveClick(-self.slides+1);
         	}
         },
         /* 이벤트 슬라이드 다음으로 */
@@ -187,7 +213,7 @@ var main = new Vue({
         	if(self.currentIdx!=1){
             	self.fnMoveClick(-1);
             	} else{
-            		self.fnMoveClick(4);
+            		self.fnMoveClick(self.slides-1);
             	}    	
         },
         /* 이벤트 슬라이드 화살표 클릭시 함수 정리 */
@@ -199,72 +225,14 @@ var main = new Vue({
             }, self.speedTime);   
             self.interval=setInterval(function() {
             	self.sliding();
-=======
-            self.translate += direction * self.slideWidth;
-            console.log(self.currentIdx);
-            $("#slider").css({
-                "transform": "translateX(" + self.translate + "px)"
-            });
-            self.currentIdx += direction; 
-        },
-        /* 슬라이드 함수 */
-        sliding: function() {
-            var self = this;
-            if (self.currentIdx == 1){
-                self.move(self.slides.length - 1);
-                setTimeout(() => {                    
-                    self.currentIdx = self.slides.length;
-                    self.translate = 0;
-                    $("#slider").css({                	
-                        "transform": "translateX(" + self.translate + "px)"
-                    });
-                }, self.speedTime);
-            } else {
-                self.move(-1); 
-            }
-        },
-        /* 슬라이드 실행 */
-        showSliding: function() {
-            var self = this;            
-            self.slideWidth=self.slides[0].offsetWidth;
-            self.interval=setInterval(function() {
-                self.sliding();
-            }, self.speedTime);
-        },
-        /* 이벤트 슬라이드 이전으로 */
-        fnPrevEvent : function(){
-        	var self=this;
-        	if(self.currentIdx!=5){
-        	self.fnMoveClick(1);
-        	} else{
-        		self.fnMoveClick(-4);
-        	}
-        },
-        /* 이벤트 슬라이드 다음으로 */
-        fnNextEvent : function(){
-        	var self=this;
-        	if(self.currentIdx!=1){
-            	self.fnMoveClick(-1);
-            	} else{
-            		self.fnMoveClick(4);
-            	}    	
-        },
-        /* 이벤트 슬라이드 화살표 클릭시 함수 정리 */
-        fnMoveClick : function(num){
-        	var self=this;
-        	clearInterval(self.interval);
-        	self.move(num);          	
-        	setTimeout(() => {        		
-        	}, self.speedTime);   
-        	self.interval=setInterval(function() {
-                self.sliding();
->>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
             }, self.speedTime);
         }
     },   
     created: function() {
         var self = this;
-        self.showSliding();
+        self.fnEventList();
+        
+        
     }
 });
 
