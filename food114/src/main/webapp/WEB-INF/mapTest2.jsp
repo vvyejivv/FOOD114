@@ -29,8 +29,10 @@
 
 .map_wrap {
 	position: relative;
-	width: 100%;
+	width: 1450px;
 	height: 820px;
+	padding-left: 410px;
+	margin: 0px auto;
 }
 
 /* 메뉴 스타일 */
@@ -269,7 +271,7 @@ ul, ol {
 		<section>
 			<div class="map_wrap">
 				<div id="map"
-					style="width: 100%; height: 100%; position: relative; overflow: hidden; margin-left:400px;"></div>
+					style="height: 100%; position: relative; overflow: hidden;"></div>
 				<div id="menu_view" class="bg_white">
 					<img :src="restView.path" class="restViewImg">
 					<a href="javascript:;" @click="fnRestClose()" class="backBtn">❮</a>

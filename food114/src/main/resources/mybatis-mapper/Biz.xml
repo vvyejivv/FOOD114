@@ -6,7 +6,7 @@
 	<insert id="insertBiz" parameterType="hashmap">
 		INSERT INTO
 		FOOD114_BIZ_INFO
-		VALUES(#{bizId},#{bizPwd},#{bizNo},#{bizName},#{ownerName},#{email},#{phone},#{newAddr},#{oldAddr},#{detail},#{latitude},#{longitude},NOW(),NOW(),#{bank},#{accountNum},null,'1',null,null,'Y')
+		VALUES(#{bizId},#{bizPwd},#{bizNo},#{bizName},#{ownerName},#{email},#{phone},#{newAddr},#{oldAddr},#{detail},#{latitude},#{longitude},NOW(),NOW(),#{bank},#{accountNum},null,'1',null,null,'Y',null,null)
 	</insert>
 	<select id="selectBizId" parameterType="hashmap"
 		resultType="teamProject.food114.model.Biz">
@@ -349,5 +349,45 @@
 		INNER JOIN FOOD114_CATEGORY C ON I.BIZCATEGORY = C.CATEGORYNO
 		WHERE I.BIZNAME
 		LIKE CONCAT('%',#{bizName},'%')
+	</select>
+	
+	<select id="selectBizDelivery" parameterType="hashmap"
+		resultType="teamProject.food114.model.Biz">
+		SELECT
+		I.*,
+		REVIEWAVG,
+		REVIEWCNT,
+		TITLE,
+		CONTENTS,
+		CATEGORYNAME,
+		CONCAT(F.FILEPATH, F.FILENAME) AS PATH
+		FROM
+		FOOD114_BIZ_INFO I
+		LEFT JOIN FOOD114_BIZ_FILE F ON I.BIZID = F.BIZID
+		AND F.DELETETIME IS NULL
+		AND STATUS = 'COMPLETE'
+		INNER JOIN (
+		SELECT
+		I.BIZID,
+		IFNULL(
+		ROUND(
+		AVG(RAITING),
+		1
+		),
+		0
+		) AS REVIEWAVG,
+		B.TITLE,
+		B.CONTENTS,
+		COUNT(REVIEWNO) AS REVIEWCNT
+		FROM
+		FOOD114_BIZ_INFO I
+		LEFT JOIN FOOD114_ORDERS O ON I.BIZID = O.BIZID
+		LEFT JOIN FOOD114_REVIEW R ON O.ORDERNO = R.ORDERNO
+		LEFT JOIN FOOD114_BOARD B ON I.BIZID = B.USERID AND B.ENDYN = 'N'
+		GROUP BY
+		I.BIZID
+		) RE ON I.BIZID = RE.BIZID
+		INNER JOIN FOOD114_CATEGORY C ON I.BIZCATEGORY = C.CATEGORYNO
+		WHERE TAKEOUT NOT IN ('2')
 	</select>
 </mapper>
