@@ -179,6 +179,8 @@
 			selectMenu : "", /* 클릭한 메뉴 index  */
 			selectMenuList : [],/* 장바구니에 담은 메뉴  */
 			selectTotalPrice : 0, /* 장바구니 총 금액  */
+			status : "결제전", /* 주문상태  */
+			orderNo : "", /* 주문번호  */
 
 		},
 		methods : {
@@ -285,21 +287,22 @@
 			fnOrder : function(){
 				var self = this;	
 				/* 주문하기 DB 생성  */
-			/*	var nparmap = {
-						userId : self.sessionId,
-						bizId : self.bizId,
+				 var nparmap = {
+						userId : self.sessionId, 
+						bizId : self.bizId, 
+						selectMenuList: JSON.stringify(self.selectMenuList),
+						status : self.status, /* 결제전  */
 					};
-				
-					 $.ajax({
+					$.ajax({
 						url : "orderAdd.dox",
 						dataType : "json",
 						type : "POST",
 						data : nparmap,
 						success : function(data) {
-							
+							self.orderNo = data.orderNo;
+							$.pageChange("/order.do", {userId : self.sessionId, selectMenuList: self.selectMenuList, orderNo : self.orderNo});
 						}
-					}); */ 
-				$.pageChange("/order.do", {userId : self.sessionId, selectMenuList: self.selectMenuList});
+					});  
 			}
 			
 

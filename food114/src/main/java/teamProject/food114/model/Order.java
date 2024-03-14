@@ -8,11 +8,11 @@ public class Order {
 	private int menuNo;
 	private int count;
 	private int unitPrice;
-	
 	private String menu;
 	private String menuList;
 	private String totalAmount;
 	private int cnt;
+	private String status;
 	
 	public int getOrderNo() {
 		return orderNo;
@@ -79,5 +79,11 @@ public class Order {
 	}
 	public void setCnt(int cnt) {
 		this.cnt = cnt;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 }
