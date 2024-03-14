@@ -32,7 +32,7 @@
 					<li>결제/주문/리뷰<span style="color: #b1b0b0;">───────────</span>
 						<ul>
 							<li><a href="javascript:;">결제수단 관리</a></li>
-							<li><a href="javascript:;">주문내역</a></li>
+							<li><a href="javascript:;" @click="fnMyOrderList">주문내역</a></li>
 							<li><a href="javascript:;">MY리뷰목록</a></li>
 						</ul>
 					</li>
@@ -66,6 +66,9 @@
 			},
 			fnMyInfoGrade : function() {
 				location.href = "/myInfoGrade.do";
+			},
+			fnMyOrderList : function(){
+				location.href = "/myOrderList.do";				
 			}
 		},
 		created : function() {

@@ -30,4 +30,6 @@ public interface CustomerService {
 	// myInfo - my주소지 관리 - 주소지 상세보기
 	HashMap<String, Object> searchMyInfoAddr(HashMap<String, Object> map);
 	
+	//마이페이지 - 주문/리뷰 - 주문내역리스트
+	HashMap<String, Object> searchMyOrderList(HashMap<String, Object> map);
 }

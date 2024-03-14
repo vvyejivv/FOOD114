@@ -121,6 +121,21 @@ public class CustomerController {
 		request.setAttribute("map", map);
 		return "/myPage_myInfo(grade)";
 	}
+	// 마이페이지 - 결제/수단/리뷰 - 주문내역
+	@RequestMapping("/myOrderList.do")
+	public String myOrderList(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
+			throws Exception {
+		request.setAttribute("map", map);
+		return "/myPage_orderList";
+	}
+	// 마이페이지 - 결제/수단/리뷰 - 주문내역 목록 불러오기
+	@RequestMapping(value = "/myOrderList.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String myOrderList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = customerService.searchMyOrderList(map);
+		return new Gson().toJson(resultMap);
+	}
 
 	// 고객 메인 페이지
 	@RequestMapping("/food114.do")

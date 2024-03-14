@@ -14,6 +14,11 @@ public class Order {
 	private int cnt;
 	private String status;
 	
+	private int orderCnt;
+	private String bizName;
+	private int price;
+	
+	
 	public int getOrderNo() {
 		return orderNo;
 	}
@@ -85,5 +90,23 @@ public class Order {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public int getOrderCnt() {
+		return orderCnt;
+	}
+	public void setOrderCnt(int orderCnt) {
+		this.orderCnt = orderCnt;
+	}
+	public String getBizName() {
+		return bizName;
+	}
+	public void setBizName(String bizName) {
+		this.bizName = bizName;
+	}
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
 	}
 }
