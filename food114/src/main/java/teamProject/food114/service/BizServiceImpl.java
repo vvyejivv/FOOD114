@@ -310,5 +310,20 @@ public class BizServiceImpl implements BizService {
 		return resultMap;
 	}
 
+	@Override
+	public HashMap<String, Object> searchBizListSearchByName(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		List<Biz> nameRestList = bizMapper.selectBizListSearchByName(map);
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			resultMap.put("nameRestList", nameRestList);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			resultMap.put("result", "fail");
+		}
+		return resultMap;
+	}
+
 
 }
