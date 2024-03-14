@@ -1,6 +1,7 @@
 package teamProject.food114.service;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import teamProject.food114.mapper.CustomerMapper;
+import teamProject.food114.model.Addr;
 import teamProject.food114.model.Customer;
 
 @Service
@@ -175,9 +177,12 @@ public class CustomerServiceImpl implements CustomerService {
 		// TODO Auto-generated method stub
 		HashMap<String, Object> resultMap = new HashMap<>();
 		try {
-			resultMap.put("InfoAddr", customerMapper.selectMyInfoAddr(map));
+			List<Addr> Addr = customerMapper.selectMyInfoAddr(map);
+			resultMap.put("result", "success");			
+			resultMap.put("list", Addr);			
 		} catch (Exception e) {
 			// TODO: handle exception
+			resultMap.put("result", "error");
 			System.out.println(e.getMessage());
 		}
 		return resultMap;

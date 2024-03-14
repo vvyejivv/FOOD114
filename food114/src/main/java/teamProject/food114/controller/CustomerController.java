@@ -105,7 +105,7 @@ public class CustomerController {
 		return "/myPage_myInfo(addr)";
 	}
 
-	// 고객 주소 목록 불러오기
+	// myInfo - my주소지 관리 - 주소지 상세보기
 	@RequestMapping(value = "/myInfoAddr.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String searchMyInfoAddr(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
