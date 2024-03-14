@@ -75,11 +75,11 @@ body {
 	background-color: white;
 	font-size: 14px;
 	color: rgb(161, 1, 161);
-	font-weight: bold;	
+	font-weight: bold;
 	float: none;
 	cursor: pointer;
-	margin:10px;
-	margin-top:15px;
+	margin: 10px;
+	margin-top: 15px;
 }
 
 .modalButton:hover {
@@ -96,8 +96,8 @@ body {
 	font-weight: bold;
 	color: rgb(72, 72, 72);
 	cursor: pointer;
-	margin:10px;
-		margin-top:15px;
+	margin: 10px;
+	margin-top: 15px;
 }
 
 .modalCancel:hover {
@@ -177,15 +177,17 @@ input[type='text']:focus {
 									<input class="modalInput" v-model="changeValue" type="text"
 										placeholder="연락처" v-if="modalType=='phone'">
 									<template v-if="modalType=='email'">
-										<input class="modalInput" v-model="email" type="text" @input="fnConcat"
-											placeholder="이메일" style="width: 130px; margin-right: 5px;">
+										<input class="modalInput" v-model="email" type="text"
+											@input="fnConcat" placeholder="이메일"
+											style="width: 130px; margin-right: 5px;">
 										@
-										<input class="modalInput" v-model="emailAddr" type="text" @input="fnConcat"
-											style="width: 130px;" placeholder="주소">
+										<input class="modalInput" v-model="emailAddr" type="text"
+											@input="fnConcat" style="width: 130px;" placeholder="주소">
 									</template>
 									<div>
-										<button class="modalButton" @click="fnSubmit({column:modalType, value:changeValue})">저장</button>
-										
+										<button class="modalButton"
+											@click="fnSubmit({column:modalType, value:changeValue})">저장</button>
+
 										<button class="modalCancel" @click="cancelModal">닫기</button>
 									</div>
 								</div>

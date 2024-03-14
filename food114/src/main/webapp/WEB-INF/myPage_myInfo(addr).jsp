@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <script src="js/jquery.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -34,12 +33,11 @@
 				<div class="content" style="width : 900px;">
 					<h2>
 						<a href="javascript:;" style="font-size: 25px; color: #747171;">
-							<span style="color: #ff7f00; font-weight: bold;">| </span>MY주소지
-							관리
+							<span style="color: #ff7f00; font-weight: bold;">| </span>MY주소지 관리
 						</a>
 					</h2>
 					<div>
-						<div class="table">
+						<div class="table" v-for="info in list">
 							<div style="border: 1px solid #c2bfbf; padding: 10px;">
 								<div
 									style="color: #555454; font-weight: bold; font-size: 17px; margin-bottom: 5px;">
@@ -47,12 +45,10 @@
 								<div class="row" style="border-top: none;">
 									<div class="cell1">받는사람</div>
 									<div class="cell2">{{info.name}}</div>
-									<!-- <div class="cell2"> <input type="text"></div> -->
 								</div>
 								<div class="row">
 									<div class="cell1">주소</div>
 									<div class="cell2">{{info.oldAddr}}{{info.detail}}</div>
-									<!-- <div class="cell2"> <input type="text"></div> -->
 								</div>
 								<div class="row">
 									<div class="cell1">휴대폰번호</div>
@@ -113,58 +109,48 @@
 					</div>
 				</div>
 			</div>
-		</div>
 	</section>
 
 	<%@include file="main(footer).html"%>
 </body>
+
+</html>
 <script type="text/javascript">
 	var app = new Vue({
 		el : '#app',
 		data : {
 			list : [],
 			info : {},
-			sessionId : "${sessionId}",
-			
+			sessionId : "${sessionId}"
+/* 				userId : "${userId}",
+				addrAs : "${addrAs}",
+				name : "${name}",
+				oldAddr : "${oldAddr}",
+				detail : "${detail}",
+				phone : "${phone}",
+				request : "${request}" */
 		},
 		methods : {
 			fnList : function() {
 				var self = this;
 				var nparmap = {
-					userId : self.sessionId,
-					addrAs : self.addrAs,
-					name : self.name,
-					oldAddr : self.oldAddr,
-					detail : self.detail,
-					phone : self.phone
+						userId : self.sessionId,
 				};
 				$.ajax({
-					url : "myInfoPwdUpdate.dox",
+					url : "myInfoAddr.dox",
 					dataType : "json",
 					type : "POST",
 					data : nparmap,
 					success : function(data) {
-						self.info = data.info;
-						console.log(data.info);
+						self.list = data.list;
+						console.log(data);
 					}
 				});
-			},
-			checkPwd : function() {
-				var self = this;
-				if (self.pwd == self.info.pwd) {
-					alert("동일");
-				} else {
-					alert("다름");
-				}
 			},
 			fnSubmit : function() {
 				var self = this;						
 				var nparmap = {
-					userId : self.info.userId,
-					name : self.info.name,
-					nickName : self.info.nickName,
-					phone : self.info.phone,
-					email : self.info.email
+					userId : self.sessionId
 				};
 				$.ajax({
 					url : "updateMyInfo.dox",
@@ -187,8 +173,7 @@
 		},
 		created : function() {
 			var self = this;
-			/* self.fnList(); */
+			self.fnList();
 		}
 	});
 </script>
-</html>
