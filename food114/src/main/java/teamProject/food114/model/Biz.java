@@ -35,7 +35,6 @@ public class Biz {
 
 	// 파일 path (biz_file)
 	private String path;
-	private String fileName;
 	private String reviewAvg;
 	private String reviewCnt;
 	
