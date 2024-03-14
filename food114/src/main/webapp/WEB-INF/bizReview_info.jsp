@@ -27,35 +27,42 @@
 						<td style="border-top: 2px solid rgba(72, 72, 72);"
 							class="event_title">메뉴</td>
 						<td
-							style="border-top: 2px solid rgba(72, 72, 72); overflow: hidden;"><div
-								style="white-space: nowrap; text-overflow: ellipsis; max-width: 900px; overflow: hidden">오아저씨세트</div></td>
+							style="border-top: 2px solid rgba(72, 72, 72); overflow: hidden;">
+							<div
+								style="white-space: nowrap; text-overflow: ellipsis; max-width: 900px; overflow: hidden">{{reviewInfo.menuList}}</div>
+						</td>
 					</tr>
 					<tr>
 						<td class="event_title">별점</td>
-						<td style="color: #ffcc00;">★★★☆☆</td>
+						<td style="color: #ffcc00;"><span v-for="i in 5" :key="i">
+								<span v-if="i <= reviewInfo.raiting">★</span> <span v-else>☆</span>
+						</span></td>
 					</tr>
 					<tr>
 						<td class="event_title">리뷰 사진</td>
-						<td><img src="../img/pizza.JPG"></td>
+						<td><img :src="reviewInfo.filePath"></td>
 					</tr>
 					<tr>
 						<td class="event_title">리뷰 내용</td>
-						<td>리뷰 남겨요 존맛탱이네요.</td>
+						<td>{{reviewInfo.contents}}</td>
 					</tr>
 					<tr>
 						<td class="event_title">작성자</td>
-						<td>아무개</td>
+						<td>{{reviewInfo.userId}}</td>
 					</tr>
 					<tr>
 						<td class="event_title">작성일</td>
-						<td>2024.03.01</td>
+						<td>{{reviewInfo.orderDate}}</td>
 					</tr>
 					<tr>
 						<td class="event_title">리뷰 답글</td>
-						<td>리뷰 답글을 작성해주세요!</td>
+						<td>
+							<input style="width: 700px;" placeholder="리뷰 작성을 해주세요!">
+							<button class="addReview">저장</button>
+						</td>
 					</tr>
 				</table>
-				<button class="review_button">답글 달기</button>
+				<button class="review_button2" @click="goBack">이전으로</button>
 			</div>
 		</div>
 	</section>
@@ -63,27 +70,39 @@
 	<%@include file="main(footer)_biz.html"%>
 </body>
 </html>
+
 <script type="text/javascript">
 	var app = new Vue({
 		el : '#app',
-		data : {},
+		data : {
+			reviewNo : '${map.reviewNo}',
+			reviewInfo : {}
+		},
 		methods : {
-			list : function() {
+			bizInfo : function() {
 				var self = this;
-				var nparmap = {};
+				console.log(self.reviewNo);
+				var nparmap = {
+					reviewNo : self.reviewNo
+				};
 				$.ajax({
-					url : "test.dox",
+					url : "reviewBizInfo.dox",
 					dataType : "json",
 					type : "POST",
 					data : nparmap,
 					success : function(data) {
+						self.reviewInfo = data.reviewBizInfo;
 					}
 				});
+			},
+			goBack : function() {
+				// 이전으로 버튼을 눌렀을 때의 동작을 정의합니다.
+				window.history.back();
 			}
 		},
 		created : function() {
 			var self = this;
-			self.list();
+			self.bizInfo();
 		}
 	});
 </script>

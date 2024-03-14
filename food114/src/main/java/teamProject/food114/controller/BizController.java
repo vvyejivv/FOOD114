@@ -143,16 +143,6 @@ public class BizController {
 		return "/bizOrder"; // bizOrder.jsp
 	}
 
-	@RequestMapping("/bizEvent.do")
-	public String bizEvent(Model model) throws Exception {
-		return "/bizEvent"; // bizEvent.jsp
-	}
-
-	@RequestMapping("/bizEvent_info.do")
-	public String bizEvent_info(Model model) throws Exception {
-		return "/bizEvent_info"; // bizEvent_info.jsp
-	}
-
 	// 은행,카테고리,이메일 불러오기
 	@RequestMapping(value = "/selectAll.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody

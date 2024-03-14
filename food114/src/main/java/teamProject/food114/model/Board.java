@@ -38,5 +38,6 @@ public class Board {
 		private String openTime;
 		private String closeTime;
 		private String opneYN;
-
+		
+		private String eventTime;
 }
