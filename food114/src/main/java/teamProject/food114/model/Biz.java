@@ -24,10 +24,19 @@ public class Biz {
 	private String opneYN;
 	private String categoryName;
 	private String bankName;
-	
+
+	// 이벤트board 조인시
+	private String beginTime2;
+	private String endTime2;
+	private String beginTime;
+	private String endTime;
+	private String setBeginTime;
+	private String setEndTime;
+
 	// 파일 path (biz_file)
 	private String path;
-	
+	private String fileName;
+
 	public String getBizId() {
 		return bizId;
 	}
@@ -187,11 +196,11 @@ public class Biz {
 	public void setCloseTime(String closeTime) {
 		this.closeTime = closeTime;
 	}
-	
+
 	public String getOpneYN() {
 		return opneYN;
 	}
-	
+
 	public void setOpneYN(String opneYN) {
 		this.opneYN = opneYN;
 	}
@@ -203,11 +212,11 @@ public class Biz {
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
-	
+
 	public String getBankName() {
 		return bankName;
 	}
-	
+
 	public void setBankName(String bankName) {
 		this.bankName = bankName;
 	}

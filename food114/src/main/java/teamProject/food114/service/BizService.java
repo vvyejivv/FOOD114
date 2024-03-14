@@ -39,4 +39,7 @@ public interface BizService {
 	HashMap<String, Object> editBizInfo(HashMap<String, Object> map);
 	
 	HashMap<String, Object> searchAreaList(HashMap<String, Object> map);
+	
+	// Biz 이벤트 목록 출력
+	HashMap<String, Object> searchBizEventList(HashMap<String, Object> map);
 }

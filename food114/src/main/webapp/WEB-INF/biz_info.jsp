@@ -3,8 +3,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=753d2e1bb03d5938bad9908725e5ad41&libraries=services"></script>
 <script src="js/jquery.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script type="text/javascript"
+	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="../css/main.css">
@@ -140,7 +144,7 @@ section {
 <body>
 	<%@include file="main(header)_biz.html"%>
 
-	<section style="height: 900px;">
+	<section style="height: 950px;">
 		<%@include file="sideBar_biz.html"%>
 		<div id="app">
 			<div class="mold" style="height: auto;">
@@ -198,8 +202,18 @@ section {
 						<div class="infoName">사업장 주소</div>
 						<span v-if="!updateFlg" class="viewInfo">{{bizInfo.newAddr}}
 							{{bizInfo.detail}}</span>
-						<input v-if="updateFlg" class="updateInput"
-							v-model="bizInfo.newAddr +' '+ bizInfo.detail" disabled>
+						<template v-if="updateFlg">
+							<input class="updateInput" v-model="bizInfo.newAddr" disabled>
+							<button @click="openAddressSearch()" class="btn-modify"
+								style="margin: 0px; width: auto;">주소조회</button>
+							<div style="margin-top: 5px;">
+								<div class="infoName"></div>
+								<input class="updateInput" v-model="bizInfo.detail">
+							</div>
+						</template>
+
+
+
 					</div>
 					<div class="infoDiv">
 						<div class="infoName">대표 이름</div>
@@ -210,14 +224,33 @@ section {
 					<div class="infoDiv">
 						<div class="infoName">대표연락처</div>
 						<span v-if="!updateFlg" class="viewInfo">{{bizInfo.phone}}</span>
-						<input v-if="updateFlg" class="updateInput"
-							v-model="bizInfo.phone">
+						<input v-if="updateFlg" class="updateInput" id="phoneInput"
+							@change="phoneFlg=false" v-model="bizInfo.phone">
+						<button class="btn-modify" style="margin: 0px; width: auto;"
+							@click="fnPhoneCheck"
+							v-if="!phoneFlg&&!inputPhoneCheckFlg&&updateFlg">인증</button>
+						<button class="btn-modify"
+							style="margin: 0px; width: auto; border: 1px solid red; color: red;"
+							v-if="inputPhoneCheckFlg">취소</button>
+						<div style="margin-top: 5px;" v-if="inputPhoneCheckFlg">
+							<div class="infoName" style="height: 10px;"></div>
+							<div style="display: inline-block;">
+								<input class="updateInput" placeholder="인증번호를 입력하세요."
+									v-model="phoneConfirmInputNum">
+								<button class="btn-modify" style="margin: 0px; width: auto;"
+									v-if="inputPhoneCheckFlg" @click="fnPhoneConfirm">확인</button>
+							</div>
+						</div>
 					</div>
 					<div class="infoDiv">
 						<div class="infoName">대표이메일주소</div>
 						<span v-if="!updateFlg" class="viewInfo">{{bizInfo.email}}</span>
-						<input v-if="updateFlg" class="updateInput"
-							v-model="bizInfo.email" disabled>
+						<template v-if="updateFlg">
+							<input class="updateInput" style="width: 150px;" v-model="email">
+							@
+							<input class="updateInput" style="width: 150px;"
+								v-model="emailAddr">
+						</template>
 					</div>
 					<div class="infoDiv">
 						<div class="infoName">은행</div>
@@ -284,69 +317,151 @@ section {
 
 </html>
 <script>
-	var app = new Vue({
-		el : '#app',
-		data : {
-			updateFlg : false,
-			sessionId : "${sessionBizId}",
-			bizInfo : {},
-			bizFile : {},
-			categoryList : [],
-			bankList : [],
-			category : "",
-			bank : "",
-			openHour : "",
-			openMinute : "",
-			closeHour : "",
-			closeMinute : "",
-			changeImgFlg : false,
-			email : "",
-			emailAddr : ""
-		},
-		methods : {
-			// 수정버튼 클릭시
-			fnInfoUpdateComplete : function() {
-				var self = this;
-				self.bizInfo.openTime = self.openHour + self.openMinute;
-				self.bizInfo.closeTime = self.closeHour + self.closeMinute;
+	var app = new Vue(
+			{
+				el : '#app',
+				data : {
+					updateFlg : false,
+					sessionId : "${sessionBizId}",
+					bizInfo : {},
+					bizFile : {},
+					categoryList : [],
+					bankList : [],
+					emailList : [],
+					category : "",
+					bank : "",
+					openHour : "",
+					openMinute : "",
+					closeHour : "",
+					closeMinute : "",
+					changeImgFlg : false, //이미지 변경 여부
+					email : "",
+					emailAddr : "",
+					phoneConfirmNum : "1234", //인증번호
+					phoneConfirmInputNum : "", //인증번호 입력값 
+					phoneFlg : true, // 휴대폰 인증 여부
+					inputPhoneCheckFlg : false, // 휴대폰 인증/취소 버튼 활성화 여부					
+				},
+				methods : {
+					// 해당 주소의 위도 경도 구하기
+					convertAddressToCoordinates : function(addr) {
+						var self = this;
+						// 주소-좌표 변환 객체를 생성합니다
+						var geocoder = new kakao.maps.services.Geocoder();
 
-				self.bizInfo["imgFlg"] = self.changeImgFlg;
-				var nparmap = self.bizInfo;
-				$.ajax({
-					url : "bizInfoUpdate.dox",
-					dataType : "json",
-					type : "POST",
-					data : nparmap,
-					success : function(data) {
-						if (data.result == "success") {
-							alert("정보변경완료");
-							location.href = "biz-info.do";
+						var callback = function(result, status) {
+							if (status === kakao.maps.services.Status.OK) {								
+								self.bizInfo.latitude = result[0].y;
+								self.bizInfo.longitude = result[0].x;								
+							}
+						};
+						geocoder.addressSearch(addr, callback);
+					},
+					//주소조회 api
+					openAddressSearch : function() {
+						var self = this;
+						new daum.Postcode({
+							oncomplete : function(data) {
+							self.businessAddr = data.address;
+							self.bizInfo.oldAddr = data.jibunAddress != "" ? data.jibunAddress: data.autoJibunAddress;
+							self.bizInfo.newAddr = data.roadAddress;
+							self.convertAddressToCoordinates(data.address);
+							}
+						}).open();
+					},
+					// 휴대폰 인증번호 기입 후 확인시
+					fnPhoneConfirm : function() {
+						var self = this;
+						if (self.phoneConfirmInputNum == self.phoneConfirmNum) {
+							self.phoneFlg = true;
+							self.inputPhoneCheckFlg = false;
 						} else {
-							alert("잠시 후 다시 시도해주세요. 해당 오류가 지속된다면 관리자에게 문의하세요.")
+							self.phoneFlg = false;
+							alert("인증 실패");
 						}
+					},
+					// 휴대폰 인증 클릭시
+					fnPhoneCheck : function() {
+						var self = this;
+						let phone = /^(010|011)[0-9]{7,8}$/
+						if (!phone.test(self.bizInfo.phone)) {
+							alert("휴대폰번호를 제대로 입력해주세요.");
+							return;
+						}
+						$("#phoneInput").prop('disabled', true);
+						$("#phoneInput").css({
+							"background-color" : "#cccccc4d"
+						})
+						self.inputPhoneCheckFlg = true;
 
-					}
-				});
-			},
-			// 취소
-			fnCancel : function() {
-				var self = this;
-				self.fnBizView();
-				self.updateFlg = false;
-			},
-			// 정보 변경하기 클릭시
-			fnInfoUpdate : function() {
-				var self = this;
-				self.updateFlg = true;
-			},
-			// 사용자 정보 불러오기
-			fnBizView : function() {
-				var self = this;
-				var nparmap = {
-					bizId : self.sessionId
-				};
-				$
-						.ajax({
+						var nparmap = {
+							phone : self.bizInfo.phone
+						};
+						$.ajax({
+							url : "send-one",
+							dataType : "json",
+							type : "POST",
+							data : nparmap,
+							success : function(data) {
+								self.phoneConfirmNum = data.number;
+								$("#phoneInput").prop('disabled', true);
+							}
+						});
+					},
+					// 수정버튼 클릭시
+					fnInfoUpdateComplete : function() {
+						var self = this;
+						if (self.bizInfo.bizName == ""
+								|| self.bizInfo.ownerName == ""
+								|| self.bizInfo.accountNumber == ""
+								|| self.email == "" || self.emailAddr == "") {
+							alert("판매자 정보를 제대로 기입해주세요.");
+							return;
+						}
+						if (!self.phoneFlg) {
+							alert("휴대폰 인증을 진행해주세요.");
+							return;
+						}
+						self.bizInfo.openTime = self.openHour + self.openMinute;
+						self.bizInfo.closeTime = self.closeHour
+								+ self.closeMinute;
+						self.bizInfo["imgFlg"] = self.changeImgFlg;
+						self.bizInfo["email"] = self.email + "@"
+								+ self.emailAddr;						
+						var nparmap = self.bizInfo;
+						$.ajax({
+							url : "bizInfoUpdate.dox",
+							dataType : "json",
+							type : "POST",
+							data : nparmap,
+							success : function(data) {
+								if (data.result == "success") {
+									alert("정보변경완료");
+									location.href = "biz-info.do";
+								} else {
+									alert("잠시 후 다시 시도해주세요. 해당 오류가 지속된다면 관리자에게 문의하세요.")
+								}
+							}
+						});
+					},
+					// 취소
+					fnCancel : function() {
+						var self = this;
+						self.fnBizView();
+						self.updateFlg = false;
+					},
+					// 정보 변경하기 클릭시
+					fnInfoUpdate : function() {
+						var self = this;
+						self.updateFlg = true;
+					},
+					// 사용자 정보 불러오기
+					fnBizView : function() {
+						var self = this;
+						var nparmap = {
+							bizId : self.sessionId
+						};
+						$.ajax({
 							url : "bizView.dox",
 							dataType : "json",
 							type : "POST",
@@ -369,8 +484,8 @@ section {
 								self.emailAddr = data.bizInfo.email
 										.substring(data.bizInfo.email
 												.indexOf("@") + 1);
-								console.log(self.email);
-								console.log(self.emailAddr);
+								console.log(data.bizInfo);
+								
 								if (data.bizFile) {
 									self.bizFile = data.bizFile;
 								} else {
@@ -378,73 +493,74 @@ section {
 								}
 							}
 						});
-			},
-			// 파일업로드1
-			fnFileUpload : function() {
-				var self = this;
-				self.changeImgFlg = true;
-				var form = new FormData();
-				form.append("file1", $("#file1")[0].files[0]);
-				form.append("bizId", self.sessionId);
-				self.upload(form);
-			}
-			// 파일 업로드2
-			,
-			upload : function(form) {
-				var self = this;
-				$.ajax({
-					url : "/fileUpload.dox",
-					type : "POST",
-					processData : false,
-					contentType : false,
-					data : form,
-					success : function(response) {
-						self.fnBizFileView();
+					},
+					// 파일업로드1
+					fnFileUpload : function() {
+						var self = this;
+						self.changeImgFlg = true;
+						var form = new FormData();
+						form.append("file1", $("#file1")[0].files[0]);
+						form.append("bizId", self.sessionId);
+						self.upload(form);
 					}
-				});
-			},
-			// select 내용들 db에서 가져오기
-			fnSelectAll : function() {
-				var self = this;
-				var nparmap = {};
-				$.ajax({
-					url : "selectAll.dox",
-					dataType : "json",
-					type : "POST",
-					data : nparmap,
-					success : function(data) {
-						self.categoryList = data.categoryList;
-						self.bankList = data.bankList;
+					// 파일 업로드2
+					,
+					upload : function(form) {
+						var self = this;
+						$.ajax({
+							url : "/fileUpload.dox",
+							type : "POST",
+							processData : false,
+							contentType : false,
+							data : form,
+							success : function(response) {
+								self.fnBizFileView();
+							}
+						});
+					},
+					// select 내용들 db에서 가져오기
+					fnSelectAll : function() {
+						var self = this;
+						var nparmap = {};
+						$.ajax({
+							url : "selectAll.dox",
+							dataType : "json",
+							type : "POST",
+							data : nparmap,
+							success : function(data) {
+								self.categoryList = data.categoryList;
+								self.bankList = data.bankList;
+								self.emailList = data.emailList;
+							}
+						});
+					},
+					// 이미지만 새로고침
+					fnBizFileView : function() {
+						var self = this;
+						var nparmap = {
+							bizId : self.sessionId
+						};
+						$.ajax({
+							url : "bizFile.dox",
+							dataType : "json",
+							type : "POST",
+							data : nparmap,
+							success : function(data) {
+								console.log(data);
+								if (data.bizFile) {
+									self.bizFile = data.bizFile;
+								} else {
+									self.bizFile = "nothing";
+								}
+							}
+						});
 					}
-				});
-			},
-			// 이미지만 새로고침
-			fnBizFileView : function() {
-				var self = this;
-				var nparmap = {
-					bizId : self.sessionId
-				};
-				$.ajax({
-					url : "bizFile.dox",
-					dataType : "json",
-					type : "POST",
-					data : nparmap,
-					success : function(data) {
-						console.log(data);
-						if (data.bizFile) {
-							self.bizFile = data.bizFile;
-						} else {
-							self.bizFile = "nothing";
-						}
-					}
-				});
-			}
-		},
-		created : function() {
-			var self = this;
-			self.fnSelectAll();
-			self.fnBizView();
+				},
+				created : function() {
+					var self = this;
+					self.fnSelectAll();
+					self.fnBizView();
 
-		}
-	});
+				}
+			});
 </script>

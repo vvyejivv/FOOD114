@@ -263,6 +263,7 @@ public class BizServiceImpl implements BizService {
 		return resultMap;
 	}
 	
+	@Override
 	public HashMap<String, Object> searchAreaList(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
 		List<Biz> areaRestList = bizMapper.selectAreaList(map);
@@ -277,5 +278,16 @@ public class BizServiceImpl implements BizService {
 		return resultMap;
 	}
 
-
+	@Override
+	public HashMap<String, Object> searchBizEventList(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			resultMap.put("list", bizMapper.selectBizEventList(map));			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+		}
+		return resultMap;
+	}
 }

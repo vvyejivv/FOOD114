@@ -65,6 +65,9 @@ public class BizController {
 		return "/shopInfo";
 	}
 
+	
+	
+	
 	// 가게 이벤트
 	@RequestMapping("/shopEvent.do")
 	public String shopEvent(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
@@ -325,4 +328,12 @@ public class BizController {
 		return fileName;
 	}
 
+	// 사업자(biz) 주관 이벤트 목록 호출
+	@RequestMapping(value = "/eventBizList.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String eventBizList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap=bizService.searchBizEventList(map);
+		return new Gson().toJson(resultMap);
+	}
 }

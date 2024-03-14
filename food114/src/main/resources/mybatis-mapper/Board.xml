@@ -32,22 +32,6 @@
 		endyn='Y' WHERE NOW()>endtime AND endyn='N'
 	</update>
 
-	<select id="selectBizEventList" parameterType="hashmap"
-		resultType="teamProject.food114.model.Board">
-		SELECT
-		*,		
-		DATE_FORMAT(begintime, '%Y-%m-%d') AS begintime2,
-		DATE_FORMAT(endtime, '%Y-%m-%d') AS endtime2
-		FROM
-		FOOD114_BOARD b
-		INNER JOIN FOOD114_BIZ_INFO i ON b.USERID=i.bizid
-		WHERE
-		CODE = 4
-		AND endyn = 'N'
-		AND oldaddr LIKE (concat('%',#{selectSi},'%')) AND OLDaddr LIKE (concat('%',#{selectGu},'%')) AND OLDaddr LIKE
-		(concat('%',#{selectDong},'%'));
-	</select>
-
 	<!-- 공지사항 목록 -->
 	<select id="selectBoardList" parameterType="hashmap"
 		resultType="teamProject.food114.model.Board">

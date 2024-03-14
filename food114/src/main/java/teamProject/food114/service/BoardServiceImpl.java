@@ -76,16 +76,5 @@ public class BoardServiceImpl implements BoardService {
 		return resultMap;
 	}
 
-	@Override
-	public HashMap<String, Object> searchBizEventList(HashMap<String, Object> map) {
-		// TODO Auto-generated method stub
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		try {
-			resultMap.put("list", boardMapper.selectBizEventList(map));			
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println(e.getMessage());
-		}
-		return resultMap;
-	}
+
 }
