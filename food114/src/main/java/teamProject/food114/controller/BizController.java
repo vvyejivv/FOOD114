@@ -343,4 +343,13 @@ public class BizController {
 		resultMap=bizService.searchBizEventList(map);
 		return new Gson().toJson(resultMap);
 	}
+	
+	// 배달 가능한 가게만 호출
+	@RequestMapping(value = "/baedalok.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String baedalok(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = bizService.searchBizListDelivery(map);
+		return new Gson().toJson(resultMap);
+	}
 }

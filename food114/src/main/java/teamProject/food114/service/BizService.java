@@ -46,4 +46,7 @@ public interface BizService {
 	HashMap<String, Object> searchBizView(HashMap<String, Object> map);
 	
 	HashMap<String, Object> searchBizListSearchByName(HashMap<String, Object> map);
+	
+	// 배달 가능 식당 목록
+	HashMap<String, Object> searchBizListDelivery(HashMap<String, Object> map);
 }

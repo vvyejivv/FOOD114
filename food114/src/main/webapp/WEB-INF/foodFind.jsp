@@ -279,6 +279,21 @@ input {
 			
 		},
 		methods : {
+			// 배달가능한 가게목록 전체
+			fnList : function() {
+				var self=this;
+				var nparmap = {};
+				$.ajax({
+					url : "baedalok.dox",
+					dataType : "json",
+					type : "POST",
+					data : nparmap,
+					success : function(data) {
+						self.bizInfo=data.list;
+						console.log(self.bizInfo);
+					}
+				});
+			},
 			// 해당 주소의 위도 경도 구하기
 			convertAddressToCoordinates : function(addr) {
 				var self = this;
@@ -395,6 +410,7 @@ input {
 		},
 		created : function() {
 			var self = this;
+			self.fnList();
 			self.fnCategoryList();
 			self.fnAddrList();
 
