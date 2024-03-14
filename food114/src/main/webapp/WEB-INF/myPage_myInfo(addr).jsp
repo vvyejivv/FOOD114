@@ -31,7 +31,7 @@
 		<div class="container">
 			<%@include file="myPage_header.jsp"%>
 			<div id="app">
-				<div class="content">
+				<div class="content" style="width : 900px;">
 					<h2>
 						<a href="javascript:;" style="font-size: 25px; color: #747171;">
 							<span style="color: #ff7f00; font-weight: bold;">| </span>MY주소지
@@ -43,56 +43,28 @@
 							<div style="border: 1px solid #c2bfbf; padding: 10px;">
 								<div
 									style="color: #555454; font-weight: bold; font-size: 17px; margin-bottom: 5px;">
-									| MY주소 : 우리집 🏠</div>
+									| {{info.addrAs}} 🏠</div>
 								<div class="row" style="border-top: none;">
 									<div class="cell1">받는사람</div>
-									<div class="cell2">홍길동</div>
+									<div class="cell2">{{info.name}}</div>
 									<!-- <div class="cell2"> <input type="text"></div> -->
 								</div>
 								<div class="row">
 									<div class="cell1">주소</div>
-									<div class="cell2">인천광역시 부평구 경원대로 1366</div>
+									<div class="cell2">{{info.oldAddr}}{{info.detail}}</div>
 									<!-- <div class="cell2"> <input type="text"></div> -->
 								</div>
 								<div class="row">
 									<div class="cell1">휴대폰번호</div>
-									<div class="cell2">010-1111-2222</div>
-									<!-- <div class="cell2"> <input type="text"></div> -->
+									<div class="cell2">{{info.phone}}</div>
 								</div>
 								<div class="row">
-									<div class="cell1">배송요청사항</div>
-									<div class="cell2">문 앞에 두고 가 주세요</div>
-									<!-- <div class="cell2"> <input type="text"></div> -->
-								</div>
-								<label><input type="checkbox">기본 주소지로 선택</label>
-							</div>
-
-							<div
-								style="border: 1px solid #c2bfbf; padding: 10px; margin-top: 5px;">
-								<div
-									style="color: #555454; font-weight: bold; font-size: 17px; margin-bottom: 5px;">
-									| MY주소 : 회사 🏦</div>
-								<div class="row" style="border-top: none;">
-									<div class="cell1">받는사람</div>
-									<div class="cell2">홍길동</div>
-									<!-- <div class="cell2"> <input type="text"></div> -->
-								</div>
-								<div class="row">
-									<div class="cell1">주소</div>
-									<div class="cell2">인천광역시 부평구 경원대로 1366</div>
-									<!-- <div class="cell2"> <input type="text"></div> -->
-								</div>
-								<div class="row">
-									<div class="cell1">휴대폰번호</div>
-									<div class="cell2">010-1111-2222</div>
-									<!-- <div class="cell2"> <input type="text"></div> -->
-								</div>
-								<div class="row">
-									<div class="cell1">배송요청사항</div>
-									<div class="cell2">문 앞에 두고 가 주세요</div>
-									<!-- <div class="cell2"> <input type="text"></div> -->
-								</div>
-								<label><input type="checkbox">기본 주소지로 선택</label>
+										<div class="cell1">배송요청사항</div>
+										<div class="cell2">{{info.request}}</div>
+										</div>
+									</div>
+								<label></label>
+								<button>기본주소지 설정</button>
 							</div>
 							<div class="row">
 								<button class="buttonSubmit" style="margin-left: 400px;">추가</button>
@@ -105,7 +77,7 @@
 									style="border: 1px solid #c2bfbf; padding: 10px; margin-top: 5px;">
 									<div
 										style="color: #555454; font-weight: bold; font-size: 17px; margin-bottom: 5px;">
-										| MY주소 : 회사2 🏦</div>
+										| 회사2 🏦</div>
 									<div class="row" style="border-top: none;">
 										<div class="cell1">받는사람</div>
 										<div class="cell2">
@@ -133,7 +105,7 @@
 									<label><input type="checkbox">기본 주소지로 선택</label>
 								</div>
 								<div class="row">
-									<button class="buttonSubmit" style="margin-left: 450px">추가</button>
+									<button @click="fnSubmit" class="buttonSubmit" style="margin-left: 450px">추가</button>
 									<button class="buttonRemove">취소</button>
 								</div>
 							</div>
@@ -153,14 +125,18 @@
 			list : [],
 			info : {},
 			sessionId : "${sessionId}",
-			newName : '',
-			pwd : ''
+			
 		},
 		methods : {
 			fnList : function() {
 				var self = this;
 				var nparmap = {
-					userId : self.sessionId
+					userId : self.sessionId,
+					addrAs : self.addrAs,
+					name : self.name,
+					oldAddr : self.oldAddr,
+					detail : self.detail,
+					phone : self.phone
 				};
 				$.ajax({
 					url : "myInfoPwdUpdate.dox",
@@ -181,23 +157,37 @@
 					alert("다름");
 				}
 			},
-			fnMyInfo : function() {
-				location.href = "/myInfo.do";
-			},
-			fnMyInfoPwd : function() {
-				location.href = "/myInfoPwd.do";
-			},
-			myInfoAddr : function() {
-				location.href = "/myInfoAddr.do";
-			},
-			fnMyInfoGrade : function() {
-				location.href = "/myInfoGrade.do";
+			fnSubmit : function() {
+				var self = this;						
+				var nparmap = {
+					userId : self.info.userId,
+					name : self.info.name,
+					nickName : self.info.nickName,
+					phone : self.info.phone,
+					email : self.info.email
+				};
+				$.ajax({
+					url : "updateMyInfo.dox",
+					dataType : "json",
+					type : "POST",
+					data : nparmap,
+					success : function(data) {
+						if(data.result == "success"){
+							alert("변경되었습니다.");
+							return location.href = "/myInfo.do";
+						}else{
+							alert("오류가 발생하였습니다.");
+						}
+						self.info = data.info;
+						console.log(data.info);
+					}
+				});
 			},
 
 		},
 		created : function() {
 			var self = this;
-			self.fnList();
+			/* self.fnList(); */
 		}
 	});
 </script>

@@ -31,7 +31,7 @@
 		<div class="container">
 			<%@include file="myPage_header.jsp"%>
 			<div id="app">
-				<div class="content">
+				<div class="content" style="width : 900px;">
 					<h2>
 						<a href="javascript:;" style="font-size: 25px; color: #747171;">
 							<span style="color: #ff7f00; font-weight: bold;">| </span>비밀번호 변경
@@ -45,8 +45,6 @@
 								<p style="margin-left: 200px; font-size: 15px;">이 페이지는 아직 개발
 									중에 있습니다. 곧 완성될 예정입니다. 양해 부탁드립니다.</p>
 							</div>
-
-
 						</div>
 					</div>
 				</div>

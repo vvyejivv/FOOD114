@@ -178,3 +178,11 @@ input[type="password"] {
 input[type="password"]:focus {
 	outline: none;
 }
+input[type="email"] {
+	border: none;
+	border-bottom: 1px solid #ccc;
+	margin-left: 10px;
+}
+input[type="email"]:focus {
+	outline: none;
+}

@@ -32,8 +32,9 @@ body {
 	color: #ff7f00;
 	margin: 5px;
 	float: right;
+	margin-left: 300px;
 	cursor: pointer;
-	margin-top: 5ps;
+	margin-top: 5px;
 }
 
 .buttonSubmit:hover {

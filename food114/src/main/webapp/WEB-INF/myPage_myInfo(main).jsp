@@ -13,7 +13,7 @@
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 /* 모달 스타일링 */
 .modal {
-	display: none;
+	/* display: none; */
 	position: fixed;
 	top: 47%;
 	left: 70%;
@@ -24,7 +24,9 @@
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 	z-index: 1000;
 }
-
+body{
+	margin:0px;
+}
 .modal-content {
 	margin-bottom: 10px;
 	width: 400px;
@@ -76,8 +78,8 @@
 	color: rgb(161, 1, 161);
 	font-weight: bold;
 	margin-top: 10px;
-	margin-left: 50px;
-	float: left;
+	margin-left: auto;
+	float: none;
 	cursor: pointer;
 	
 }
@@ -97,11 +99,11 @@
 	color: rgb(72, 72, 72);
 	margin-top: 10px;
 	cursor: pointer;
-	margin-right: 100px;
+	margin-right: 40px;
 }
 
 .modalCancel:hover {
-	color: white;
+	color: rgb(72, 72, 72);
 	font-weight: bold;
 }
 
@@ -163,14 +165,14 @@ input[type='text']:focus {
 								</div>
 							</div>
 							<!-- name 모달 창 -->
-							<div class="modal-backdrop" id="nameModal" v-if="modalFlg">
+							<div class="modal-backdrop" id="nameModal" v-if="nameModalFlg">
 									<div class="modal-content">
 										<h2>이름 변경</h2>
 											<p style="color: #888; margin-top:none;">변경할 이름을 입력해주세요.</p>
-											<input class="modalInput" v-model="newName" type="text" id="newNameInput" placeholder="새로운 이름을 입력하세요.">
+											<input class="modalInput" v-model="info.name" type="text" id="newNameInput" placeholder="새로운 이름을 입력하세요.">
 										<div>
-											<button class="modalCancel" @click="closeNameModal(close)">닫기</button>
-											<button class="modalButton" @click="saveName()">저장</button>
+											<button class="modalButton" @click="fnSubmit">저장</button>
+											<button class="modalCancel" @click="closeNameModal('close')">닫기</button>
 										</div>
 									</div>
 							</div>
@@ -183,14 +185,14 @@ input[type='text']:focus {
 							</div>
 							
 							<!-- nickName 모달 창 -->
-							<div class="modal-backdrop"  id="nickNameModal" v-if="modalFlg">
+							<div class="modal-backdrop"  id="nickNameModal" v-if="nickNameModalFlg">
 								<div class="modal-content">
 									<h2>별명 변경</h2>
 											<p style="color: #888; margin-top:none;">변경할 별명을 입력해주세요.</p>
-											<input class="modalInput" v-model="newNickName" type="text" id="newNickNameInput" placeholder="새로운 별명을 입력하세요.">
+											<input class="modalInput" v-model="info.nickName" type="text" id="newNickNameInput" placeholder="새로운 별명을 입력하세요.">
 										<div>
-											<button class="modalCancel" @click="closeNickNameModal(close)">닫기</button>
-											<button class="modalButton" @click="saveNickName()">저장</button>
+											<button class="modalButton" @click="fnSubmit">저장</button>
+											<button class="modalCancel" @click="closeNickNameModal('close')">닫기</button>
 										</div>
 								</div>
 							</div>
@@ -209,14 +211,14 @@ input[type='text']:focus {
 								</div>
 							</div>
 							<!-- phone 모달 창 -->
-							<div class="modal-backdrop" id="phoneModal" v-if="modalFlg">
+							<div class="modal-backdrop" id="phoneModal" v-if="phoneModalFlg">
 								<div class="modal-content">
 									<h2>연락처 변경</h2>
 										<p style="color: #888; margin-top:none;">변경할 연락처를 입력해주세요.</p>
-										<input class="modalInput" v-model="newPhone" type="text" id="newPhoneInput" placeholder="새로운 연락처를 입력하세요.">
+										<input class="modalInput" v-model="info.phone" type="text" id="newPhoneInput" placeholder="새로운 연락처를 입력하세요.">
 									<div>
-										<button class="modalCancel" @click="closePhoneModal(close)">닫기</button>
-										<button class="modalButton" @click="savePhone()">저장</button>
+										<button class="modalButton" @click="fnSubmit">저장</button>
+										<button class="modalCancel" @click="closePhoneModal('close')">닫기</button>
 									</div>
 								</div>
 							</div>
@@ -229,14 +231,14 @@ input[type='text']:focus {
 								</div>
 							</div>
 							<!-- email 모달 창 -->
-							<div class="modal-backdrop" id="emailModal" v-if="modalFlg">
+							<div class="modal-backdrop" id="emailModal" v-if="emailModalFlg">
 								<div class="modal-content">
 									<h2>E-MAIL 변경</h2>
 										<p style="color: #888; margin-top:none;">변경할 이메일을 입력해주세요.</p>
-										<input class="modalInput" v-model="newEmail" type="text" id="newEmailInput" placeholder="새로운 이메일을 입력하세요.">
+										<input class="modalInput" v-model="info.email" type="email" id="newEmailInput" placeholder="새로운 이메일을 입력하세요.">
 									<div>
-										<button class="modalCancel" @click="closeEmailModal(close)">닫기</button>
-										<button class="modalButton" @click="saveEmail()">저장</button>
+										<button class="modalButton" @click="fnSubmit">저장</button>
+										<button class="modalCancel" @click="closeEmailModal('close')">닫기</button>
 									</div>
 								</div>
 							</div>
@@ -249,12 +251,6 @@ input[type='text']:focus {
 									탈퇴를 원하시면 우측의 회원탈퇴 버튼을 눌러주세요.&nbsp; <a href="javascript:;"><span
 										class="span">회원탈퇴</span></a>
 								</div>
-							</div>
-							<div style="text-align: center; margin-top: 5px;">
-								<button class="buttonSubmit" style="float: none;">등록하기</button>
-								<button class="buttonRemove" @click="fnClick" style="float: none;">취소</button>
-								<!--  <button @click="fnInsert" style="float:none;">등록하기</button>
-		                        <button @click="fnRemove" style="background-color: #f9f9f9; color: rgb(72,72,72); border: 1px solid #ccc; float: none;">취소</button> -->
 							</div>
 						</div>
 					</div>
@@ -278,7 +274,12 @@ input[type='text']:focus {
 					modalFlg : false,
 					newNickName : '',
 					newPhone : '',
-					newEmail : ''
+					newEmail : '',
+					nameModalFlg : false,
+					nickNameModalFlg : false,
+					phoneModalFlg : false,
+					emailModalFlg : false
+					
 				},
 				methods : {
 					fnList : function() {
@@ -297,6 +298,33 @@ input[type='text']:focus {
 							}
 						});
 					},
+					/* 모달창에서 저장 */
+					fnSubmit : function() {
+						var self = this;						
+						var nparmap = {
+							userId : self.info.userId,
+							name : self.info.name,
+							nickName : self.info.nickName,
+							phone : self.info.phone,
+							email : self.info.email
+						};
+						$.ajax({
+							url : "updateMyInfo.dox",
+							dataType : "json",
+							type : "POST",
+							data : nparmap,
+							success : function(data) {
+								if(data.result == "success"){
+									alert("변경되었습니다.");
+									return location.href = "/myInfo.do";
+								}else{
+									alert("오류가 발생하였습니다.");
+								}
+								self.info = data.info;
+								console.log(data.info);
+							}
+						});
+					},
 					fnClick : function() {
 						location.href = "/myInfo.do";
 					},
@@ -304,147 +332,67 @@ input[type='text']:focus {
 					openNameModal : function(type) {
 						var self = this;
 						if (type == "open") {
-							self.modalFlg = true;
+							self.nameModalFlg = true;
 							document.body.style.overflow = 'hidden';
 						}
 						if (type == "close") {
-							self.modalFlg = false;
+							self.nameModalFlg = false;
 							document.body.style.overflow = 'auto';
 						}
 					},
 					openNickNameModal : function(type) {
 						var self = this;
 						if (type == "open") {
-							self.modalFlg = true;
+							self.nickNameModalFlg = true;
 							document.body.style.overflow = 'hidden';
 						}
 						if (type == "close") {
-							self.modalFlg = false;
+							self.nickNameModalFlg = false;
 							document.body.style.overflow = 'auto';
 						}
 					},
 					openPhoneModal : function(type) {
 						var self = this;
 						if (type == "open") {
-							self.modalFlg = true;
+							self.phoneModalFlg = true;
 							document.body.style.overflow = 'hidden';
 						}
 						if (type == "close") {
-							self.modalFlg = false;
+							self.phoneModalFlg = false;
 							document.body.style.overflow = 'auto';
 						}
 					},
 					openEmailModal : function(type) {
 						var self = this;
 						if (type == "open") {
-							self.modalFlg = true;
+							self.emailModalFlg = true;
 							document.body.style.overflow = 'hidden';
 						}
 						if (type == "close") {
-							self.modalFlg = false;
+							self.emailModalFlg = false;
 							document.body.style.overflow = 'auto';
 						}
 					},
 					// 취소시 closeNameModal
-					closeNameModal : function(type) {
-						if(type == "close"){
-							var nameModal = document.getElementById('nameModal');
-							nameModal.style.display = 'none';
-						}
+					closeNameModal : function() {
+						var self = this;
+						self.nameModalFlg = false;
 					},
 					// 취소시 closeNickNameModal
-					closeNickNameModal : function(type) {
-						var nickNameModal = document.getElementById('nickNameModal');
-						nickNameModal.style.display = 'none';
+					closeNickNameModal : function() {
+						var self = this;
+						self.nickNameModalFlg = false;
 					},
 					// 취소시 closePhoneModal
-					closePhoneModal : function(type) {
-						var phoneModal = document.getElementById('phoneModal');
-						phoneModal.style.display = 'none';
+					closePhoneModal : function() {
+						var self = this;
+						self.phoneModalFlg = false;
 					},
 					// 취소시 closeEmailModal
-					closeEmailModal : function(type) {
-						var emailModal = document.getElementById('emailModal');
-						emailModal.style.display = 'none';
-					},
-					// saveName 모달창
-					saveName : function() {
+					closeEmailModal : function() {
 						var self = this;
-						if (self.newName == self.info.name) {
-							alert("동일한 이름입니다.");
-							return;
-						} else if(self.newName == '' || self.newName == 'null' || self.newName == null){
-							alert("이름을 입력해주세요.");
-						}else {
-							alert("사용 가능합니다.");
-							this.info.name = self.newName;
-							this.closeNameModal();
-						}
+						self.emailModalFlg = false;
 					},
-					saveNickName : function() {
-						var self = this;
-						if (self.newNickName == self.info.nickName) {
-							alert("동일한 이름입니다.");
-							return;
-						} else if(self.newNickName == '' || self.newNickName == 'null' || self.newNickName == null){
-							alert("이름을 입력해주세요.");
-						}else {
-							alert("사용 가능합니다.");
-							this.info.nickName = self.newNickName;
-							this.closeNickNameModal();
-						}
-					},
-					savePhone : function() {
-						var self = this;
-						if (self.newPhone == self.info.phone) {
-							alert("동일한 이름입니다.");
-							return;
-						} else if(self.newPhone == '' || self.newPhone == 'null' || self.newPhone == null){
-							alert("이름을 입력해주세요.");
-						}else {
-							alert("사용 가능합니다.");
-							this.info.phone = self.newPhone;
-							this.closePhoneModal();
-						}
-					},
-					saveEmail : function() {
-						var self = this;
-						if (self.newEmail == self.info.email) {
-							alert("동일한 이름입니다.");
-							return;
-						} else if(self.newEmail == '' || self.newEmail == 'null' || self.newEmail == null){
-							alert("이름을 입력해주세요.");
-						}else {
-							alert("사용 가능합니다.");
-							this.info.newEmail = self.newEmail;
-							this.closeEmailModal();
-						}
-					},
-				
-					/*  등록하기 버튼 활성화할 경우 사용할 예정(수정必)
-					fnInsert: function () {
-					     var self = this;
-					     var nparmap = {
-					         userId: self.userId,
-					         title: self.title,
-					         contents: self.contents,
-					         kind: self.kind
-					     };
-					     $.ajax({
-					         url: "boardInsert.dox",
-					         dataType: "json",
-					         type: "POST",
-					         data: nparmap,
-					         success: function (data) {
-					             if (data.result == "success") {
-					                 alert("작성되었음");
-					             } else {
-					                 alert("오류 발생");
-					             }
-					         }
-					     });
-					 },
-					 */
 					changeName : function() {
 						location.href = "/boardNoticeList.do";
 					}

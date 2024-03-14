@@ -13,6 +13,9 @@ public class CustomerAddr {
 	private String si;
 	private String gu;
 	private String dong;
+	private String defaultYn;
+	private String request;	
+	
 	public String getSi() {
 		return si;
 	}

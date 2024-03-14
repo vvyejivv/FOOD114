@@ -21,9 +21,13 @@ public interface CustomerService {
 	// 고객 주소 리스트 불러오기
 	HashMap<String, Object> searchUserAddrList(HashMap<String, Object> map);
 
-	// myInfo 수정
+	// myInfo 변경 : 이름, 별명, 연락처, 이메일
 	HashMap<String, Object> editMyInfo(HashMap<String, Object> map);
 	
-	//  pwd 수정(myInfo)
+	// myInfo 변경 : 비밀번호(pwd)
 	HashMap<String, Object> editPwd(HashMap<String, Object> map);
+	
+	// myInfo - my주소지 관리 - 주소지 상세보기
+	HashMap<String, Object> searchMyInfoAddr(HashMap<String, Object> map);
+	
 }
