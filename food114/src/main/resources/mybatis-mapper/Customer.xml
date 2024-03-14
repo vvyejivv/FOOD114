@@ -47,10 +47,10 @@
 	<update id="updateMyInfo" parameterType="hashmap">
 		UPDATE FOOD114_CONSUMER
 		SET
-			NAME = #{name},
-			NICKNAME = #{nickName},
-			PHONE = #{phone},
-			EMAIL = #{email}
+		NAME = #{name},
+		NICKNAME = #{nickName},
+		PHONE = #{phone},
+		EMAIL = #{email}
 		WHERE USERID = #{userId}
 	</update>
 
@@ -60,26 +60,41 @@
 		*
 		FROM
 		FOOD114_CONSUMER_ADDR A1
-		INNER JOIN FOOD114_AREA A2 ON A1.OLDADDR LIKE CONCAT('%', A2.SI, '%')
-		AND A1.OLDADDR LIKE CONCAT('%', A2.GU, '%')
+		INNER JOIN FOOD114_AREA
+		A2 ON A1.OLDADDR LIKE CONCAT('%', A2.SI, '%')
+		AND A1.OLDADDR LIKE
+		CONCAT('%', A2.GU, '%')
 		AND A1.OLDADDR LIKE CONCAT('%', A2.DONG, '%');
 	</select>
-	
+
 	<!-- pwd 변경(myInfo) -->
 	<update id="updatePwd" parameterType="hashmap">
 		UPDATE FOOD114_CONSUMER
 		SET
-			PWD = #{newPwd}
+		PWD = #{newPwd}
 		WHERE USERID = #{userId}
 	</update>
-	
+
 	<!-- myInfo - my주소지 관리 - 주소지 상세보기 -->
-	<select id="selectMyInfoAddr" parameterType="hashmap" resultType="teamProject.food114.model.Addr">
-	SELECT * 
+	<select id="selectMyInfoAddr" parameterType="hashmap"
+		resultType="teamProject.food114.model.Addr">
+		SELECT *
 		FROM FOOD114_CONSUMER C
-		INNER JOIN FOOD114_CONSUMER_ADDR A ON C.USERID = A.USERID
-	WHERE C.USERID = #{userId}
+		INNER JOIN FOOD114_CONSUMER_ADDR A ON C.USERID =
+		A.USERID
+		WHERE C.USERID = #{userId}
 	</select>
-	
-	
+	<!-- 마이페이지 - 결제/주문/리뷰 - 주문내역 -->
+	<select id="selectMyOrderList" parameterType="hashmap" resultType="teamProject.food114.model.Order">
+		SELECT O.ORDERNO,COUNT(*) AS ORDERCNT, B.BIZNAME, M.MENU, P.PRICE,
+		O.ORDERDATE
+		FROM FOOD114_ORDERS O
+		INNER JOIN FOOD114_ORDER_DETAIL D ON O.ORDERNO = D.ORDERNO
+		INNER JOIN FOOD114_BIZ_INFO B ON O.BIZID = B.BIZID
+		INNER JOIN FOOD114_MENU M ON D.MENUNO = M.MENUNO
+		LEFT JOIN FOOD114_PAYMENT P ON O.ORDERNO = P.ORDERNO
+		WHERE O.USERID = #{userId}
+		GROUP BY O.ORDERNO;
+	</select>
+
 </mapper>

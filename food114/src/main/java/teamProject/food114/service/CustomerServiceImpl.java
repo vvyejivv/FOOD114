@@ -1,6 +1,7 @@
 package teamProject.food114.service;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import teamProject.food114.mapper.CustomerMapper;
 import teamProject.food114.model.Customer;
+import teamProject.food114.model.Order;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -179,6 +181,20 @@ public class CustomerServiceImpl implements CustomerService {
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e.getMessage());
+		}
+		return resultMap;
+	}
+	//마이페이지 - 주문/리뷰 - 주문내역리스트
+	@Override
+	public HashMap<String, Object> searchMyOrderList(HashMap<String, Object> map) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			List<Order> orderList = customerMapper.selectMyOrderList(map);
+			resultMap.put("orderList", orderList);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			resultMap.put("result", "fail");
 		}
 		return resultMap;
 	}
