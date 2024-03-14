@@ -24,14 +24,9 @@
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 	z-index: 1000;
 }
-body{
-	margin:0px;
-}
-.modal-content {
-	margin-bottom: 10px;
-	width: 400px;
-	height: 200px;
-	border-radius: 10px;
+
+body {
+	margin: 0px;
 }
 
 .close {
@@ -61,6 +56,10 @@ body{
 }
 
 .modal-content {
+	margin-bottom: 10px;
+	width: 400px;
+	height: 200px;
+	border-radius: 10px;
 	position: fixed;
 	top: 50%;
 	left: 50%;
@@ -76,12 +75,11 @@ body{
 	background-color: white;
 	font-size: 14px;
 	color: rgb(161, 1, 161);
-	font-weight: bold;
-	margin-top: 10px;
-	margin-left: auto;
+	font-weight: bold;	
 	float: none;
 	cursor: pointer;
-	
+	margin:10px;
+	margin-top:15px;
 }
 
 .modalButton:hover {
@@ -93,13 +91,13 @@ body{
 
 .modalCancel {
 	border: none;
-	background-color:white;
+	background-color: white;
 	font-size: 14px;
 	font-weight: bold;
 	color: rgb(72, 72, 72);
-	margin-top: 10px;
 	cursor: pointer;
-	margin-right: 40px;
+	margin:10px;
+		margin-top:15px;
 }
 
 .modalCancel:hover {
@@ -109,7 +107,7 @@ body{
 
 .modalInput {
 	width: 300px;
-	height: 40px;
+	height: 30px;
 	border: 1px solid #f9f9f9;
 	background-color: #f9f9f9;
 	border-radius: 4px;
@@ -124,7 +122,6 @@ input[type="text"] {
 input[type='text']:focus {
 	outline: none;
 }
-
 </style>
 </head>
 <link rel="stylesheet" href="../css/myPage_myInfo(main).css">
@@ -146,7 +143,7 @@ input[type='text']:focus {
 		<div class="container">
 			<%@include file="myPage_header.jsp"%>
 			<div id="app">
-				<div class="content" style="width : 900px;">
+				<div class="content" style="width: 900px;">
 					<h2>
 						<a href="javascript:;" style="font-size: 25px; color: #747171;">
 							<span style="color: #ff7f00; font-weight: bold;">| </span>MY정보
@@ -163,63 +160,78 @@ input[type='text']:focus {
 								<div class="cell1">이름</div>
 								<div class="cell2">
 									{{info.name}}
-									<button class="buttonSubmit" @click="openNameModal('name')">이름 변경</button>
+									<button class="buttonSubmit" @click="openNameModal('name')">이름
+										변경</button>
 								</div>
 							</div>
 							<!-- name 모달 창 -->
 							<div class="modal-backdrop" id="Modal" v-if="modalFlg">
-									<div class="modal-content">
-										<h2 v-html="modalTitle">이름 변경</h2>
-											<p style="color: #888; margin-top:none;" v-html="modalText">변경할 이름을 입력해주세요.</p>
-											<input class="modalInput" v-model="newName" type="text"  placeholder="이름" v-if="modalType=='name'">
-											<input class="modalInput" v-model="newNickName" type="text"  placeholder="닉네임"  v-if="modalType=='nickName'">
-											<input class="modalInput" v-model="newPhone" type="text"  placeholder="연락처"  v-if="modalType=='phone'">
-											<template v-if="modalType=='email'">
-											<input class="modalInput" v-model="newEmail" type="text"  placeholder="이메일"  >
-											</template>
-										<div>
-											<button class="modalButton" @click="fnSubmit()">저장</button>
-											<button class="modalCancel" @click="cancelModal">닫기</button>
-										</div>
+								<div class="modal-content">
+									<h2 v-html="modalTitle">이름 변경</h2>
+									<p style="color: #888; margin-top: none;" v-html="modalText">변경할
+										이름을 입력해주세요.</p>
+									<input class="modalInput" v-model="changeValue" type="text"
+										placeholder="이름" v-if="modalType=='name'">
+									<input class="modalInput" v-model="changeValue" type="text"
+										placeholder="닉네임" v-if="modalType=='nickName'">
+									<input class="modalInput" v-model="changeValue" type="text"
+										placeholder="연락처" v-if="modalType=='phone'">
+									<template v-if="modalType=='email'">
+										<input class="modalInput" v-model="email" type="text" @input="fnConcat"
+											placeholder="이메일" style="width: 130px; margin-right: 5px;">
+										@
+										<input class="modalInput" v-model="emailAddr" type="text" @input="fnConcat"
+											style="width: 130px;" placeholder="주소">
+									</template>
+									<div>
+										<button class="modalButton" @click="fnSubmit({column:modalType, value:changeValue})">저장</button>
+										
+										<button class="modalCancel" @click="cancelModal">닫기</button>
 									</div>
+								</div>
 							</div>
 							<div class="row">
 								<div class="cell1">별명</div>
 								<div class="cell2">
 									{{info.nickName}}
-									<button class="buttonSubmit" @click="openNameModal('nickName')">별명 변경</button>
+									<button class="buttonSubmit" @click="openNameModal('nickName')">별명
+										변경</button>
 								</div>
-							</div>							
-							
+							</div>
+
 							<div class="row">
 								<div class="cell1">생일</div>
 								<div class="cell2">
 									{{info.birth}}
-									</button>
+									<button class="buttonSubmit" @click="openNameModal('nickName')">생일
+										변경</button>
 								</div>
 							</div>
 							<div class="row">
 								<div class="cell1">휴대폰번호</div>
 								<div class="cell2">
 									{{info.phone}}
-									<button class="buttonSubmit" @click="openNameModal('phone')">연락처 변경</button>
+									<button class="buttonSubmit" @click="openNameModal('phone')">연락처
+										변경</button>
 								</div>
-							</div>							
+							</div>
 
 							<div class="row">
 								<div class="cell1">이메일</div>
 								<div class="cell2">
 									<span id="email">{{info.email}}</span>
-									<button class="buttonSubmit" @click="openNameModal('email')">이메일 변경</button>
+									<button class="buttonSubmit" @click="openNameModal('email')">이메일
+										변경</button>
 								</div>
 							</div>
-							
+
 							<div class="row">
 								<div class="cell1">회원가입일자</div>
 								<div class="cell2">{{info.cdate}}</div>
 							</div>
 							<div class="row">
-								<div style="margin-top: 10px; margin-left: 520px; right; font-size: 13px; color: #747171;">
+								<div
+									style="margin-top: 10px; margin-left: 520px; right; font-size: 13px; color: #747171;">
 									탈퇴를 원하시면 우측의 회원탈퇴 버튼을 눌러주세요.&nbsp; <a href="javascript:;"><span
 										class="span">회원탈퇴</span></a>
 								</div>
@@ -235,171 +247,122 @@ input[type='text']:focus {
 </body>
 
 <script type="text/javascript">
-	var app = new Vue(
-			{
-				el : '#app',
-				data : {
-					list : [],
-					info : {},
-					sessionId : "${sessionId}",
-					newName : '',
-					modalFlg : false,
-					newNickName : '',
-					newPhone : '',
-					newEmail : '',
-					nameModalFlg : false,
-					nickNameModalFlg : false,
-					phoneModalFlg : false,
-					emailModalFlg : false,
-					modalTitle : "", // 모달창 제목 (이름변경/닉네임변경 등)
-					modalText : "", // 모달창 내용 (이름을 변경해주세요 등)
-					modalType : "",
-					newName : "",
-					newNickname: "",
-					newPhone : "",
-					newEmail : ""
-					
-				},
-				methods : {
-					/* 유저 정보 호출 */
-					fnList : function() {
-						var self = this;
-						var nparmap = {
-							userId : self.sessionId
-						};
-						$.ajax({
-							url : "myInfo.dox",
-							dataType : "json",
-							type : "POST",
-							data : nparmap,
-							success : function(data) {
-								self.info = data.info;
-							}
-						});
-					},
-					/* 모달창에서 저장 */
-					fnSubmit : function() {
-						var self = this;						
-						var nparmap = {
-							userId : self.info.userId,
-							name : self.info.name,
-							nickName : self.info.nickName,
-							phone : self.info.phone,
-							email : self.info.email
-						};
-						$.ajax({
-							url : "updateMyInfo.dox",
-							dataType : "json",
-							type : "POST",
-							data : nparmap,
-							success : function(data) {
-								if(data.result == "success"){
-									alert("변경되었습니다.");
-									return location.href = "/myInfo.do";
-								}else{
-									alert("오류가 발생하였습니다.");
-								}
-								self.info = data.info;
-								console.log(data.info);
-							}
-						});
-					},
-					fnClick : function() {
-						location.href = "/myInfo.do";
-					},
-					// 변경 클릭시 오픈 모달창
-					openNameModal : function(type) {
-						var self = this;
-						self.modalType = type;
-						self.modalFlg=true;
-						self.modalType=type;
-						if(type=="name"){
-							self.modalTitle="이름 변경";
-							self.modalText="변경하실 이름을 입력해주세요."
-							return;
-						}
-						if(type=="nickName"){
-							self.modalTitle="별명 변경";
-							self.modalText="변경하실 별명을 입력해주세요."
-							return;
-						}
-						if(type=="phone"){
-							self.modalTitle="휴대폰번호 변경";
-							self.modalText="변경하실 휴대폰번호를 입력해주세요."
-							return;
-						}
-						if(type=="email"){
-							self.modalTitle="이메일 변경";
-							self.modalText="변경하실 이메일을 입력해주세요."
-							return;
-						}
-					},
-					cancelModal : function(){
-						var self=this;
-						self.modalFlg=false;
+	var app = new Vue({
+		el : '#app',
+		data : {
+			list : [],
+			info : {},
+			sessionId : "${sessionId}",
+			newName : '',
+			modalFlg : false,
+			newNickName : '',
+			newPhone : '',
+			newEmail : '',
+			nameModalFlg : false,
+			nickNameModalFlg : false,
+			phoneModalFlg : false,
+			emailModalFlg : false,
+			modalTitle : "", // 모달창 제목 (이름변경/닉네임변경 등)
+			modalText : "", // 모달창 내용 (이름을 변경해주세요 등)
+			modalType : "",
+			changeValue :"",
+			email :"",
+			emailAddr :""
+
+		},
+		methods : {
+			fnConcat : function(){
+				var self=this;				
+				self.changeValue=self.email+"@"+self.emailAddr;
+				console.log(self.changeValue);
+			},
+			/* 유저 정보 호출 */
+			fnList : function() {
+				var self = this;
+				var nparmap = {
+					userId : self.sessionId
+				};
+				$.ajax({
+					url : "myInfo.dox",
+					dataType : "json",
+					type : "POST",
+					data : nparmap,
+					success : function(data) {
+						self.info = data.info;
 					}
-					,
-					openNickNameModal : function(type) {
-						var self = this;
-						if (type == "open") {
-							self.nickNameModalFlg = true;
-							document.body.style.overflow = 'hidden';
-						}
-						if (type == "close") {
-							self.nickNameModalFlg = false;
-							document.body.style.overflow = 'auto';
-						}
-					},
-					openPhoneModal : function(type) {
-						var self = this;
-						if (type == "open") {
-							self.phoneModalFlg = true;
-							document.body.style.overflow = 'hidden';
-						}
-						if (type == "close") {
-							self.phoneModalFlg = false;
-							document.body.style.overflow = 'auto';
-						}
-					},
-					openEmailModal : function(type) {
-						var self = this;
-						if (type == "open") {
-							self.emailModalFlg = true;
-							document.body.style.overflow = 'hidden';
-						}
-						if (type == "close") {
-							self.emailModalFlg = false;
-							document.body.style.overflow = 'auto';
-						}
-					},
-					// 취소시 closeNameModal
-					closeNameModal : function() {
-						var self = this;
-						self.nameModalFlg = false;
-					},
-					// 취소시 closeNickNameModal
-					closeNickNameModal : function() {
-						var self = this;
-						self.nickNameModalFlg = false;
-					},
-					// 취소시 closePhoneModal
-					closePhoneModal : function() {
-						var self = this;
-						self.phoneModalFlg = false;
-					},
-					// 취소시 closeEmailModal
-					closeEmailModal : function() {
-						var self = this;
-						self.emailModalFlg = false;
-					},
-					changeName : function() {
-						location.href = "/boardNoticeList.do";
-					}
-				},
-				created : function() {
-					var self = this;
-					self.fnList();
+				});
+			},
+			/* 모달창에서 저장 - map 키 2개 column, value */
+			fnSubmit : function(map) { 
+				var self = this;	
+				var regex = /^[^\d\s가-힣]*\..*$/; // 이메일 정규식
+				
+				map["userId"]=self.info.userId;
+				
+				if(self.changeValue==""){
+					alert("최소 한글자 이상 입력해주세요");
+					return;
 				}
-			});
+				if(self.modalType=="email"&& !emailAddr.test(self.email))
+				
+				$.ajax({
+					url : "updateMyInfo.dox",
+					dataType : "json",
+					type : "POST",
+					data : map,
+					success : function(data) {
+						if(data.result=="success"){
+							alert("정보가 수정되었습니다");
+							self.modalFlg=false;
+							self.fnList();
+						} else{
+							alert("실패");
+						}
+					}
+				});
+			},
+			fnClick : function() {
+				location.href = "/myInfo.do";
+			},
+			// 변경 클릭시 오픈 모달창
+			openNameModal : function(type) {
+				var self = this;
+				self.modalType = type;
+				self.modalFlg = true;
+				self.modalType = type;
+				if (type == "name") {
+					self.modalTitle = "이름 변경";
+					self.modalText = "변경하실 이름을 입력해주세요."
+					return;
+				}
+				if (type == "nickName") {
+					self.modalTitle = "별명 변경";
+					self.modalText = "변경하실 별명을 입력해주세요."
+					return;
+				}
+				if (type == "phone") {
+					self.modalTitle = "휴대폰번호 변경";
+					self.modalText = "변경하실 휴대폰번호를 입력해주세요."
+					return;
+				}
+				if (type == "email") {
+					self.modalTitle = "이메일 변경";
+					self.modalText = "변경하실 이메일을 입력해주세요."
+					return;
+				}
+			},
+			cancelModal : function(){
+				var self=this;
+				self.modalFlg=false;
+				self.changeValue="";
+				self.email="";
+				self.emailAddr="";
+			}
+		},
+		created : function() {
+			var self = this;
+			self.fnList();
+		}
+	});
 </script>
 </html>

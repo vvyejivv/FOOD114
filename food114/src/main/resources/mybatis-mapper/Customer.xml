@@ -47,10 +47,7 @@
 	<update id="updateMyInfo" parameterType="hashmap">
 		UPDATE FOOD114_CONSUMER
 		SET
-			NAME = #{name},
-			NICKNAME = #{nickName},
-			PHONE = #{phone},
-			EMAIL = #{email}
+			${column}=#{value}
 		WHERE USERID = #{userId}
 	</update>
 
