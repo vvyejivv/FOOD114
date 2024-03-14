@@ -42,6 +42,10 @@ public class Biz {
 	private String title;
 	private String contents;
 	
+	// 반경, 배달포장가능여부
+	private String range;
+	private String takeOut;
+	
 	public String getBizId() {
 		return bizId;
 	}
