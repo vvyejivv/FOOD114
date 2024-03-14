@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import teamProject.food114.model.Area;
 import teamProject.food114.model.Biz;
 import teamProject.food114.model.BizFile;
+import teamProject.food114.model.Category;
 
 
 @Mapper
@@ -27,5 +28,16 @@ public interface BizMapper {
 	void insertBizFile(HashMap<String, Object> map); // 파일 업로드
 	BizFile selectBizFile(HashMap<String, Object> map); // 파일 불러오기
 	void updateBizFile(HashMap<String, Object> map); // 파일 변경
+	
+	
+	List<Category> selectCategory(HashMap<String,Object> map); // 카테고리 전체조회
+	BizFile selectWaitBizFile(HashMap<String, Object> map); // 대기상태 파일 불러오기
+	void updateBizInfo(HashMap<String,Object> map); // 사업자 정보 업데이트
+	void updateBizFileCompleteToDelete(HashMap<String,Object> map); // bizFile complete->delete
+	void updateBizFileWaitToComplete(HashMap<String,Object> map); // bizFile wait->complete
+	
+	
+	
 
+	List<Biz> selectAreaList(HashMap<String, Object> map); // 시구동 검색 식당 리스트 조회
 }

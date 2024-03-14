@@ -49,7 +49,7 @@
 	</section>
 
 	<footer>
-		<%@include file="main(footer).html"%>
+		<%@include file="main(footer)_biz.html"%>
 	</footer>
 </body>
 

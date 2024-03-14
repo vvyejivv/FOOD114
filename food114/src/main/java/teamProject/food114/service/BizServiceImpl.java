@@ -9,16 +9,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import teamProject.food114.mapper.BizMapper;
+import teamProject.food114.mapper.CodeMapper;
 import teamProject.food114.model.Area;
 import teamProject.food114.model.Biz;
 import teamProject.food114.model.BizFile;
-
+import teamProject.food114.model.Category;
 
 @Service
 public class BizServiceImpl implements BizService {
 
 	@Autowired
 	BizMapper bizMapper;
+
+	@Autowired
+	CodeMapper codeMapper;
 
 	@Autowired
 	HttpSession session;
@@ -53,7 +57,7 @@ public class BizServiceImpl implements BizService {
 					resultMap.put("pwd", "pwdSuccess");
 
 					// 세션 생성
-					session.setAttribute("sessionId", biz.getBizId());
+					session.setAttribute("sessionBizId", biz.getBizId());
 
 				} else {
 					// 로그인 실패(패스워드가 다른 경우)
@@ -140,6 +144,7 @@ public class BizServiceImpl implements BizService {
 		try {
 			List<Area> guList = bizMapper.selectGuList(map);
 			resultMap.put("guList", guList);
+
 			resultMap.put("result", "success");
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -203,7 +208,7 @@ public class BizServiceImpl implements BizService {
 		// TODO Auto-generated method stub
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		try {
-			if(bizMapper.selectBizFile(map) == null) {				
+			if (bizMapper.selectWaitBizFile(map) == null) {
 				bizMapper.insertBizFile(map);
 			} else {
 				bizMapper.updateBizFile(map);
@@ -212,6 +217,59 @@ public class BizServiceImpl implements BizService {
 			resultMap.put("result", "success");
 		} catch (Exception e) {
 			// TODO: handle exception
+			System.out.println(e.getMessage());
+			resultMap.put("result", "fail");
+		}
+		return resultMap;
+	}
+
+	@Override
+	public HashMap<String, Object> searchSelect(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> resultMap = new HashMap<>();
+		resultMap.put("categoryList", bizMapper.selectCategory(map));
+		resultMap.put("bankList", codeMapper.selectBank(map));
+		resultMap.put("emailList", codeMapper.selectEmail(map));
+		return resultMap;
+
+	}
+
+	@Override
+	public HashMap<String, Object> searchBizFile(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> resultMap = new HashMap<>();
+		resultMap.put("bizFile", bizMapper.selectWaitBizFile(map));
+		return resultMap;
+	}
+
+	@Override
+	public HashMap<String, Object> editBizInfo(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> resultMap = new HashMap<>();
+		try {
+			bizMapper.updateBizInfo(map);
+			System.out.println((boolean)map.get("imgFlg"));
+//			bizMapper.updateBizFileCompleteToDelete(map);
+//			bizMapper.updateBizFileWaitToComplete(map);
+			
+			resultMap.put("result", "success");
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			resultMap.put("result", "failed");
+		}
+		return resultMap;
+	}
+	
+	public HashMap<String, Object> searchAreaList(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		List<Biz> areaRestList = bizMapper.selectAreaList(map);
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			resultMap.put("areaRestList", areaRestList);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			resultMap.put("result", "fail");
 		}
