@@ -113,6 +113,7 @@ body{
 	border: 1px solid #f9f9f9;
 	background-color: #f9f9f9;
 	border-radius: 4px;
+	padding: 5px 15px;
 }
 
 input[type="text"] {
@@ -123,6 +124,7 @@ input[type="text"] {
 input[type='text']:focus {
 	outline: none;
 }
+
 </style>
 </head>
 <link rel="stylesheet" href="../css/myPage_myInfo(main).css">
@@ -161,18 +163,23 @@ input[type='text']:focus {
 								<div class="cell1">이름</div>
 								<div class="cell2">
 									{{info.name}}
-									<button class="buttonSubmit" @click="openNameModal('open')">이름 변경</button>
+									<button class="buttonSubmit" @click="openNameModal('name')">이름 변경</button>
 								</div>
 							</div>
 							<!-- name 모달 창 -->
-							<div class="modal-backdrop" id="nameModal" v-if="nameModalFlg">
+							<div class="modal-backdrop" id="Modal" v-if="modalFlg">
 									<div class="modal-content">
-										<h2>이름 변경</h2>
-											<p style="color: #888; margin-top:none;">변경할 이름을 입력해주세요.</p>
-											<input class="modalInput" v-model="info.name" type="text" id="newNameInput" placeholder="새로운 이름을 입력하세요.">
+										<h2 v-html="modalTitle">이름 변경</h2>
+											<p style="color: #888; margin-top:none;" v-html="modalText">변경할 이름을 입력해주세요.</p>
+											<input class="modalInput" v-model="newName" type="text"  placeholder="이름" v-if="modalType=='name'">
+											<input class="modalInput" v-model="newNickName" type="text"  placeholder="닉네임"  v-if="modalType=='nickName'">
+											<input class="modalInput" v-model="newPhone" type="text"  placeholder="연락처"  v-if="modalType=='phone'">
+											<template v-if="modalType=='email'">
+											<input class="modalInput" v-model="newEmail" type="text"  placeholder="이메일"  >
+											</template>
 										<div>
-											<button class="modalButton" @click="fnSubmit">저장</button>
-											<button class="modalCancel" @click="closeNameModal('close')">닫기</button>
+											<button class="modalButton" @click="fnSubmit()">저장</button>
+											<button class="modalCancel" @click="cancelModal">닫기</button>
 										</div>
 									</div>
 							</div>
@@ -180,22 +187,10 @@ input[type='text']:focus {
 								<div class="cell1">별명</div>
 								<div class="cell2">
 									{{info.nickName}}
-									<button class="buttonSubmit" @click="openNickNameModal('open')">별명 변경</button>
+									<button class="buttonSubmit" @click="openNameModal('nickName')">별명 변경</button>
 								</div>
-							</div>
+							</div>							
 							
-							<!-- nickName 모달 창 -->
-							<div class="modal-backdrop"  id="nickNameModal" v-if="nickNameModalFlg">
-								<div class="modal-content">
-									<h2>별명 변경</h2>
-											<p style="color: #888; margin-top:none;">변경할 별명을 입력해주세요.</p>
-											<input class="modalInput" v-model="info.nickName" type="text" id="newNickNameInput" placeholder="새로운 별명을 입력하세요.">
-										<div>
-											<button class="modalButton" @click="fnSubmit">저장</button>
-											<button class="modalCancel" @click="closeNickNameModal('close')">닫기</button>
-										</div>
-								</div>
-							</div>
 							<div class="row">
 								<div class="cell1">생일</div>
 								<div class="cell2">
@@ -207,41 +202,18 @@ input[type='text']:focus {
 								<div class="cell1">휴대폰번호</div>
 								<div class="cell2">
 									{{info.phone}}
-									<button class="buttonSubmit" @click="openPhoneModal('open')">연락처 변경</button>
+									<button class="buttonSubmit" @click="openNameModal('phone')">연락처 변경</button>
 								</div>
-							</div>
-							<!-- phone 모달 창 -->
-							<div class="modal-backdrop" id="phoneModal" v-if="phoneModalFlg">
-								<div class="modal-content">
-									<h2>연락처 변경</h2>
-										<p style="color: #888; margin-top:none;">변경할 연락처를 입력해주세요.</p>
-										<input class="modalInput" v-model="info.phone" type="text" id="newPhoneInput" placeholder="새로운 연락처를 입력하세요.">
-									<div>
-										<button class="modalButton" @click="fnSubmit">저장</button>
-										<button class="modalCancel" @click="closePhoneModal('close')">닫기</button>
-									</div>
-								</div>
-							</div>
+							</div>							
 
 							<div class="row">
 								<div class="cell1">이메일</div>
 								<div class="cell2">
 									<span id="email">{{info.email}}</span>
-									<button class="buttonSubmit" @click="openEmailModal('open')">이메일 변경</button>
+									<button class="buttonSubmit" @click="openNameModal('email')">이메일 변경</button>
 								</div>
 							</div>
-							<!-- email 모달 창 -->
-							<div class="modal-backdrop" id="emailModal" v-if="emailModalFlg">
-								<div class="modal-content">
-									<h2>E-MAIL 변경</h2>
-										<p style="color: #888; margin-top:none;">변경할 이메일을 입력해주세요.</p>
-										<input class="modalInput" v-model="info.email" type="email" id="newEmailInput" placeholder="새로운 이메일을 입력하세요.">
-									<div>
-										<button class="modalButton" @click="fnSubmit">저장</button>
-										<button class="modalCancel" @click="closeEmailModal('close')">닫기</button>
-									</div>
-								</div>
-							</div>
+							
 							<div class="row">
 								<div class="cell1">회원가입일자</div>
 								<div class="cell2">{{info.cdate}}</div>
@@ -278,10 +250,18 @@ input[type='text']:focus {
 					nameModalFlg : false,
 					nickNameModalFlg : false,
 					phoneModalFlg : false,
-					emailModalFlg : false
+					emailModalFlg : false,
+					modalTitle : "", // 모달창 제목 (이름변경/닉네임변경 등)
+					modalText : "", // 모달창 내용 (이름을 변경해주세요 등)
+					modalType : "",
+					newName : "",
+					newNickname: "",
+					newPhone : "",
+					newEmail : ""
 					
 				},
 				methods : {
+					/* 유저 정보 호출 */
 					fnList : function() {
 						var self = this;
 						var nparmap = {
@@ -294,7 +274,6 @@ input[type='text']:focus {
 							data : nparmap,
 							success : function(data) {
 								self.info = data.info;
-								console.log(data.info);
 							}
 						});
 					},
@@ -328,18 +307,38 @@ input[type='text']:focus {
 					fnClick : function() {
 						location.href = "/myInfo.do";
 					},
-					// openNameModal 클릭시 오픈 모달창
+					// 변경 클릭시 오픈 모달창
 					openNameModal : function(type) {
 						var self = this;
-						if (type == "open") {
-							self.nameModalFlg = true;
-							document.body.style.overflow = 'hidden';
+						self.modalType = type;
+						self.modalFlg=true;
+						self.modalType=type;
+						if(type=="name"){
+							self.modalTitle="이름 변경";
+							self.modalText="변경하실 이름을 입력해주세요."
+							return;
 						}
-						if (type == "close") {
-							self.nameModalFlg = false;
-							document.body.style.overflow = 'auto';
+						if(type=="nickName"){
+							self.modalTitle="별명 변경";
+							self.modalText="변경하실 별명을 입력해주세요."
+							return;
+						}
+						if(type=="phone"){
+							self.modalTitle="휴대폰번호 변경";
+							self.modalText="변경하실 휴대폰번호를 입력해주세요."
+							return;
+						}
+						if(type=="email"){
+							self.modalTitle="이메일 변경";
+							self.modalText="변경하실 이메일을 입력해주세요."
+							return;
 						}
 					},
+					cancelModal : function(){
+						var self=this;
+						self.modalFlg=false;
+					}
+					,
 					openNickNameModal : function(type) {
 						var self = this;
 						if (type == "open") {
