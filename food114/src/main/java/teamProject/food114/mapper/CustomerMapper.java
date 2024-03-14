@@ -22,11 +22,16 @@ public interface CustomerMapper {
 	// select * addr where userid
 	List<Addr> selectUserAddr(HashMap<String,Object> map);
 
-	// myInfo 수정
+	// myInfo 변경 : 이름, 별명, 연락처, 이메일
 	void updateMyInfo(HashMap<String, Object> map);
 	
 	// 메뉴->고객 주소 입력시
 	Addr selectUserSiGuDong(HashMap<String, Object> map);
-	// pwd 수정(myInfo)
+	
+	// pwd 변경(myInfo)
 	void updatePwd(HashMap<String, Object> map);
+	
+	// myInfo - my주소지 관리 - 주소지 상세보기
+	List<Addr> selectMyInfoAddr(HashMap<String,Object> map);
+	
 }

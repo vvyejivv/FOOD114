@@ -43,7 +43,7 @@ public class CustomerController {
 		return "/myPage_header";
 	}
 
-	// 마이페이지 - 나의 정보 수정
+	// 마이페이지 - 나의 정보 수정 (myInfo 변경 : 이름, 별명, 연락처, 이메일)
 	@RequestMapping(value = "/updateMyInfo.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String updateMyInfo(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
@@ -93,7 +93,6 @@ public class CustomerController {
 	@ResponseBody
 	public String myInfoPwd2(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		resultMap = customerService.searchLoginUserId(map);
 		resultMap = customerService.editPwd(map);
 		return new Gson().toJson(resultMap);
 	}
@@ -106,6 +105,15 @@ public class CustomerController {
 		return "/myPage_myInfo(addr)";
 	}
 
+	// 고객 주소 목록 불러오기
+	@RequestMapping(value = "/myInfoAddr.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String searchMyInfoAddr(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+			HashMap<String, Object> resultMap = new HashMap<String, Object>();
+			resultMap = customerService.searchMyInfoAddr(map);
+			return new Gson().toJson(resultMap);
+	}
+	
 	// 마이페이지 - 나의정보 - 등급
 	@RequestMapping("/myInfoGrade.do")
 	public String myPageGrade(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)

@@ -107,7 +107,7 @@ public class CustomerServiceImpl implements CustomerService {
 		return resultMap;
 	}
 
-	// 마이페이지 내정보 불러오기 : 수정중
+	// 마이페이지 내정보 불러오기 
 	@Override
 	public HashMap<String, Object> searchMyInfo(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
@@ -136,7 +136,8 @@ public class CustomerServiceImpl implements CustomerService {
 		}
 		return resultMap;
 	}
-	// myInfo 수정
+	
+	// myInfo 변경 : 이름, 별명, 연락처, 이메일
 	@Override
 	public HashMap<String, Object> editMyInfo(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
@@ -152,7 +153,7 @@ public class CustomerServiceImpl implements CustomerService {
 		return resultMap;
 	}
 
-	// pwd 수정(myInfo)
+	// pwd 변경(myInfo)
 	@Override
 	public HashMap<String, Object> editPwd(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
@@ -163,6 +164,20 @@ public class CustomerServiceImpl implements CustomerService {
 		} catch (Exception e) {
 			// TODO: handle exception
 			resultMap.put("result", "error");
+			System.out.println(e.getMessage());
+		}
+		return resultMap;
+	}
+
+	// myInfo - my주소지 관리 - 주소지 상세보기
+	@Override
+	public HashMap<String, Object> searchMyInfoAddr(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> resultMap = new HashMap<>();
+		try {
+			resultMap.put("InfoAddr", customerMapper.selectMyInfoAddr(map));
+		} catch (Exception e) {
+			// TODO: handle exception
 			System.out.println(e.getMessage());
 		}
 		return resultMap;

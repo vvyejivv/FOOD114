@@ -30,7 +30,7 @@
 		<div class="container">
 			<%@include file="myPage_header.jsp"%>
 			<div id="app">
-				<div class="content">
+				<div class="content" style="width : 900px;">
 					<h2>
 						<a href="javascript:;" style="font-size: 25px; color: #747171;">
 							<span style="color: #ff7f00; font-weight: bold;">| </span>비밀번호 변경
@@ -45,13 +45,13 @@
 										새 비밀번호
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 										<input type="password" style="height: 20px;" v-model="newPwd"
-											@input="fnNewPwd"> <span v-if="a"
+											@input="fnNewPwd"> <span v-if="inputPwd"
 											style="color: red; font-size: 11px;"> <br>
 											※영문/숫자/특수문자 2가지 이상 조합(8~20자) 3개 이상 연속되거나 동일한 문자/숫자 제외
 										</span>
 									</div>
 									<div>
-										비밀번호 다시 입력&nbsp;<input type="text" style="height: 20px;"
+										비밀번호 다시 입력&nbsp;<input type="password" style="height: 20px;"
 											v-model="rePwd">
 									</div>
 									<span v-if="newPwd !== rePwd && rePwd !== '' "
@@ -59,9 +59,11 @@
 								</div>
 							</div>
 
-							<div class="row" style="text-align: center; margin-top: 5px;">
-								<button class="buttonSubmit" @click="pwdChange" style="float: left;">변경</button>
-								<button class="buttonRemove" @click="pwdRemove" style="margin-left: 300px;">취소</button>
+							<div class="row">
+								<div style="margin-left: 350px;">
+									<button class="buttonSubmit" @click="pwdChange" style="float: left;">변경</button>
+									<button class="buttonRemove" @click="pwdRemove">취소</button>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -84,7 +86,7 @@
 					pwd : '',
 					newPwd : '',
 					rePwd : '',
-					a : false
+					inputPwd : false
 				},
 				methods : {
 					fnList : function() {
@@ -107,7 +109,7 @@
 						var self = this;
 						let reg = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/
 						if (!reg.test(self.newPwd)) {
-							self.a = true;
+							self.inputPwd = true;
 							return;
 						} else {
 							self.a = false;
@@ -125,15 +127,25 @@
 					},
 					pwdChange : function() {
 						var self = this;
+						
+						
+						
 						var nparmap = {
-							pwd : self.newPwd
+							userId : self.sessionId,
+							newPwd : self.newPwd
 						};
 						$.ajax({
-							url : "myInfo.dox",
+							url : "myInfoPwdUpdate.dox",
 							dataType : "json",
 							type : "POST",
 							data : nparmap,
 							success : function(data) {
+								if(data.result == "success"){
+									alert("변경되었습니다.");
+									return location.href = "/myInfo.do";
+								}else{
+									alert("오류가 발생하였습니다.");
+								}
 								self.info = data.info;
 								console.log(data.info);
 							}
@@ -158,7 +170,7 @@
 				},
 				created : function() {
 					var self = this;
-					self.fnList();
+				//	self.fnList();
 				}
 			});
 </script>

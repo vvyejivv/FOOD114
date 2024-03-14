@@ -43,14 +43,14 @@
 		)
 	</select>
 
-	<!-- myInfo 수정 -->
+	<!-- myInfo 변경 : 이름, 별명, 연락처, 이메일 -->
 	<update id="updateMyInfo" parameterType="hashmap">
-		UPDATE FOOD114_CUSTOMER
+		UPDATE FOOD114_CONSUMER
 		SET
-		NAME = #{name},
-		NICKNAME = #{nickName},
-		PHONE = #{phone},
-		EMAIL = #{email}
+			NAME = #{name},
+			NICKNAME = #{nickName},
+			PHONE = #{phone},
+			EMAIL = #{email}
 		WHERE USERID = #{userId}
 	</update>
 
@@ -65,13 +65,21 @@
 		AND A1.OLDADDR LIKE CONCAT('%', A2.DONG, '%');
 	</select>
 	
-	<!-- pwd 수정(myInfo) -->
-	<!-- <update id="updatePwd" parameterType="hashmap">
+	<!-- pwd 변경(myInfo) -->
+	<update id="updatePwd" parameterType="hashmap">
 		UPDATE FOOD114_CONSUMER
 		SET
 			PWD = #{newPwd}
 		WHERE USERID = #{userId}
-	</update> -->
+	</update>
+	
+	<!-- myInfo - my주소지 관리 - 주소지 상세보기 -->
+	<select id="selectMyInfoAddr" parameterType="hashmap" resultType="teamProject.food114.model.Addr">
+	SELECT * 
+		FROM FOOD114_CONSUMER C
+		INNER JOIN FOOD114_CONSUMER_ADDR A ON C.USERID = A.USERID
+	WHERE C.USERID = #{userId}
+	</select>
 	
 	
 </mapper>

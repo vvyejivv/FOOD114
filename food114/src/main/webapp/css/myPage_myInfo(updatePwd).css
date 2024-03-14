@@ -32,8 +32,9 @@ body {
 	color: #ff7f00;
 	margin: 5px;
 	float: right;
+	margin-left: 300px;
 	cursor: pointer;
-	margin-top: 5ps;
+	margin-top: 5px;
 }
 
 .buttonSubmit:hover {
@@ -107,8 +108,8 @@ a {
 .content {
 	margin: 10px;
 	margin-left: 20px;
-	padding: 5px;
-	padding-left: 30px;
+	/* padding: 5px;
+	padding-left: 30px; */
 	width: 1000px;
 	height: 800px;
 	/* border: 1px solid black; */

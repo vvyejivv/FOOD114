@@ -31,7 +31,7 @@
 		<div class="container">
 			<%@include file="myPage_header.jsp"%>
 			<div id="app">
-				<div class="content">
+				<div class="content" style="width : 900px;">
 					<h2>
 						<a href="javascript:;" style="font-size: 25px; color: #747171;">
 							<span style="color: #ff7f00; font-weight: bold;">| </span>비밀번호 변경
@@ -53,10 +53,11 @@
 								</div>
 
 							</div>
-							<div class="row">
-								<button class="buttonSubmit" @click="checkPwd" style=" margin-left: 450px">확인</button>
-								<button class="buttonRemove" >취소</button>
-								
+							<div class="row" >
+								<div style="margin-left: 350px;">
+									<button class="buttonRemove" @click="fnClick" >취소</button>
+									<button class="buttonSubmit" @click="checkPwd">확인</button>
+								</div>
 							</div>
 						</div>
 
@@ -106,7 +107,7 @@
 					});
 					
 					/* alert("동일"); */
-				} else if(self.pwd == ""){
+				} else if(self.pwd == "" || self.pwd == null){
 					alert("비밀번호를 입력해주세요.");
 				} else{
 					alert("비밀번호가 다릅니다.");
@@ -123,6 +124,9 @@
 			},
 			fnMyInfoGrade : function() {
 				location.href = "/myInfoGrade.do";
+			},
+			fnClick : function() {
+				location.href = "/myInfo.do";
 			},
 		},
 		created : function() {
