@@ -270,10 +270,12 @@ section {
 						<div class="infoName">영업시간</div>
 
 						<span v-if="!updateFlg" class="viewInfo">
+						<template v-if="!typeof bizInfo.closeTime==='undefined'">
 							{{openHour}}시{{openMinute}}분
-							<div v-if="bizInfo.openTime==null" class="nullSpace"></div> 부터
-							{{closeHour}}시{{closeMinute}}분
-							<div v-if="bizInfo.closeTime==null" class="nullSpace"></div> 까지
+							</template>
+							<div v-if="typeof bizInfo.openTime==='undefined'" class="nullSpace"></div> 부터
+							<template v-if="!typeof bizInfo.closeTime==='undefined'">{{closeHour}}시{{closeMinute}}분</template>
+							<div v-if="typeof bizInfo.closeTime==='undefined'" class="nullSpace"></div> 까지
 						</span>
 						<template v-if="updateFlg">
 							<select class="timeSelect" v-model="openHour">
@@ -467,23 +469,22 @@ section {
 							type : "POST",
 							data : nparmap,
 							success : function(data) {
+								console.log(self.bizFile);
 								self.bizInfo = data.bizInfo;
 								self.category = data.bizInfo.bizCategory;
 								self.bank = data.bizInfo.bank;
-								self.openHour = data.bizInfo.openTime
-										.substring(0, 2);
-								self.openMinute = data.bizInfo.openTime
-										.substring(2, 4);
-								self.closeHour = data.bizInfo.closeTime
-										.substring(0, 2);
-								self.closeMinute = data.bizInfo.closeTime
-										.substring(2, 4);
+								if(!typeof data.bizInfo.openTime ==="undefined"){
+								self.openHour = data.bizInfo.openTime.substring(0, 2);
+								self.openMinute = data.bizInfo.openTime.substring(2, 4);
+								}
+								if(!typeof data.bizInfo.closeTime ==="undefined"){
+								self.closeHour = data.bizInfo.closeTime.substring(0, 2);
+								self.closeMinute = data.bizInfo.closeTime.substring(2, 4);
+								}
 								/* self.email = data.bizInfo.email.substring(0,instr("@")) */
 								self.email = data.bizInfo.email.substring(0,
 										data.bizInfo.email.indexOf("@"));
-								self.emailAddr = data.bizInfo.email
-										.substring(data.bizInfo.email
-												.indexOf("@") + 1);
+								self.emailAddr = data.bizInfo.email.substring(data.bizInfo.email.indexOf("@") + 1);
 								console.log(data.bizInfo);
 								
 								if (data.bizFile) {

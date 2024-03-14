@@ -224,6 +224,7 @@
 		)
 		GROUP BY
 		I.BIZID
+		${order}
 	</select>
 	
 	<select id="selectAreaList" parameterType="hashmap"

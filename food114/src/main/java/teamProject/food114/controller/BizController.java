@@ -32,6 +32,7 @@ public class BizController {
 
 	@RequestMapping("/business-signup.do")
 	public String businessSignup(Model model) throws Exception {
+		
 		return "/business_signup"; // business_signup.jsp
 	}
 

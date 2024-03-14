@@ -16,7 +16,7 @@
 		LEFT JOIN FOOD114_BOARD_FILE f ON b.boardno = f.boardno
 		WHERE
 		CODE = 3
-		AND f.USAGE = 1
+		AND f.USAGE = 'TITLE'
 		AND b.ENDYN = #{endYn}
 	</select>
 
