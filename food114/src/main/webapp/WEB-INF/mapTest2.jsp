@@ -305,10 +305,10 @@ ul, ol {
 						<img :src="item.path" alt="Hi" class="restImg">
 						<h3 style="margin-top: 8px;">
 							<a style="font-size: 1.5em;" href="javascript:;"
-								@click="fnRestView()">{{item.bizName}}</a>
+								@click="fnRestView(item.bizId)">{{item.bizName}}</a>
 						</h3>
 						<div id="placesList1">
-							<span style="color: #ff7f00;">★ 점수</span> | 리뷰개수
+							<span style="color: #ff7f00;">★ {{item.reviewAvg}}</span> | 리뷰개수 {{item.reviewCnt}}개
 							<p style="margin-left: 60px;">이벤트정보이벤트이벤트이벤트이벤트이벤트이벤트이벤트이이벤트이벤트이벤트이벤트이벤트이벤</p>
 						</div>
 					</div>
@@ -316,10 +316,10 @@ ul, ol {
 						<img :src="item.path" alt="Hi" class="restImg">
 						<h3 style="margin-top: 8px;">
 							<a style="font-size: 1.5em;" href="javascript:;"
-								@click="fnRestView()">{{item.bizName}}</a>
+								@click="fnRestView(item.bizId)">{{item.bizName}}</a>
 						</h3>
 						<div id="placesList1">
-							<span style="color: #ff7f00;">★ 점수</span> | 리뷰개수
+							<span style="color: #ff7f00;">★ {{item.reviewAvg}}</span> | 리뷰개수 {{item.reviewCnt}}개
 							<p style="margin-left: 60px;">이벤트정보이벤트이벤트이벤트이벤트이벤트이벤트이벤트이이벤트이벤트이벤트이벤트이벤트이벤</p>
 						</div>
 					</div>
@@ -733,11 +733,21 @@ ul, ol {
 				        }
 				    });
 				},
-			  fnRestView: function() {
+			  fnRestView: function(bizId) {
 				    var self = this;
 				    var menuView = document.getElementById("menu_view");
 				    menuView.style.transition = "left 0.5s ease"; // 슬라이드 효과를 위한 CSS transition 속성 적용
 				    menuView.style.left = "441px";
+					var nparmap = {bizId : bizId};
+					$.ajax({
+						url : "dongList.dox",
+						dataType : "json",
+						type : "POST",
+						data : nparmap,
+						success : function(data) {
+							
+						}
+					});
 				},
 			  fnRestClose: function() {
 				    var self = this;
