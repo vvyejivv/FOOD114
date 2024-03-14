@@ -20,14 +20,17 @@ pageEncoding="UTF-8"%>
 		<div id="header">
 			<div id="container" style="height: 50px;">
 				<a id="logo" href="business-main.do">
-					<img src="../img/로고2.png" class="logo">
+					<img src="../img/bizLogo.png" class="logo" height="58px">
 				</a>
 				<div id="status">
 					<template v-if="sessionId==null || sessionId==''">
-						<a class="buttonBox" href="bizLogin.do" style="background-color: #ccc; border: none;">사업자로그인 </a>
-						<a class="join" href="business-signup.do" > 사업자회원가입 </a>
+						<a class="buttonBox" href="bizLogin.do"
+							style="background-color: #ccc; border: none;">사업자로그인 </a>
+						<a class="join" href="business-signup.do"> 사업자회원가입 </a>
+						<a class="join" href="food114.do">고객페이지로</a>
 					</template>
 					<template v-if="sessionId!=null && sessionId!=''">
+						<a class="join" href="food114.do">고객페이지로</a>
 						<a class="join" href="javascript:;" @click="fnLogout"> 로그아웃 </a>
 					</template>
 				</div>
@@ -52,23 +55,23 @@ pageEncoding="UTF-8"%>
 			sessionId : "${sessionBizId}"
 		},
 		methods : {
-			fnLogout : function(){
-				var self=this;
-				if(!confirm("정말 로그아웃 하시겠습니까?")){
+			fnLogout : function() {
+				var self = this;
+				if (!confirm("정말 로그아웃 하시겠습니까?")) {
 					return;
 				}
 				var nparmap = {};
-	            $.ajax({
-	                url:"logout.dox",
-	                dataType:"json",	
-	                type : "POST", 
-	                data : nparmap,
-	                success : function(data) { 
-	                	location.reload();
-	                }
-	            }); 
+				$.ajax({
+					url : "logout.dox",
+					dataType : "json",
+					type : "POST",
+					data : nparmap,
+					success : function(data) {
+						location.reload();
+					}
+				});
 			},
-			fnClick : function(link,str){
+			fnClick : function(link, str) {
 				var self = this;
 				$.pageChange(link, {
 					type : str

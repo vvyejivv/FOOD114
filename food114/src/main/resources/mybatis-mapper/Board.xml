@@ -93,19 +93,18 @@
 	<select id="selectBizEvent" parameterType="hashmap"
 		resultType="teamProject.food114.model.Board">
 		SELECT
-		fb.BOARDNO,
-		fb.TYPE,
-		fb.TITLE,
-		fb.CONTENTS,
-		CASE
-		WHEN fb.ENDYN = 'Y' THEN DATE_FORMAT(fb.ENDTIME, '%Y-%m-%d')
-		ELSE CONCAT(DATE_FORMAT(fb.BEGINTIME, '%Y-%m-%d'), ' ~ ',
-		DATE_FORMAT(fb.ENDTIME, '%Y-%m-%d'))
-		END AS eventTime,
-		fi.BIZNAME
-		FROM
-		FOOD114_BOARD fb
-		JOIN
-		FOOD114_BIZ_INFO fi ON fb.USERID = fi.BIZID
+            fb.BOARDNO,
+            fb.TYPE,
+            fb.TITLE,
+            fb.CONTENTS,
+            CASE
+                WHEN fb.ENDYN = 'Y' THEN DATE_FORMAT(fb.ENDTIME, '%Y-%m-%d')
+                ELSE CONCAT(DATE_FORMAT(fb.BEGINTIME, '%Y-%m-%d'), ' ~ ', DATE_FORMAT(fb.ENDTIME, '%Y-%m-%d'))
+            END AS eventTime,
+            fi.BIZNAME
+        FROM
+            FOOD114_BOARD fb
+        JOIN
+            FOOD114_BIZ_INFO fi ON fb.USERID = fi.BIZID
 	</select>
 </mapper>

@@ -127,7 +127,7 @@ public class BoardController {
 	@ResponseBody
 	public String listBizEvent(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		resultMap = boardService.searchBoardInfo(map);
+		resultMap = boardService.searchBizEvent(map);
 		return new Gson().toJson(resultMap);
 	}
 	

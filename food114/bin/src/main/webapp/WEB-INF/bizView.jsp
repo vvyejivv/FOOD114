@@ -11,7 +11,6 @@
 </head>
 <body>
 	<header>
-<<<<<<< HEAD
 		<%@include file="main(header)_biz.html"%>
 	</header>
 	<section>
@@ -24,20 +23,6 @@
 	</section>
 
 	<%@include file="main(footer)_biz.html"%>
-=======
-		<%@include file="main(header).html"%>
-	</header>
-	<section>
-		<%@include file="sideBar_biz.html"%>
-		<div id="app">
-			<div class="mold">
-				sdgsdgsg
-			</div>
-		</div>
-	</section>
-
-	<%@include file="main(footer).html"%>
->>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 
 </body>
 </html>

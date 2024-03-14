@@ -48,9 +48,5 @@ section {
 	position: absolute;
 	margin: 15px 0px 0px 330px;
 	height: 750px;
-	overflow-y: auto;
-}
-
-.mold::-webkit-scrollbar {
-	display: none;
+	overflow-y: scroll;
 }

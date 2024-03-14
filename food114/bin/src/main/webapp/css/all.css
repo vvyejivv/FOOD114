@@ -1,0 +1,12 @@
+::-webkit-scrollbar-thumb {
+    border-radius: 10px; /* 스크롤바 둥근 테두리 */
+    background: #ccc; /* 스크롤바 색상 */
+}
+
+::-webkit-scrollbar-track {
+    background: white;  /*스크롤바 뒷 배경 색상*/
+}
+
+::-webkit-scrollbar {
+    width: 10px;  
+}
