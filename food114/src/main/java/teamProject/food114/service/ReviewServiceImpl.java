@@ -50,4 +50,19 @@ public class ReviewServiceImpl implements ReviewService {
 		}
 		return resultMap;
 	}
+
+	@Override
+	public HashMap<String, Object> searchBizReviewInfo(HashMap<String, Object> map) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			Review reviewBizInfo = reviewMapper.selectBizReviewInfo(map);
+			resultMap.put("reviewBizInfo", reviewBizInfo);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			resultMap.put("result", "fail");
+		}
+		return resultMap;
+	}
+	
 }

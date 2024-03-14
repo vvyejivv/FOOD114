@@ -118,7 +118,23 @@ public class BoardController {
 		return "/boardNoticeQnaAsk";
 	}
 	
-
+	@RequestMapping("/bizEvent.do")
+	public String bizEvent(Model model) throws Exception {
+		return "/bizEvent"; // bizEvent.jsp
+	}
+	
+	@RequestMapping(value = "/listBizEvent.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String listBizEvent(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = boardService.searchBoardInfo(map);
+		return new Gson().toJson(resultMap);
+	}
+	
+	@RequestMapping("/bizEvent_info.do")
+	public String bizEvent_info(Model model) throws Exception {
+		return "/bizEvent_info"; // bizEvent_info.jsp
+	}
 	
 	
 	

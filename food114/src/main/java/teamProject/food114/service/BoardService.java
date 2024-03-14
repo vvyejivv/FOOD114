@@ -16,5 +16,9 @@ public interface BoardService {
 	// 공지사항 게시글 상세보기
 	HashMap<String, Object> searchBoardInfo(HashMap<String, Object> map);
 
-
+	// Biz 이벤트 목록 출력
+	HashMap<String, Object> searchBizEventList(HashMap<String, Object> map);
+	
+	// 사업자 이벤트 출력
+	HashMap<String, Object> searchBizEvent(HashMap<String, Object> map);
 }

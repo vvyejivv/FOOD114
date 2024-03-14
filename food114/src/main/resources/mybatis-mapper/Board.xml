@@ -32,6 +32,26 @@
 		endyn='Y' WHERE NOW()>endtime AND endyn='N'
 	</update>
 
+	<select id="selectBizEventList" parameterType="hashmap"
+		resultType="teamProject.food114.model.Board">
+		SELECT
+		*,
+		DATE_FORMAT(begintime, '%Y-%m-%d') AS begintime2,
+		DATE_FORMAT(endtime, '%Y-%m-%d') AS
+		endtime2
+		FROM
+		FOOD114_BOARD b
+		INNER JOIN FOOD114_BIZ_INFO i ON
+		b.USERID=i.bizid
+		WHERE
+		CODE = 4
+		AND endyn = 'N'
+		AND oldaddr LIKE
+		(concat('%',#{selectSi},'%')) AND OLDaddr LIKE
+		(concat('%',#{selectGu},'%')) AND OLDaddr LIKE
+		(concat('%',#{selectDong},'%'));
+	</select>
+
 	<!-- 공지사항 목록 -->
 	<select id="selectBoardList" parameterType="hashmap"
 		resultType="teamProject.food114.model.Board">
@@ -69,4 +89,23 @@
 		SYSDATE, null, null, null)
 	</insert>
 
+	<!-- 사업자 이벤트 목록 -->
+	<select id="selectBizEvent" parameterType="hashmap"
+		resultType="teamProject.food114.model.Board">
+		SELECT
+		fb.BOARDNO,
+		fb.TYPE,
+		fb.TITLE,
+		fb.CONTENTS,
+		CASE
+		WHEN fb.ENDYN = 'Y' THEN DATE_FORMAT(fb.ENDTIME, '%Y-%m-%d')
+		ELSE CONCAT(DATE_FORMAT(fb.BEGINTIME, '%Y-%m-%d'), ' ~ ',
+		DATE_FORMAT(fb.ENDTIME, '%Y-%m-%d'))
+		END AS eventTime,
+		fi.BIZNAME
+		FROM
+		FOOD114_BOARD fb
+		JOIN
+		FOOD114_BIZ_INFO fi ON fb.USERID = fi.BIZID
+	</select>
 </mapper>

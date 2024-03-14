@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import teamProject.food114.mapper.BoardMapper;
 import teamProject.food114.model.Board;
+import teamProject.food114.model.Review;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -76,5 +77,30 @@ public class BoardServiceImpl implements BoardService {
 		return resultMap;
 	}
 
+	@Override
+	public HashMap<String, Object> searchBizEventList(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			resultMap.put("list", boardMapper.selectBizEventList(map));
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+		}
+		return resultMap;
+	}
 
+	@Override
+	public HashMap<String, Object> searchBizEvent(HashMap<String, Object> map) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			List<Board> listBizEvent = boardMapper.selectBizEvent(map);
+			resultMap.put("listBizEvent", listBizEvent);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			resultMap.put("result", "fail");
+		}
+		return resultMap;
+	}
 }

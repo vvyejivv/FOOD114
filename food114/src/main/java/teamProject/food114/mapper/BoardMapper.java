@@ -19,7 +19,7 @@ public interface BoardMapper {
 
 	// 게시글 개수
 	int selectBoardListCnt(HashMap<String, Object> map);
-	
+
 	// 게시글 상세보기
 	Board selectBoardInfo(HashMap<String, Object> map);
 
@@ -29,6 +29,9 @@ public interface BoardMapper {
 	// 이벤트 상세보기
 	Board selectEventView(HashMap<String, Object> map);
 	
+	// biz 이벤트 목록 select
+	List<Board> selectBizEventList(HashMap<String, Object> map);
 
-
+	// 사업자 이벤트 목록 표출
+	List<Board> selectBizEvent(HashMap<String, Object> map);
 }

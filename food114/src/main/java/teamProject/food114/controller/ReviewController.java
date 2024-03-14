@@ -43,7 +43,8 @@ public class ReviewController {
 	
 	//리뷰 상세보기 사업자
 	@RequestMapping("/bizReview_info.do")
-	public String bizReview_info(Model model) throws Exception {
+	public String bizReview_info(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		request.setAttribute("map", map);
 		return "/bizReview_info"; // bizReview_info.jsp
 	}
 	
@@ -64,5 +65,13 @@ public class ReviewController {
 		resultMap = reviewService.searchBizReviewList(map);
 		return new Gson().toJson(resultMap);
 	}
-
+	
+	//리뷰 보기 사업자 자세히
+		@RequestMapping(value = "/reviewBizInfo.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+		@ResponseBody
+		public String reviewBizInfo(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+			HashMap<String, Object> resultMap = new HashMap<String, Object>();
+			resultMap = reviewService.searchBizReviewInfo(map);
+			return new Gson().toJson(resultMap);
+		}
 }

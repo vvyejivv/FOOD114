@@ -62,12 +62,10 @@
 							<td class="reviewFont">{{ review.contents }}</td>
 							<td class="reviewFont">{{ review.userId }}</td>
 							<td class="reviewFont">{{ review.orderDate }}</td>
-							<td><img v-if="review.status === 1" width="23" height="20"
-								src="https://img.icons8.com/sf-black-filled/64/ff7f00/x.png"
-								alt="x" /> <img v-else-if="review.status === 2" width="22"
-								height="20"
-								src="https://img.icons8.com/sf-black/64/ff7f00/circled.png"
-								alt="circled" /></td>
+							<td>
+    							<img v-if="review.P_REVIEWNO" width="22" height="20" src="https://img.icons8.com/sf-black/64/ff7f00/circled.png" alt="circled" />
+    							<img v-else width="23" height="20" src="https://img.icons8.com/sf-black-filled/64/ff7f00/x.png" alt="x" />
+							</td>
 							<td><button class="review-detail" @click="fnInfo(review)">자세히</button></td>
 						</tr>
 					</table>
