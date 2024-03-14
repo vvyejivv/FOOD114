@@ -44,4 +44,6 @@ public interface BizService {
 	HashMap<String, Object> searchBizEventList(HashMap<String, Object> map);
 	
 	HashMap<String, Object> searchBizView(HashMap<String, Object> map);
+	
+	HashMap<String, Object> searchBizListSearchByName(HashMap<String, Object> map);
 }
