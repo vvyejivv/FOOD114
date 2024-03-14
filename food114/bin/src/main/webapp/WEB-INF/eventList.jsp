@@ -76,10 +76,11 @@
 	</header>
 
 	<section>
-		<div style="width:1200px; margin: 0px auto">
+		<div style="width: 1200px; margin: 0px auto">
 			<%@include file="event_header.jsp"%>
 			<div id="app">
-				<div style="width: 1200px; color: rgb(72, 72, 72); margin-top: 35px; padding: 0px;">
+				<div
+					style="width: 1200px; color: rgb(72, 72, 72); margin-top: 35px; padding: 0px;">
 					<div v-if="list.length==0"
 						style="margin-top: 50px; width: 1000px; margin-bottom: 50px; text-align: center; height: 230px">현재
 						진행중인 이벤트가 없습니다.</div>
@@ -87,8 +88,9 @@
 						<template v-for="item in list" v-if="list.length!=0">
 							<div class="eventBox" @click="fnBoardView(item.boardNo)">
 								<div class="previewBox">
-									<div class="imgBox">
-										<img :src=item.filePath+item.fileName+item.fileEtc>
+									<div class="imgBox" style="position: relative;">
+										<img :src=item.filePath+item.fileName
+											style="object-fit: cover; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width:380px;">
 									</div>
 									<div class="titleBox">{{item.title}}</div>
 								</div>

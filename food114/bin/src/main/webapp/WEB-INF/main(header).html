@@ -20,7 +20,7 @@ pageEncoding="UTF-8"%>
 		<div id="header">
 			<div id="container" style="height: 50px;">
 				<a id="logo" href="food114.do" style="">
-					<img src="../img/로고2.png" class="logo">
+					<img src="../img/로고2.png" class="logo" height="58px">
 				</a>
 				<div id="status">
 					<template v-if="sessionId==null || sessionId==''">
@@ -31,7 +31,7 @@ pageEncoding="UTF-8"%>
 					</template>
 					<template v-if="sessionId!=null && sessionId!=''">
 						<a class="join" href="javascript:;" @click="fnLogout"> 로그아웃 </a>
-						<a class="join" href="javascript:;"> 마이페이지 </a>
+						<a class="join" href="myInfo.do"> 마이페이지 </a>
 						<a class="join" href="order.do"> 주문하기 </a>
 						<a class="join" href="business-main.do"> 사장님페이지 </a>
 					</template>
