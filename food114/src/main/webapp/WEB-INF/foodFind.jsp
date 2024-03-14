@@ -165,7 +165,7 @@ input {
 					<div class="addrContainer">
 						<input class="addrInput" placeholder="주소를 입력하세요."
 							v-model="inputAddr" @focus="fnShowAddr()">
-						<div>
+						<div @click="fnBaedalOk()">
 							<img src="../img/magnifying-glass-gray-solid.png" width="30px"
 								height="30px"
 								style="position: absolute; top: 10px; right: -40px;"
@@ -260,6 +260,19 @@ input {
 
 </html>
 <script>
+//반경 계산
+function calculateDistance(lat1, lon1, lat2, lon2) {
+    var R = 6371; // 지구의 반지름 (단위: km)
+    var dLat = (lat2 - lat1) * (Math.PI / 180);
+    var dLon = (lon2 - lon1) * (Math.PI / 180);
+    var a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var distance = R * c; // 두 지점 사이의 거리 (단위: km)
+    return distance * 1000; // 거리를 미터로 변환하여 반환
+}
 	var app = new Vue({
 		el : '#app',
 		data : {
@@ -275,7 +288,8 @@ input {
 			newAddr : "",
 			bizInfo : [],
 			latitude : "",
-			longitude : ""
+			longitude : "",
+			bizBaedalOk : []
 			
 		},
 		methods : {
@@ -289,11 +303,27 @@ input {
 					type : "POST",
 					data : nparmap,
 					success : function(data) {
-						self.bizInfo=data.list;
+						self.bizInfo = data.list;
 						console.log(self.bizInfo);
 					}
 				});
 			},
+			fnBaedalOk : function () {
+				var self=this;
+				
+	                self.bizInfo.forEach(function (item) {
+	                	
+	                 	// 현재 위치와 각 장소의 위치 사이의 거리를 계산합니다.
+	                    var distance = calculateDistance(self.latitude, self.longitude, item.latitude, item.longitude);
+	                    
+	                 	// 반경 내에 있는지 확인 후 마커 생성.
+	                    if (distance <= item.range) {
+	                    	self.bizBaedalOk.push(item);
+	                    }
+	                })
+	            console.log(self.bizBaedalOk);
+			}
+			,
 			// 해당 주소의 위도 경도 구하기
 			convertAddressToCoordinates : function(addr) {
 				var self = this;
