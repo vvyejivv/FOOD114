@@ -27,7 +27,9 @@ public class ReviewServiceImpl implements ReviewService {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		try {
 			List<Review> reviewList = reviewMapper.selectReviewList(map);
+			List<Review> review = reviewMapper.selectReviewInfo(map);			
 			resultMap.put("reviewList", reviewList);
+			resultMap.put("review", review);
 			resultMap.put("result", "success");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

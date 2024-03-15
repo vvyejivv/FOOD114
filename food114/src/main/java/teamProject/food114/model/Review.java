@@ -25,6 +25,11 @@ public class Review {
 	private String fileETC;
 	private String menuList;
 	private String path;
+	private String userReview;
+	private String userReviewDate;
+	private String shopCmt;
+	private String shopCmtDate;
+	
 	public int getReviewNo() {
 		return reviewNo;
 	}
@@ -163,5 +168,29 @@ public class Review {
 	public void setPath(String path) {
 		this.path = path;
 	}
-	
+	public String getUserReview() {
+		return userReview;
+	}
+	public void setUserReview(String userReview) {
+		this.userReview = userReview;
+	}
+	public String getUserReviewDate() {
+		return userReviewDate;
+	}
+	public void setUserReviewDate(String userReviewDate) {
+		this.userReviewDate = userReviewDate;
+	}
+	public String getShopCmt() {
+		return shopCmt;
+	}
+	public void setShopCmt(String shopCmt) {
+		this.shopCmt = shopCmt;
+	}
+	public String getShopCmtDate() {
+		return shopCmtDate;
+	}
+	public void setShopCmtDate(String shopCmtDate) {
+		this.shopCmtDate = shopCmtDate;
+	}
+
 }
