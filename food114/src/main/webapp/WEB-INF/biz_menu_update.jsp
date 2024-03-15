@@ -74,7 +74,7 @@
         	border: 1px solid #ff7f00;
         	color: #ff7f00;
         }
-        
+        [v-cloak] { display: none; }
 </style>
 <body>
 	<%@include file="main(header)_biz.html"%>
@@ -85,7 +85,7 @@
     </div> -->
 	<section>
 		<%@include file="sideBar_biz.html"%>
-		<div id="app">
+		<div id="app" v-cloak>
 			<div class="mold">
 				<h2>
                	<span style="color: #ff7f00; font-weight: bold;">| </span><span

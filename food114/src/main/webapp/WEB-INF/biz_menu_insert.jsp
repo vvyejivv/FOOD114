@@ -156,6 +156,7 @@ button img {
 	font-size: 12px;
 	color: #ccc;
 }
+[v-cloak] { display: none; }
 </style>
 <body>
 	<%@include file="main(header)_biz.html"%>
@@ -166,7 +167,7 @@ button img {
     </div> -->
 	<section style="height: 850px">
 		<%@include file="sideBar_biz.html"%>
-		<div id="app">
+		<div id="app" v-cloak>
 			<div class="mold" style="width:1050px">
 				<h2>
                	<span style="color: #ff7f00; font-weight: bold;">| </span><span

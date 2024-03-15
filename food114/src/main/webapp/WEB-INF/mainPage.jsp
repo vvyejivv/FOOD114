@@ -14,6 +14,8 @@
 
 </head>
 <style>
+[v-cloak] { display: none; }
+
 .clickBoxList {
 	width: 1000px;
 	margin: 0px auto;
@@ -66,7 +68,7 @@
 	<%@include file="main(header).html"%>
 
 	<section>
-		<div id="main">
+		<div id="main" v-cloak>
 			<div
 				style="margin: 0px auto; width: 1900px; overflow: hidden; position: relative;">
 				<div class="slider" id="slider"
@@ -99,10 +101,10 @@
 					<div style="cursor: pointer"  @click="fnLink({},'food114_foodfind.do')">
 						<div
 							style="color: orange; font-size: 32px; height: 100px; display: flex; align-items: center; gap: 10px;">
-							배달시키기 <a
+							주문하기 <a
 								style="background-color: orange; color: white; display: inline-block; width: 30px; height: 30px; font-size: 20px; border-radius: 50%; text-align: center;">❯</a>
 						</div>
-						<div>배달시키러가기</div>
+						<div>주문하러가기</div>
 					</div>
 				</div>
 				<div class="clickBox">

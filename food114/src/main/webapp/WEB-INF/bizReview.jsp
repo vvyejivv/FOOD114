@@ -9,13 +9,16 @@
 <title>첫번째 페이지</title>
 <link rel="stylesheet" href="../css/review_biz.css">
 </head>
+<style>
+[v-cloak] { display: none; }
+</style>
 <body>
 	<header>
 		<%@include file="main(header)_biz.html"%>
 	</header>
 	<section>
 		<%@include file="sideBar_biz.html"%>
-		<div id="app">
+		<div id="app" v-cloak>
 			<div class="mold">
 				<h2>
 					<span style="color: #ff7f00; font-weight: bold;">| </span><span

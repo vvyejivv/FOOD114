@@ -27,25 +27,51 @@
 					<div id="reviewList">
 						<!-- 리뷰 작성 -->
 						<template v-for="item in reviewList">
-							<div class="reviewBox">
-								<div class="userPhoto">
-									<img src="../img/기본_프로필.jpg">
-								</div>
-								<div class="userInfo">
-									<div class="userInfoBox">
-										<div class="userId">{{item.userId}}님</div>
-										<div class="reviewContents">
-											<div class="reviewMenu" style="">주문하신 메뉴 : {{item.menu}}</div>
-											<div class="starRating">⭐⭐⭐⭐⭐</div>
+							<div class="reviewSetBox">
+								<div class="reviewBox">
+									<!-- 고객  -->
+									<div class="userPhoto">
+										<img src="../img/기본_프로필.jpg">
+									</div>
+									<div class="userInfo">
+										<div class="userInfoBox">
+											<div class="userId">{{item.userId}}님</div>
 											<div class="reviewDate">{{item.orderDate}}</div>
-											<div class="foodContents">{{item.contents}}</div>
+												<div class="starRating"
+													style="font-size: 12px; color: #ffcc00;">
+													<span v-if="item.raiting >= 1">★</span> <span v-else>☆</span>
+													<span v-if="item.raiting >= 2">★</span> <span v-else>☆</span>
+													<span v-if="item.raiting >= 3">★</span> <span v-else>☆</span>
+													<span v-if="item.raiting >= 4">★</span> <span v-else>☆</span>
+													<span v-if="item.raiting >= 5">★</span>
+												</div>
+												
+											<div class="reviewContents">
+												<div class="reviewMenu">메뉴 : {{item.menu}}</div>
+												<div class="foodContents">{{item.contents}}</div>
+											</div>
+										</div>
+										<div class="reviewImg">
+											<img :src="item.path">
 										</div>
 									</div>
-									<div class="reviewImg">
-										<img src="../img/메가커피_리뷰사진.jpg">
+								</div>
+								<div class="reviewBox">
+									<!-- 가게  -->
+									<div class="userPhoto">
+										<img src="../img/기본_프로필.jpg">
+									</div>
+									<div class="userInfo">
+										<div class="userInfoBox">
+											<div class="userId">{{item.userId}}님</div>
+											<div class="shop_reviewDate">{{item.orderDate}}</div>
+											<div class="reviewContents">									
+												<div class="shopContents">{{item.contents}}</div>
+											</div>
+										</div>
 									</div>
 								</div>
-							</div>
+							</div>	
 						</template>
 
 					</div>
@@ -70,6 +96,7 @@
 		methods : {
 			fnView : function() {
 				var self = this;
+				console.log(self.bizId);
 				var nparmap = {
 					bizId : self.bizId
 				};

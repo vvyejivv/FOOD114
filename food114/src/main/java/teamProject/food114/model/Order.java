@@ -18,6 +18,7 @@ public class Order {
 	private String bizName;
 	private int price;
 	private String menus;
+	private int listCnt;
 	
 	public int getOrderNo() {
 		return orderNo;
@@ -114,5 +115,11 @@ public class Order {
 	}
 	public void setMenus(String menus) {
 		this.menus = menus;
+	}
+	public int getListCnt() {
+		return listCnt;
+	}
+	public void setListCnt(int listCnt) {
+		this.listCnt = listCnt;
 	}
 }

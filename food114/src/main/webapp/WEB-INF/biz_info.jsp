@@ -140,13 +140,14 @@ section {
 	display: inline-block;
 	border-bottom: 1px solid #ccc
 }
+[v-cloak] { display: none; }
 </style>
 <body>
 	<%@include file="main(header)_biz.html"%>
 
 	<section style="height: 950px;">
 		<%@include file="sideBar_biz.html"%>
-		<div id="app">
+		<div id="app" v-cloak>
 			<div class="mold" style="height: auto;">
 				<h2>
 					<span style="color: #ff7f00; font-weight: bold;">| </span> <span
@@ -270,12 +271,12 @@ section {
 						<div class="infoName">영업시간</div>
 
 						<span v-if="!updateFlg" class="viewInfo">
-						<template v-if="!typeof bizInfo.closeTime==='undefined'">
+						<template v-if="openHour!=''">
 							{{openHour}}시{{openMinute}}분
 							</template>
-							<div v-if="typeof bizInfo.openTime==='undefined'" class="nullSpace"></div> 부터
-							<template v-if="!typeof bizInfo.closeTime==='undefined'">{{closeHour}}시{{closeMinute}}분</template>
-							<div v-if="typeof bizInfo.closeTime==='undefined'" class="nullSpace"></div> 까지
+							<div v-if="openHour==''" class="nullSpace"></div> 부터
+							<template v-if="closeHour!=''">{{closeHour}}시{{closeMinute}}분</template>
+							<div v-if="closeHour==''" class="nullSpace"></div> 까지
 						</span>
 						<template v-if="updateFlg">
 							<select class="timeSelect" v-model="openHour">
@@ -473,11 +474,11 @@ section {
 								self.bizInfo = data.bizInfo;
 								self.category = data.bizInfo.bizCategory;
 								self.bank = data.bizInfo.bank;
-								if(!typeof data.bizInfo.openTime ==="undefined"){
+								if(typeof data.bizInfo.openTime !="undefined"){
 								self.openHour = data.bizInfo.openTime.substring(0, 2);
 								self.openMinute = data.bizInfo.openTime.substring(2, 4);
 								}
-								if(!typeof data.bizInfo.closeTime ==="undefined"){
+								if(typeof data.bizInfo.closeTime !="undefined"){
 								self.closeHour = data.bizInfo.closeTime.substring(0, 2);
 								self.closeMinute = data.bizInfo.closeTime.substring(2, 4);
 								}
@@ -486,6 +487,8 @@ section {
 										data.bizInfo.email.indexOf("@"));
 								self.emailAddr = data.bizInfo.email.substring(data.bizInfo.email.indexOf("@") + 1);
 								console.log(data.bizInfo);
+								console.log(data.bizInfo.openTime);
+								console.log(self.openHour);
 								
 								if (data.bizFile) {
 									self.bizFile = data.bizFile;

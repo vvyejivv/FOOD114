@@ -214,7 +214,7 @@
 			selectedPaymentMethod : "", /* 바로 결제 선택  */
 			selectedMeetPaymentMethod : "", /* 만나서 결제 선택  */
 			paymentType : "", /* 결제방식  */
-			couponNo : "", /* 쿠폰번호  */
+			couponNo : 0, /* 쿠폰번호  */
 			couponTitle : "", /* 쿠폰 이름  */
 			couponSaleMount : 0, /* 쿠폰 할인액 */
 			couponSalePercent : 0, /* 쿠폰 할인 퍼센트  */
@@ -348,7 +348,7 @@
 				self.fnStatus("결제중");
 				 if (self.paymentType == 'card') {
 					self.fnPayInfoSave(); /* 결제정보 저장  */
-					/* self.fnCreditCard();  *//* 신용카드 결제 */
+					self.fnCreditCard();  /* 신용카드 결제 */
 				} else if (self.paymentType == 'phone') {
 					self.fnPayInfoSave(); /* 결제정보 저장  */
 					self.fnPhonePayment();
@@ -360,10 +360,12 @@
 					self.fnToss();
 				} else if (self.paymentType == 'meetCard'){
 					self.fnPayInfoSave(); /* 결제정보 저장  */
-					alert("만나서 카드 결제");
+					self.fnOrder();
+					self.fnPageChang('success'); /* 결제완료 후 페이지이동 */
 				} else if (self.paymentType == 'cash'){
-					self.fnPayInfoSave(); /* 결제정보 저장  */
-					alert("현금결제");					
+					self.fnPayInfoSave(); /* 결제정보 저장  */		
+					self.fnOrder();
+					self.fnPageChang('success'); /* 결제완료 후 페이지이동 */
 				}  else {
 					alert("다시 시도하세요");
 				}		 
@@ -404,15 +406,15 @@
 						type : self.paymentType,
 						price : self.selectTotalPrice, /* 결제 금액 확인  */
 					};
-					 /* $.ajax({
-			                url:"test.dox",
+					 $.ajax({
+			                url:"PaymentInfoSave.dox",
 			                dataType:"json",	
 			                type : "POST", 
 			                data : nparmap,
 			                success : function(data) {
 			        			console.log("결제정보 결과 : " + data.result);
 			                }
-			            });  */
+			            });
 			},
 			fnRemoveMenu : function(index){
 				var self = this;
@@ -474,6 +476,7 @@
 							 console.log("결제 : success");
 		                     self.paymentStatus = "success";
 		                     self.fnOrder();/* 주문내용 저장  */
+		                     self.fnPageChang('success'); /* 결제완료 후 페이지이동 */
 						} else {
 							alert("Fail.");
 						}
@@ -499,6 +502,7 @@
 						 console.log("결제 : success");
 	                     self.paymentStatus = "success";
 	                     self.fnOrder();/* 주문내용 저장  */
+	                     self.fnPageChang('success'); /* 결제완료 후 페이지이동 */
 					} else {
 						alert("Fail.");
 					}
@@ -524,10 +528,19 @@
 						 console.log("결제 : success");
 	                     self.paymentStatus = "success";
 	                     self.fnOrder();/* 주문내용 저장  */
+	                     self.fnPageChang('success'); /* 결제완료 후 페이지이동 */
 					} else {
 						alert("Fail.");
 					}
 				});
+			},
+			fnPageChang : function(type){
+				var self = this;
+				if(type == "success"){
+					$.pageChange("/food114.do", {});
+				}else if(type == "fail"){
+					/* 오류창 */
+				}
 			}
 		},
 		watch : {

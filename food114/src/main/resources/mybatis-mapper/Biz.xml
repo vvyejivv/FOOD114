@@ -20,6 +20,23 @@
 		resultType="teamProject.food114.model.Biz">
 		SELECT * FROM FOOD114_BIZ_INFO WHERE BIZID = #{bizId}
 	</select>
+	<!-- 가게정보(사진포함) -->
+	<select id="selectBizInfoFile" parameterType="hashmap"
+		resultType="teamProject.food114.model.Biz">
+		SELECT B.*,
+			CONCAT(F.FILEPATH, F.FILENAME) AS PATH, F.STATUS,
+			CONCAT(SUBSTRING(B.OPENTIME,1,2), ':', SUBSTRING(B.OPENTIME,3,2)) AS OPEN,
+			CONCAT(SUBSTRING(B.CLOSETIME,1,2), ':', SUBSTRING(B.CLOSETIME,3,2)) AS CLOSE,
+			CASE
+			WHEN B.OPENYN = 'Y' THEN '운영중'
+			WHEN B.OPENYN = 'N' THEN '운영종료'
+			ELSE '알 수 없음'
+			END AS SHOPOPENYN
+		FROM FOOD114_BIZ_INFO B
+		INNER JOIN FOOD114_BIZ_FILE F ON
+		B.BIZID = F.BIZID AND STATUS = 'COMPLETE'
+		WHERE B.BIZID = #{bizId}
+	</select>
 	<select id="emailCheck" parameterType="hashmap"
 		resultType="teamProject.food114.model.Biz">
 		SELECT * FROM FOOD114_BIZ_INFO WHERE EMAIL = #{email}

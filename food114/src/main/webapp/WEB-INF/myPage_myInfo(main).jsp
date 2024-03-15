@@ -10,6 +10,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MAIN</title>
 <style>
+[v-cloak] { display: none; }
+
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 /* 모달 스타일링 */
 .modal {
@@ -149,7 +151,7 @@ input[type='text']:focus {
 
 		<div class="container">
 			<%@include file="myPage_header.jsp"%>
-			<div id="app">
+			<div id="app" v-cloak>
 				<div class="content" style="width: 900px;">
 					<h2>
 						<a href="javascript:;" style="font-size: 25px; color: #747171;">

@@ -15,6 +15,8 @@
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <title>지도로 검색</title>
 <style>
+[v-cloak] { display: none; }
+
 /* 공통 스타일 */
 .map_wrap, .map_wrap * {
 	margin: 0;
@@ -268,7 +270,7 @@ ul, ol {
 <body>
 	<%@include file="main(header).html"%>
 
-	<div id="app">
+	<div id="app" v-cloak>
 		<section>
 			<div class="map_wrap">
 				<div id="map"

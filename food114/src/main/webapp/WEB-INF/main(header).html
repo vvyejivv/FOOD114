@@ -11,13 +11,14 @@ pageEncoding="UTF-8"%>
 <title>MAIN-HEADER</title>
 <link rel="stylesheet" href="../css/main.css">
 <style>
+[v-cloak] { display: none; }
 </style>
 </head>
 
 <body>
 
 	<header>
-		<div id="header">
+		<div id="header" v-cloak>
 			<div id="container" style="height: 50px;">
 				<a id="logo" href="food114.do" style="">
 					<img src="../img/로고2.png" class="logo" height="58px">
@@ -44,7 +45,6 @@ pageEncoding="UTF-8"%>
 					<a class="menu" href="mapTest2.do">지도로 찾기</a>
 					<a class="menu" href="event-biz-list.do">우리동네</a>
 					<a class="menu" href="event-web-list.do" @click="fnClick('event-web-list.do','list')">이벤트</a>
-					<a class="menu">고객지원</a>
 				</div>
 			</div>
 		</div>

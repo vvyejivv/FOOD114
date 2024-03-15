@@ -17,6 +17,8 @@ public interface BizMapper {
 	Biz selectBizId(HashMap<String, Object> map); // 사업자 아이디 체크
 	Biz idCheck(HashMap<String, Object> map); // 사업자 아이디 중복확인
 	Biz emailCheck(HashMap<String, Object> map); // 사업자 이메일 중복확인
+	Biz selectBizInfoFile(HashMap<String, Object> map); // 사업자 정보
+	
 	List<Biz> selectBizList(HashMap<String, Object> map); // 식당 리스트 조회
 	List<Area> selectSiList(HashMap<String, Object> map); // 시 리스트 조회
 	List<Area> selectGuList(HashMap<String, Object> map); // 구 리스트 조회

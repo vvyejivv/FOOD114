@@ -178,8 +178,8 @@ public class BizServiceImpl implements BizService {
 	@Override
 	public HashMap<String, Object> searchShopInfo(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
-		Biz biz = bizMapper.idCheck(map);
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		Biz biz = bizMapper.selectBizInfoFile(map);
 		try {
 			resultMap.put("bizInfo", biz);
 			resultMap.put("result", "success");

@@ -75,7 +75,6 @@ input {
 	height: 50px;
 	border-radius: 5px;
 	margin: 0px auto;
-	display: inline-block;
 	border: 1px solid #ccc;
 	position: relative;
 	background-color: white;
@@ -129,7 +128,6 @@ input {
 	border: 1px solid #ccc;
 	border-radius: 5px;
 	font-weight: 500;
-	margin-right: 50px;
 }
 
 .modalBackGround {
@@ -145,10 +143,12 @@ input {
 	width: 500px;
 	background-color: white;
 	position: fixed;
-	top: 200px;
+	top: 100px;
 	left: 50%;
 	translate: -50%;
 	z-index: 10;
+	height: 500px;
+	overflow-y: auto;
 }
 
 .bizLogo {
@@ -168,8 +168,19 @@ input {
 	margin-left: 4px;
 	position: relative;
 }
+
+.takeOut>span {
+	font-size: 12px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 2px 4px;
+}
+
+[v-cloak] {
+	display: none;
+}
 </style>
-	<div id="app">
+	<div id="app" v-cloak>
 		<section style="color: rgb(72, 72, 72)">
 			<!-- 카테고리 나열 -->
 			<div class="container">
@@ -182,7 +193,6 @@ input {
 						:style='{"font-weight" : nowCategory==item.categoryNo ? "bold" : "none"}'>{{item.categoryName}}</div>
 
 				</div>
-				<div class="search">검색</div>
 
 
 			</div>
@@ -191,30 +201,19 @@ input {
 			<div style="width: 1000px; margin: 0px auto;">
 
 				<!-- 주소 container -->
-				<div
-					style="padding: 20px; margin-bottom: 30px; height: 60px; padding-left: 100px;">
+				<div style="padding: 20px; margin-bottom: 30px; height: 60px;">
 					<!-- 현재 입력된 주소 -->
-					<button @click=openAddressSearch style="" class="searchAddr">주소
-						검색하기</button>
-					<button @click="fnShowAddr()" class="searchAddr">내 주소지
-						불러오기</button>
-					<div class="addrContainer">
-
+					<div class="addrContainer"
+						style="padding-top: 10px; margin-top: 30px;">
 						<input class="addrInput" placeholder="주소검색 혹은 등록된 주소지를 선택해주세요."
-							disabled v-model="inputAddr" style="background-color: white;">
-						<div>
-							<img src="../img/magnifying-glass-gray-solid.png" width="30px"
-								height="30px"
-								style="position: absolute; top: 10px; right: -40px; cursor: pointer"
-								@click="fnBaedalOk">
-						</div>
+							disabled v-model="inputAddr"
+							style="background-color: white; font-size: 15px;">
 
-						<!-- 주소창 더보기 클릭시 display none상태-->
+						<!-- 주소창 더보기 클릭시-->
 						<template v-if="showAddr">
 							<div @click="fnHiddenAddr" class="modalBackGround"></div>
 							<div class="modalContents" style="padding: 10px;">
 								<div>내 주소록</div>
-
 								<!-- 반복 box -->
 								<div
 									style="border: 1px solid #ccc; border-radius: 5px; padding: 10px; margin-bottom: 10px; cursor: pointer;"
@@ -233,22 +232,28 @@ input {
 									</div>
 									<div>상세주소 : {{item.detail}}</div>
 								</div>
-
 							</div>
 						</template>
-
 					</div>
+					<!-- addr 컨테이너 종료 -->
+						<div style="margin: 10px auto; width: 400px;">
+							<button @click=openAddressSearch
+								style="margin-left: 50px; margin-right: 10px;"
+								class="searchAddr">주소 검색하기</button>
+							<button @click="fnShowAddr()" class="searchAddr">내 주소지
+								불러오기</button>
+						</div>
 				</div>
 				<!-- 주소 container 끝-->
 
 				<!-- 가게 정렬순 -->
-				<div style="height: 35px; border-bottom: 1px solid #ccc;">
+				<div style="height: 35px;margin-top: 100px;">
 					<div style="float: right; padding-right: 35px;">
 						<select v-model="order" @change="fnList()"
 							style="width: 300px; font-size: 15px; padding: 3px; border: 1px solid #ccc;">
 							<option value="">기본 정렬 순</option>
-							<option value="ORDER BY ORDERCNT ASC">주문 많은 순</option>
-							<option value="ORDER BY REVIEWAVG DESC">별점 좋은 순</option>
+							<option value="ORDER BY ORDERCNT DESC">주문 많은 순</option>
+							<option value="ORDER BY REVIEWAVG DESC">별점 높은 순</option>
 						</select>
 					</div>
 
@@ -260,7 +265,8 @@ input {
 					style="background-color: white; width: 1000px; margin: 0px auto; padding: 10px 0px; margin-bottom: 25px;">
 					<!-- 목록 정렬 -->
 					<div
-						style="width: 960px; margin: 0px auto; display: grid; grid-template-columns: 1fr 1fr;">
+						style="width: 960px; margin: 0px auto; display: grid; grid-template-columns: 1fr 1fr;"
+						:style="{height: bizBaedalOk.length <7 ? '300px' : 'auto'}">
 						<div v-if="bizBaedalOk.length==0&&longitude!=''&&searchFlg">해당
 							위치에 배달가능한 가게가 없습니다.</div>
 						<div v-if="!searchFlg">지역을 설정해주세요.</div>
@@ -277,18 +283,36 @@ input {
 							<div style="height: 80px; margin-left: 5px;">
 								<!-- 가게 이름 -->
 								<div
-									style="font-weight: bold; margin-bottom: 3px; margin-top: -5px;">{{item.bizName}}</div>
+									style="font-weight: bold; margin-bottom: 3px; margin-top: -5px; line-height: 20px;">
+									{{item.bizName}} <span style="font-size: 11px;">
+										{{item.categoryName}}</span>
+								</div>
 								<div style="color: #ccc; font-size: 14px;">
+
 									<!-- 가게 평점 -->
-									<span style="color: orange;"> ★
+									<span style="color: orange; line-height: 20px; letter-spacing: 20;"> ★
 										{{item.reviewAvg}}({{item.reviewCnt}})</span>
-									<!-- 가게 리뷰 수 -->
-									<span style="color: black;">aa</span>
-									<!-- 배달 최소 금액 -->
-									<div style="color: black; padding-top: 3px;">최소 주문 금액
-										12,000원</div>
-									<!-- 배달비 -->
-									<div style="color: black;">배달요금 : 1000원 ~ 4000원</div>
+
+									<!-- 판매 형식 -->
+									<div style="color: black; padding-top: 3px; line-height: 20px;"
+										v-if="item.takeOut=='1'">
+										<span>배달</span>
+									</div>
+									<div style="color: black; padding-top: 3px;"
+										v-if="item.takeOut=='2'">
+										<span>포장</span>
+									</div>
+									<div style="color: black; padding-top: 3px;"
+										v-if="item.takeOut=='3'" class="takeOut">
+										<span>배달</span> <span>포장</span>
+									</div>
+									<!-- 운영시간 -->
+									<div style="color: black; font-size: 11px; margin-top:3px; letter-spacing: 20">
+										<div
+											v-if="typeof item.openTime!='undefined'||typeof item.closeTime!='undefined'">운영시간
+											:
+											{{item.openTime.substring(0,2)}}:{{item.openTime.substring(2,4)}}~{{item.closeTime.substring(0,2)}}:{{item.closeTime.substring(2,4)}}</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -339,6 +363,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 			order : "",
 			searchFlg : false
 			
+			
 		},
 		methods : {
 			// 배달가능한 가게목록 전체
@@ -355,9 +380,6 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 					data : nparmap,
 					success : function(data) {
 						self.bizInfo = data.list;
-						
-						console.log("시작"+self.latitude+" " + self.longitude);
-						
 						if(self.latitude!="" && self.longitude!=""){
 							self.fnBaedalOk();
 						}
@@ -379,6 +401,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 	                    	self.bizBaedalOk.push(item);
 	                    }
 	                })
+	                console.log(self.bizBaedalOk);
 			}
 			,
 			// 해당 주소의 위도 경도 구하기
@@ -484,12 +507,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 								inputAddr : self.inputAddr,
 								category : self.nowCategory
 							});
-							console.log("4."+self.latitude);
-						}, 50)
-						
-						
-						
-							
+						}, 50)							
 					},
 					fnPageChange : function(){
 						var self = this;

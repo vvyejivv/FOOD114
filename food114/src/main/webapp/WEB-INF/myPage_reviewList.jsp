@@ -52,7 +52,6 @@ a{
 	text-decoration: none;
 	color: black;
 }
-[v-cloak] { display: none; }
 </style>
 </head>
 <link rel="stylesheet" href="../css/myPage_myInfo(main).css">
@@ -62,11 +61,18 @@ a{
 		<%@include file="main(header).html"%>
 	</header>
 
+	<!-- 광고창 -->
+	<!--
+        <div class="ad">
+            광고창
+            <button class="adClose">x</button>
+        </div>
+    -->
 	<section>
-		<div class="container" >
+		<div class="container">
 			<%@include file="myPage_header.jsp"%>
 			<div class="orderListContainer">
-				<div id="app" v-cloak>
+				<div id="app">
 					<h2>
 						<a href="javascript:;" style="font-size: 25px; color: #747171;">
 							<span style="color: #ff7f00; font-weight: bold;">| </span> 주문내역
@@ -102,7 +108,7 @@ a{
 								<td class="reviewFont">{{ item.orderNo }}</td>
 								<td class="reviewFont">{{ item.bizName }}</td>
 								<td class="reviewFont">{{ item.menus }}</td>
-								<td class="reviewFont">{{ item.price.toLocaleString() }}원</td>
+								<td class="reviewFont">{{ item.price }}</td>
 								<td class="reviewFont">{{ item.orderDate }}</td>
 								<td class="reviewFont">{{ item.status }}</td>
 							</tr>

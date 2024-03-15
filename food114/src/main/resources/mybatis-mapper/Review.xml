@@ -5,12 +5,15 @@
 <mapper namespace="teamProject.food114.mapper.ReviewMapper">
 	<!-- 가게 리뷰 검색 -->
 	<select id="selectReviewList" parameterType="hashmap" resultType="teamProject.food114.model.Review">
-		SELECT R.*, DATE_FORMAT(O.ORDERDATE, '%y-%m-%d') AS
-		orderDate, O.*, D.*, M.*
+		SELECT 
+			R.*, M.*,
+			DATE_FORMAT(O.ORDERDATE, '%y-%m-%d') AS orderDate, 
+			CONCAT(P.FILEPATH,P.FILENAME) AS PATH
 		FROM FOOD114_REVIEW R
 		INNER JOIN FOOD114_ORDER_DETAIL D ON R.ORDERNO = D.ORDERNO
 		INNER JOIN FOOD114_ORDERS O ON O.ORDERNO = D.ORDERNO
 		INNER JOIN FOOD114_MENU M ON D.MENUNO = M.MENUNO
+		LEFT JOIN FOOD114_REVIEW_PHOTO P ON R.REVIEWNO = P.REVIEWNO
 		WHERE M.BIZID = #{bizId}
 	</select>
 	

@@ -37,6 +37,7 @@ public interface CustomerMapper {
 	
 	//마이페이지 - 주문/리뷰 - 주문내역리스트
 	List<Order> selectMyOrderList(HashMap<String,Object> map);
+	Order selectMyOrderListCnt(HashMap<String,Object> map); //주문갯수
 	
 	// 회원탈퇴시
 	void updateUserLeave(HashMap<String, Object> map);
