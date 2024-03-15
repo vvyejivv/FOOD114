@@ -20,6 +20,10 @@ public class Order {
 	private String menus;
 	private int listCnt;
 	
+	// 일매출
+	private String day;
+	private String sum;
+	
 	public int getOrderNo() {
 		return orderNo;
 	}
@@ -121,5 +125,17 @@ public class Order {
 	}
 	public void setListCnt(int listCnt) {
 		this.listCnt = listCnt;
+	}
+		public String getDay() {
+		return day;
+	}
+	public void setDay(String day) {
+		this.day = day;
+	}
+	public String getSum() {
+		return sum;
+	}
+	public void setSum(String sum) {
+		this.sum = sum;
 	}
 }

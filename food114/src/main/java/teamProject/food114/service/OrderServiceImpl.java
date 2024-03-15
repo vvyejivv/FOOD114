@@ -102,5 +102,20 @@ public class OrderServiceImpl implements OrderService {
 		return resultMap;
 	}
 
+	@Override
+	public HashMap<String, Object> searchDaySell(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> resultMap = new HashMap<>();
+		try {
+			List<Order> daySellList = orderMapper.selectDaySell(map);
+			resultMap.put("daySellList", daySellList);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			resultMap.put("result", "error");
+			System.out.println(e.getMessage());
+		}
+		return resultMap;
+	}
+
 
 }

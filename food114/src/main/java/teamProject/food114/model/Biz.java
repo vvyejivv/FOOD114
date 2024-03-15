@@ -50,6 +50,14 @@ public class Biz {
 	private String takeOut;
 	private String orderCnt;
 	
+	// 구분문자 포함된 연락처, 오픈시간, 마감시간
+	private String sepaPhone;
+	private String sepaOpenTime;
+	private String sepaCloseTime;
+	
+	// 배달, 포장 가능여부
+	private String devType;
+	
 	public String getBizId() {
 		return bizId;
 	}
@@ -296,5 +304,101 @@ public class Biz {
 
 	public void setShopOpenYN(String shopOpenYN) {
 		this.shopOpenYN = shopOpenYN;
+	}
+		
+		public String getBeginTime2() {
+		return beginTime2;
+	}
+
+	public void setBeginTime2(String beginTime2) {
+		this.beginTime2 = beginTime2;
+	}
+
+	public String getEndTime2() {
+		return endTime2;
+	}
+
+	public void setEndTime2(String endTime2) {
+		this.endTime2 = endTime2;
+	}
+
+	public String getBeginTime() {
+		return beginTime;
+	}
+
+	public void setBeginTime(String beginTime) {
+		this.beginTime = beginTime;
+	}
+
+	public String getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
+
+	public String getSetBeginTime() {
+		return setBeginTime;
+	}
+
+	public void setSetBeginTime(String setBeginTime) {
+		this.setBeginTime = setBeginTime;
+	}
+
+	public String getSetEndTime() {
+		return setEndTime;
+	}
+
+	public void setSetEndTime(String setEndTime) {
+		this.setEndTime = setEndTime;
+	}
+
+	public String getRange() {
+		return range;
+	}
+
+	public void setRange(String range) {
+		this.range = range;
+	}
+
+	public String getTakeOut() {
+		return takeOut;
+	}
+
+	public void setTakeOut(String takeOut) {
+		this.takeOut = takeOut;
+	}
+
+	public String getSepaPhone() {
+		return sepaPhone;
+	}
+
+	public void setSepaPhone(String sepaPhone) {
+		this.sepaPhone = sepaPhone;
+	}
+
+	public String getSepaOpenTime() {
+		return sepaOpenTime;
+	}
+
+	public void setSepaOpenTime(String sepaOpenTime) {
+		this.sepaOpenTime = sepaOpenTime;
+	}
+
+	public String getSepaCloseTime() {
+		return sepaCloseTime;
+	}
+
+	public void setSepaCloseTime(String sepaCloseTime) {
+		this.sepaCloseTime = sepaCloseTime;
+	}
+
+	public String getDevType() {
+		return devType;
+	}
+
+	public void setDevType(String devType) {
+		this.devType = devType;
 	}
 }
