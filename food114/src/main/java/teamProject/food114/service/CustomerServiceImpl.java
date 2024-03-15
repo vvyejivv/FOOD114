@@ -220,7 +220,7 @@ public class CustomerServiceImpl implements CustomerService {
 		// TODO Auto-generated method stub
 		HashMap<String,Object> resultMap=new HashMap<>();
 		try {
-			customerMapper.updateUserLeave(map);
+			customerMapper.updateUserLeave(map);			
 			resultMap.put("result","success");
 			
 		} catch (Exception e) {

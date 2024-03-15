@@ -58,6 +58,7 @@ public class CustomerController {
 	public String consumerLeace(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap=customerService.editUserLeave(map);
+		session.invalidate();
 		return new Gson().toJson(resultMap);
 	}
 
