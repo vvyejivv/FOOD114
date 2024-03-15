@@ -38,7 +38,10 @@
 							이벤트 내용</th>
 						<th
 							style="width: 60px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
-							작성일</th>
+							이벤트 기간</th>
+						<th
+							style="width: 60px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+							종료 여부</th>	
 						<th
 							style="width: 60px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
 							관리</th>
@@ -49,7 +52,8 @@
 						<td>{{event.title}}</td>
 						<td>{{event.contents}}</td>
 						<td>{{event.eventTime}}</td>
-						<td><button class="event-detail">자세히</button></td>
+						<td>{{event.endYn}}</td>
+						<td><button class="event-detail" @click="fnDetail(event.boardNo)">자세히</button></td>
 					</tr>
 				</table>
 			</div>
@@ -82,6 +86,9 @@
 						self.events = data.listBizEvent;
 					}
 				});
+			},
+			fnDetail : function(boardNo) {
+				$.pageChange("/bizEvent_info.do", {boardNo : boardNo});
 			}
 		},
 		created : function() {

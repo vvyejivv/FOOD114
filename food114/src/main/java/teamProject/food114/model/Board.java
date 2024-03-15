@@ -40,4 +40,5 @@ public class Board {
 		private String opneYN;
 		
 		private String eventTime;
+		private String path;
 }
