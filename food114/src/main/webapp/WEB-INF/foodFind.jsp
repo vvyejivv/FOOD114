@@ -244,12 +244,11 @@ input {
 				<!-- 가게 정렬순 -->
 				<div style="height: 35px; border-bottom: 1px solid #ccc;">
 					<div style="float: right; padding-right: 35px;">
-						<select
+						<select v-model="order" @change="fnList()"
 							style="width: 300px; font-size: 15px; padding: 3px; border: 1px solid #ccc;">
-							<option>기본 정렬 순</option>
-							<option>주문 많은 순</option>
-							<option>별점 좋은 순</option>
-							<option>거리 가까운 순</option>
+							<option value="">기본 정렬 순</option>
+							<option value="ORDER BY ORDERCNT ASC">주문 많은 순</option>
+							<option value="ORDER BY REVIEWAVG DESC">별점 좋은 순</option>
 						</select>
 					</div>
 
@@ -262,8 +261,8 @@ input {
 					<!-- 목록 정렬 -->
 					<div
 						style="width: 960px; margin: 0px auto; display: grid; grid-template-columns: 1fr 1fr;">
-						<div v-if="bizBaedalOk.length==0&&longitude!=''">해당 위치에 배달가능한 가게가 없습니다.</div>
-						<div v-if="longitude==''||latitude==''">지역을 설정해주세요.</div>
+						<div v-if="bizBaedalOk.length==0&&longitude!=''&&searchFlg">해당 위치에 배달가능한 가게가 없습니다.</div>
+						<div v-if="!searchFlg">지역을 설정해주세요.</div>
 
 						<!-- 가게 1개 -->
 						<div
@@ -300,7 +299,7 @@ input {
 		</section>
 	</div>
 
-	<%-- <%@include file="main(footer).html"%> --%>
+	<%@include file="main(footer).html"%>
 </body>
 
 </html>
@@ -334,7 +333,9 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 			bizInfo : [],
 			latitude : "${map.latitude}",
 			longitude : "${map.longitude}",
-			bizBaedalOk : []
+			bizBaedalOk : [],
+			order : "",
+			searchFlg : false
 			
 		},
 		methods : {
@@ -342,7 +343,8 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 			fnList : function() {
 				var self=this;
 				var nparmap = {
-						category : self.nowCategory
+						category : self.nowCategory,
+						order : self.order
 				};
 				$.ajax({
 					url : "baedalok.dox",
@@ -361,6 +363,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 			fnBaedalOk : function () {
 				var self=this;
 				self.bizBaedalOk=[];
+				self.searchFlg=true;
 				
 	                self.bizInfo.forEach(function (item) {
 	                	
@@ -464,6 +467,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 						self.showAddr = false;
 						self.inputAddr = self.addrList[idx].oldAddr;
 						self.convertAddressToCoordinates(self.addrList[idx].newAddr);
+						
 						/* self.longitude =self.addrList[idx].longitude;
 						self.latitude =self.addrList[idx].latitude; */
 					},					
