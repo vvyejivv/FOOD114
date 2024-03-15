@@ -34,4 +34,14 @@ public interface BoardMapper {
 
 	// 사업자 이벤트 목록 표출
 	List<Board> selectBizEvent(HashMap<String, Object> map);
-}
+	
+	Board selectBizEventView(HashMap<String, Object> map);
+	
+	void insertBizEventFile(HashMap<String, Object> map);
+	
+	void updateBizEventFile(HashMap<String, Object> map);
+	
+	void updateBizEventBoard(HashMap<String, Object> map);
+	
+	Board selectBizEventFileYn(HashMap<String, Object> map);
+} 

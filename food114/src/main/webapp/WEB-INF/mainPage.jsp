@@ -18,12 +18,12 @@
 
 .clickBoxList {
 	width: 1000px;
-	margin: 0px auto;
-	/* border: 1px solid black; */
-	height: 300px;
+	margin-left: 500px;
+	/* border: 1px solid black; */ height : 300px;
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
+	height: 300px
 }
 
 .clickBox {
@@ -62,6 +62,10 @@
 	white-space: nowrap;
 	display: flex;
 }
+
+.main-font {
+	font-size: 18px;
+}
 </style>
 <body>
 
@@ -73,48 +77,73 @@
 				style="margin: 0px auto; width: 1900px; overflow: hidden; position: relative;">
 				<div class="slider" id="slider"
 					style="background: white; margin-top: 2px;">
-					<!-- <h1>이벤트 슬라이드</h1> -->					
-					<img :src="item.filePath+item.fileName" class="slide" v-for="item in eventList" @click="fnLink({boardNo:item.boardNo, endYn:'N'},'event-web-view.do')">
+					<!-- <h1>이벤트 슬라이드</h1> -->
+					<img :src="item.filePath+item.fileName" class="slide"
+						v-for="item in eventList"
+						@click="fnLink({boardNo:item.boardNo, endYn:'N'},'event-web-view.do')">
 				</div>
-				
+
 				<div
 					style="position: absolute; top: 150px; left: 50px; font-size: 50px; color: white;">
-					<a href="javascript:;" style="color: white;" @click="fnPrevEvent">❮</a>
+					<a href="javascript:;" style="color: white;" @click="fnPrevEvent"><img
+						width="64" height="64"
+						src="https://img.icons8.com/hatch/64/FFFFFF/double-left.png"
+						alt="double-left" /></a>
 				</div>
 				<div
 					style="position: absolute; top: 150px; right: 50px; font-size: 50px;">
-					<a href="javascript:;" style="color: white;" @click="fnNextEvent">❯</a>
+					<a href="javascript:;" style="color: white;" @click="fnNextEvent"><img
+						width="64" height="64"
+						src="https://img.icons8.com/hatch/64/FFFFFF/double-right.png"
+						alt="double-right" /></a>
 				</div>
 			</div>
 			<div class="clickBoxList">
 				<div class="clickBox">
 					<div style="cursor: pointer" @click="fnLink({},'mapTest2.do')">
 						<div
-							style="color: green; font-size: 40px; height: 100px; display: flex; align-items: center; gap: 10px;">
-							지도로검색 <a
-								style="background-color: green; color: white; display: inline-block; width: 30px; height: 30px; font-size: 20px; border-radius: 50%; text-align: center;">❯</a>
+							style="color: #ff7f00; font-size: 35px; height: 100px; display: flex; align-items: center; gap: 10px;">
+							지도로검색 <a><img width="32" height="32"
+								src="https://img.icons8.com/windows/50/ffcc00/map-marker--v1.png"
+								alt="map-marker--v1" /></a>
 						</div>
-						<div>내 주변 이벤트들을 한눈에</div>
+						<div class="main-font">지도로 한번에</div>
 					</div>
 				</div>
 				<div class="clickBox">
-					<div style="cursor: pointer"  @click="fnLink({},'food114_foodfind.do')">
+					<div style="cursor: pointer"
+						@click="fnLink({},'food114_foodfind.do')">
 						<div
 							style="color: orange; font-size: 32px; height: 100px; display: flex; align-items: center; gap: 10px;">
-							주문하기 <a
-								style="background-color: orange; color: white; display: inline-block; width: 30px; height: 30px; font-size: 20px; border-radius: 50%; text-align: center;">❯</a>
+							주문하기<img width="32" height="32"
+								src="https://img.icons8.com/windows/50/ff7f00/delivery-scooter.png"
+								alt="delivery-scooter" /></a>
 						</div>
-						<div>주문하러가기</div>
+						<div class="main-font">주문 바로 하기</div>
 					</div>
 				</div>
 				<div class="clickBox">
-					<div style="cursor: pointer" @click="fnLink({},'event-biz-list.do')">
+					<div style="cursor: pointer"
+						@click="fnLink({},'event-biz-list.do')">
 						<div
-							style="color: #ff7f00; font-size: 32px; height: 100px; display: flex; align-items: center; gap: 10px;">
-							우리동네이벤트 <a
-								style="background-color: #ff7f00; color: white; display: inline-block; width: 30px; height: 30px; font-size: 20px; border-radius: 50%; text-align: center;">❯</a>
+							style="color: #ff7f00; font-size: 35px; height: 100px; display: flex; align-items: center; gap: 10px;">
+							우리동네 <a><img width="32" height="32"
+								src="https://img.icons8.com/ios/50/ffcc00/neighborhood.png"
+								alt="neighborhood" /></a>
 						</div>
-						<div>매장 이벤트 전체 보기</div>
+						<div class="main-font">이벤트 보러가기</div>
+					</div>
+				</div>
+				<div class="clickBox">
+					<div style="cursor: pointer"
+						@click="fnLink({},'event-web-list.do')">
+						<div
+							style="color: #ffcc00; font-size: 35px; height: 100px; display: flex; align-items: center; gap: 10px;">
+							FOOD114<a><img width="25" height="25"
+								src="https://img.icons8.com/ios/25/ff7f00/event-accepted.png"
+								alt="event-accepted" /></a>
+						</div>
+						<div class="main-font">모아보기</div>
 					</div>
 				</div>
 			</div>

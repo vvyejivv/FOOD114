@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="../css/main.css">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-<title>Document</title>
+<title>FOOD114 BusinessPage</title>
 </head>
 <body>
 	<%@include file="main(header)_biz.html"%>
@@ -21,8 +21,8 @@
 				<div id="margin-top" id="margin-bottom">
 					<div id="slideshow">
 						<div id="slides">
-							<img src="../img/pizza.JPG"> <img src="../img/pizza.JPG">
-							<img src="../img/pizza.JPG">
+							<img src="../img/slide1.jpg"> <img src="../img/slide2.jpg">
+							<img src="../img/slide3.jpg">
 						</div>
 					</div>
 					<div id="bold-notice"></div>
@@ -31,44 +31,50 @@
 							<div id="flex-row">
 								<div id="flex-cell">
 									<div class="icon-container">
-										<a href="javascript:;" class="iconTag"><i
-											class="fas fa-pizza-slice"></i></a>
-										<p>피자</p>
+										<img width="50" height="50"
+											src="https://img.icons8.com/ios/50/4D4D4D/new-store.png"
+											alt="new-store" />
+										<p>상품 등록</p>
 									</div>
 								</div>
 								<div id="flex-cell">
 									<div class="icon-container">
-										<a href="javascript:;" class="iconTag"><i
-											class="fas fa-hamburger"></i></a>
-										<p>햄버거</p>
+										<img width="50" height="50"
+											src="https://img.icons8.com/external-tal-revivo-light-tal-revivo/50/4D4D4D/external-brief-article-homepage-search-online-service-template-wireframe-light-tal-revivo.png"
+											alt="external-brief-article-homepage-search-online-service-template-wireframe-light-tal-revivo" />
+										<p>상품 조회</p>
 									</div>
 								</div>
 								<div id="flex-cell">
 									<div class="icon-container">
-										<a href="javascript:;" class="iconTag"><i
-											class="fas fa-ice-cream"></i></a>
-										<p>아이스크림</p>
+										<img width="50" height="50"
+											src="https://img.icons8.com/ios/50/4D4D4D/favorite-window.png"
+											alt="favorite-window" />
+										<p>리뷰 관리</p>
 									</div>
 								</div>
 								<div id="flex-cell">
 									<div class="icon-container">
-										<a href="javascript:;" class="iconTag"><i
-											class="fas fa-coffee"></i></a>
-										<p>커피</p>
+										<img width="50" height="50"
+											src="https://img.icons8.com/ios/50/4D4D4D/event-accepted-tentatively.png"
+											alt="event-accepted-tentatively" />
+										<p>이벤트 관리</p>
 									</div>
 								</div>
 								<div id="flex-cell">
 									<div class="icon-container">
-										<a href="javascript:;" class="iconTag"><i
-											class="fas fa-cookie"></i></a>
-										<p>쿠키</p>
+										<img width="50" height="50"
+											src="https://img.icons8.com/wired/50/4D4D4D/combo-chart--v1.png"
+											alt="combo-chart--v1" />
+										<p>판매 통계</p>
 									</div>
 								</div>
 								<div id="flex-cell">
 									<div class="icon-container">
-										<a href="javascript:;" class="iconTag"><i
-											class="fas fa-birthday-cake"></i></a>
-										<p>케이크</p>
+										<img width="50" height="50"
+											src="https://img.icons8.com/forma-thin/50/4D4D4D/user-male-circle.png"
+											alt="user-male-circle" />
+										<p>판매자 정보</p>
 									</div>
 								</div>
 							</div>
@@ -94,7 +100,7 @@
 						<h2>
 							<span style="color: #ff7f00; font-weight: bold;">| </span> <span
 								style="text-align: left; color: rgba(72, 72, 72);"><span
-								style="color: #ff7f00">FOOD114</span> 센터&nbsp;</span>
+								>FOOD114</span> 센터&nbsp;</span>
 						</h2>
 					</div>
 					<div id="side-bar-container">

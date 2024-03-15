@@ -21,4 +21,10 @@ public interface BoardService {
 	
 	// 사업자 이벤트 출력
 	HashMap<String, Object> searchBizEvent(HashMap<String, Object> map);
+	
+	HashMap<String, Object> searchBizEventView(HashMap<String, Object> map);
+	
+	HashMap<String, Object> addBizEventFile(HashMap<String, Object> map);
+	
+	HashMap<String, Object> editBizEventBoard(HashMap<String, Object> map);
 }

@@ -103,4 +103,50 @@ public class BoardServiceImpl implements BoardService {
 		}
 		return resultMap;
 	}
+
+	@Override
+	public HashMap<String, Object> searchBizEventView(HashMap<String, Object> map) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			Board listBizEventView = boardMapper.selectBizEventView(map);
+			resultMap.put("listBizEventView", listBizEventView);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			resultMap.put("result", "fail");
+		}
+		return resultMap;
+	}
+
+	@Override
+	public HashMap<String, Object> addBizEventFile(HashMap<String, Object> map) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			if(boardMapper.selectBizEventFileYn(map) == null) {
+				boardMapper.insertBizEventFile(map);
+				boardMapper.updateBizEventBoard(map);
+			} else {
+				boardMapper.updateBizEventFile(map);
+				boardMapper.updateBizEventBoard(map);
+			}
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			resultMap.put("result", "fail");
+		}
+		return resultMap;
+	}
+
+	@Override
+	public HashMap<String, Object> editBizEventBoard(HashMap<String, Object> map) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			boardMapper.updateBizEventBoard(map);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			resultMap.put("result", "fail");
+		}
+		return resultMap;
+	}
 }
