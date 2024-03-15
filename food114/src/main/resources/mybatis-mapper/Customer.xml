@@ -93,5 +93,16 @@
 		WHERE O.USERID = #{userId}
 		GROUP BY O.ORDERNO;
 	</select>
-
+	
+	<!-- myInfo - my주소지 관리 - 기본주소지 설정 -->
+	<update id="updateAddrList" parameterType="hashmap">
+		UPDATE FOOD114_CONSUMER_ADDR
+		SET
+			DEFAULTYN = 'Y'
+		WHERE USERID = #{userId}
+	</update>
+	
+	<!-- myInfo - my주소지 관리 - 기본주소지 삭제 -->
+	
+	
 </mapper>

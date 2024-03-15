@@ -32,4 +32,7 @@ public interface CustomerService {
 	
 	//마이페이지 - 주문/리뷰 - 주문내역리스트
 	HashMap<String, Object> searchMyOrderList(HashMap<String, Object> map);
+	
+	// myInfo - my주소지 관리 - 기본주소지 설정
+	HashMap<String, Object> editAddrList(HashMap<String, Object> map);
 }

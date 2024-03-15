@@ -202,4 +202,20 @@ public class CustomerServiceImpl implements CustomerService {
 		}
 		return resultMap;
 	}
+
+	// myInfo - my주소지 관리 - 기본주소지 설정
+	@Override
+	public HashMap<String, Object> editAddrList(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> resultMap = new HashMap<>();
+		try {
+			customerMapper.updateAddrList(map);
+			resultMap.put("result", "success");			
+		} catch (Exception e) {
+			// TODO: handle exception
+			resultMap.put("result", "error");
+			System.out.println(e.getMessage());
+		}
+		return resultMap;
+	}
 }

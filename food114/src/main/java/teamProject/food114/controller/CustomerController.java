@@ -114,6 +114,15 @@ public class CustomerController {
 			return new Gson().toJson(resultMap);
 	}
 	
+	// myInfo - my주소지 관리 - 기본주소지 설정
+	@RequestMapping(value = "/myInfoAddrList.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String editAddrList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+			HashMap<String, Object> resultMap = new HashMap<String, Object>();
+			resultMap = customerService.editAddrList(map);
+			return new Gson().toJson(resultMap);
+	}
+	
 	// 마이페이지 - 나의정보 - 등급
 	@RequestMapping("/myInfoGrade.do")
 	public String myPageGrade(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)

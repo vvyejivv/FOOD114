@@ -19,7 +19,36 @@ body {
 	margin-top: 50px;
 	display: flex;
 	justify-content: space-between;
+	overflow-y: auto;
+	overflow-x: none;
 }
+
+/* 웹킷 기반 브라우저(Chrome, Safari 등)의 스크롤바 스타일 변경 */
+.container::-webkit-scrollbar {
+    width: 12px; /* 스크롤바의 너비 */
+}
+
+
+.container::-webkit-scrollbar-track {
+	/* 스크롤바의 트랙 배경색 */
+    background-color: none; 
+   /*  background-color: rgba(221, 220, 220, 0.473); */ 
+}
+
+.container::-webkit-scrollbar-thumb {
+	/* 스크롤바의 색 */
+    background-color: white; 
+   /*  background-color:rgba(238, 238, 238, 0.404);  */
+   /* 스크롤바의 모서리 둥글기 */
+    border-radius: 5px;
+}
+
+.container::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(192, 180, 180, 0.466); /* 마우스를 올렸을 때 스크롤바의 색 */
+}
+
+
+
 
 .buttonSubmit {
 	width: 90px;
@@ -62,7 +91,57 @@ body {
 	background-color: #ccc;
 	color: white;
 }
-
+.addrSelect {
+	width: 100px;
+	height: 30px;
+	border: 1px solid #ff7f00;
+	background-color: white;
+	border-radius: 3px;
+	font-size: 11px;
+	line-height: 30px;
+	color: #ff7f00;
+	margin: 5px;
+	margin-right: 5px;
+	cursor: pointer;
+	display: inline-block;
+	text-align: center;
+	line-height: 18px;
+	vertical-align: middle;
+	padding : 0 10px;
+	margin-top: 7px; 
+}
+.addrSelect:hover{
+	border: 1px solid #ff7f00;
+	background-color: #ff7f00;
+	color: white;
+}
+.addrRemove{
+	width: 60px;
+	height: 30px;
+	border: 1px solid #ccc;
+	background-color: white;
+	border-radius: 3px;
+	font-size: 11px;
+	line-height: 30px;
+	color: #ccc;
+	margin: 5px;
+	cursor: pointer;
+	display: inline-block;
+	text-align: center;
+	line-height: 18px;
+	vertical-align: middle;
+	padding : 0 10px;
+	margin-top: 7px; 
+}
+.addrRemove:hover{
+	border: 1px solid #ccc;
+	background-color: #ccc;
+	color: white;
+}
+.addrSelectDiv{
+	margin: none;
+	
+}
 .sidebar {
 	margin: 10px;
 	width: 200px;
@@ -148,7 +227,9 @@ a {
 	font-size: 14px;
 	color: #747171;
 	width: 600px;
-	border: none;
+	/* border: none; */
+	border-top: none;
+	border-bottom:1px sold #ccc;
 	padding: 5px;
 	margin: 5px;
 }
@@ -161,4 +242,9 @@ input[type="password"] {
 
 input[type='password']:focus {
 	outline: none;
+}
+
+.newTableContainer{
+	overflow-y: auto; 
+	max-height: 500px;
 }
