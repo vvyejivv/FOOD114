@@ -85,14 +85,23 @@
 	</select>
 	<!-- 마이페이지 - 결제/주문/리뷰 - 주문내역 -->
 	<select id="selectMyOrderList" parameterType="hashmap" resultType="teamProject.food114.model.Order">
-		SELECT O.ORDERNO, COUNT(*) AS ORDERCNT, O.STATUS, B.BIZNAME, GROUP_CONCAT(CONCAT(M.MENU, '(', D.COUNT, ')') SEPARATOR ', ') AS MENUS, P.PRICE, O.ORDERDATE
+		SELECT O.ORDERNO, COUNT(*) AS ORDERCNT, O.STATUS, B.BIZNAME, GROUP_CONCAT(CONCAT(M.MENU, '(', D.COUNT, ')') SEPARATOR ', ') AS MENUS, P.PRICE, 
+		DATE_FORMAT(O.ORDERDATE, '%Y-%m-%d %H:%i') AS ORDERDATE
 		FROM FOOD114_ORDERS O
 		INNER JOIN FOOD114_ORDER_DETAIL D ON O.ORDERNO = D.ORDERNO
 		INNER JOIN FOOD114_BIZ_INFO B ON O.BIZID = B.BIZID
 		INNER JOIN FOOD114_MENU M ON D.MENUNO = M.MENUNO
 		LEFT JOIN FOOD114_PAYMENT P ON O.ORDERNO = P.ORDERNO
 		WHERE O.USERID = #{userId}
-		GROUP BY O.ORDERNO;
+		GROUP BY O.ORDERNO
+		ORDER BY O.ORDERDATE DESC
 	</select>
+	<!-- 마이페이지 - 주문내역 갯수  -->
+	<select id="selectMyOrderListCnt" parameterType="hashmap" resultType="teamProject.food114.model.Order">
+		SELECT COUNT(*) AS LISTCNT
+		FROM FOOD114_ORDERS O
+		INNER JOIN FOOD114_ORDER_DETAIL D ON O.ORDERNO = D.ORDERNO
+		WHERE O.USERID = #{userId}
+	</select>	
 
 </mapper>

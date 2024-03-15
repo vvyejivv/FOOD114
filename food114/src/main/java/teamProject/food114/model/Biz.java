@@ -24,6 +24,9 @@ public class Biz {
 	private String opneYN;
 	private String categoryName;
 	private String bankName;
+	private String open;
+	private String close;
+	private String shopOpenYN;
 
 	// 이벤트board 조인시
 	private String beginTime2;
@@ -268,5 +271,29 @@ public class Biz {
 
 	public void setContents(String contents) {
 		this.contents = contents;
+	}
+
+	public String getOpen() {
+		return open;
+	}
+
+	public void setOpen(String open) {
+		this.open = open;
+	}
+
+	public String getClose() {
+		return close;
+	}
+
+	public void setClose(String close) {
+		this.close = close;
+	}
+
+	public String getShopOpenYN() {
+		return shopOpenYN;
+	}
+
+	public void setShopOpenYN(String shopOpenYN) {
+		this.shopOpenYN = shopOpenYN;
 	}
 }

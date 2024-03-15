@@ -24,6 +24,7 @@ public class Review {
 	private String fileSize;
 	private String fileETC;
 	private String menuList;
+	private String path;
 	public int getReviewNo() {
 		return reviewNo;
 	}
@@ -155,6 +156,12 @@ public class Review {
 	}
 	public void setMenuList(String menuList) {
 		this.menuList = menuList;
+	}
+	public String getPath() {
+		return path;
+	}
+	public void setPath(String path) {
+		this.path = path;
 	}
 	
 }

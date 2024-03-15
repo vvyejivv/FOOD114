@@ -19,6 +19,7 @@ public class Menu {
 	private String end;
 	private String ing;
 	private String soldOut;
+	private String path;
 	
 	public int getMenuNo() {
 		return menuNo;
@@ -127,5 +128,11 @@ public class Menu {
 	}
 	public void setFileEtc(String fileEtc) {
 		this.fileEtc = fileEtc;
+	}
+	public String getPath() {
+		return path;
+	}
+	public void setPath(String path) {
+		this.path = path;
 	}
 }

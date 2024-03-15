@@ -108,7 +108,7 @@ a{
 								<td class="reviewFont">{{ item.orderNo }}</td>
 								<td class="reviewFont">{{ item.bizName }}</td>
 								<td class="reviewFont">{{ item.menus }}</td>
-								<td class="reviewFont">{{ item.price.toLocaleString() }}원</td>
+								<td class="reviewFont">{{ item.price }}</td>
 								<td class="reviewFont">{{ item.orderDate }}</td>
 								<td class="reviewFont">{{ item.status }}</td>
 							</tr>

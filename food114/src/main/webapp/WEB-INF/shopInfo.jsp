@@ -32,7 +32,7 @@
 					<template v-for="(item,index) in menuList">
 						<div class="menuInfo" @click="fnMenuClick('open',index)">
 							<div class="menuImgBox">
-								<!-- <img src="../image/kfood.jpg"> -->
+								<img :src="item.path">
 							</div>
 							<div class="menuName">
 								<table>
@@ -126,7 +126,7 @@
 							<div id="menuClose" @click="fnMenuClick('close',0)">×</div>
 						</div>
 						<div id="menuListImg">
-							<img src="../img/메가커피_아아.jpg">
+							<img :src="clickMenu.path">
 						</div>
 						<div id="menuListInfoBox">
 							<div id="menuNameBox">{{clickMenu.menu}}</div>
@@ -168,7 +168,7 @@
 	var app = new Vue({
 		el : '#app',
 		data : {
-			bizId : "hi123",
+			bizId : "${map.bizId}",
 			sessionId : "${sessionId}",
 			addr : "",		/* 주소값 */
 			menuList : [], /* 메뉴 목록  */
@@ -196,6 +196,7 @@
 					data : nparmap,
 					success : function(data) {
 						self.menuList = data.menuList;
+						/* console.log(data.menuList); */
 					}
 				});
 				
@@ -207,6 +208,7 @@
 				self.selectMenu = index;
 				if (type == "open") {
 					self.clickMenu = self.menuList[index];
+					console.log(self.clickMenu);
 					self.totalPrice = self.clickMenu.price * self.cnt;
 					self.modalFlg = true;
 					document.body.style.overflow = 'hidden';

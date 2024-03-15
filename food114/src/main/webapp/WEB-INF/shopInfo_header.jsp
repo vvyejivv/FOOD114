@@ -51,6 +51,7 @@
 					<div id="shopInfoLeftBox">
 						<div id="shopMainImg">
 							<!-- <img src="../image/cfood.jpg"> -->
+							<img :src="bizInfo.path">
 						</div>
 						<div id="shopHours">
 							<div id="shopTable">
@@ -61,11 +62,11 @@
 									</tr>
 									<tr>
 										<th>영업시간</th>
-										<td>{{bizInfo.openTime}}</td>
+										<td>{{bizInfo.open}} ~ {{bizInfo.close}}</td>
 									</tr>
 									<tr>
 										<th>운영여부</th>
-										<td>{{bizInfo.openYN}}</td>
+										<td>{{bizInfo.shopOpenYN}}</td>
 									</tr>
 									<tr>
 										<th>전화번호</th>
@@ -157,7 +158,6 @@
 					data : nparmap,
 					success : function(data) {
 						self.bizInfo = data.bizInfo;
-						/* console.log(data.bizInfo); */
 						// 데이터베이스에서 가져온 첫 번째 항목의 위치를 이용하여 지도 설정 및 마커 추가
 		                self.setMapCenterAndAddMarker(self.bizInfo.latitude, self.bizInfo.longitude);
 					}
