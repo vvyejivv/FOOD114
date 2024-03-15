@@ -352,6 +352,7 @@
 		LIKE CONCAT('%',#{bizName},'%')
 	</select>
 	
+	<!-- 배달 가능구역에 있는 가게 목록 -->
 	<select id="selectBizDelivery" parameterType="hashmap"
 		resultType="teamProject.food114.model.Biz">
 		SELECT
@@ -389,6 +390,5 @@
 		I.BIZID
 		) RE ON I.BIZID = RE.BIZID
 		INNER JOIN FOOD114_CATEGORY C ON I.BIZCATEGORY = C.CATEGORYNO
-		WHERE TAKEOUT NOT IN ('2')
 	</select>
 </mapper>
