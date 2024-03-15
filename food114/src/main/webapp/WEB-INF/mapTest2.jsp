@@ -195,6 +195,7 @@ ul, ol {
 	width: 100%; /* restList의 너비를 화면 전체 너비로 설정 */
 	overflow-x: hidden; /* 가로 스크롤 숨김 */
 	overflow-y: auto; /* 세로 스크롤 자동으로 생성 */
+	cursor: pointer;
 }
 
 .restImg {
@@ -308,12 +309,12 @@ ul, ol {
 								<div>
 									<a href="javascript:;" id="menu1" @click="fnSearchType1()"
 										:style="{'color': searchFlg1 ? '#fff' : '#ff7f00'}"
-										:class="searchFlg1 ? 'select_button' : 'none_select_button'">지역검색</a>
+										:class="searchFlg1 ? 'select_button' : 'none_select_button'"  style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;">지역검색</a>
 								</div>
 								<div>
 									<a href="javascript:;" id="menu2" @click="fnSearchType2()"
 										:style="{'color': searchFlg2 ? '#fff' : '#ff7f00'}"
-										:class="searchFlg2 ? 'select_button' : 'none_select_button'">가게명</a>
+										:class="searchFlg2 ? 'select_button' : 'none_select_button'" style="border-top-right-radius: 5px;border-bottom-right-radius: 5px;">가게명</a>
 								</div>
 							</div>
 							<div v-if="searchFlg2" class="search-bar">
@@ -358,11 +359,11 @@ ul, ol {
 							<p style="margin-left: 60px;">{{item.contents}}</p>
 						</div>
 					</div>
-					<div class="restList" v-if="areaRestList.length > 0" v-for="item in areaRestList">
+					<div class="restList" v-if="areaRestList.length > 0" v-for="item in areaRestList" @click="fnRestView(item.bizId)">
 						<img :src="item.path" alt="Hi" class="restImg">
 						<h3 style="margin-top: 8px;">
 							<a style="font-size: 1.5em;" href="javascript:;"
-								@click="fnRestView(item.bizId)">{{item.bizName}}</a><span style="color: #aaa;"> {{item.categoryName}}</span>
+								>{{item.bizName}}</a><span style="color: #aaa;"> {{item.categoryName}}</span>
 						</h3>
 						<div id="placesList1">
 							<span style="color: #ff7f00;">★ {{item.reviewAvg}}</span> | 리뷰 {{item.reviewCnt}}
