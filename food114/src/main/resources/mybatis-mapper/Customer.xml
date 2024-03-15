@@ -15,7 +15,7 @@
 				#{emailAddrInput}
 			</otherwise>
 		</choose>
-		),"1",now(),now(),"N","Y")
+		),"1",now(),now(),"N","Y",null)
 	</insert>
 	<select id="selectUserID" parameterType="hashmap"
 		resultType="teamProject.food114.model.Customer">
@@ -48,6 +48,14 @@
 		UPDATE FOOD114_CONSUMER
 		SET
 		${column}=#{value}
+		WHERE USERID = #{userId}
+	</update>
+	
+	<!-- 회원 탈퇴시 -->
+	<update id="updateUserLeave" parameterType="hashmap">
+		UPDATE FOOD114_CONSUMER
+		SET
+		LEAVETIME = NOW() 
 		WHERE USERID = #{userId}
 	</update>
 

@@ -14,7 +14,8 @@ public class Customer {
 	private String cdate;
 	private String udate;
 	private String adult;
-	private String userYn;
+	private String useYn;
+	private String leaveTime;
 	public String getUserId() {
 		return userId;
 	}
@@ -87,11 +88,17 @@ public class Customer {
 	public void setAdult(String adult) {
 		this.adult = adult;
 	}
-	public String getUserYn() {
-		return userYn;
+	public String getUseYn() {
+		return useYn;
 	}
-	public void setUserYn(String userYn) {
-		this.userYn = userYn;
+	public void setUseYn(String useYn) {
+		this.useYn = useYn;
+	}
+	public String getLeaveTime() {
+		return leaveTime;
+	}
+	public void leaveTime(String leaveTime) {
+		this.leaveTime = leaveTime;
 	}
 
 }

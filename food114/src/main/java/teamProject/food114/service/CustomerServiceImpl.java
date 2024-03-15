@@ -92,9 +92,21 @@ public class CustomerServiceImpl implements CustomerService {
 					//로그인 성공
 					resultMap.put("pwd", "pwdSuccess");
 					
-					//세션 생성
-					session.setAttribute("sessionId", customer.getUserId());
-					session.setAttribute("userGrade", customer.getGrade());
+					if(!customer.getUseYn().equals("N")&&customer.getLeaveTime()==null) {
+						//세션 생성
+						resultMap.put("status", "success");
+						session.setAttribute("sessionId", customer.getUserId());
+						session.setAttribute("userGrade", customer.getGrade());
+					} 
+					if(customer.getUseYn().equals("N")) {
+						resultMap.put("status", "idle");
+						resultMap.put("message", "아이디가 현재 휴면상태입니다.");
+					}
+					if(customer.getLeaveTime()!=null) {
+						resultMap.put("status", "leave");
+						resultMap.put("message", "탈퇴된 회원입니다.");
+					}
+					
 					
 				}else {
 					//로그인 실패(패스워드가 다른 경우)
@@ -199,6 +211,22 @@ public class CustomerServiceImpl implements CustomerService {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			resultMap.put("result", "fail");
+		}
+		return resultMap;
+	}
+
+	@Override
+	public HashMap<String, Object> editUserLeave(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		HashMap<String,Object> resultMap=new HashMap<>();
+		try {
+			customerMapper.updateUserLeave(map);
+			resultMap.put("result","success");
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			resultMap.put("result","failed");
 		}
 		return resultMap;
 	}

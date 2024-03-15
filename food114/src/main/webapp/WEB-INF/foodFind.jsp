@@ -75,12 +75,12 @@ input {
 	height: 50px;
 	border-radius: 5px;
 	margin: 0px auto;
-	display: flex;
-	align-items: center;
+	display: inline-block;
 	border: 1px solid #ccc;
 	position: relative;
 	background-color: white;
 	box-sizing: border-box;
+	padding-top: 12px;
 }
 
 .addrInput {
@@ -88,22 +88,6 @@ input {
 	line-height: 20px;
 	margin: 0px 20px;
 	width: 400px;
-}
-
-.addrListBox {
-	width: 450px;
-	margin: 0px auto;
-	border: 1px solid #ccc;
-	position: absolute;
-	box-sizing: border-box;
-	left: -2px;
-	border-top: none;
-	border-bottom-left-radius: 10px;
-	border-bottom-right-radius: 10px;
-	overflow: hidden;
-	left: -1px;
-	padding-top: 10px;
-	top: 40px;
 }
 
 .addrListOne {
@@ -136,6 +120,35 @@ input {
 .addrText>div>span {
 	margin-right: 5px;
 }
+
+.searchAddr {
+	cursor: pointer;
+	font-size: 13px;
+	padding: 10px 20px;
+	background-color: white;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	font-weight: 500;
+	margin-right: 50px;
+}
+
+.modalBackGround {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	background-color: rgba(0, 0, 0, 0.05)
+}
+
+.modalContents {
+	width: 500px;
+	background-color: white;
+	position: fixed;
+	top: 200px;
+	left: 50%;
+	translate: -50%;
+}
 </style>
 	<div id="app">
 		<section style="color: rgb(72, 72, 72)">
@@ -159,39 +172,49 @@ input {
 			<div style="width: 1000px; margin: 0px auto;">
 
 				<!-- 주소 container -->
-				<div style="padding: 20px; margin-bottom: 30px;">
+				<div
+					style="padding: 20px; margin-bottom: 30px; height: 60px; padding-left: 100px;">
 					<!-- 현재 입력된 주소 -->
-					<button @click=openAddressSearch>주소검색</button>
+					<button @click=openAddressSearch style="" class="searchAddr">주소
+						검색하기</button>
+					<button @click="fnShowAddr()" class="searchAddr">내 주소지
+						불러오기</button>
 					<div class="addrContainer">
-						<input class="addrInput" placeholder="주소를 입력하세요."
-							v-model="inputAddr" @focus="fnShowAddr()">
+
+						<input class="addrInput" placeholder="주소검색 혹은 등록된 주소지를 선택해주세요."
+							disabled v-model="inputAddr" style="background-color: white;">
 						<div>
 							<img src="../img/magnifying-glass-gray-solid.png" width="30px"
 								height="30px"
-								style="position: absolute; top: 10px; right: -40px;"
+								style="position: absolute; top: 10px; right: -40px; cursor: pointer"
 								@click="fnCompleteAddr">
 						</div>
 
 						<!-- 주소창 더보기 클릭시 display none상태-->
 						<template v-if="showAddr">
-							<div @click="fnHiddenAddr"
-								style="position: fixed; top: 0px; left: 0px; right: 0px; bottom: 0px;"></div>
-							<div class="addrListBox">
-								<!-- 등록된 주소창 v-for 사용할것 -->
-								<div class="addrListOne" v-for="(item,index) in addrList"
-									@click="fnAddrSelect(index)">
-									<div class="addrAs">{{item.addrAs}}</div>
-									<div class="addrText">
-										<div>
-											<span
-												style="border: 1px solid #ccc; border-radius: 5px; padding: 0px 5px;">구주소</span>{{item.oldAddr}},{{item.detail}}
-										</div>
-										<div>
-											<span
-												style="border: 1px solid #ccc; border-radius: 5px; padding: 0px 5px;">신주소</span>{{item.newAddr}},{{item.detail}}
-										</div>
+							<div @click="fnHiddenAddr" class="modalBackGround"></div>
+							<div class="modalContents" style="padding: 10px;">
+								<div>내 주소록</div>
+
+								<!-- 반복 box -->
+								<div
+									style="border: 1px solid #ccc; border-radius: 5px; padding: 10px; margin-bottom: 10px; cursor:pointer;"
+									v-for="(item,index) in addrList" @click="fnAddrSelect(index)">
+
+									<div>이름 : {{item.addrAs}}</div>
+									<div>
+										<span
+											style="border: 1px solid #ccc; border-radius: 5px; padding: 0px 5px;">구주소</span>
+										{{item.newAddr}}
 									</div>
+									<div>
+										<span
+											style="border: 1px solid #ccc; border-radius: 5px; padding: 0px 5px;">신주소</span>
+										{{item.oldAddr}}
+									</div>
+									<div>상세주소 : {{item.detail}}</div>
 								</div>
+
 							</div>
 						</template>
 
@@ -260,160 +283,164 @@ input {
 
 </html>
 <script>
-	var app = new Vue({
-		el : '#app',
-		data : {
-			categoryList : [], // 카테고리 리스트
-			sessionId : "${sessionId}", // 현재 로그인된 아이디
-			nowCategory : "${map.category}", // 현재 선택된 카테고리
-			sortType : "기본 정렬 순", // 정렬
-			showAddr : false, // 현재 아이디의 주소 목록 보이기 여부
-			addrList : [], // 현재 아이디의 주소 목록
-			inputAddr : "",
-			addrNo : "",
-			oldAddr : "",
-			newAddr : "",
-			bizInfo : [],
-			latitude : "",
-			longitude : ""
-			
-		},
-		methods : {
-			// 배달가능한 가게목록 전체
-			fnList : function() {
-				var self=this;
-				var nparmap = {};
-				$.ajax({
-					url : "baedalok.dox",
-					dataType : "json",
-					type : "POST",
-					data : nparmap,
-					success : function(data) {
-						self.bizInfo=data.list;
-						console.log(self.bizInfo);
-					}
-				});
-			},
-			// 해당 주소의 위도 경도 구하기
-			convertAddressToCoordinates : function(addr) {
-				var self = this;
-				// 주소-좌표 변환 객체를 생성합니다
-				var geocoder = new kakao.maps.services.Geocoder();
+	var app = new Vue(
+			{
+				el : '#app',
+				data : {
+					categoryList : [], // 카테고리 리스트
+					sessionId : "${sessionId}", // 현재 로그인된 아이디
+					nowCategory : "${map.category}", // 현재 선택된 카테고리
+					sortType : "기본 정렬 순", // 정렬
+					showAddr : false, // 현재 아이디의 주소 목록 보이기 여부
+					addrList : [], // 현재 아이디의 주소 목록
+					inputAddr : "",
+					addrNo : "",
+					oldAddr : "",
+					newAddr : "",
+					bizInfo : [],
+					latitude : "",
+					longitude : ""
 
-				var callback = function(result, status) {
-					if (status === kakao.maps.services.Status.OK) {								
-						self.latitude = result[0].y;
-						self.longitude = result[0].x;								
-					}
-				};
-				geocoder.addressSearch(addr, callback);
-			},
-			//주소조회 api
-			openAddressSearch : function() {
-				var self = this;
-				new daum.Postcode({
-					oncomplete : function(data) {
-					self.oldAddr = data.jibunAddress != "" ? data.jibunAddress: data.autoJibunAddress;
-					self.inputAddr = data.roadAddress;
-					self.newAddr = data.roadAddress;
-					self.convertAddressToCoordinates(data.address);
-					}
-				}).open();
-			},
-			fnAddrClick : function() {
-				alert("안녕");
-			},
-			/* 카테고리 목록 불러오기 */
-			fnCategoryList : function() {
-				var self = this;
-				console.log(self.sessionId);
-				var nparmap = {};
-				$.ajax({
-					url : "foodCategoryAll.dox",
-					dataType : "json",
-					type : "POST",
-					data : nparmap,
-					success : function(data) {
-						self.categoryList = data.categoryList;
-						console.log(self.categoryList);
-					}
-				});
-			},
-			/* 카테고리 선택시 */
-			fnCategorySelect : function(category) {
-				var self = this;
-				$.pageChange("/food114_foodfind.do", {
-					category : category
-				});
-			},
-			/* 사업자 리스트 불러오기 */
-			fnBizList : function() {
-				var self = this;
-				var nparmap = {};
-				$.ajax({
-					url : "a.dox",
-					dataType : "json",
-					type : "POST",
-					data : nparmap,
-					success : function(data) {
-						self.categoryList = data.categoryList;
-						console.log(self.categoryList);
-					}
-				});
-			},
-			/* 회원 주소 목록 불러오기 */
-			fnAddrList : function() {
-				var self = this;
-				var nparmap = {
-					userId : self.sessionId
-				};
-				$.ajax({
-					url : "consumerAddrList.dox",
-					dataType : "json",
-					type : "POST",
-					data : nparmap,
-					success : function(data) {
-						self.addrList = data.addrList;
-					}
-				});
-			},
-			/* 회원 주소 선택시 */
-			fnAddrSelect : function(idx) {
-				var self = this;
-				self.showAddr = false;
-				self.inputAddr = self.addrList[idx].oldAddr
-			},
-			fnCompleteAddr : function() {
-				var self = this;
-				var nparmap = {
-					userId : self.sessionId
-				};
-				$.ajax({
-					url : "consumerAddrList.dox",
-					dataType : "json",
-					type : "POST",
-					data : nparmap,
-					success : function(data) {
-						self.addrList = data.addrList;
-					}
-				});
-			},
-			fnShowAddr : function() {
-				var self = this;
-				self.showAddr = true;
-			},
-			fnHiddenAddr : function() {
-				var self = this;
-				self.showAddr = false;
-			}
+				},
+				methods : {
+					// 배달가능한 가게목록 전체
+					fnList : function() {
+						var self = this;
+						var nparmap = {};
+						$.ajax({
+							url : "baedalok.dox",
+							dataType : "json",
+							type : "POST",
+							data : nparmap,
+							success : function(data) {
+								self.bizInfo = data.list;
+								console.log(self.bizInfo);
+							}
+						});
+					},
+					// 해당 주소의 위도 경도 구하기
+					convertAddressToCoordinates : function(addr) {
+						var self = this;
+						// 주소-좌표 변환 객체를 생성합니다
+						var geocoder = new kakao.maps.services.Geocoder();
 
-		},
-		created : function() {
-			var self = this;
-			self.fnList();
-			self.fnCategoryList();
-			self.fnAddrList();
+						var callback = function(result, status) {
+							if (status === kakao.maps.services.Status.OK) {
+								self.latitude = result[0].y;
+								self.longitude = result[0].x;
+							}
+						};
+						geocoder.addressSearch(addr, callback);
+					},
+					//주소조회 api
+					openAddressSearch : function() {
+						var self = this;
+						new daum.Postcode(
+								{
+									oncomplete : function(data) {
+										self.oldAddr = data.jibunAddress != "" ? data.jibunAddress
+												: data.autoJibunAddress;
+										self.inputAddr = data.roadAddress;
+										self.newAddr = data.roadAddress;
+										self
+												.convertAddressToCoordinates(data.address);
+									}
+								}).open();
+					},
+					fnAddrClick : function() {
+						alert("안녕");
+					},
+					/* 카테고리 목록 불러오기 */
+					fnCategoryList : function() {
+						var self = this;
+						console.log(self.sessionId);
+						var nparmap = {};
+						$.ajax({
+							url : "foodCategoryAll.dox",
+							dataType : "json",
+							type : "POST",
+							data : nparmap,
+							success : function(data) {
+								self.categoryList = data.categoryList;
+								console.log(self.categoryList);
+							}
+						});
+					},
+					/* 카테고리 선택시 */
+					fnCategorySelect : function(category) {
+						var self = this;
+						$.pageChange("/food114_foodfind.do", {
+							category : category
+						});
+					},
+					/* 사업자 리스트 불러오기 */
+					fnBizList : function() {
+						var self = this;
+						var nparmap = {};
+						$.ajax({
+							url : "a.dox",
+							dataType : "json",
+							type : "POST",
+							data : nparmap,
+							success : function(data) {
+								self.categoryList = data.categoryList;
+								console.log(self.categoryList);
+							}
+						});
+					},
+					/* 회원 주소 목록 불러오기 */
+					fnAddrList : function() {
+						var self = this;
+						var nparmap = {
+							userId : self.sessionId
+						};
+						$.ajax({
+							url : "consumerAddrList.dox",
+							dataType : "json",
+							type : "POST",
+							data : nparmap,
+							success : function(data) {
+								self.addrList = data.addrList;
+							}
+						});
+					},
+					/* 회원 주소 선택시 */
+					fnAddrSelect : function(idx) {
+						var self = this;
+						self.showAddr = false;
+						self.inputAddr = self.addrList[idx].oldAddr
+					},
+					fnCompleteAddr : function() {
+						var self = this;
+						var nparmap = {
+							userId : self.sessionId
+						};
+						$.ajax({
+							url : "consumerAddrList.dox",
+							dataType : "json",
+							type : "POST",
+							data : nparmap,
+							success : function(data) {
+								self.addrList = data.addrList;
+							}
+						});
+					},
+					fnShowAddr : function() {
+						var self = this;
+						self.showAddr = true;
+					},
+					fnHiddenAddr : function() {
+						var self = this;
+						self.showAddr = false;
+					}
 
-		}
-	});
+				},
+				created : function() {
+					var self = this;
+					self.fnList();
+					self.fnCategoryList();
+					self.fnAddrList();
+
+				}
+			});
 </script>

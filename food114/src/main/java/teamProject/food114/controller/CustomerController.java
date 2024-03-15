@@ -51,6 +51,15 @@ public class CustomerController {
 		resultMap = customerService.editMyInfo(map);
 		return new Gson().toJson(resultMap);
 	}
+	
+	// 마이페이지 - 회원탈퇴
+	@RequestMapping(value = "/consumer-leave.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String consumerLeace(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap=customerService.editUserLeave(map);
+		return new Gson().toJson(resultMap);
+	}
 
 	// 마이페이지-나의정보 불러오기 <-userId
 	@RequestMapping(value = "/myInfo.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
