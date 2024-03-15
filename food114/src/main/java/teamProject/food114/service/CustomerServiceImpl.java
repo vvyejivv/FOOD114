@@ -18,7 +18,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Autowired
 	CustomerMapper customerMapper;
-	//세션 객체 만들기
+	// 세션 객체 만들기
 	@Autowired
 	HttpSession session;
 
@@ -46,10 +46,10 @@ public class CustomerServiceImpl implements CustomerService {
 			Customer customer = customerMapper.selectUserID(map);
 			if (customer == null) {
 				resultMap.put("result", "success");
-				
-			} else {				
+
+			} else {
 				resultMap.put("result", "dup");
-				
+
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -67,7 +67,7 @@ public class CustomerServiceImpl implements CustomerService {
 			Customer customer = customerMapper.selectEmail(map);
 			if (customer == null) {
 				resultMap.put("result", "success");
-			} else {				
+			} else {
 				resultMap.put("result", "dup");
 			}
 		} catch (Exception e) {
@@ -77,7 +77,8 @@ public class CustomerServiceImpl implements CustomerService {
 		}
 		return resultMap;
 	}
-	//로그인 : 아이디 비밀번호 확인
+
+	// 로그인 : 아이디 비밀번호 확인
 	@Override
 	public HashMap<String, Object> searchLoginUserId(HashMap<String, Object> map) {
 		HashMap<String, Object> resultMap = new HashMap<>();
@@ -85,21 +86,32 @@ public class CustomerServiceImpl implements CustomerService {
 			Customer customer = customerMapper.selectUserID(map);
 			if (customer == null) {
 				resultMap.put("message", "아이디가 존재하지 않습니다.");
-			} else {				
-				//비밀번호 체크
-				String pwd = (String)map.get("pwd");
-				if(customer.getPwd().equals(pwd)) {
-					//로그인 성공
+			} else {
+				// 비밀번호 체크
+				String pwd = (String) map.get("pwd");
+				if (customer.getPwd().equals(pwd)) {
+					// 로그인 성공
 					resultMap.put("pwd", "pwdSuccess");
-					
-					//세션 생성
-					session.setAttribute("sessionId", customer.getUserId());
-					session.setAttribute("userGrade", customer.getGrade());
-					
-				}else {
-					//로그인 실패(패스워드가 다른 경우)
-					resultMap.put("pwd","fail");
-					resultMap.put("message","비밀번호가 일치하지 않습니다.");
+
+					if (!customer.getUseYn().equals("N") && customer.getLeaveTime() == null) {
+						// 세션 생성
+						resultMap.put("status", "success");
+						session.setAttribute("sessionId", customer.getUserId());
+						session.setAttribute("userGrade", customer.getGrade());
+					}
+					if (customer.getUseYn().equals("N")) {
+						resultMap.put("status", "idle");
+						resultMap.put("message", "아이디가 현재 휴면상태입니다.");
+					}
+					if (customer.getLeaveTime() != null) {
+						resultMap.put("status", "leave");
+						resultMap.put("message", "탈퇴된 회원입니다.");
+					}
+
+				} else {
+					// 로그인 실패(패스워드가 다른 경우)
+					resultMap.put("pwd", "fail");
+					resultMap.put("message", "비밀번호가 일치하지 않습니다.");
 				}
 			}
 		} catch (Exception e) {
@@ -110,15 +122,15 @@ public class CustomerServiceImpl implements CustomerService {
 		return resultMap;
 	}
 
-	// 마이페이지 내정보 불러오기 
+	// 마이페이지 내정보 불러오기
 	@Override
 	public HashMap<String, Object> searchMyInfo(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
 		HashMap<String, Object> resultMap = new HashMap<>();
 		try {
 			Customer customer = customerMapper.selectUserID(map);
-			resultMap.put("result", "success");			
-			resultMap.put("info", customer);			
+			resultMap.put("result", "success");
+			resultMap.put("info", customer);
 		} catch (Exception e) {
 			// TODO: handle exception
 			resultMap.put("result", "error");
@@ -133,13 +145,13 @@ public class CustomerServiceImpl implements CustomerService {
 		HashMap<String, Object> resultMap = new HashMap<>();
 		try {
 			resultMap.put("addrList", customerMapper.selectUserAddr(map));
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 		return resultMap;
 	}
-	
+
 	// myInfo 변경 : 이름, 별명, 연락처, 이메일
 	@Override
 	public HashMap<String, Object> editMyInfo(HashMap<String, Object> map) {
@@ -147,7 +159,7 @@ public class CustomerServiceImpl implements CustomerService {
 		HashMap<String, Object> resultMap = new HashMap<>();
 		try {
 			customerMapper.updateMyInfo(map);
-			resultMap.put("result", "success");			
+			resultMap.put("result", "success");
 		} catch (Exception e) {
 			// TODO: handle exception
 			resultMap.put("result", "error");
@@ -163,7 +175,7 @@ public class CustomerServiceImpl implements CustomerService {
 		HashMap<String, Object> resultMap = new HashMap<>();
 		try {
 			customerMapper.updatePwd(map);
-			resultMap.put("result", "success");			
+			resultMap.put("result", "success");
 		} catch (Exception e) {
 			// TODO: handle exception
 			resultMap.put("result", "error");
@@ -179,8 +191,8 @@ public class CustomerServiceImpl implements CustomerService {
 		HashMap<String, Object> resultMap = new HashMap<>();
 		try {
 			List<Addr> Addr = customerMapper.selectMyInfoAddr(map);
-			resultMap.put("result", "success");			
-			resultMap.put("list", Addr);			
+			resultMap.put("result", "success");
+			resultMap.put("list", Addr);
 		} catch (Exception e) {
 			// TODO: handle exception
 			resultMap.put("result", "error");
@@ -188,7 +200,8 @@ public class CustomerServiceImpl implements CustomerService {
 		}
 		return resultMap;
 	}
-	//마이페이지 - 주문/리뷰 - 주문내역리스트
+
+	// 마이페이지 - 주문/리뷰 - 주문내역리스트
 	@Override
 	public HashMap<String, Object> searchMyOrderList(HashMap<String, Object> map) {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
@@ -202,15 +215,16 @@ public class CustomerServiceImpl implements CustomerService {
 		}
 		return resultMap;
 	}
-
-	// myInfo - my주소지 관리 - 기본주소지 설정
+	
+	//	myInfo - my주소지 관리 - 기본주소지 Y
 	@Override
-	public HashMap<String, Object> editAddrList(HashMap<String, Object> map) {
+	public HashMap<String, Object> editAddrListYn(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
 		HashMap<String, Object> resultMap = new HashMap<>();
 		try {
 			customerMapper.updateAddrList(map);
-			resultMap.put("result", "success");			
+			customerMapper.updateAddrListYn(map);
+			resultMap.put("result", "success");
 		} catch (Exception e) {
 			// TODO: handle exception
 			resultMap.put("result", "error");
@@ -218,4 +232,55 @@ public class CustomerServiceImpl implements CustomerService {
 		}
 		return resultMap;
 	}
+	
+	
+
+	@Override
+	public HashMap<String, Object> editUserLeave(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		HashMap<String,Object> resultMap=new HashMap<>();
+		try {
+			customerMapper.updateUserLeave(map);
+			resultMap.put("result","success");
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			resultMap.put("result","failed");
+		}
+		return resultMap;
+	}
+
+	//  myInfo - my주소지 관리 - 주소지 추가
+	@Override
+	public HashMap<String, Object> insertAddr(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> resultMap = new HashMap<>();
+		try {
+			customerMapper.insertAddrList(map);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			// TODO: handle exception
+			resultMap.put("result", "failed");
+			System.out.println(e.getMessage());
+		}
+		return resultMap;
+	}
+
+//  myInfo - my주소지 관리 - 주소지 삭제
+	@Override
+	public HashMap<String, Object> deleteAddr(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			customerMapper.deleteAddrList(map);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			// TODO: handle exception
+			resultMap.put("result", "fail");
+		}
+		return resultMap;
+	}
+
+	
 }

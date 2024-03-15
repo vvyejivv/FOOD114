@@ -164,10 +164,10 @@ button img {
         광고창
         <button class="adClose">x</button>
     </div> -->
-	<section>
+	<section style="height: 850px">
 		<%@include file="sideBar_biz.html"%>
 		<div id="app">
-			<div class="mold">
+			<div class="mold" style="width:1050px">
 				<h2>
                	<span style="color: #ff7f00; font-weight: bold;">| </span><span
                   style="text-align: left; color: rgba(72, 72, 72);">상품등록&nbsp;</span>
@@ -180,7 +180,7 @@ button img {
 					<div class="type_limit">{{menu.length}}/100</div>
 					<div class="nameInfo">판매 상품과 직접 관련이 없는 상품명은 관리자에 의해 변경될 수 있습니다.</div>
 				</div>
-				<div class="inputBox">
+				<div class="inputBox" hidden>
 					<div class="inputDiv">
 						카테고리<small><small style="color: #ff7f00;"> ＊ </small></small>
 					</div>
@@ -206,13 +206,13 @@ button img {
 					</div>
 					<input v-model="menuInfo" type="text" class="mod_input" placeholder="메뉴 설명(소개) 입력">
 				</div>
-				<div class="inputBox">
+				<div class="inputBox" hidden>
 					<div class="inputDiv">
 						원산지<small><small style="color: #ff7f00;"> ＊ </small></small>
 					</div>
 					<input type="text" class="mod_input" placeholder="원산지 입력" disabled>
 				</div>
-				<div class="inputBox">
+				<div class="inputBox" hidden>
 					<div class="inputDiv">
 						메뉴 옵션<small><small style="color: #ff7f00;"> ＊ </small></small>
 					</div>
@@ -236,7 +236,7 @@ button img {
 	var app = new Vue({
 		el : '#app',
 		data : {
-			sessionId : "${sessionId}",
+			sessionId : "${sessionBizId}",
 			menu : "",
 			price : "",
 			menuInfo : ""

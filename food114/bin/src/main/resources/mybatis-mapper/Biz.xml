@@ -25,22 +25,63 @@
 	</select>
 	<select id="selectBizList" parameterType="hashmap"
 		resultType="teamProject.food114.model.Biz">
-		SELECT * FROM FOOD114_BIZ_INFO
+
+		SELECT
+		I.*,
+		REVIEWAVG,
+		REVIEWCNT,
+		TITLE,
+		CONTENTS,
+		CATEGORYNAME,
+		CONCAT(F.FILEPATH, F.FILENAME) AS PATH
+		FROM
+		FOOD114_BIZ_INFO I
+		LEFT JOIN FOOD114_BIZ_FILE F ON I.BIZID = F.BIZID
+		AND F.DELETETIME IS NULL
+		AND STATUS = 'COMPLETE'
+		INNER JOIN (
+		SELECT
+		I.BIZID,
+		IFNULL(
+		ROUND(
+		AVG(RAITING),
+		1
+		),
+		0
+		) AS REVIEWAVG,
+		B.TITLE,
+		B.CONTENTS,
+		COUNT(REVIEWNO) AS REVIEWCNT
+		FROM
+		FOOD114_BIZ_INFO I
+		LEFT JOIN FOOD114_ORDERS O ON I.BIZID = O.BIZID
+		LEFT JOIN FOOD114_REVIEW R ON O.ORDERNO = R.ORDERNO
+		LEFT JOIN FOOD114_BOARD B ON I.BIZID = B.USERID AND B.ENDYN = 'N'
+		GROUP BY
+		I.BIZID
+		) RE ON I.BIZID = RE.BIZID
+		INNER JOIN FOOD114_CATEGORY C ON I.BIZCATEGORY = C.CATEGORYNO
 	</select>
+
+	<!-- 시 리스트 -->
 	<select id="selectSiList" parameterType="hashmap"
 		resultType="teamProject.food114.model.Area">
 		SELECT SI FROM FOOD114_AREA GROUP BY SI
 	</select>
+
+	<!-- 구 리스트 -->
 	<select id="selectGuList" parameterType="hashmap"
 		resultType="teamProject.food114.model.Area">
 		SELECT GU FROM FOOD114_AREA WHERE SI = #{si} GROUP BY GU
+		ORDER BY GU
 	</select>
+
+	<!-- 동 리스트 -->
 	<select id="selectDongList" parameterType="hashmap"
 		resultType="teamProject.food114.model.Area">
 		SELECT DONG FROM FOOD114_AREA WHERE SI = #{si} AND GU =
-		#{gu} GROUP BY DONG
+		#{gu} GROUP BY DONG ORDER BY DONG
 	</select>
-<<<<<<< HEAD
 
 	<select id="selectBizInfo" parameterType="hashmap"
 		resultType="teamProject.food114.model.Biz">
@@ -97,13 +138,19 @@
 		UPDATE FOOD114_BIZ_INFO
 		SET bizname=#{bizName},
 		ownername=#{ownerName},
+		email=#{email},
 		phone=#{phone},
 		udate=now(),
 		bank=#{bank},
 		accountnumber=#{accountNumber},
 		bizcategory=#{bizCategory},
 		opentime=#{openTime},
-		closetime=#{closeTime}
+		closetime=#{closeTime},
+		oldaddr=#{oldAddr},
+		newAddr=#{newAddr},
+		detail=#{detail},
+		latitude=#{latitude},
+		longitude=#{longitude}
 		WHERE bizid=#{bizId};
 	</update>
 
@@ -119,42 +166,188 @@
 	</update>
 
 	<!-- biz 로고사진 파일 수정시2 -->
-	<update id="updateBizFileWaitToComplete"
-		parameterType="hashmap">
-		UPDATE FOOD114_BIZ_FILE
+	<update id="updateBizFileWaitToComplete" parameterType="hashmap">
+		UPDATE
+		FOOD114_BIZ_FILE
 		SET STATUS="COMPLETE"
 		WHERE BIZID
 		= #{bizId} AND
 		DELETETIME IS NULL AND STATUS="WAIT"
 	</update>
 
-	<select id="selectAreaList" parameterType="hashmap" resultType="teamProject.food114.model.Biz">
-		SELECT * FROM FOOD114_BIZ_INFO WHERE OLDADDR LIKE CONCAT(#{area},'%')
-	</select>
-=======
-	
-	<select id="selectBizInfo" parameterType="hashmap"
+	<!-- 이벤트 중인 사업자 리스트 -->
+	<select id="selectBizEventList" parameterType="hashmap"
 		resultType="teamProject.food114.model.Biz">
-		SELECT I.*, CATEGORYNAME, NAME AS BANKNAME
-			FROM FOOD114_BIZ_INFO I
-			INNER JOIN FOOD114_CATEGORY C1 ON I.BIZCATEGORY = C1.CATEGORYNO
-			INNER JOIN FOOD114_CODE C2 ON I.BANK = C2.VALUE AND C2.KIND = 'bank'
-		WHERE BIZID = #{bizId}
-	</select>
-	
-	<insert id="insertBizFile" parameterType="hashmap">
-		INSERT INTO FOOD114_BIZ_FILE VALUES(null, #{bizId}, #{path}, #{fileName}, #{orgName}, #{fileSize}, #{etc}, null)
-	</insert>
-	
-	<select id="selectBizFile" parameterType="hashmap" resultType="teamProject.food114.model.BizFile">
-		SELECT B.*, CONCAT(FILEPATH, FILENAME) AS PATH FROM FOOD114_BIZ_FILE B WHERE BIZID = #{bizId} AND DELETETIME IS NULL
-	</select>
-	
-	<update id="updateBizFile" parameterType="hashmap">
-		UPDATE FOOD114_BIZ_FILE 
-			SET DELETETIME = NOW() 
-		WHERE BIZID = #{bizId} AND DELETETIME IS NULL
-	</update>
+		SELECT
+		I.BIZID,
+		I.BIZNAME,
+		OLDADDR,
+		IFNULL(
+		ROUND(
+		AVG(RAITING),
+		1
+		),
+		0
+		) AS REVIEWAVG,
+		B.TITLE,
+		B.CONTENTS,
+		COUNT(REVIEWNO) AS REVIEWCNT,
+		CONCAT(F.FILEPATH,F.FILENAME) AS PATH,
+		DATE_FORMAT(B.BEGINTIME, "%y-%m-%d") AS
+		BEGINTIME,
+		DATE_FORMAT(B.ENDTIME, "%y-%m-%d") AS ENDTIME,
+		B.SETBEGINTIME,
+		B.SETENDTIME
 
->>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
+		FROM
+		FOOD114_BIZ_INFO I
+		LEFT JOIN
+		FOOD114_ORDERS O ON I.BIZID = O.BIZID
+		LEFT JOIN FOOD114_REVIEW R ON
+		O.ORDERNO = R.ORDERNO
+		INNER JOIN FOOD114_BOARD B ON I.BIZID = B.USERID
+		AND CODE=4 AND ENDYN='N'
+		AND B.ENDYN = 'N'
+		LEFT JOIN FOOD114_BIZ_FILE F
+		ON I.BIZID = F.BIZID
+		AND F.STATUS = 'COMPLETE'
+		WHERE
+		OLDADDR LIKE (
+		CONCAT('%', #{selectSi}, '%')
+		)
+		AND OLDaddr LIKE (
+		CONCAT('%',
+		#{selectGu}, '%')
+		)
+		AND OLDaddr LIKE (
+		CONCAT('%', #{selectDong}, '%')
+		)
+		GROUP BY
+		I.BIZID
+		${order}
+	</select>
+	
+	<select id="selectAreaList" parameterType="hashmap"
+		resultType="teamProject.food114.model.Biz">
+		SELECT
+		I.*,
+		REVIEWAVG,
+		REVIEWCNT,
+		CONCAT(F.FILEPATH, F.FILENAME) AS PATH,
+		TITLE,
+		CONTENTS,
+		CATEGORYNAME
+		FROM
+		FOOD114_BIZ_INFO I
+		LEFT JOIN FOOD114_BIZ_FILE F ON I.BIZID = F.BIZID
+		AND F.DELETETIME IS NULL
+		AND STATUS = 'COMPLETE'
+		INNER JOIN (
+		SELECT
+		I.BIZID,
+		B.TITLE,
+		B.CONTENTS,
+		IFNULL(
+		ROUND(
+		AVG(RAITING),
+		1
+		),
+		0
+		) AS REVIEWAVG,
+		COUNT(REVIEWNO) AS REVIEWCNT
+		FROM
+		FOOD114_BIZ_INFO I
+		LEFT JOIN FOOD114_ORDERS O ON I.BIZID = O.BIZID
+		LEFT JOIN FOOD114_REVIEW R ON O.ORDERNO = R.ORDERNO
+		LEFT JOIN FOOD114_BOARD B ON I.BIZID = B.USERID
+		AND B.ENDYN = 'N'
+		GROUP BY
+		I.BIZID
+		) RE ON I.BIZID = RE.BIZID
+		INNER JOIN FOOD114_CATEGORY C ON I.BIZCATEGORY = C.CATEGORYNO
+		WHERE OLDADDR
+		LIKE CONCAT(#{area},'%')
+	</select>
+
+	<select id="selectBizView" parameterType="hashmap"
+		resultType="teamProject.food114.model.Biz">
+		SELECT
+		I.*,
+		REVIEWAVG,
+		REVIEWCNT,
+		TITLE,
+		CONTENTS,
+		CATEGORYNAME,
+		CONCAT(F.FILEPATH, F.FILENAME) AS PATH
+		FROM
+		FOOD114_BIZ_INFO I
+		LEFT JOIN FOOD114_BIZ_FILE F ON I.BIZID = F.BIZID
+		AND F.DELETETIME IS NULL
+		AND STATUS = 'COMPLETE'
+		INNER JOIN (
+		SELECT
+		I.BIZID,
+		IFNULL(
+		ROUND(
+		AVG(RAITING),
+		1
+		),
+		0
+		) AS REVIEWAVG,
+		B.TITLE,
+		B.CONTENTS,
+		COUNT(REVIEWNO) AS REVIEWCNT
+		FROM
+		FOOD114_BIZ_INFO I
+		LEFT JOIN FOOD114_ORDERS O ON I.BIZID = O.BIZID
+		LEFT JOIN FOOD114_REVIEW R ON O.ORDERNO = R.ORDERNO
+		LEFT JOIN FOOD114_BOARD B ON I.BIZID = B.USERID AND B.ENDYN = 'N'
+		GROUP BY
+		I.BIZID
+		) RE ON I.BIZID = RE.BIZID
+		INNER JOIN FOOD114_CATEGORY C ON I.BIZCATEGORY = C.CATEGORYNO
+		WHERE I.BIZID = #{bizId}
+	</select>
+	
+	<select id="selectBizListSearchByName" parameterType="hashmap"
+		resultType="teamProject.food114.model.Biz">
+		SELECT
+		I.*,
+		REVIEWAVG,
+		REVIEWCNT,
+		CONCAT(F.FILEPATH, F.FILENAME) AS PATH,
+		TITLE,
+		CONTENTS,
+		CATEGORYNAME
+		FROM
+		FOOD114_BIZ_INFO I
+		LEFT JOIN FOOD114_BIZ_FILE F ON I.BIZID = F.BIZID
+		AND F.DELETETIME IS NULL
+		AND STATUS = 'COMPLETE'
+		INNER JOIN (
+		SELECT
+		I.BIZID,
+		B.TITLE,
+		B.CONTENTS,
+		IFNULL(
+		ROUND(
+		AVG(RAITING),
+		1
+		),
+		0
+		) AS REVIEWAVG,
+		COUNT(REVIEWNO) AS REVIEWCNT
+		FROM
+		FOOD114_BIZ_INFO I
+		LEFT JOIN FOOD114_ORDERS O ON I.BIZID = O.BIZID
+		LEFT JOIN FOOD114_REVIEW R ON O.ORDERNO = R.ORDERNO
+		LEFT JOIN FOOD114_BOARD B ON I.BIZID = B.USERID
+		AND B.ENDYN = 'N'
+		GROUP BY
+		I.BIZID
+		) RE ON I.BIZID = RE.BIZID
+		INNER JOIN FOOD114_CATEGORY C ON I.BIZCATEGORY = C.CATEGORYNO
+		WHERE I.BIZNAME
+		LIKE CONCAT('%',#{bizName},'%')
+	</select>
 </mapper>

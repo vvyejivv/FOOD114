@@ -51,6 +51,15 @@ public class CustomerController {
 		resultMap = customerService.editMyInfo(map);
 		return new Gson().toJson(resultMap);
 	}
+	
+	// 마이페이지 - 회원탈퇴
+	@RequestMapping(value = "/consumer-leave.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String consumerLeace(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap=customerService.editUserLeave(map);
+		return new Gson().toJson(resultMap);
+	}
 
 	// 마이페이지-나의정보 불러오기 <-userId
 	@RequestMapping(value = "/myInfo.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
@@ -114,14 +123,34 @@ public class CustomerController {
 			return new Gson().toJson(resultMap);
 	}
 	
-	// myInfo - my주소지 관리 - 기본주소지 설정
-	@RequestMapping(value = "/myInfoAddrList.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	
+	// myInfo - my주소지 관리 - 기본주소지 Y
+		@RequestMapping(value = "/myInfoAddrListYn.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+		@ResponseBody
+		public String editAddrListYn(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+				HashMap<String, Object> resultMap = new HashMap<String, Object>();
+				resultMap = customerService.editAddrListYn(map);
+				return new Gson().toJson(resultMap);
+		}
+	
+	// myInfo - my주소지 관리 - 주소지 추가
+	@RequestMapping(value = "/insertAddr.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String editAddrList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
-			HashMap<String, Object> resultMap = new HashMap<String, Object>();
-			resultMap = customerService.editAddrList(map);
-			return new Gson().toJson(resultMap);
+	public String insertAddr(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = customerService.insertAddr(map);
+		return new Gson().toJson(resultMap);
 	}
+	
+	// myInfo - my주소지 관리 - 주소지 삭제
+	@RequestMapping(value = "/deleteAddr.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String deleteAddrList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = customerService.deleteAddr(map);
+		return new Gson().toJson(resultMap);
+	}
+	
 	
 	// 마이페이지 - 나의정보 - 등급
 	@RequestMapping("/myInfoGrade.do")
@@ -229,5 +258,8 @@ public class CustomerController {
 
 		return new Gson().toJson(resultMap);
 	}
+	
+	
+	
 
 }

@@ -23,16 +23,25 @@ public interface CustomerService {
 
 	// myInfo 변경 : 이름, 별명, 연락처, 이메일
 	HashMap<String, Object> editMyInfo(HashMap<String, Object> map);
-	
+
 	// myInfo 변경 : 비밀번호(pwd)
 	HashMap<String, Object> editPwd(HashMap<String, Object> map);
-	
+
 	// myInfo - my주소지 관리 - 주소지 상세보기
 	HashMap<String, Object> searchMyInfoAddr(HashMap<String, Object> map);
-	
-	//마이페이지 - 주문/리뷰 - 주문내역리스트
+
+	// 마이페이지 - 주문/리뷰 - 주문내역리스트
 	HashMap<String, Object> searchMyOrderList(HashMap<String, Object> map);
 	
-	// myInfo - my주소지 관리 - 기본주소지 설정
-	HashMap<String, Object> editAddrList(HashMap<String, Object> map);
+	// myInfo - my주소지 관리 - 기본주소지 Y
+	HashMap<String, Object> editAddrListYn(HashMap<String, Object> map);
+	
+	// myInfo - my주소지 관리 - 선택 주소지 삭제
+	HashMap<String, Object> deleteAddr(HashMap<String, Object> map);
+	
+	// 회원탈퇴시
+	HashMap<String, Object> editUserLeave(HashMap<String, Object> map);
+	
+	// myInfo - my주소지 관리 - 주소지 추가 
+	HashMap<String, Object> insertAddr(HashMap<String, Object> map);
 }

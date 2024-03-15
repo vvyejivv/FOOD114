@@ -49,7 +49,7 @@
 							<div class="row">
 								<div class="cell1">비밀번호</div>
 								<div class="cell2">
-									<input type="password" v-model="pwd">
+									<input type="password" v-model="pwd" style="margin-left: 0px;">
 								</div>
 
 							</div>

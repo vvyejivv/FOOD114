@@ -16,4 +16,8 @@ public interface ReviewMapper {
 	
 	Review selectBizReviewInfo(HashMap<String, Object> map); //리뷰 사업자 자세히
 	
+	void insertPreview(HashMap<String, Object> map); //리뷰 답글
+	
+	void updatePreview(HashMap<String, Object> map); //리뷰 답글 수정
+	
 }

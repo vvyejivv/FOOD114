@@ -43,6 +43,7 @@ public interface BizMapper {
 	List<Biz> selectAreaList(HashMap<String, Object> map); // 시구동 검색 식당 리스트 조회
 	Biz selectBizView(HashMap<String, Object> map); // 클릭한 식당 내용
 	List<Biz> selectBizListSearchByName(HashMap<String, Object> map); // 식당이름 검색 리스트 조회
+	List<Biz> selectBizDelivery(HashMap<String, Object> map); // 배달가능 식당리스트조회
 	
 }
 

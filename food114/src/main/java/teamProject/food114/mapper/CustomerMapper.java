@@ -38,7 +38,20 @@ public interface CustomerMapper {
 	//마이페이지 - 주문/리뷰 - 주문내역리스트
 	List<Order> selectMyOrderList(HashMap<String,Object> map);
 	
-	// myInfo - my주소지 관리 - 기본주소지 설정
+	// myInfo - my주소지 관리 - 기본주소지 DEFAULTYN = 'N'으로 설정 
 	void updateAddrList(HashMap<String, Object> map);
+	
+	// myInfo - my주소지 관리 - 기본주소지 DEFAULTYN = 'Y'
+	void updateAddrListYn(HashMap<String, Object> map);
+	
+	// 회원탈퇴시
+	void updateUserLeave(HashMap<String, Object> map);
+	
+	// myInfo - my주소지 관리 - 주소지 추가
+	void insertAddrList(HashMap<String, Object> map);
+	
+	//  myInfo - my주소지 관리 - 주소지 삭제
+	void deleteAddrList(HashMap<String, Object> map);
+	
 	
 }

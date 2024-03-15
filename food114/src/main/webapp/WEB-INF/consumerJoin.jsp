@@ -378,7 +378,7 @@ select {
 							self.resultMessage = "이름을 입력해주세요."
 							return;
 						}
-						if (!phoneCheckFlg) {
+						if (!self.phoneCheckFlg) {
 							self.resultMessage = "휴대폰 인증을 진행해주세요."
 							return;
 						}
@@ -416,8 +416,8 @@ select {
 						//영어,숫자
 						var engNum = /^[a-zA-Z0-9]+$/;
 
-						if (self.userInfo.userId.length < 8) {
-							self.idCheckMessage = "아이디를 최소 8글자 이상 입력해주세요";
+						if (self.userInfo.userId.length < 5) {
+							self.idCheckMessage = "아이디를 최소 5글자 이상 입력해주세요";
 							self.idCheckFlg = false;
 							return;
 						}

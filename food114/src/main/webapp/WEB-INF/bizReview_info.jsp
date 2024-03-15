@@ -56,9 +56,13 @@
 					</tr>
 					<tr>
 						<td class="event_title">리뷰 답글</td>
-						<td>
-							<input style="width: 700px;" placeholder="리뷰 작성을 해주세요!">
-							<button class="addReview">저장</button>
+						<td v-if="reviewInfo.pContents">
+							<textarea style="width: 700px;" placeholder="리뷰 작성을 해주세요!" v-model="contents">{{reviewInfo.pContents}}</textarea>
+							<button class="addReview" @click="fnBizUpdate()">수정</button>
+						</td>
+						<td v-if="!reviewInfo.pContents">
+							<textarea style="width: 700px;" placeholder="리뷰 작성을 해주세요!" v-model="contents"></textarea>
+							<button class="addReview" @click="fnBizAdd()">저장</button>
 						</td>
 					</tr>
 				</table>
@@ -76,7 +80,9 @@
 		el : '#app',
 		data : {
 			reviewNo : '${map.reviewNo}',
-			reviewInfo : {}
+			reviewInfo : {},
+			sessionId : "${sessionBizId}",
+			contents : ""
 		},
 		methods : {
 			bizInfo : function() {
@@ -97,7 +103,48 @@
 			},
 			goBack : function() {
 				// 이전으로 버튼을 눌렀을 때의 동작을 정의합니다.
-				window.history.back();
+				$.pageChange("/bizReview.do", {});
+			},
+			fnBizAdd : function() {
+				var self = this;
+				console.log(self.reviewNo);
+				if(!self.contents){
+					return;
+				}
+				var nparmap = {
+					reviewNo : self.reviewNo,
+					bizId : self.sessionId,
+					orderNo : self.reviewInfo.orderNo,
+					contents : self.contents
+				};
+				$.ajax({
+					url : "reviewBizComment.dox",
+					dataType : "json",
+					type : "POST",
+					data : nparmap,
+					success : function(data) {
+						location.reload(true);
+					}
+				});
+			},
+			fnBizUpdate : function() {
+				var self = this;
+				if(!self.contents){
+					return;
+				}
+				var nparmap = {
+					reviewNo : self.reviewInfo.pNo,
+					contents : self.contents
+				};
+				$.ajax({
+					url : "reviewBizCommentUpdate.dox",
+					dataType : "json",
+					type : "POST",
+					data : nparmap,
+					success : function(data) {
+						location.reload(true);
+					}
+				});
 			}
 		},
 		created : function() {

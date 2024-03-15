@@ -20,12 +20,15 @@
 	text-align: center;
 }
 .event-detail{
-	background-color: white;
-	color: #ff7f00;
-	border: 1px solid #ff7f00;
-	border-radius: 5px;
+	background-color: #ffffff; 
+	border: 1px solid #ff7f00; 
+	color: #ff7f00; 
+	transition-duration: 0.4s; /* 트랜지션 효과 지속 시간 */
+	cursor: pointer;
+	border-radius: 4px; /* 버튼에 border-radius 적용 */
 }
 .event-detail:hover{
-	background-color: #FBCEB1;
-	cursor: pointer;
+	background-color: #ff7f00;
+	border: 1px solid #FBCEB1;
+	color: #ffffff;
 }
