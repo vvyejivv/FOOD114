@@ -64,12 +64,15 @@
 	var app = new Vue({
 		el : '#app',
 		data : {
-			events : []
+			events : [],
+			sessionId : "${sessionBizId}"
 		},
 		methods : {
 			list : function() {
 				var self = this;
-				var nparmap = {};
+				var nparmap = {
+						bizId : self.sessionId
+				};
 				$.ajax({
 					url : "listBizEvent.dox",
 					dataType : "json",

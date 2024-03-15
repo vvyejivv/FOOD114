@@ -31,7 +31,7 @@ public class MenuController {
 	public String food114FoodFind(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
 		if(!map.containsKey("category")) {
-			map.put("category", "");
+			map.put("category", "%%%%");
 		}
 		request.setAttribute("map", map);
 		return "/foodFind";

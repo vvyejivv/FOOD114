@@ -106,5 +106,6 @@
             FOOD114_BOARD fb
         JOIN
             FOOD114_BIZ_INFO fi ON fb.USERID = fi.BIZID
+        WHERE fi.BIZID = #{bizId}
 	</select>
 </mapper>
