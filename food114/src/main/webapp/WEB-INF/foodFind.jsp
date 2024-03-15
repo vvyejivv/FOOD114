@@ -181,7 +181,7 @@ input {
 }
 </style>
 	<div id="app" v-cloak>
-		<section style="color: rgb(72, 72, 72)">
+		<section style="color: rgb(72, 72, 72); font-size: 15px;">
 			<!-- 카테고리 나열 -->
 			<div class="container">
 				<div class="categoryBox">
@@ -247,10 +247,10 @@ input {
 				<!-- 주소 container 끝-->
 
 				<!-- 가게 정렬순 -->
-				<div style="height: 35px; margin-top: 100px;">
+				<div style="height: 35px; margin-top: 100px;" v-if="searchFlg">
 					<div style="float: right; padding-right: 35px;">
 						<select v-model="order" @change="fnList()"
-							style="width: 300px; font-size: 15px; padding: 3px; border: 1px solid #ccc;">
+							style="width: 300px; font-size: 15px; padding: 3px; border: 1px solid #ccc; border-radius: 5px;">
 							<option value="">기본 정렬 순</option>
 							<option value="ORDER BY ORDERCNT DESC">주문 많은 순</option>
 							<option value="ORDER BY REVIEWAVG DESC">별점 높은 순</option>
@@ -266,10 +266,10 @@ input {
 					<!-- 목록 정렬 -->
 					<div
 						style="width: 960px; margin: 0px auto; display: grid; grid-template-columns: 1fr 1fr;"
-						:style="{height: bizBaedalOk.length <7 ? '300px' : 'auto'}">
-						<div v-if="bizBaedalOk.length==0&&longitude!=''&&searchFlg">해당
-							위치에 배달가능한 가게가 없습니다.</div>
-						<div v-if="!searchFlg">지역을 설정해주세요.</div>
+						:style="{height: !searchFlg ? '300px' : 'auto'}">
+						<!-- :style="{height: bizBaedalOk.length <7 ? '300px' : 'auto'}" -->
+						<div v-if="bizBaedalOk.length==0&&longitude!=''&&searchFlg"
+							style="text-align: center">해당 위치에 배달가능한 가게가 없습니다.</div>
 
 						<!-- 가게 1개 -->
 						<div
@@ -318,6 +318,8 @@ input {
 								</div>
 							</div>
 						</div>
+						<div style="height: 200px; width: 10px;"
+							v-if="bizBaedalOk.length<7"></div>
 
 
 					</div>
@@ -363,7 +365,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 			longitude : "${map.longitude}",
 			bizBaedalOk : [],
 			order : "",
-			searchFlg : false
+			searchFlg : "${map.flg}"
 			
 			
 		},
@@ -375,6 +377,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 			// 배달가능한 가게목록 전체
 			fnList : function() {
 				var self=this;
+				console.log(self.searchFlg);
 				var nparmap = {
 						category : self.nowCategory,
 						order : self.order
