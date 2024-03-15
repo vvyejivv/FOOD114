@@ -140,7 +140,7 @@
 		el : '#shopInfoHeader',
 		data : {
 			selectTab : '${map.selectTab}', /* 선택한 탭 */
-			bizId : "hi123",/* 가게 누른 파라미터값 불러와야함 */
+			bizId : "${map.bizId}",/* 가게 누른 파라미터값 불러와야함 */
 			bizInfo : {}, /* DB 가게정보  */
 			map : null,
 		},

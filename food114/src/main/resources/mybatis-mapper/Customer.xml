@@ -47,7 +47,7 @@
 	<update id="updateMyInfo" parameterType="hashmap">
 		UPDATE FOOD114_CONSUMER
 		SET
-			${column}=#{value}
+		${column}=#{value}
 		WHERE USERID = #{userId}
 	</update>
 
@@ -77,14 +77,15 @@
 		resultType="teamProject.food114.model.Addr">
 		SELECT *
 		FROM FOOD114_CONSUMER C
-		INNER JOIN FOOD114_CONSUMER_ADDR A ON C.USERID =
+		INNER JOIN
+		FOOD114_CONSUMER_ADDR A ON C.USERID =
 		A.USERID
-		WHERE C.USERID = #{userId}
+		WHERE C.USERID =
+		#{userId}
 	</select>
 	<!-- 마이페이지 - 결제/주문/리뷰 - 주문내역 -->
 	<select id="selectMyOrderList" parameterType="hashmap" resultType="teamProject.food114.model.Order">
-		SELECT O.ORDERNO,COUNT(*) AS ORDERCNT, B.BIZNAME, M.MENU, P.PRICE,
-		O.ORDERDATE
+		SELECT O.ORDERNO, COUNT(*) AS ORDERCNT, O.STATUS, B.BIZNAME, GROUP_CONCAT(CONCAT(M.MENU, '(', D.COUNT, ')') SEPARATOR ', ') AS MENUS, P.PRICE, O.ORDERDATE
 		FROM FOOD114_ORDERS O
 		INNER JOIN FOOD114_ORDER_DETAIL D ON O.ORDERNO = D.ORDERNO
 		INNER JOIN FOOD114_BIZ_INFO B ON O.BIZID = B.BIZID
