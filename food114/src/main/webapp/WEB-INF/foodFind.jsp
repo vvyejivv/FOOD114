@@ -236,18 +236,18 @@ input {
 						</template>
 					</div>
 					<!-- addr 컨테이너 종료 -->
-						<div style="margin: 10px auto; width: 400px;">
-							<button @click=openAddressSearch
-								style="margin-left: 50px; margin-right: 10px;"
-								class="searchAddr">주소 검색하기</button>
-							<button @click="fnShowAddr()" class="searchAddr">내 주소지
-								불러오기</button>
-						</div>
+					<div style="margin: 10px auto; width: 400px;">
+						<button @click=openAddressSearch
+							style="margin-left: 50px; margin-right: 10px;" class="searchAddr">주소
+							검색하기</button>
+						<button @click="fnShowAddr()" class="searchAddr">내 주소지
+							불러오기</button>
+					</div>
 				</div>
 				<!-- 주소 container 끝-->
 
 				<!-- 가게 정렬순 -->
-				<div style="height: 35px;margin-top: 100px;">
+				<div style="height: 35px; margin-top: 100px;">
 					<div style="float: right; padding-right: 35px;">
 						<select v-model="order" @change="fnList()"
 							style="width: 300px; font-size: 15px; padding: 3px; border: 1px solid #ccc;">
@@ -290,8 +290,9 @@ input {
 								<div style="color: #ccc; font-size: 14px;">
 
 									<!-- 가게 평점 -->
-									<span style="color: orange; line-height: 20px; letter-spacing: 20;"> ★
-										{{item.reviewAvg}}({{item.reviewCnt}})</span>
+									<span
+										style="color: orange; line-height: 20px; letter-spacing: 20;">
+										★ {{item.reviewAvg}}({{item.reviewCnt}})</span>
 
 									<!-- 판매 형식 -->
 									<div style="color: black; padding-top: 3px; line-height: 20px;"
@@ -307,7 +308,8 @@ input {
 										<span>배달</span> <span>포장</span>
 									</div>
 									<!-- 운영시간 -->
-									<div style="color: black; font-size: 11px; margin-top:3px; letter-spacing: 20">
+									<div
+										style="color: black; font-size: 11px; margin-top: 3px; letter-spacing: 20">
 										<div
 											v-if="typeof item.openTime!='undefined'||typeof item.closeTime!='undefined'">운영시간
 											:
@@ -366,6 +368,10 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 			
 		},
 		methods : {
+			fnBizView : function(){
+				alert("까꿍");
+				
+			},
 			// 배달가능한 가게목록 전체
 			fnList : function() {
 				var self=this;

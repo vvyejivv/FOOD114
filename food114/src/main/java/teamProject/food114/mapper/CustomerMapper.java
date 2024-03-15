@@ -29,7 +29,7 @@ public interface CustomerMapper {
 	// 메뉴->고객 주소 입력시
 	Addr selectUserSiGuDong(HashMap<String, Object> map);
 	
-	// pwd 변경(myInfo)
+	//  myInfo 변경 : 비밀번호(pwd)
 	void updatePwd(HashMap<String, Object> map);
 	
 	// myInfo - my주소지 관리 - 주소지 상세보기
@@ -39,8 +39,20 @@ public interface CustomerMapper {
 	List<Order> selectMyOrderList(HashMap<String,Object> map);
 	Order selectMyOrderListCnt(HashMap<String,Object> map); //주문갯수
 	
+	// myInfo - my주소지 관리 - 기본주소지 DEFAULTYN = 'N'으로 설정 
+	void updateAddrList(HashMap<String, Object> map);
+	
+	// myInfo - my주소지 관리 - 기본주소지 DEFAULTYN = 'Y'
+	void updateAddrListYn(HashMap<String, Object> map);
+	
 	// 회원탈퇴시
 	void updateUserLeave(HashMap<String, Object> map);
+	
+	// myInfo - my주소지 관리 - 주소지 추가
+	void insertAddrList(HashMap<String, Object> map);
+	
+	//  myInfo - my주소지 관리 - 주소지 삭제
+	void deleteAddrList(HashMap<String, Object> map);
 	
 	
 }
