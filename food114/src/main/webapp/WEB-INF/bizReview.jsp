@@ -82,13 +82,16 @@
 	var app = new Vue({
 		el : '#app',
 		data : {
-			reviews : []
+			reviews : [],
+			sessionId : "${sessionBizId}"
 		// 받은 데이터를 저장할 배열
 		},
 		methods : {
 			list : function() {
 				var self = this;
-				var nparmap = {};
+				var nparmap = {
+						bizId : self.sessionId
+				};
 				$.ajax({
 					url : "reviewBizList.dox",
 					dataType : "json",
