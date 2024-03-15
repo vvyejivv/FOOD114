@@ -57,8 +57,8 @@
         .btn-modify {
         	width:60px;
             background-color: #ffffff; /* 버튼 배경색 (흰색) */
-            border: 1px solid #2196F3; /* 버튼 테두리 (파란색) */
-            color: #2196F3; /* 텍스트 색상 (파란색) */
+            border: 1px solid #ff7f00; /* 버튼 테두리 (파란색) */
+            color: #ff7f00; /* 텍스트 색상 (파란색) */
             padding: 8px 12px; /* 내부 여백 */
             text-align: center;
             text-decoration: none;
@@ -71,8 +71,9 @@
         }
 
         .btn-modify:hover {
-        	border: 1px solid #ff7f00;
-        	color: #ff7f00;
+        	background-color: #ff7f00;
+			border: 1px solid #FBCEB1;
+			color: #ffffff;
         }
         
 </style>
