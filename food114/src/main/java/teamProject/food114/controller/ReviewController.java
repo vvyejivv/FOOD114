@@ -74,4 +74,22 @@ public class ReviewController {
 			resultMap = reviewService.searchBizReviewInfo(map);
 			return new Gson().toJson(resultMap);
 		}
+		
+		//리뷰 답글 작성
+		@RequestMapping(value = "/reviewBizComment.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+		@ResponseBody
+		public String reviewBizComment(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+			HashMap<String, Object> resultMap = new HashMap<String, Object>();
+			resultMap = reviewService.addPreivew(map);
+			return new Gson().toJson(resultMap);
+		}
+		
+		//리뷰 답글 수정
+		@RequestMapping(value = "/reviewBizCommentUpdate.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+		@ResponseBody
+		public String reviewBizCommentUpdate(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+			HashMap<String, Object> resultMap = new HashMap<String, Object>();
+			resultMap = reviewService.editPreview(map);
+			return new Gson().toJson(resultMap);
+		}
 }

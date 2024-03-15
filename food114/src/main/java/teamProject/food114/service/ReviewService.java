@@ -10,5 +10,7 @@ public interface ReviewService {
 	//리뷰 사업자 자세히
 	HashMap<String, Object> searchBizReviewInfo(HashMap<String, Object> map);
 	//리뷰 답글
-
+	HashMap<String, Object> addPreivew(HashMap<String, Object> map);
+	//리뷰 답글 수정
+	HashMap<String, Object> editPreview(HashMap<String, Object> map);
 }

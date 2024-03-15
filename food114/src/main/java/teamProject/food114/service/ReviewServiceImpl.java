@@ -64,5 +64,33 @@ public class ReviewServiceImpl implements ReviewService {
 		}
 		return resultMap;
 	}
+
+	@Override
+	public HashMap<String, Object> addPreivew(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			reviewMapper.insertPreview(map);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			resultMap.put("result", "fail");
+		}
+		return resultMap;
+	}
+
+	@Override
+	public HashMap<String, Object> editPreview(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			reviewMapper.updatePreview(map);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			resultMap.put("result", "fail");
+		}
+		return resultMap;
+	}
 	
 }

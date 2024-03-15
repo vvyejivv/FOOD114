@@ -24,6 +24,12 @@ public class Review {
 	private String fileSize;
 	private String fileETC;
 	private String menuList;
+	
+	// 리뷰 답글
+	private String pContents;
+	// 답글의 리뷰 번호
+	private String pNo;
+	
 	public int getReviewNo() {
 		return reviewNo;
 	}
@@ -155,6 +161,18 @@ public class Review {
 	}
 	public void setMenuList(String menuList) {
 		this.menuList = menuList;
+	}
+	public String getpContents() {
+		return pContents;
+	}
+	public void setpContents(String pContents) {
+		this.pContents = pContents;
+	}
+	public String getpNo() {
+		return pNo;
+	}
+	public void setpNo(String pNo) {
+		this.pNo = pNo;
 	}
 	
 }
