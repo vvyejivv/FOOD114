@@ -33,6 +33,7 @@ public class MenuController {
 		if(!map.containsKey("category")) {
 			map.put("category", "%%%%");
 		}
+		System.out.println(map);
 		request.setAttribute("map", map);
 		return "/foodFind";
 	}

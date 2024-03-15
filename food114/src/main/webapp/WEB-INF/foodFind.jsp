@@ -261,7 +261,8 @@ input {
 					<!-- 목록 정렬 -->
 					<div
 						style="width: 960px; margin: 0px auto; display: grid; grid-template-columns: 1fr 1fr;">
-						<div v-if="bizBaedalOk.length==0&&longitude!=''&&searchFlg">해당 위치에 배달가능한 가게가 없습니다.</div>
+						<div v-if="bizBaedalOk.length==0&&longitude!=''&&searchFlg">해당
+							위치에 배달가능한 가게가 없습니다.</div>
 						<div v-if="!searchFlg">지역을 설정해주세요.</div>
 
 						<!-- 가게 1개 -->
@@ -279,7 +280,8 @@ input {
 									style="font-weight: bold; margin-bottom: 3px; margin-top: -5px;">{{item.bizName}}</div>
 								<div style="color: #ccc; font-size: 14px;">
 									<!-- 가게 평점 -->
-									<span style="color: orange;"> ★ {{item.reviewAvg}}({{item.reviewCnt}})</span>
+									<span style="color: orange;"> ★
+										{{item.reviewAvg}}({{item.reviewCnt}})</span>
 									<!-- 가게 리뷰 수 -->
 									<span style="color: black;">aa</span>
 									<!-- 배달 최소 금액 -->
@@ -301,8 +303,8 @@ input {
 
 	<%@include file="main(footer).html"%>
 </body>
-
 </html>
+
 <script>
 //반경 계산
 function calculateDistance(lat1, lon1, lat2, lon2) {
@@ -322,15 +324,15 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 		data : {
 			categoryList : [], // 카테고리 리스트
 			sessionId : "${sessionId}", // 현재 로그인된 아이디
-			nowCategory : "${map.category}", // 현재 선택된 카테고리
 			sortType : "기본 정렬 순", // 정렬
 			showAddr : false, // 현재 아이디의 주소 목록 보이기 여부
 			addrList : [], // 현재 아이디의 주소 목록
-			inputAddr : "${map.inputAddr}",
 			addrNo : "",
 			oldAddr : "",
 			newAddr : "",
 			bizInfo : [],
+			nowCategory : "${map.category}", // 현재 선택된 카테고리
+			inputAddr : "${map.inputAddr}",
 			latitude : "${map.latitude}",
 			longitude : "${map.longitude}",
 			bizBaedalOk : [],
@@ -353,7 +355,9 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 					data : nparmap,
 					success : function(data) {
 						self.bizInfo = data.list;
-						console.log(self.nowCategory);
+						
+						console.log("시작"+self.latitude+" " + self.longitude);
+						
 						if(self.latitude!="" && self.longitude!=""){
 							self.fnBaedalOk();
 						}
@@ -386,9 +390,12 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 							if (status === kakao.maps.services.Status.OK) {
 								self.latitude = result[0].y;
 								self.longitude = result[0].x;
+								console.log("1."+self.latitude);
 							}
 						};
-						geocoder.addressSearch(addr, callback);
+						geocoder.addressSearch(addr,callback);
+						
+						console.log("2."+self.latitude);
 					},
 					//주소조회 api
 					openAddressSearch : function() {
@@ -402,6 +409,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 										self.newAddr = data.roadAddress;
 										self
 												.convertAddressToCoordinates(data.address);
+										
 									}
 								}).open();
 					},
@@ -464,13 +472,28 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 					/* 회원 주소 선택시 */
 					fnAddrSelect : function(idx) {
 						var self = this;
+						console.log("클릭")
 						self.showAddr = false;
-						self.inputAddr = self.addrList[idx].oldAddr;
-						self.convertAddressToCoordinates(self.addrList[idx].newAddr);
+						self.inputAddr = self.addrList[idx].newAddr;
+						self.convertAddressToCoordinates(self.inputAddr);
+						console.log("3."+self.latitude);
+						setTimeout(function(){
+							$.pageChange("/food114_foodfind.do", {
+								latitude : self.latitude,
+								longitude : self.longitude,
+								inputAddr : self.inputAddr,
+								category : self.nowCategory
+							});
+							console.log("4."+self.latitude);
+						}, 50)
 						
-						/* self.longitude =self.addrList[idx].longitude;
-						self.latitude =self.addrList[idx].latitude; */
-					},					
+						
+						
+							
+					},
+					fnPageChange : function(){
+						var self = this;
+					},
 					fnShowAddr : function() {
 						var self = this;
 						self.showAddr = true;
