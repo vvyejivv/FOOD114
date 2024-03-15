@@ -74,7 +74,6 @@ input {
 	width: 450px;
 	height: 50px;
 	border-radius: 5px;
-	margin: 0px auto;
 	border: 1px solid #ccc;
 	position: relative;
 	background-color: white;
@@ -167,13 +166,23 @@ input {
 	border: 1px solid #ccc;
 	margin-left: 4px;
 	position: relative;
+	border-radius: 5px;
+	margin-right: 5px;
 }
 
 .takeOut>span {
-	font-size: 12px;
+	font-size: 11px;
 	border: 1px solid #ccc;
 	border-radius: 5px;
-	padding: 2px 4px;
+	padding: 1px 2px;
+}
+
+.bizContents {
+	height: 80px;
+	margin-left: 5px;
+}
+.bizContents>div{
+	line-height: 20px;
 }
 
 [v-cloak] {
@@ -197,17 +206,17 @@ input {
 
 			</div>
 
-
+			<!-- container -->
 			<div style="width: 1000px; margin: 0px auto;">
 
 				<!-- 주소 container -->
-				<div style="padding: 20px; margin-bottom: 30px; height: 60px;">
+				<div style="overflow: hidden">
 					<!-- 현재 입력된 주소 -->
 					<div class="addrContainer"
-						style="padding-top: 10px; margin-top: 30px;">
+						style="padding-top: 8px; height: 40px; margin: 0px auto; margin-top: 40px;">
 						<input class="addrInput" placeholder="주소검색 혹은 등록된 주소지를 선택해주세요."
 							disabled v-model="inputAddr"
-							style="background-color: white; font-size: 15px;">
+							style="background-color: white; font-size: 14px;">
 
 						<!-- 주소창 더보기 클릭시-->
 						<template v-if="showAddr">
@@ -236,21 +245,26 @@ input {
 						</template>
 					</div>
 					<!-- addr 컨테이너 종료 -->
-					<div style="margin: 10px auto; width: 400px;">
-						<button @click=openAddressSearch
+
+					<!-- 버튼 -->
+					<div
+						style="margin: 10px auto; width: 450px; display: flex; justify-content: center;">
+						<button @click="openAddressSearch"
 							style="margin-left: 50px; margin-right: 10px;" class="searchAddr">주소
 							검색하기</button>
-						<button @click="fnShowAddr()" class="searchAddr">내 주소지
-							불러오기</button>
+						<button @click="fnShowAddr()" class="searchAddr"
+							v-if="sessionId!=''">내 주소 불러오기</button>
 					</div>
+
+
 				</div>
 				<!-- 주소 container 끝-->
 
 				<!-- 가게 정렬순 -->
-				<div style="height: 35px; margin-top: 100px;" v-if="searchFlg">
+				<div style="height: 35px; margin-top: 70px;" v-if="searchFlg">
 					<div style="float: right; padding-right: 35px;">
 						<select v-model="order" @change="fnList()"
-							style="width: 300px; font-size: 15px; padding: 3px; border: 1px solid #ccc; border-radius: 5px;">
+							style="width: 300px; font-size: 13px; padding: 3px; border: 1px solid #ccc; border-radius: 5px;">
 							<option value="">기본 정렬 순</option>
 							<option value="ORDER BY ORDERCNT DESC">주문 많은 순</option>
 							<option value="ORDER BY REVIEWAVG DESC">별점 높은 순</option>
@@ -273,14 +287,15 @@ input {
 
 						<!-- 가게 1개 -->
 						<div
-							style="border-radius: 4px; width: 460px; height: 100px; border: 1px solid #ccc; margin-bottom: 10px; display: flex; align-items: center; cursor: pointer;"
-							@click="fnBizView()" v-for="item in bizBaedalOk">
+							style="border-radius: 5px; width: 460px; height: 100px; border: 1px solid #ccc; margin-bottom: 10px; display: flex; align-items: center; cursor: pointer;"
+							@click="fnBizView({selectTab : 'menu', bizId : item.bizId})"
+							v-for="item in bizBaedalOk">
 							<!-- 가게 로고 -->
 							<div class="bizLogoContainer">
 								<img :src="item.path" class="bizLogo">
 							</div>
 
-							<div style="height: 80px; margin-left: 5px;">
+							<div style="" class="bizContents">
 								<!-- 가게 이름 -->
 								<div
 									style="font-weight: bold; margin-bottom: 3px; margin-top: -5px; line-height: 20px;">
@@ -370,9 +385,9 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 			
 		},
 		methods : {
-			fnBizView : function(){
-				alert("까꿍");
-				
+			fnBizView : function(map){
+				var self=this;
+				$.pageChange("/shopInfo.do", map);				
 			},
 			// 배달가능한 가게목록 전체
 			fnList : function() {
@@ -533,6 +548,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 				},
 				created : function() {
 					var self = this;
+					console.log(self.sessionId);
 					self.fnList();
 					self.fnCategoryList();
 					self.fnAddrList();

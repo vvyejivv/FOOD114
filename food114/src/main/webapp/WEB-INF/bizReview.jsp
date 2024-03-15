@@ -110,12 +110,7 @@
 				});
 			},
 			fnInfo : function(review) {
-				if(!self.sessionId){
-					$.pageChange("/bizLogin.do", {});
-					return;
-				} else {
 					$.pageChange("/bizReview_info.do", {reviewNo : review.reviewNo});
-				}
 			}
 		},
 		created : function() {
