@@ -18,6 +18,9 @@ public class Order {
 	private String bizName;
 	private int price;
 	
+	// 일매출
+	private String day;
+	private String sum;
 	
 	public int getOrderNo() {
 		return orderNo;
@@ -108,5 +111,17 @@ public class Order {
 	}
 	public void setPrice(int price) {
 		this.price = price;
+	}
+	public String getDay() {
+		return day;
+	}
+	public void setDay(String day) {
+		this.day = day;
+	}
+	public String getSum() {
+		return sum;
+	}
+	public void setSum(String sum) {
+		this.sum = sum;
 	}
 }

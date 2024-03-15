@@ -87,6 +87,10 @@
 		methods : {
 			bizInfo : function() {
 				var self = this;
+				if(!self.sessionId){
+					$.pageChange("/bizLogin.do", {});
+					return;
+				}
 				console.log(self.reviewNo);
 				var nparmap = {
 					reviewNo : self.reviewNo
@@ -107,6 +111,10 @@
 			},
 			fnBizAdd : function() {
 				var self = this;
+				if(!self.sessionId){
+					$.pageChange("/bizLogin.do", {});
+					return;
+				}
 				console.log(self.reviewNo);
 				if(!self.contents){
 					return;
@@ -129,6 +137,10 @@
 			},
 			fnBizUpdate : function() {
 				var self = this;
+				if(!self.sessionId){
+					$.pageChange("/bizLogin.do", {});
+					return;
+				}
 				if(!self.contents){
 					return;
 				}

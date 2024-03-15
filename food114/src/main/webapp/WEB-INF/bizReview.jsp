@@ -89,6 +89,10 @@
 		methods : {
 			list : function() {
 				var self = this;
+				if(!self.sessionId){
+					$.pageChange("/bizLogin.do", {});
+					return;
+				}
 				var nparmap = {
 						bizId : self.sessionId
 				};
@@ -103,7 +107,12 @@
 				});
 			},
 			fnInfo : function(review) {
-				$.pageChange("/bizReview_info.do", {reviewNo : review.reviewNo});
+				if(!self.sessionId){
+					$.pageChange("/bizLogin.do", {});
+					return;
+				} else {
+					$.pageChange("/bizReview_info.do", {reviewNo : review.reviewNo});
+				}
 			}
 		},
 		created : function() {

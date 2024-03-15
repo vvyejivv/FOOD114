@@ -150,6 +150,10 @@
 		methods : {
 			fnMenuList : function() {
 				var self = this;
+				if(!self.sessionId){
+					$.pageChange("/bizLogin.do", {});
+					return;
+				}
 				var nparmap = {
 					bizId : self.sessionId						
 				};
@@ -167,9 +171,14 @@
 				});
 			},
 			fnUpdateView : function(menuNo) {
-				$.pageChange("/biz-menu-update-view.do",{
-	        		menuNo : menuNo
-	        	});
+				if(!self.sessionId){
+					$.pageChange("/bizLogin.do", {});
+					return;
+				} else {
+					$.pageChange("/biz-menu-update-view.do",{
+	        			menuNo : menuNo
+	        		});
+				}
 			}
 		},
 		created : function() {

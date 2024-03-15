@@ -29,9 +29,9 @@
 
 .map_wrap {
 	position: relative;
-	width: 1450px;
+	width: 1470px;
 	height: 820px;
-	padding-left: 410px;
+	padding-left: 432px;
 	margin: 0px auto;
 }
 
@@ -263,6 +263,19 @@ ul, ol {
 	object-fit: contain;
 	margin-right:5px;
 }
+
+.detailView {
+	margin-bottom: 30px;
+}
+
+.plusBtn {
+	width:100px;
+	height:30px;
+	background-color:#f7f7f9;
+	border-radius:10px;
+	border:none;
+	color:#777;
+}
 </style>
 </head>
 <body>
@@ -277,28 +290,36 @@ ul, ol {
 					<img :src="restView.path" class="restViewImg">
 					<a href="javascript:;" @click="fnRestClose()" class="backBtn">❮</a>
 					<div style="margin:10px;">
-						<h1 style="font-size: 1.5em;">{{restView.bizName}}<span style="color:#ccc;"> {{restView.categoryName}}</span></h1>
-						리뷰 {{restView.reviewCnt}}
+						<h1 style="font-size: 1.5em;">{{restView.bizName}}<span style="color:#ccc; margin-top:5px;"> {{restView.categoryName}}</span></h1>
+						<div style="margin-top:10px;">리뷰 {{restView.reviewCnt}}</div>
 					</div>
 						<div style="border-top:1px solid #ccc; width:100%; margin:20px 0 20px 0;"></div>
 					<div style="margin:10px;">
-						<div>
+						<div class="detailView">
 							<img class="solidImg" src="../img/location-dot-solid.png">
 							<span style="font-size:17px;">{{restView.newAddr}} {{restView.detail}}</span>
 						</div>
-						<div>
+						<div class="detailView">
 							<img class="solidImg" src="../img/clock-solid.png">
-							<span style="font-size:17px;">{{restView.openTime}} - {{restView.closeTime}}</span>
+							<span style="font-size:17px;">{{restView.sepaOpenTime}} - {{restView.sepaCloseTime}}</span>
 						</div>
-						<div>
+						<div class="detailView">
 							<img class="solidImg" src="../img/phone-solid.png">
-							<span style="font-size:17px;">{{restView.phone}}</span>
+							<span style="font-size:17px;">{{restView.sepaPhone}}</span>
 						</div>
-						<div>
+						<div class="detailView">
 							<img class="solidImg" src="../img/store-solid.png">
-							<span style="font-size:17px;">포장</span>
+							<span style="font-size:17px;">{{restView.devType}}</span>
 						</div>
-						<button @click="fnShopInfo()">정보 더보기 ❯</button>
+						<div class="detailView">
+							<img class="solidImg" src="../img/store-solid.png">
+							<span style="font-size:1.5em;">가게이벤트</span>
+							<div style="font-size:15px; margin-left:25px; margin-top:10px;">{{restView.title}}</div>
+							<div style="font-size:15px; margin-left:25px; margin-top:10px;">{{restView.contents}}</div>
+						</div>
+						<div style="width:100%; text-align:center;">
+							<button @click="fnShopInfo()" class="plusBtn">정보 더보기 ❯</button>
+						</div>
 					</div>
 				</div>
 				<div id="menu_wrap" class="bg_white">

@@ -18,4 +18,5 @@ public interface OrderMapper {
 	Order selectOrderCount(HashMap<String, Object> map);
 	void updateOrderStatus(HashMap<String, Object> map);//주문상태
 	void updateOrder(HashMap<String, Object> map);//주문완료 후 저장
+	List<Order> selectDaySell(HashMap<String, Object> map);
 }

@@ -38,8 +38,8 @@ pageEncoding="UTF-8"%>
 			<!-- menuBar -->
 			<div id="menuBar">
 				<div id="container" class="menuBar">
-					<a class="menu" href="biz-info.do">가게관리 </a>
-					<a class="menu">고객지원</a>
+					<a href="javascript:;" class="menu" @click="fnSessionCheck()">가게관리 </a>
+					<a href="javascript:;" class="menu">고객지원</a>
 				</div>
 			</div>
 		</div>
@@ -67,7 +67,7 @@ pageEncoding="UTF-8"%>
 					type : "POST",
 					data : nparmap,
 					success : function(data) {
-						location.reload();
+						$.pageChange("/business-main.do", {});
 					}
 				});
 			},
@@ -76,6 +76,14 @@ pageEncoding="UTF-8"%>
 				$.pageChange(link, {
 					type : str
 				});
+			},
+			fnSessionCheck : function(){
+				var self = this;
+				if(!self.sessionId){
+					$.pageChange("/bizLogin.do", {});
+				} else {
+					$.pageChange("/biz-info.do", {});
+				}
 			}
 		},
 		created : function() {
