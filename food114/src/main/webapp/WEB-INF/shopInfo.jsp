@@ -20,7 +20,7 @@
 		<%@include file="main(header).html"%>
 	</header>
 	<%@include file="shopInfo_header.jsp"%>
-	<div id="app">
+	<div id="app" v-cloak>
 		<section>
 			<div id="menuContainer">
 
@@ -74,7 +74,7 @@
 				</div> -->
 			</div>
 			<!-- 장바구니(영수증창) -->
-			<div class="orderListContainer">
+			<div class="orderListContainer" style="z-index: 999;">
 				<div class="orderListBox">
 					<div class="orderList">장바구니</div>
 					<div class="hrLine"></div>

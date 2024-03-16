@@ -89,7 +89,7 @@
 								<button>거리확인</button>
 							</div>
 						</div>
-						<div id="shopMapBox">
+						<div id="shopMapBox" style="z-index: 1;">
 							<div id="map"></div>
 						</div>
 					</div>

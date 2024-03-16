@@ -97,7 +97,7 @@ button:hover {
 				<th width="15%">쿠폰발행일</th>
 				<th width="15%">쿠폰만료일</th>
 			</tr>
-			<tr v-for="item in couponList" @click="fnSelect(item.couponNo, item.title, item.saleMount, item.salePercent)">
+			<tr v-for="item in couponList" @click="fnSelect(item)">
 				<td><input type="radio" v-model="selectCoupon" :value="item.couponNo" ></td>
 				<td>{{item.couponId}}</td>
 				<td>{{item.title}}</td>
@@ -126,8 +126,9 @@ button:hover {
 			couponList : {},
 			selectCoupon : 0,
 			selectTitle : "",
-			saleMount : "",
+			saleAmount : "",
 			salePercent : "",
+			couponId : "",
 		},
 		methods : {
 			/* 쿠폰 리스트  */
@@ -147,12 +148,15 @@ button:hover {
 					}
 				});
 			},
-			fnSelect : function(couponNo, title, saleMount, salePercent){
+			fnSelect : function(map){
 				var self = this
-				self.selectCoupon = couponNo;
-				self.selectTitle = title;
-				self.saleMount = saleMount;
-				self.salePercent = salePercent;
+				console.log(map);
+				self.selectCoupon = map.couponNo;
+				self.selectTitle = map.title;
+				self.saleAmount = map.saleAmount;
+				self.salePercent = map.salePercent;
+				self.couponId = map.couponId;
+				
 			},
 			/* 적용하기  */
 			fnApply : function(){
@@ -163,7 +167,7 @@ button:hover {
 			        alert("선택하세요");
 			        return;
 			    }				
-			    window.opener.onApplyCoupon(self.selectCoupon, self.selectTitle, self.saleMount, self.salePercent);
+			    window.opener.onApplyCoupon(self.selectCoupon, self.selectTitle, self.saleAmount, self.salePercent,self.couponId);
 			    
 			    // 팝업 창 닫기 (옵션)
 			    window.close();
