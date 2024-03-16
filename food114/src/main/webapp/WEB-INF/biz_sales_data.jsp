@@ -173,7 +173,7 @@ table th, td {
 					},
 				},
 				xaxis : {
-					categories : [],
+					categories : [1],
 				}
 			},
 		},
@@ -219,10 +219,13 @@ table th, td {
 					success : function(data) {
 						self.daySellList = data.daySellList;
 						console.log(data);
-						for(var i=0; i<data.daySellList.length; i++){
-							self.series.data.push(data.daySellList.sum);
-							self.chartOptions.xaxis.categories.push(data.daySellList.day);
-						}
+						data.daySellList.forEach((item, index) => {
+						    self.chartOptions.xaxis.categories[index] = item.day;
+						});
+						self.series = [{
+                            name: "일매출",
+                            data: data.daySellList.map(item => item.sum)
+                        }];
 					}
 				});
 			}
