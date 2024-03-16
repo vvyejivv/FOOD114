@@ -25,7 +25,9 @@
 			<div id="menuContainer">
 				<div id="eventBox">
 					<div class="eventInfo" >
-						<img src="../img/메가커피_이벤트.jpg">
+						<div>!이벤트!</div>
+						<div>이벤트 기간</div>
+						<div>이벤트 내용</div>
 					</div>
 				</div>
 			</div>

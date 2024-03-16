@@ -81,6 +81,10 @@ pageEncoding="UTF-8"%>
 			fnSessionCheck : function(){
 				var self = this;
 					$.pageChange("/biz-info.do", {});
+			},
+			fnPageChange : function(link,map){
+				var self = this;
+				$.pageChange(link, map);
 			}
 		},
 		created : function() {

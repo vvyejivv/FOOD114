@@ -51,10 +51,17 @@ public class BizController {
 	public String bizLogin(Model model) throws Exception {
 		return "/bizLogin";
 	}
+	
+	// 세션없을때
+	@RequestMapping("/nosession.do")
+	public String nosession(Model model) throws Exception {
+		return "/nosession";
+	}
 
 	// 사업자 메인
 	@RequestMapping("/business-main.do")
 	public String businessMain(Model model) throws Exception {
+		
 		return "/business_main"; // business_main.jsp
 	}
 
@@ -116,13 +123,17 @@ public class BizController {
 
 	@RequestMapping("/biz-menu-update.do")
 	public String bizMenuUpdate(Model model) throws Exception {
-		if(session.getAttribute("sessionBizId")!=null) {			
+		if(session.getAttribute("sessionBizId")==null) {
+			return "redirect:/nosession.do";
 		}
 		return "/biz_menu_update"; // biz_menu_update.jsp
 	}
 
 	@RequestMapping("/biz-menu-insert.do")
 	public String bizMenuInsert(Model model) throws Exception {
+		if(session.getAttribute("sessionBizId")==null) {
+			return "redirect:/nosession.do";
+		}
 		return "/biz_menu_insert"; // biz_menu_insert.jsp
 	}
 
@@ -130,7 +141,7 @@ public class BizController {
 	public String bizMenuUpdateView(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
 		if(session.getAttribute("sessionBizId")==null) {
-			return "redirect:/bizLogin.do";
+			return "redirect:/nosession.do";
 		}
 		request.setAttribute("map", map);
 		return "/biz_menu_update_view"; // biz_menu_update_view.jsp
@@ -139,7 +150,9 @@ public class BizController {
 	@RequestMapping("/biz-info.do")
 	public String bizInfo(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
-
+		if(session.getAttribute("sessionBizId")==null) {
+			return "redirect:/nosession.do";
+		}
 		return "/biz_info"; // biz_info.jsp
 	}
 

@@ -13,7 +13,7 @@ public class Coupon {
 	private String title;
 	private String contents;
 	private double salePercent;
-	private double saleMount;
+	private double saleAmount;
 	
 	public int getCouponNo() {
 		return couponNo;
@@ -69,10 +69,10 @@ public class Coupon {
 	public void setSalePercent(double salePercent) {
 		this.salePercent = salePercent;
 	}
-	public double getSaleMount() {
-		return saleMount;
+	public double getSaleAmount() {
+		return saleAmount;
 	}
-	public void setSaleMount(double saleMount) {
-		this.saleMount = saleMount;
+	public void setSaleAmount(double saleMount) {
+		this.saleAmount = saleMount;
 	}
 }

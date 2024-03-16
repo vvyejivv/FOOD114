@@ -104,13 +104,18 @@
 		WHERE O.USERID = #{userId}
 		GROUP BY O.ORDERNO
 		ORDER BY O.ORDERDATE DESC
+		LIMIT ${startOrder}, ${endOrder}
 	</select>
 	<!-- 마이페이지 - 주문내역 갯수  -->
 	<select id="selectMyOrderListCnt" parameterType="hashmap" resultType="teamProject.food114.model.Order">
-		SELECT COUNT(*) AS LISTCNT
-		FROM FOOD114_ORDERS O
-		INNER JOIN FOOD114_ORDER_DETAIL D ON O.ORDERNO = D.ORDERNO
-		WHERE O.USERID = #{userId}
+		SELECT COUNT(*) AS LISTCNT 
+		FROM (
+			SELECT USERID
+		      FROM FOOD114_ORDERS O
+		      INNER JOIN FOOD114_ORDER_DETAIL D ON O.ORDERNO = D.ORDERNO
+		      WHERE O.USERID = #{userId}
+		      GROUP BY O.ORDERNO) T
+		      GROUP BY T.USERID
 	</select>	
 
 	
