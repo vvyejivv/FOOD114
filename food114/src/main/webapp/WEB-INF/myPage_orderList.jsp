@@ -98,7 +98,7 @@ a{
 									주문상태</th>
 							</tr>
 							<tr v-for="(item, index) in orderList">
-								<td style="font-size: 13px">{{ index + 1 }}</td>
+								<td style="font-size: 13px">{{ index + 1 + startOrder }}</td>
 								<td class="reviewFont">{{ item.orderNo }}</td>
 								<td class="reviewFont">{{ item.bizName }}</td>
 								<td class="reviewFont">{{ item.menus }}</td>
@@ -109,16 +109,16 @@ a{
 						</table>
 					</div>
 					<!-- 페이지  -->
-<!-- 					<div class="pageBox">
+					<div class="pageBox">
 						<span><a href="javascript:;" @click="fnfirstPage" style="text-decoration: none; color: black;">≤</a></span>
-						<span><a href="javascript:;" @click="fnPre" style="text-decoration: none; color: black;">&lt;</a></span>  < 는 태그로 인식하므로 &lt; 또는 ㄷ 한자 3 사용해야함 
+						<span><a href="javascript:;" @click="fnPre" style="text-decoration: none; color: black;">&lt;</a></span> 
 						<template v-for="n in pageCount">
 							<a href="javascript:;" @click="fnPageList(n)" v-if="nowPage!=n" :class="[nowPage!=n ? 'text' : 'selectText']">{{n}} </a>
 							<span v-else :class="[nowPage!=n ? 'text' : 'selectText']">{{n}} </span>
 						</template>
 						<span><a href="javascript:;" @click="fnNext" style="text-decoration: none; color: black;">></a></span>
 						<span><a href="javascript:;" @click="fnLastPage" style="text-decoration: none; color: black;">≥</a></span>
-					</div> -->
+					</div>
 				</div>
 			</div>
 		</div>
@@ -135,16 +135,18 @@ a{
 			orderList : [],
 			sessionId : "${sessionId}",
 			pageCount : 1,
-			nowPage : 1,
+			cnt : 10,
+			nowPage : "${map.nowPage}",
+			startOrder : 0,
 		},
 		methods : {
 			fnView : function() {
 				var self = this;
+				self.startOrder = (self.nowPage * 10)-10;
 				var nparmap = {
 					userId : self.sessionId,
-					startNum : 1,
-					lastNum : 10,
-					nowPage : 1,
+					startOrder : self.startOrder,
+					endOrder : self.cnt,
 				};
 				$.ajax({
 					url : "myOrderList.dox",
@@ -154,12 +156,18 @@ a{
 					success : function(data) {
 						self.orderList = data.orderList;
 						/* 페이지당 10개 올림  */
-						self.pageCount = Math.ceil(data.cnt.listCnt/10);
+						self.pageCount = Math.ceil(data.cnt.listCnt/self.cnt);
 						console.log(self.pageCount);
 					}
 				});
 			},
 			/* 페이지 기능  */
+			fnPageList : function(num){
+				var self = this;
+				$.pageChange("myOrderList.do",{
+					nowPage : num
+				});
+			},
 			fnfirstPage : function() {
 				var self = this;
 				self.nowPage = 1;

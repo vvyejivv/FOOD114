@@ -182,6 +182,9 @@ public class CustomerController {
 	@RequestMapping("/myOrderList.do")
 	public String myOrderList(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
+		if(!map.containsKey("nowPage")) {
+			map.put("nowPage", 1);
+		}
 		request.setAttribute("map", map);
 		return "/myPage_orderList";
 	}
