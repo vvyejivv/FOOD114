@@ -198,6 +198,7 @@ public class CustomerController {
 	@RequestMapping("/food114.do")
 	public String food114Main(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
+		request.setAttribute("map", map);
 		return "/mainPage";
 	}
 

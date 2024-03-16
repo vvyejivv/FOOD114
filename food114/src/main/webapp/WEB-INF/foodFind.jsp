@@ -181,7 +181,8 @@ input {
 	height: 80px;
 	margin-left: 5px;
 }
-.bizContents>div{
+
+.bizContents>div {
 	line-height: 20px;
 }
 
@@ -215,7 +216,7 @@ input {
 					<div class="addrContainer"
 						style="padding-top: 8px; height: 40px; margin: 0px auto; margin-top: 40px;">
 						<input class="addrInput" placeholder="주소검색 혹은 등록된 주소지를 선택해주세요."
-							disabled v-model="inputAddr"
+							disabled v-model="inputAddr" @change="fnAddrChange()"
 							style="background-color: white; font-size: 14px;">
 
 						<!-- 주소창 더보기 클릭시-->
@@ -516,22 +517,19 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 							}
 						});
 					},
+					fnAddrChange : function(){
+						var self=this;
+						console.log("변경");
+							
+						
+					},
 					/* 회원 주소 선택시 */
 					fnAddrSelect : function(idx) {
 						var self = this;
-						console.log("클릭")
 						self.showAddr = false;
 						self.inputAddr = self.addrList[idx].newAddr;
-						self.convertAddressToCoordinates(self.inputAddr);
-						console.log("3."+self.latitude);
-						setTimeout(function(){
-							$.pageChange("/food114_foodfind.do", {
-								latitude : self.latitude,
-								longitude : self.longitude,
-								inputAddr : self.inputAddr,
-								category : self.nowCategory
-							});
-						}, 50)							
+							
+										
 					},
 					fnPageChange : function(){
 						var self = this;
@@ -546,6 +544,20 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 					}
 
 				},
+				watch: {
+					  inputAddr: function(newVal, oldVal) {
+						  var self=this;
+					    self.convertAddressToCoordinates(self.inputAddr);
+						setTimeout(function(){
+							$.pageChange("/food114_foodfind.do", {
+								latitude : self.latitude,
+								longitude : self.longitude,
+								inputAddr : self.inputAddr,
+								category : self.nowCategory
+							});
+						}, 50)	
+					  }
+					},
 				created : function() {
 					var self = this;
 					console.log(self.sessionId);
