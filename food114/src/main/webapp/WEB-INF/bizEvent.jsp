@@ -74,10 +74,6 @@
 		methods : {
 			list : function() {
 				var self = this;
-				if(!self.sessionId){
-					$.pageChange("/bizLogin.do", {});
-					return;
-				}
 				var nparmap = {
 						bizId : self.sessionId
 				};
@@ -92,12 +88,7 @@
 				});
 			},
 			fnDetail : function(boardNo) {
-				if(!self.sessionId){
-					$.pageChange("/bizLogin.do", {});
-					return;
-				} else {
 					$.pageChange("/bizEvent_info.do", {boardNo : boardNo});
-				}
 			}
 		},
 		created : function() {
