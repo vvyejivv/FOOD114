@@ -124,7 +124,7 @@ button:hover {
 			userId : "yeji",
 			/* sessionId : "${userId}" */
 			couponList : {},
-			selectCoupon : "",
+			selectCoupon : 0,
 			selectTitle : "",
 			saleMount : "",
 			salePercent : "",
@@ -162,7 +162,7 @@ button:hover {
 			    if (self.selectCoupon == "") {
 			        alert("선택하세요");
 			        return;
-			    }
+			    }				
 			    window.opener.onApplyCoupon(self.selectCoupon, self.selectTitle, self.saleMount, self.salePercent);
 			    
 			    // 팝업 창 닫기 (옵션)
@@ -172,7 +172,7 @@ button:hover {
 			fnClose : function() {
 				var self = this;
 				window.close();
-			}
+			},
 		},
 		created : function() {
 			var self = this;

@@ -57,7 +57,7 @@
 					<span>주문 요청사항</span>
 				</div>
 				<div class="deliveryBox">
-<!-- 				<div id="ecoYN">
+					<!-- 				<div id="ecoYN">
 						<label><input type="checkbox" v-model="ecoYNChecked">
 							일회용 수저, 포크 안 주셔도 됩니다.</label>
 
@@ -80,7 +80,7 @@
 					<span>결제수단 선택</span>
 				</div>
 				<div class="deliveryBox">
-<!-- 					<div class="payMargin">
+					<!-- 					<div class="payMargin">
 						<div class="payBox">
 							<span class="payMainText">바로 결제</span>
 							<div id="payText">*등록된 결제 수단으로 결제됩니다.</div>
@@ -138,7 +138,7 @@
 							<input type="text" placeholder="쿠폰 목록에서 선택해주세요"
 								class="couponInput" v-model="couponTitle" disabled="disabled">
 						</div>
-						<!-- <button @click="fnUseCoupon">적용</button> -->
+						<!-- <button>적용</button> -->
 						<button @click="fnCouponPopupOpen">쿠폰 목록</button>
 					</div>
 					<!--            <div id="couponBox" class="payMainText">
@@ -174,8 +174,8 @@
 							</template>
 						</table>
 						<div class="hrLine"></div>
-							<div style="float: left; margin-right: 300px;">쿠폰 할인 금액</div>
-							<div>원</div>
+						<div style="float: left; margin-right: 300px;">쿠폰 할인 금액</div>
+						<div>{{couponAmount}}원</div>
 						<div class="hrLine"></div>
 						<div class="priceBox">
 							<div class="priceTxt">총 금액</div>
@@ -303,7 +303,7 @@
 		        	self.onApplyCoupon(couponNo, title, saleMount, salePercent); 
 		        };
 			},
-			/* 쿠폰 적용  */
+			/* 쿠폰 적용 - 이부분 어디서 실행해야할지 모르겠습니다..  */
 			fnUseCoupon : function(){	
 				var self = this;
 				if(self.couponNo !== "" || self.couponNo !== 0){
@@ -548,17 +548,18 @@
 			selectMenuList: function (newMenuList, oldMenuList) {
                 var self = this;
                 self.selectTotalPrice = self.fnTotalPrice(newMenuList);
-            }	
+            }
 		},
 		created : function() {
 			var self = this;
 			self.fnView();
 		}
 	});
-	function onApplyCoupon(couponNo, title, saleMount, salePercent){
+	function onApplyCoupon(couponNo, title, saleMount, salePercent,couponAmount){
 		app.couponNo = couponNo;
 		app.couponTitle = title;
 		app.couponSaleMount = saleMount;
 		app.couponSalePercent = salePercent;
-	}
+		app.couponAmount = couponAmount;
+	} 
 </script>
