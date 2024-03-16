@@ -10,10 +10,9 @@ import teamProject.food114.model.Review;
 
 @Mapper
 public interface ReviewMapper {
-	List<Review> selectReviewList(HashMap<String, Object> map); //리뷰 리스트 조회
-	
+	List<Review> selectReviewList(HashMap<String, Object> map); //리뷰 리스트 조회	
+	List<Review> selectReviewInfo(HashMap<String, Object> map);//리뷰, 답댓글 조회
 	List<Review> selectBizReviewList(HashMap<String, Object> map); //리뷰 사업자
-	
 	Review selectBizReviewInfo(HashMap<String, Object> map); //리뷰 사업자 자세히
 	
 	void insertPreview(HashMap<String, Object> map); //리뷰 답글

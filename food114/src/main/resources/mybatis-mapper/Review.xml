@@ -43,6 +43,7 @@
 		HAVING R.REVIEWNO = #{reviewNo}
 	</select>
 	
+<<<<<<< HEAD
 	<insert id="insertPreview" parameterType="hashmap">
 		INSERT INTO FOOD114_REVIEW VALUES(NULL,#{orderNo},#{bizId},null,#{contents},NOW(),#{reviewNo})
 	</insert>
@@ -50,4 +51,25 @@
 	<update id="updatePreview" parameterType="hashmap">
 		UPDATE FOOD114_REVIEW SET CONTENTS = #{contents} WHERE REVIEWNO = #{reviewNo}
 	</update>
+=======
+	<!-- 리뷰 내용 검색  -->
+	<select id="selectReviewInfo" parameterType="hashmap" resultType="teamProject.food114.model.Review">
+		SELECT 
+			MENULIST, O.BIZID, O.ORDERNO, 
+			R.USERID, R.RAITING AS RAITING , R.CONTENTS AS USERREVIEW, DATE_FORMAT(R.CDATETIME,'%y/%m/%d') AS USERREVIEWDATE, 
+			V.CONTENTS AS SHOPCMT, DATE_FORMAT(V.CDATETIME, '%y/%m/%d') AS SHOPCMTDATE,
+	      	CONCAT(P.FILEPATH,P.FILENAME) AS PATH
+   		FROM (SELECT * FROM FOOD114_REVIEW WHERE P_REVIEWNO IS NULL) R
+   		LEFT JOIN FOOD114_REVIEW V ON R.REVIEWNO = V.P_REVIEWNO
+   		LEFT JOIN FOOD114_REVIEW_PHOTO P ON R.REVIEWNO = P.REVIEWNO
+   		INNER JOIN FOOD114_ORDERS O ON R.ORDERNO = O.ORDERNO
+  		INNER JOIN (
+			SELECT D.ORDERNO,GROUP_CONCAT(MENU) AS MENULIST
+			FROM FOOD114_ORDER_DETAIL D
+   			INNER JOIN FOOD114_MENU M ON D.MENUNO = M.MENUNO
+			GROUP BY D.ORDERNO) M ON R.ORDERNO = M.ORDERNO
+   		WHERE O.BIZID = #{bizId}
+   		ORDER BY R.CDATETIME DESC
+	</select>
+>>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 </mapper>

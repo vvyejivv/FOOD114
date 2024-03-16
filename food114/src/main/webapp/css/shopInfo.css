@@ -238,6 +238,7 @@ ul.tab {
 	/* background-color: rgb(203, 231, 46); */
 	width: 1000px;
 	margin: 0px auto;
+	overflow: hidden;
 }
 
 .menuBox {
@@ -348,13 +349,12 @@ ul.tab {
 }
 .reviewSetBox{
 	width : 980px;
-	height : 400px;
-	float : left;
-	margin-top:10px;
+	height : auto;
 }
 .reviewBox {
 	width: 980px;
-	height: 150px;
+	height: auto;
+	overflow :hidden;
 	/* 	background-color : #ff80c0; */
 }
 
@@ -366,7 +366,6 @@ ul.tab {
 	margin-top: 10px;
 	margin-right: 10px;
 	float: left;
-	background-color: yellow;
 }
 
 .userPhoto img {
@@ -487,7 +486,6 @@ ul.tab {
 .reviewImg {
 	width: 120px;
 	height: 120px;
-	background-color: blue;
 	float: right;
 	margin-top: 10px;
 	margin-right: 10px;
@@ -497,4 +495,8 @@ ul.tab {
 	width: 120px;
 	height: 120px;
 	border-radius: 5px;
+}
+
+.reviewLine{
+	border-bottom: 2px solid  #dddada;
 }

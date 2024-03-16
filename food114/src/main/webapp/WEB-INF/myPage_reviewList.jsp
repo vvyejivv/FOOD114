@@ -10,6 +10,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MAIN</title>
 <style>
+[v-cloak] {
+	display: none;
+}
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 
 .notosanskr * {
@@ -72,10 +75,10 @@ a{
 		<div class="container">
 			<%@include file="myPage_header.jsp"%>
 			<div class="orderListContainer">
-				<div id="app">
+				<div id="app" v-cloak>
 					<h2>
 						<a href="javascript:;" style="font-size: 25px; color: #747171;">
-							<span style="color: #ff7f00; font-weight: bold;">| </span> 주문내역
+							<span style="color: #ff7f00; font-weight: bold;">| </span> MY리뷰목록
 						</a>
 					</h2>
 					<div>

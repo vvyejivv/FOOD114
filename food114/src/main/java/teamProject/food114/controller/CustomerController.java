@@ -42,6 +42,24 @@ public class CustomerController {
 		request.setAttribute("map", map);
 		return "/myPage_header";
 	}
+	
+	// 마이페이지 - 결제수단 관리
+	@RequestMapping("/myInfoPayment.do")
+	public String myInfoPayment(Model model) throws Exception {
+		return "/myPage_myInfo(payment)"; // bizReview.jsp
+	}
+	
+	// 마이페이지 - 쿠폰 관리
+	@RequestMapping("/myInfoCoupon.do")
+	public String myInfoCoupon(Model model) throws Exception {
+		return "/myPage_myInfo(coupon)"; // bizReview.jsp
+	}
+	
+	// 마이페이지 - 포인트 관리
+	@RequestMapping("/myInfoPoint.do")
+	public String myInfoPoint(Model model) throws Exception {
+		return "/myPage_myInfo(point)"; // bizReview.jsp
+	}
 
 	// 마이페이지 - 나의 정보 수정 (myInfo 변경 : 이름, 별명, 연락처, 이메일)
 	@RequestMapping(value = "/updateMyInfo.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")

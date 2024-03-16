@@ -45,7 +45,16 @@ public class ReviewController {
 	@RequestMapping("/bizReview_info.do")
 	public String bizReview_info(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		request.setAttribute("map", map);
+		if(session.getAttribute("sessionBizId")==null) {
+			return "redirect:/bizLogin.do";
+		}
 		return "/bizReview_info"; // bizReview_info.jsp
+	}
+	
+	//리뷰 보기 고객 내정보
+	@RequestMapping("/myInfoReview.do")
+	public String myInfoReview(Model model) throws Exception {
+		return "/myPage_reviewList"; // bizReview.jsp
 	}
 	
 	//리뷰 정보

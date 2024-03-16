@@ -116,6 +116,8 @@ public class BizController {
 
 	@RequestMapping("/biz-menu-update.do")
 	public String bizMenuUpdate(Model model) throws Exception {
+		if(session.getAttribute("sessionBizId")!=null) {			
+		}
 		return "/biz_menu_update"; // biz_menu_update.jsp
 	}
 
@@ -127,6 +129,9 @@ public class BizController {
 	@RequestMapping("/biz-menu-update-view.do")
 	public String bizMenuUpdateView(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
+		if(session.getAttribute("sessionBizId")==null) {
+			return "redirect:/bizLogin.do";
+		}
 		request.setAttribute("map", map);
 		return "/biz_menu_update_view"; // biz_menu_update_view.jsp
 	}
