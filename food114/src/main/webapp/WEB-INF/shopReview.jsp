@@ -26,7 +26,7 @@
 				<div id="reviewContainer">
 					<div id="reviewList">
 						<!-- 리뷰 작성 -->
-						<template v-for="item in reviewList">
+						<template v-for="item in review">
 							<div class="reviewSetBox">
 								<div class="reviewBox">
 									<!-- 고객  -->
@@ -36,19 +36,19 @@
 									<div class="userInfo">
 										<div class="userInfoBox">
 											<div class="userId">{{item.userId}}님</div>
-											<div class="reviewDate">{{item.orderDate}}</div>
+											<div class="reviewDate">{{item.userReviewDate}}</div>
 												<div class="starRating"
 													style="font-size: 12px; color: #ffcc00;">
 													<span v-if="item.raiting >= 1">★</span> <span v-else>☆</span>
 													<span v-if="item.raiting >= 2">★</span> <span v-else>☆</span>
 													<span v-if="item.raiting >= 3">★</span> <span v-else>☆</span>
 													<span v-if="item.raiting >= 4">★</span> <span v-else>☆</span>
-													<span v-if="item.raiting >= 5">★</span>
+													<span v-if="item.raiting >= 5">★</span> <span v-else>☆</span>
 												</div>
 												
 											<div class="reviewContents">
-												<div class="reviewMenu">메뉴 : {{item.menu}}</div>
-												<div class="foodContents">{{item.contents}}</div>
+												<div class="reviewMenu">메뉴 : {{item.menuList}}</div>
+												<div class="foodContents">{{item.userReview}}</div>
 											</div>
 										</div>
 										<div class="reviewImg">
@@ -56,24 +56,23 @@
 										</div>
 									</div>
 								</div>
-								<div class="reviewBox">
+								<div class="reviewBox" v-if="item.shopCmt">
 									<!-- 가게  -->
 									<div class="userPhoto">
-										<img src="../img/기본_프로필.jpg">
+									<!-- 	<img src="../img/기본_프로필.jpg"> -->
 									</div>
 									<div class="userInfo">
 										<div class="userInfoBox">
-											<div class="userId">{{item.userId}}님</div>
-											<div class="shop_reviewDate">{{item.orderDate}}</div>
+											<div class="userId">{{item.bizId}}님</div>
+											<div class="shop_reviewDate">{{item.shopCmtDate}}</div>
 											<div class="reviewContents">									
-												<div class="shopContents">{{item.contents}}</div>
+												<div class="shopContents">{{item.shopCmt}}</div>
 											</div>
 										</div>
 									</div>
 								</div>
-							</div>	
+							</div>
 						</template>
-
 					</div>
 
 				</div>
@@ -81,7 +80,7 @@
 		</section>
 	</div>
 
-	<%@include file="main(footer).html"%>
+<%@include file="main(footer).html"%>
 
 </body>
 </html>
@@ -92,6 +91,7 @@
 			selectTab : '${map.selectTab}', /* 선택한 탭 */
 			bizId : '${map.bizId}',
 			reviewList : {},
+			review : {}
 		},
 		methods : {
 			fnView : function() {
@@ -107,7 +107,8 @@
 					data : nparmap,
 					success : function(data) {
 						self.reviewList = data.reviewList;
-						console.log(data.reviewList);
+						self.review = data.review;
+						console.log(data.review);
 					}
 				});
 			},
