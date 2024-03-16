@@ -16,6 +16,7 @@ public class Customer {
 	private String adult;
 	private String useYn;
 	private String leaveTime;
+	private int listCnt;
 	public String getUserId() {
 		return userId;
 	}
@@ -99,6 +100,12 @@ public class Customer {
 	}
 	public void leaveTime(String leaveTime) {
 		this.leaveTime = leaveTime;
+	}
+	public int getListCnt() {
+		return listCnt;
+	}
+	public void setListCnt(int listCnt) {
+		this.listCnt = listCnt;
 	}
 
 }

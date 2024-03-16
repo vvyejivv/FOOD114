@@ -38,6 +38,9 @@ public class ReviewController {
 	//리뷰 보기 사업자
 	@RequestMapping("/bizReview.do")
 	public String bizReview(Model model) throws Exception {
+		if(session.getAttribute("sessionBizId")==null) {
+			return "redirect:/nosession.do";
+		}
 		return "/bizReview"; // bizReview.jsp
 	}
 	
@@ -46,7 +49,7 @@ public class ReviewController {
 	public String bizReview_info(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		request.setAttribute("map", map);
 		if(session.getAttribute("sessionBizId")==null) {
-			return "redirect:/bizLogin.do";
+			return "redirect:/nosession.do";
 		}
 		return "/bizReview_info"; // bizReview_info.jsp
 	}

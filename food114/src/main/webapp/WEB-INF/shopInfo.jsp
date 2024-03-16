@@ -20,7 +20,7 @@
 		<%@include file="main(header).html"%>
 	</header>
 	<%@include file="shopInfo_header.jsp"%>
-	<div id="app">
+	<div id="app" v-cloak>
 		<section>
 			<div id="menuContainer">
 
@@ -50,12 +50,12 @@
 						</div>
 					</template>
 				</div>
-				<div class="menuBox">
+<!-- 		<div class="menuBox">
 					<div class="menuTitle">
 						<span>주류</span>
-					</div>
-					<!-- 주류 테이블 -->
-					<div class="menuInfo">
+					</div> -->
+					 <!--주류 테이블-->
+<!-- 				<div class="menuInfo">
 						<div class="menuImgBox"></div>
 						<div class="menuName">
 							<table>
@@ -71,10 +71,10 @@
 							</table>
 						</div>
 					</div>
-				</div>
+				</div> -->
 			</div>
 			<!-- 장바구니(영수증창) -->
-			<div class="orderListContainer" style="z-index: 999">
+			<div class="orderListContainer" style="z-index: 999;">
 				<div class="orderListBox">
 					<div class="orderList">장바구니</div>
 					<div class="hrLine"></div>
