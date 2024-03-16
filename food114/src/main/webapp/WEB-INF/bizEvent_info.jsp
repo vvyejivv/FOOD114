@@ -86,10 +86,6 @@
 		methods : {
 			list : function() {
 				var self = this;
-				if(!self.sessionId){
-					$.pageChange("/bizLogin.do", {});
-					return;
-				}
 				var nparmap = {boardNo : self.boardNo};
 				$.ajax({
 					url : "listBizEventView.dox",
@@ -105,18 +101,10 @@
 			},
 			fnInfoUpdate : function() {
 				var self = this;
-				if(!self.sessionId){
-					$.pageChange("/bizLogin.do", {});
-					return;
-				}
 				self.updateFlg = !self.updateFlg;
 			},
 			fnAdd : function(){
                 var self = this;
-                if(!self.sessionId){
-					$.pageChange("/bizLogin.do", {});
-					return;
-				}
             var form = new FormData();
             var fileInput = document.getElementById('file1');
              if (fileInput.files.length > 0) {

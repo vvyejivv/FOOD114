@@ -43,7 +43,6 @@
 		HAVING R.REVIEWNO = #{reviewNo}
 	</select>
 	
-<<<<<<< HEAD
 	<insert id="insertPreview" parameterType="hashmap">
 		INSERT INTO FOOD114_REVIEW VALUES(NULL,#{orderNo},#{bizId},null,#{contents},NOW(),#{reviewNo})
 	</insert>
@@ -51,7 +50,6 @@
 	<update id="updatePreview" parameterType="hashmap">
 		UPDATE FOOD114_REVIEW SET CONTENTS = #{contents} WHERE REVIEWNO = #{reviewNo}
 	</update>
-=======
 	<!-- 리뷰 내용 검색  -->
 	<select id="selectReviewInfo" parameterType="hashmap" resultType="teamProject.food114.model.Review">
 		SELECT 
@@ -71,5 +69,4 @@
    		WHERE O.BIZID = #{bizId}
    		ORDER BY R.CDATETIME DESC
 	</select>
->>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 </mapper>
