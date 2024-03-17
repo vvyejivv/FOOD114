@@ -20,7 +20,7 @@
 		<%@include file="main(header).html"%>
 	</header>
 	<%@include file="shopInfo_header.jsp"%>
-	<div id="app">
+	<div id="app" v-cloak>
 		<section>
 			<div id="menuContainer">
 
@@ -32,7 +32,7 @@
 					<template v-for="(item,index) in menuList">
 						<div class="menuInfo" @click="fnMenuClick('open',index)">
 							<div class="menuImgBox">
-								<!-- <img src="../image/kfood.jpg"> -->
+								<img :src="item.path">
 							</div>
 							<div class="menuName">
 								<table>
@@ -50,12 +50,12 @@
 						</div>
 					</template>
 				</div>
-				<div class="menuBox">
+<!-- 		<div class="menuBox">
 					<div class="menuTitle">
 						<span>주류</span>
-					</div>
-					<!-- 주류 테이블 -->
-					<div class="menuInfo">
+					</div> -->
+					 <!--주류 테이블-->
+<!-- 				<div class="menuInfo">
 						<div class="menuImgBox"></div>
 						<div class="menuName">
 							<table>
@@ -71,10 +71,10 @@
 							</table>
 						</div>
 					</div>
-				</div>
+				</div> -->
 			</div>
 			<!-- 장바구니(영수증창) -->
-			<div class="orderListContainer">
+			<div class="orderListContainer" style="z-index: 999;">
 				<div class="orderListBox">
 					<div class="orderList">장바구니</div>
 					<div class="hrLine"></div>
@@ -126,7 +126,7 @@
 							<div id="menuClose" @click="fnMenuClick('close',0)">×</div>
 						</div>
 						<div id="menuListImg">
-							<img src="../img/메가커피_아아.jpg">
+							<img :src="clickMenu.path">
 						</div>
 						<div id="menuListInfoBox">
 							<div id="menuNameBox">{{clickMenu.menu}}</div>
@@ -168,7 +168,7 @@
 	var app = new Vue({
 		el : '#app',
 		data : {
-			bizId : "hi123",
+			bizId : "${map.bizId}",
 			sessionId : "${sessionId}",
 			addr : "",		/* 주소값 */
 			menuList : [], /* 메뉴 목록  */
@@ -196,6 +196,7 @@
 					data : nparmap,
 					success : function(data) {
 						self.menuList = data.menuList;
+						/* console.log(data.menuList); */
 					}
 				});
 				
@@ -207,6 +208,7 @@
 				self.selectMenu = index;
 				if (type == "open") {
 					self.clickMenu = self.menuList[index];
+					console.log(self.clickMenu);
 					self.totalPrice = self.clickMenu.price * self.cnt;
 					self.modalFlg = true;
 					document.body.style.overflow = 'hidden';

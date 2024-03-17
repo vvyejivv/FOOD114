@@ -11,120 +11,48 @@
 <title>MAIN</title>
 <style>
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
-/* 모달 스타일링 */
-.modal {
-	/* display: none; */
-	position: fixed;
-	top: 47%;
-	left: 70%;
-	transform: translate(-50%, -50%);
-	background-color: #fefefe;
-	padding: 25px;
-	border: 1px solid #888;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	z-index: 1000;
-}
-body{
-	margin:0px;
-}
-.modal-content {
-	margin-bottom: 10px;
-	width: 400px;
-	height: 200px;
-	border-radius: 10px;
+
+.notosanskr * {
+	font-family: 'Noto Sans KR', sans-serif;
 }
 
-.close {
-	color: #aaa;
-	float: right;
-	margin-top: -5px;
-	margin-left: 2px;
-	font-size: 23px;
-	font-weight: bold;
+* {
+	font-family: 'Noto Sans KR';
 }
 
-.close:hover, .close:focus {
-	color: black;
-	text-decoration: none;
-	cursor: pointer;
+.orderListContainer {
+	margin: 10px;
+	margin-left: 20px;
+	width: 1000px;
 }
 
-/* 모달 추가 css */
-.modal-backdrop {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.5);
-	z-index: 1000;
+.orderListTable {
+	border-left: none;
+	border-right: none;
+	width: 1000px;
+	border-top: 1px solid #c0c0c0;
+	border-collapse: collapse;
 }
 
-.modal-content {
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	background-color: white;
-	padding: 20px;
-	z-index: 1001;
+.orderListTable th, td {
+	border-right: none;
+	border-bottom: 1px solid #e4e3e3;
+	padding: 10px 10px;
+	color: (72, 72, 72);
 	text-align: center;
 }
 
-.modalButton {
-	border: none;
-	background-color: white;
-	font-size: 14px;
-	color: rgb(161, 1, 161);
-	font-weight: bold;
-	margin-top: 10px;
-	margin-left: auto;
-	float: none;
-	cursor: pointer;
-	
+.orderListTable td {
+	font-size: 13px;
 }
-
-.modalButton:hover {
-	/* color: white; */
-	color: #ff7f00;
-	font-size: 14px;
-	font-weight: bold;
+.pageBox{
+	margin-left: 400px;
 }
-
-.modalCancel {
-	border: none;
-	background-color:white;
-	font-size: 14px;
-	font-weight: bold;
-	color: rgb(72, 72, 72);
-	margin-top: 10px;
-	cursor: pointer;
-	margin-right: 40px;
+a{
+	text-decoration: none;
+	color: black;
 }
-
-.modalCancel:hover {
-	color: rgb(72, 72, 72);
-	font-weight: bold;
-}
-
-.modalInput {
-	width: 300px;
-	height: 40px;
-	border: 1px solid #f9f9f9;
-	background-color: #f9f9f9;
-	border-radius: 4px;
-	padding: 5px 15px;
-}
-
-input[type="text"] {
-	border: none;
-	margin-left: 10px;
-}
-
-input[type='text']:focus {
-	outline: none;
-}
-
+[v-cloak] { display: none; }
 </style>
 </head>
 <link rel="stylesheet" href="../css/myPage_myInfo(main).css">
@@ -134,60 +62,66 @@ input[type='text']:focus {
 		<%@include file="main(header).html"%>
 	</header>
 
-	<!-- 광고창 -->
-	<!--
-        <div class="ad">
-            광고창
-            <button class="adClose">x</button>
-        </div>
-    -->
 	<section>
-		<div class="container">
+		<div class="container" >
 			<%@include file="myPage_header.jsp"%>
-			<div id="app">
-				<div class="content" style="width : 900px;">
+			<div class="orderListContainer">
+				<div id="app" v-cloak>
 					<h2>
 						<a href="javascript:;" style="font-size: 25px; color: #747171;">
-							<span style="color: #ff7f00; font-weight: bold;">| </span>
-							주문내역
+							<span style="color: #ff7f00; font-weight: bold;">| </span> 주문내역
 						</a>
 					</h2>
 					<div>
-						<table class="review">
-						<tr>
-							<th
-								style="width: 30px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
-								NO</th>
-							<th
-								style="width: 30px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
-								주문번호</th>
-							<th
-								style="width: 110px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
-								주문한 가게</th>
-							<th
-								style="width: 60px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
-								메뉴</th>
-							<th
-								style="width: 180px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
-								가격</th>
-							<th
-								style="width: 50px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
-								주문일</th>
-
-						</tr>
-						<tr v-for="(item, index) in orderList">
-							<td style="font-size: 13px">{{ index + 1 }}</td>
-							<td class="reviewFont">{{ item.orderNo }}</td>
-							<td class="reviewFont">{{ item.bizName }}</td>
-							<td class="reviewFont">{{ item.menu }}</td>
-							<td class="reviewFont">{{ item.price }}</td>
-							<td class="reviewFont">{{ item.orderDate }}</td>
-						</tr>
-					</table>
-						</div>
+						<table class="orderListTable">
+							<tr>
+								<th
+									style="width: 100px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+									NO</th>
+								<th
+									style="width: 100px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+									주문번호</th>
+								<th
+									style="width: 150px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+									주문한 가게</th>
+								<th
+									style="width: 450px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+									메뉴</th>
+								<th
+									style="width: 100px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+									가격</th>
+								<th
+									style="width: 200px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+									주문일</th>
+								<th
+									style="width: 150px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+									주문상태</th>
+							</tr>
+							<tr v-for="(item, index) in orderList">
+								<td style="font-size: 13px">{{ index + 1 + startOrder }}</td>
+								<td class="reviewFont">{{ item.orderNo }}</td>
+								<td class="reviewFont">{{ item.bizName }}</td>
+								<td class="reviewFont">{{ item.menus }}</td>
+								<td class="reviewFont">{{ item.price.toLocaleString() }}원</td>
+								<td class="reviewFont">{{ item.orderDate }}</td>
+								<td class="reviewFont">{{ item.status }}</td>
+							</tr>
+						</table>
+					</div>
+					<!-- 페이지  -->
+					<div class="pageBox">
+						<span><a href="javascript:;" @click="fnfirstPage" style="text-decoration: none; color: black;">≤</a></span>
+						<span><a href="javascript:;" @click="fnPre" style="text-decoration: none; color: black;">&lt;</a></span> 
+						<template v-for="n in pageCount">
+							<a href="javascript:;" @click="fnPageList(n)" v-if="nowPage!=n" :class="[nowPage!=n ? 'text' : 'selectText']">{{n}} </a>
+							<span v-else :class="[nowPage!=n ? 'text' : 'selectText']">{{n}} </span>
+						</template>
+						<span><a href="javascript:;" @click="fnNext" style="text-decoration: none; color: black;">></a></span>
+						<span><a href="javascript:;" @click="fnLastPage" style="text-decoration: none; color: black;">≥</a></span>
 					</div>
 				</div>
 			</div>
+		</div>
 		</div>
 	</section>
 
@@ -195,34 +129,75 @@ input[type='text']:focus {
 </body>
 
 <script type="text/javascript">
-var app = new Vue({
-	el : '#app',
-	data : {
-		orderList : [],
-		sessionId : "${sessionId}",
-	},
-	methods : {
-		fnView : function() {
-			var self = this;
-			var nparmap = {
-				userId : self.sessionId,
-			};
-			 $.ajax({
-				url : "myOrderList.dox",
-				dataType : "json",
-				type : "POST",
-				data : nparmap,
-				success : function(data) {
-					self.orderList = data.orderList;
-					console.log(data.orderList);
+	var app = new Vue({
+		el : '#app',
+		data : {
+			orderList : [],
+			sessionId : "${sessionId}",
+			pageCount : 1,
+			cnt : 10,
+			nowPage : "${map.nowPage}",
+			startOrder : 0,
+		},
+		methods : {
+			fnView : function() {
+				var self = this;
+				self.startOrder = (self.nowPage * 10)-10;
+				var nparmap = {
+					userId : self.sessionId,
+					startOrder : self.startOrder,
+					endOrder : self.cnt,
+				};
+				$.ajax({
+					url : "myOrderList.dox",
+					dataType : "json",
+					type : "POST",
+					data : nparmap,
+					success : function(data) {
+						self.orderList = data.orderList;
+						/* 페이지당 10개 올림  */
+						self.pageCount = Math.ceil(data.cnt.listCnt/self.cnt);
+						console.log(self.pageCount);
+					}
+				});
+			},
+			/* 페이지 기능  */
+			fnPageList : function(num){
+				var self = this;
+				$.pageChange("myOrderList.do",{
+					nowPage : num
+				});
+			},
+			fnfirstPage : function() {
+				var self = this;
+				self.nowPage = 1;
+				self.fnPageList(self.nowPage);
+			},
+			fnPre : function() {
+				var self = this;
+				if(self.nowPage != 1){				
+					self.nowPage = self.nowPage-1;
 				}
-			}); 
+				self.fnPageList(self.nowPage);
+			},			
+			fnNext : function() {
+				var self = this;
+				if(self.nowPage < self.pageCount){					
+					self.nowPage = self.nowPage+1;
+				}
+				self.fnPageList(self.nowPage);
+			},
+			fnLastPage : function() {
+				var self = this;			
+				self.nowPage = self.pageCount;
+				self.fnPageList(self.nowPage);
+			
+			}
+		},
+		created : function() {
+			var self = this;
+			self.fnView();
 		}
-	},
-	created : function() {
-		var self = this;
-		self.fnView();
-	}
-});
+	});
 </script>
 </html>

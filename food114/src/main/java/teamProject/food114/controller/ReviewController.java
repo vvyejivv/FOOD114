@@ -56,9 +56,23 @@ public class ReviewController {
 	
 	//리뷰 보기 고객 내정보
 	@RequestMapping("/myInfoReview.do")
-	public String myInfoReview(Model model) throws Exception {
+	public String myInfoReview(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		if(!map.containsKey("nowPage")) {
+			map.put("nowPage",1);
+		}
+		request.setAttribute("map", map);
 		return "/myPage_reviewList"; // bizReview.jsp
 	}
+	
+	//리뷰 정보(user)
+	@RequestMapping(value = "/myInfoReview.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String myInfoReview(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = reviewService.searchUserReviewList(map);
+		return new Gson().toJson(resultMap);
+	}
+	
 	
 	//리뷰 정보
 	@RequestMapping(value = "/reviewList.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
@@ -68,6 +82,7 @@ public class ReviewController {
 		resultMap = reviewService.searchReviewList(map);
 		return new Gson().toJson(resultMap);
 	}
+	
 	
 	//리뷰 보기 사업자
 	@RequestMapping(value = "/reviewBizList.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")

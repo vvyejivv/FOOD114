@@ -28,44 +28,42 @@
 							이벤트 메인 이미지
 						</div>
 						<span class="viewInfo">
-							<img class="mainImg" v-if="eventFile" :src="eventFile.path">
-							<input type="file" id="file1" name="file1" accept=".jpg, .png, .gif">
-							<button class="button-detail" v-if="!eventFile" @click="fnFileUpload()">저장</button>
-							<button class="button-detail" v-if="eventFile" @click="fnFileUpload()">변경</button>
+							<img class="mainImg" v-if="!updateFlg" :src="eventInfo.path">
+							<input v-if="updateFlg" type="file" id="file1" name="file1" accept=".jpg, .png, .gif">
 						</span>
 					</div>
 					<div class="infoDiv">
 						<div class="infoName">
-							이벤트 종류 카테고리
+							이벤트 종류 
 						</div>
-						<span v-if="!updateFlg" class="viewInfo">우리동네</span>
-						<input v-if="updateFlg" class="updateInput" :value="bizEventInfo.eventCategory">
+						<span v-if="!updateFlg" class="viewInfo">{{eventInfo.type}}</span>
+						<input v-if="updateFlg" class="updateInput" v-model="eventInfo.type">
 					</div>
 					<div class="infoDiv">
 						<div class="infoName">
 							이벤트 제목
 						</div>
-						<span v-if="!updateFlg" class="viewInfo">우리동네 첫 오픈 이벤트!</span>
-						<input v-if="updateFlg" class="updateInput" :value="bizEventInfo.eventTitle">
+						<span v-if="!updateFlg" class="viewInfo">{{eventInfo.title}}</span>
+						<input v-if="updateFlg" class="updateInput" v-model="eventInfo.title">
 					</div>
 					<div class="infoDiv">
 						<div class="infoName">
 							이벤트 내용
 						</div>
-						<span v-if="!updateFlg" class="viewInfo">첫 오픈 기념으로 15000원 이상 배달시 사이드메뉴 하나 드려요!</span>
-						<input v-if="updateFlg" class="updateInput" :value="bizEventInfo.eventContent">
+						<span v-if="!updateFlg" class="viewInfo">{{eventInfo.contents}}</span>
+						<input v-if="updateFlg" class="updateInput" v-model="eventInfo.contents">
 					</div>
 					<div class="infoDiv">
 						<div class="infoName">
 							이벤트 상태
 						</div>
-						<span v-if="!updateFlg" class="viewInfo">진행중</span>
-						<input v-if="updateFlg" class="updateInput" :value="bizEventInfo.eventState">
+						<span v-if="!updateFlg" class="viewInfo">{{eventInfo.endYn}}</span>
+						<input v-if="updateFlg" class="updateInput" v-model="eventInfo.endYn">
 					</div>									
 				</div>
 				<button v-if="!updateFlg" class="btn-modify" @click="fnInfoUpdate()">정보 변경하기</button>
 				<div v-if="updateFlg">
-					<button style="margin-left: 370px;" class="updateBtn" @click="fnInfoUpdate()">수정</button>
+					<button style="margin-left: 370px;" class="updateBtn" @click="fnAdd()">수정</button>
 					<button class="updateBtn" @click="fnInfoUpdate()">취소</button>
 				</div>
 			</div>
@@ -79,20 +77,99 @@
 <script type="text/javascript">
 	var app = new Vue({
 		el : '#app',
-		data : {},
+		data : {
+			boardNo : '${map.boardNo}',
+			sessionId : "${sessionBizId}",
+			updateFlg : false,
+			eventInfo : {}
+		},
 		methods : {
 			list : function() {
 				var self = this;
-				var nparmap = {};
+				if(!self.sessionId){
+					$.pageChange("/bizLogin.do", {});
+					return;
+				}
+				var nparmap = {boardNo : self.boardNo};
 				$.ajax({
-					url : "test.dox",
+					url : "listBizEventView.dox",
 					dataType : "json",
 					type : "POST",
 					data : nparmap,
 					success : function(data) {
+						console.log(data.listBizEventView);
+						console.log(self.boardNo);
+						self.eventInfo = data.listBizEventView;
 					}
 				});
-			}
+			},
+			fnInfoUpdate : function() {
+				var self = this;
+				if(!self.sessionId){
+					$.pageChange("/bizLogin.do", {});
+					return;
+				}
+				self.updateFlg = !self.updateFlg;
+			},
+			fnAdd : function(){
+                var self = this;
+                if(!self.sessionId){
+					$.pageChange("/bizLogin.do", {});
+					return;
+				}
+            var form = new FormData();
+            var fileInput = document.getElementById('file1');
+             if (fileInput.files.length > 0) {
+                 // 파일이 선택된 경우에만 FormData에 파일 추가
+                 form.append( "file1",  fileInput.files[0] );
+             }
+             form.append( "boardNo",  self.boardNo);
+             form.append( "type",  self.eventInfo.type);
+             form.append( "title",  self.eventInfo.title);
+             form.append( "contents",  self.eventInfo.contents);
+             form.append( "endYn",  self.eventInfo.endYn);
+             
+                 // 파일이 선택되었을 때만 업로드 실행
+                 if (fileInput.files.length > 0) {
+                     self.upload(form);
+                     $.pageChange("/bizEvent.do", {});
+                 } else {
+                    self.fnNoFile();
+                 }
+           }
+         // 파일 업로드
+          , upload : function(form){
+             var self = this;
+               $.ajax({
+                   url : "/bizEventFileUpload.dox"
+                 , type : "POST"
+                 , processData : false
+                 , contentType : false
+                 , data : form
+                 , success:function(response) { 
+                    
+                 }              
+             });
+         },
+         fnNoFile : function() {
+             var self = this;
+             var nparmap = {
+                boardNo : self.boardNo,
+                type : self.eventInfo.type,
+                title : self.eventInfo.title,
+                contents : self.eventInfo.contents,
+                endYn : self.eventInfo.endYn
+             };
+             $.ajax({
+                url : "/editBizEventBoard.dox",
+                dataType : "json",
+                type : "POST",
+                data : nparmap,
+                success : function(data) {
+                   $.pageChange("/bizEvent.do", {});
+                }
+             });
+          }
 		},
 		created : function() {
 			var self = this;

@@ -11,40 +11,44 @@ pageEncoding="UTF-8"%>
 <title>MAIN-HEADER</title>
 <link rel="stylesheet" href="../css/main.css">
 <style>
+[v-cloak] {
+	display: none;
+}
 </style>
 </head>
 
 <body>
 
 	<header>
-		<div id="header">
+		<div id="header" v-cloak>
 			<div id="container" style="height: 50px;">
-				<a id="logo" href="food114.do" style="">
-					<img src="../img/로고2.png" class="logo" height="58px">
+				<a id="logo" href="javascript:;" @click="fnClick('food114.do',map)"> <img
+					src="../img/로고2.png" class="logo" height="58px">
 				</a>
 				<div id="status">
 					<template v-if="sessionId==null || sessionId==''">
-						<a class="buttonBox" href="consumer-login.do">로그인 </a>
-						<a class="join" href="consumer-join.do"> 회원가입 </a>
-						<a class="join" href="order.do"> 주문하기 </a>
-						<a class="join" href="business-main.do"> 사장님페이지 </a>
+						<a class="buttonBox" href="consumer-login.do">로그인 </a> <a
+							class="join" href="consumer-join.do"> 회원가입 </a> <a class="join"
+							href="order.do"> 주문하기 </a> <a class="join"
+							href="business-main.do"> 사장님페이지 </a>
 					</template>
 					<template v-if="sessionId!=null && sessionId!=''">
-						<a class="join" href="javascript:;" @click="fnLogout"> 로그아웃 </a>
-						<a class="join" href="myInfo.do"> 마이페이지 </a>
-						<a class="join" href="order.do"> 주문하기 </a>
-						<a class="join" href="business-main.do"> 사장님페이지 </a>
+						<a class="buttonBox" href="javascript:;" @click="fnLogout">
+							로그아웃 </a> <a class="join" href="myInfo.do"> 마이페이지 </a> <a
+							class="join" href="order.do"> 주문하기 </a> <a class="join"
+							href="business-main.do"> 사장님페이지 </a>
 					</template>
 				</div>
 			</div>
 			<!-- menuBar -->
 			<div id="menuBar">
 				<div id="container" class="menuBar">
-					<a class="menu" href="food114_foodfind.do">메뉴 </a>
-					<a class="menu" href="mapTest2.do">지도로 찾기</a>
-					<a class="menu" href="event-biz-list.do">우리동네</a>
-					<a class="menu" href="event-web-list.do" @click="fnClick('event-web-list.do','list')">이벤트</a>
-					<a class="menu">고객지원</a>
+					<a class="menu" href="javascript:;"
+						@click='fnClick("food114_foodfind.do",map)'>메뉴
+					</a> <a class="menu" href="mapTest2.do">지도로 찾기</a> <a class="menu"
+						href="event-biz-list.do">우리동네</a> <a class="menu"
+						href="event-web-list.do"
+						@click="fnClick('event-web-list.do',map)">이벤트</a>
 				</div>
 			</div>
 		</div>
@@ -57,30 +61,35 @@ pageEncoding="UTF-8"%>
 	var header = new Vue({
 		el : '#header',
 		data : {
-			sessionId : "${sessionId}"
+			sessionId : "${sessionId}",
+			map : {
+				nowCategory : "${map.category}",
+				inputAddr : "${map.inputAddr}",
+				latitude : "${map.latitude}",
+				longitude : "${map.longitude}",
+				type : 'list'
+			}
 		},
 		methods : {
-			fnLogout : function(){
-				var self=this;
-				if(!confirm("정말 로그아웃 하시겠습니까?")){
+			fnLogout : function() {
+				var self = this;
+				if (!confirm("정말 로그아웃 하시겠습니까?")) {
 					return;
 				}
 				var nparmap = {};
-	            $.ajax({
-	                url:"logout.dox",
-	                dataType:"json",	
-	                type : "POST", 
-	                data : nparmap,
-	                success : function(data) { 
-	                	location.reload();
-	                }
-	            }); 
-			},
-			fnClick : function(link,str){
-				var self = this;
-				$.pageChange(link, {
-					type : str
+				$.ajax({
+					url : "logout.dox",
+					dataType : "json",
+					type : "POST",
+					data : nparmap,
+					success : function(data) {
+						location.reload();
+					}
 				});
+			},
+			fnClick : function(link, map) {
+				var self = this;
+				$.pageChange(link, map);
 			}
 		},
 		created : function() {
