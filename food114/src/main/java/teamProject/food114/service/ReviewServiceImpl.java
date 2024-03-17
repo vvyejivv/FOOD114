@@ -37,7 +37,20 @@ public class ReviewServiceImpl implements ReviewService {
 		}
 		return resultMap;
 	}
-
+	//리뷰리스트 확인(user)
+	@Override
+	public HashMap<String, Object> searchUserReviewList(HashMap<String, Object> map) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			List<Review> reviewList = reviewMapper.selectUserReviewList(map);		
+			resultMap.put("reviewList", reviewList);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			resultMap.put("result", "fail");
+		}
+		return resultMap;
+	}
 	//리뷰 사업자
 	@Override
 	public HashMap<String, Object> searchBizReviewList(HashMap<String, Object> map) {
@@ -94,5 +107,6 @@ public class ReviewServiceImpl implements ReviewService {
 		}
 		return resultMap;
 	}
+
 	
 }

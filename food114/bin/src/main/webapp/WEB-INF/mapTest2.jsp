@@ -15,6 +15,8 @@
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <title>지도로 검색</title>
 <style>
+[v-cloak] { display: none; }
+
 /* 공통 스타일 */
 .map_wrap, .map_wrap * {
 	margin: 0;
@@ -29,8 +31,10 @@
 
 .map_wrap {
 	position: relative;
-	width: 100%;
+	width: 1470px;
 	height: 820px;
+	padding-left: 432px;
+	margin: 0px auto;
 }
 
 /* 메뉴 스타일 */
@@ -193,6 +197,7 @@ ul, ol {
 	width: 100%; /* restList의 너비를 화면 전체 너비로 설정 */
 	overflow-x: hidden; /* 가로 스크롤 숨김 */
 	overflow-y: auto; /* 세로 스크롤 자동으로 생성 */
+	cursor: pointer;
 }
 
 .restImg {
@@ -260,42 +265,63 @@ ul, ol {
 	object-fit: contain;
 	margin-right:5px;
 }
+
+.detailView {
+	margin-bottom: 30px;
+}
+
+.plusBtn {
+	width:100px;
+	height:30px;
+	background-color:#f7f7f9;
+	border-radius:10px;
+	border:none;
+	color:#777;
+}
 </style>
 </head>
 <body>
 	<%@include file="main(header).html"%>
 
-	<div id="app">
+	<div id="app" v-cloak>
 		<section>
 			<div class="map_wrap">
 				<div id="map"
-					style="width: 100%; height: 100%; position: relative; overflow: hidden; margin-left:400px;"></div>
+					style="height: 100%; position: relative; overflow: hidden;"></div>
 				<div id="menu_view" class="bg_white">
 					<img :src="restView.path" class="restViewImg">
 					<a href="javascript:;" @click="fnRestClose()" class="backBtn">❮</a>
 					<div style="margin:10px;">
-						<h1 style="font-size: 1.5em;">{{restView.bizName}}<span style="color:#ccc;"> {{restView.categoryName}}</span></h1>
-						리뷰 {{restView.reviewCnt}}
+						<h1 style="font-size: 1.5em;">{{restView.bizName}}<span style="color:#ccc; margin-top:5px;"> {{restView.categoryName}}</span></h1>
+						<div style="margin-top:10px;">리뷰 {{restView.reviewCnt}}</div>
 					</div>
 						<div style="border-top:1px solid #ccc; width:100%; margin:20px 0 20px 0;"></div>
 					<div style="margin:10px;">
-						<div>
+						<div class="detailView">
 							<img class="solidImg" src="../img/location-dot-solid.png">
 							<span style="font-size:17px;">{{restView.newAddr}} {{restView.detail}}</span>
 						</div>
-						<div>
+						<div class="detailView">
 							<img class="solidImg" src="../img/clock-solid.png">
-							<span style="font-size:17px;">{{restView.openTime}} - {{restView.closeTime}}</span>
+							<span style="font-size:17px;">{{restView.sepaOpenTime}} - {{restView.sepaCloseTime}}</span>
 						</div>
-						<div>
+						<div class="detailView">
 							<img class="solidImg" src="../img/phone-solid.png">
-							<span style="font-size:17px;">{{restView.phone}}</span>
+							<span style="font-size:17px;">{{restView.sepaPhone}}</span>
 						</div>
-						<div>
+						<div class="detailView">
 							<img class="solidImg" src="../img/store-solid.png">
-							<span style="font-size:17px;">포장</span>
+							<span style="font-size:17px;">{{restView.devType}}</span>
 						</div>
-						<button @click="fnShopInfo()">정보 더보기 ❯</button>
+						<div class="detailView">
+							<img class="solidImg" src="../img/store-solid.png">
+							<span style="font-size:1.5em;">가게이벤트</span>
+							<div style="font-size:15px; margin-left:25px; margin-top:10px;">{{restView.title}}</div>
+							<div style="font-size:15px; margin-left:25px; margin-top:10px;">{{restView.contents}}</div>
+						</div>
+						<div style="width:100%; text-align:center;">
+							<button @click="fnShopInfo()" class="plusBtn">정보 더보기 ❯</button>
+						</div>
 					</div>
 				</div>
 				<div id="menu_wrap" class="bg_white">
@@ -306,12 +332,12 @@ ul, ol {
 								<div>
 									<a href="javascript:;" id="menu1" @click="fnSearchType1()"
 										:style="{'color': searchFlg1 ? '#fff' : '#ff7f00'}"
-										:class="searchFlg1 ? 'select_button' : 'none_select_button'">지역검색</a>
+										:class="searchFlg1 ? 'select_button' : 'none_select_button'"  style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;">지역검색</a>
 								</div>
 								<div>
 									<a href="javascript:;" id="menu2" @click="fnSearchType2()"
 										:style="{'color': searchFlg2 ? '#fff' : '#ff7f00'}"
-										:class="searchFlg2 ? 'select_button' : 'none_select_button'">가게명</a>
+										:class="searchFlg2 ? 'select_button' : 'none_select_button'" style="border-top-right-radius: 5px;border-bottom-right-radius: 5px;">가게명</a>
 								</div>
 							</div>
 							<div v-if="searchFlg2" class="search-bar">
@@ -356,11 +382,11 @@ ul, ol {
 							<p style="margin-left: 60px;">{{item.contents}}</p>
 						</div>
 					</div>
-					<div class="restList" v-if="areaRestList.length > 0" v-for="item in areaRestList">
+					<div class="restList" v-if="areaRestList.length > 0" v-for="item in areaRestList" @click="fnRestView(item.bizId)">
 						<img :src="item.path" alt="Hi" class="restImg">
 						<h3 style="margin-top: 8px;">
 							<a style="font-size: 1.5em;" href="javascript:;"
-								@click="fnRestView(item.bizId)">{{item.bizName}}</a><span style="color: #aaa;"> {{item.categoryName}}</span>
+								>{{item.bizName}}</a><span style="color: #aaa;"> {{item.categoryName}}</span>
 						</h3>
 						<div id="placesList1">
 							<span style="color: #ff7f00;">★ {{item.reviewAvg}}</span> | 리뷰 {{item.reviewCnt}}

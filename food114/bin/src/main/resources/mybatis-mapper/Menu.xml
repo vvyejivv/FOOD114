@@ -10,7 +10,7 @@
 	</select>
 	<!-- 메뉴 정보 검색  -->
 	<select id="selectMenuList" parameterType="hashmap" resultType="teamProject.food114.model.Menu">
-		SELECT *, 
+		SELECT *, CONCAT(FILEPATH,FILENAME) AS PATH,
 			CASE WHEN STATUS = '1' THEN '판매종료'
 			WHEN STATUS = '0' THEN '판매중'
 			WHEN STATUS = '3' THEN '품절'

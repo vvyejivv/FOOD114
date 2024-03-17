@@ -10,6 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MAIN</title>
 <style>
+[v-cloak] { display: none; }
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 </style>
 </head>
@@ -30,7 +31,7 @@
 
 		<div class="container">
 			<%@include file="myPage_header.jsp"%>
-			<div id="app">
+			<div id="app" v-cloak>
 				<div class="content" style="width : 900px;">
 					<h2>
 						<a href="javascript:;" style="font-size: 25px; color: #747171;">
@@ -49,7 +50,7 @@
 							<div class="row">
 								<div class="cell1">비밀번호</div>
 								<div class="cell2">
-									<input type="password" v-model="pwd">
+									<input type="password" v-model="pwd" style="margin-left: 0px;">
 								</div>
 
 							</div>

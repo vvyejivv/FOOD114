@@ -23,6 +23,9 @@ public class Review {
 	private String fileSize;
 	private String fileETC;
 	private String menuList;
+	private String bizName;
+	private String reviewDate;
+	private String totalPrice;
 
 	// 리뷰 답글
 	private String pContents;
@@ -257,6 +260,30 @@ public class Review {
 	}
 	public void setShopCmtDate(String shopCmtDate) {
 		this.shopCmtDate = shopCmtDate;
+	}
+
+	public String getBizName() {
+		return bizName;
+	}
+
+	public void setBizName(String bizName) {
+		this.bizName = bizName;
+	}
+
+	public String getReviewDate() {
+		return reviewDate;
+	}
+
+	public void setReviewDate(String reviewDate) {
+		this.reviewDate = reviewDate;
+	}
+
+	public String getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(String totalPrice) {
+		this.totalPrice = totalPrice;
 	}
 
 }

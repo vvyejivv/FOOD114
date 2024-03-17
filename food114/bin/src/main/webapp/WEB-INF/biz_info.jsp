@@ -31,8 +31,8 @@
 	margin-top: 30px;
 	margin-left: 370px;
 	background-color: #ffffff; /* 버튼 배경색 (흰색) */
-	border: 1px solid #2196F3; /* 버튼 테두리 (파란색) */
-	color: #2196F3; /* 텍스트 색상 (파란색) */
+	border: 1px solid #ff7f00; /* 버튼 테두리 (파란색) */
+	color: #ff7f00; /* 텍스트 색상 (파란색) */
 	padding: 8px 12px; /* 내부 여백 */
 	text-align: center;
 	text-decoration: none;
@@ -44,8 +44,9 @@
 }
 
 .btn-modify:hover {
-	border: 1px solid #ff7f00;
-	color: #ff7f00;
+	background-color: #ff7f00;
+	border: 1px solid #FBCEB1;
+	color: #ffffff;
 }
 
 .infoBox .infoDiv {
@@ -61,8 +62,8 @@
 	width: 98px;
 	margin-top: 30px;
 	background-color: #ffffff; /* 버튼 배경색 (흰색) */
-	border: 1px solid #2196F3; /* 버튼 테두리 (파란색) */
-	color: #2196F3; /* 텍스트 색상 (파란색) */
+	border: 1px solid #ff7f00; /* 버튼 테두리 (파란색) */
+	color: #ff7f00; /* 텍스트 색상 (파란색) */
 	padding: 8px 12px; /* 내부 여백 */
 	text-align: center;
 	text-decoration: none;
@@ -74,8 +75,9 @@
 }
 
 .updateBtn:hover {
-	border: 1px solid #ff7f00;
-	color: #ff7f00;
+	background-color: #ff7f00;
+	border: 1px solid #FBCEB1;
+	color: #ffffff;
 }
 
 .viewInfo {
@@ -140,13 +142,14 @@ section {
 	display: inline-block;
 	border-bottom: 1px solid #ccc
 }
+[v-cloak] { display: none; }
 </style>
 <body>
 	<%@include file="main(header)_biz.html"%>
 
 	<section style="height: 950px;">
 		<%@include file="sideBar_biz.html"%>
-		<div id="app">
+		<div id="app" v-cloak>
 			<div class="mold" style="height: auto;">
 				<h2>
 					<span style="color: #ff7f00; font-weight: bold;">| </span> <span
@@ -270,12 +273,12 @@ section {
 						<div class="infoName">영업시간</div>
 
 						<span v-if="!updateFlg" class="viewInfo">
-						<template v-if="!typeof bizInfo.closeTime==='undefined'">
+						<template v-if="openHour!=''">
 							{{openHour}}시{{openMinute}}분
 							</template>
-							<div v-if="typeof bizInfo.openTime==='undefined'" class="nullSpace"></div> 부터
-							<template v-if="!typeof bizInfo.closeTime==='undefined'">{{closeHour}}시{{closeMinute}}분</template>
-							<div v-if="typeof bizInfo.closeTime==='undefined'" class="nullSpace"></div> 까지
+							<div v-if="openHour==''" class="nullSpace"></div> 부터
+							<template v-if="closeHour!=''">{{closeHour}}시{{closeMinute}}분</template>
+							<div v-if="closeHour==''" class="nullSpace"></div> 까지
 						</span>
 						<template v-if="updateFlg">
 							<select class="timeSelect" v-model="openHour">
@@ -374,6 +377,10 @@ section {
 					// 휴대폰 인증번호 기입 후 확인시
 					fnPhoneConfirm : function() {
 						var self = this;
+						if(!self.sessionId){
+							$.pageChange("/bizLogin.do", {});
+							return;
+						}
 						if (self.phoneConfirmInputNum == self.phoneConfirmNum) {
 							self.phoneFlg = true;
 							self.inputPhoneCheckFlg = false;
@@ -385,6 +392,10 @@ section {
 					// 휴대폰 인증 클릭시
 					fnPhoneCheck : function() {
 						var self = this;
+						if(!self.sessionId){
+							$.pageChange("/bizLogin.do", {});
+							return;
+						}
 						let phone = /^(010|011)[0-9]{7,8}$/
 						if (!phone.test(self.bizInfo.phone)) {
 							alert("휴대폰번호를 제대로 입력해주세요.");
@@ -413,6 +424,10 @@ section {
 					// 수정버튼 클릭시
 					fnInfoUpdateComplete : function() {
 						var self = this;
+						if(!self.sessionId){
+							$.pageChange("/bizLogin.do", {});
+							return;
+						}
 						if (self.bizInfo.bizName == ""
 								|| self.bizInfo.ownerName == ""
 								|| self.bizInfo.accountNumber == ""
@@ -455,11 +470,19 @@ section {
 					// 정보 변경하기 클릭시
 					fnInfoUpdate : function() {
 						var self = this;
+						if(!self.sessionId){
+							$.pageChange("/bizLogin.do", {});
+							return;
+						}
 						self.updateFlg = true;
 					},
 					// 사용자 정보 불러오기
 					fnBizView : function() {
 						var self = this;
+						if(!self.sessionId){
+							$.pageChange("/bizLogin.do", {});
+							return;
+						}
 						var nparmap = {
 							bizId : self.sessionId
 						};
@@ -473,11 +496,11 @@ section {
 								self.bizInfo = data.bizInfo;
 								self.category = data.bizInfo.bizCategory;
 								self.bank = data.bizInfo.bank;
-								if(!typeof data.bizInfo.openTime ==="undefined"){
+								if(typeof data.bizInfo.openTime !="undefined"){
 								self.openHour = data.bizInfo.openTime.substring(0, 2);
 								self.openMinute = data.bizInfo.openTime.substring(2, 4);
 								}
-								if(!typeof data.bizInfo.closeTime ==="undefined"){
+								if(typeof data.bizInfo.closeTime !="undefined"){
 								self.closeHour = data.bizInfo.closeTime.substring(0, 2);
 								self.closeMinute = data.bizInfo.closeTime.substring(2, 4);
 								}
@@ -486,6 +509,8 @@ section {
 										data.bizInfo.email.indexOf("@"));
 								self.emailAddr = data.bizInfo.email.substring(data.bizInfo.email.indexOf("@") + 1);
 								console.log(data.bizInfo);
+								console.log(data.bizInfo.openTime);
+								console.log(self.openHour);
 								
 								if (data.bizFile) {
 									self.bizFile = data.bizFile;
@@ -508,6 +533,10 @@ section {
 					,
 					upload : function(form) {
 						var self = this;
+						if(!self.sessionId){
+							$.pageChange("/bizLogin.do", {});
+							return;
+						}
 						$.ajax({
 							url : "/fileUpload.dox",
 							type : "POST",
@@ -522,6 +551,10 @@ section {
 					// select 내용들 db에서 가져오기
 					fnSelectAll : function() {
 						var self = this;
+						if(!self.sessionId){
+							$.pageChange("/bizLogin.do", {});
+							return;
+						}
 						var nparmap = {};
 						$.ajax({
 							url : "selectAll.dox",
@@ -538,6 +571,10 @@ section {
 					// 이미지만 새로고침
 					fnBizFileView : function() {
 						var self = this;
+						if(!self.sessionId){
+							$.pageChange("/bizLogin.do", {});
+							return;
+						}
 						var nparmap = {
 							bizId : self.sessionId
 						};

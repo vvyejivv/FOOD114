@@ -92,9 +92,11 @@
 					type : "POST",
 					data : nparmap,
 					success : function(data) {
-						if (data.pwd == "pwdSuccess") {
-							location.href="/food114.do";							
-						}else{
+						console.log(data);
+						if (data.pwd == "pwdSuccess"&&data.status=="success") {														
+							location.href="/food114.do";			
+						}
+						else{
 							self.errormsg = data.message;						
 						}
 					}

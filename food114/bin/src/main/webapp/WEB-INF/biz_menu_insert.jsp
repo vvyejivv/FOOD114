@@ -30,8 +30,8 @@ input:focus {
 	margin-top: 30px;
 	margin-left: 370px;
 	background-color: #ffffff; /* 버튼 배경색 (흰색) */
-	border: 1px solid #2196F3; /* 버튼 테두리 (파란색) */
-	color: #2196F3; /* 텍스트 색상 (파란색) */
+	border: 1px solid #ff7f00; /* 버튼 테두리 (파란색) */
+	color: #ff7f00; /* 텍스트 색상 (파란색) */
 	padding: 8px 12px; /* 내부 여백 */
 	text-align: center;
 	text-decoration: none;
@@ -43,8 +43,9 @@ input:focus {
 }
 
 .btn-modify:hover {
-	border: 1px solid #ff7f00;
-	color: #ff7f00;
+	background-color: #ff7f00;
+	border: 1px solid #FBCEB1;
+	color: #ffffff;
 }
 
 .inputBox .inputDiv {
@@ -156,6 +157,7 @@ button img {
 	font-size: 12px;
 	color: #ccc;
 }
+[v-cloak] { display: none; }
 </style>
 <body>
 	<%@include file="main(header)_biz.html"%>
@@ -166,7 +168,7 @@ button img {
     </div> -->
 	<section style="height: 850px">
 		<%@include file="sideBar_biz.html"%>
-		<div id="app">
+		<div id="app" v-cloak>
 			<div class="mold" style="width:1050px">
 				<h2>
                	<span style="color: #ff7f00; font-weight: bold;">| </span><span
@@ -244,6 +246,10 @@ button img {
 		methods : {
 			fnMenuUpload : function(){
 	       		var self = this;
+	       		if(!self.sessionId){
+					$.pageChange("/bizLogin.do", {});
+					return;
+				}
 				var form = new FormData();
 				var fileInput = document.getElementById('file1');
 			    if (fileInput.files.length > 0) {
