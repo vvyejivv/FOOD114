@@ -74,10 +74,13 @@
 		methods : {
 			list : function() {
 				var self = this;
+<<<<<<< HEAD
 				if(!self.sessionId){
 					$.pageChange("/bizLogin.do", {});
 					return;
 				}
+=======
+>>>>>>> branch 'JINSOON' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 				var nparmap = {
 						bizId : self.sessionId
 				};
@@ -92,12 +95,16 @@
 				});
 			},
 			fnDetail : function(boardNo) {
+<<<<<<< HEAD
 				if(!self.sessionId){
 					$.pageChange("/bizLogin.do", {});
 					return;
 				} else {
 					$.pageChange("/bizEvent_info.do", {boardNo : boardNo});
 				}
+=======
+					$.pageChange("/bizEvent_info.do", {boardNo : boardNo});
+>>>>>>> branch 'JINSOON' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 			}
 		},
 		created : function() {

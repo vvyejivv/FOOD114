@@ -87,6 +87,7 @@ table th, td {
 					<span style="color: #ff7f00; font-weight: bold;">| </span><span
 						style="text-align: left; color: rgba(72, 72, 72);">판매통계&nbsp;</span>
 				</h2>
+				<strong v-html="title1"></strong>
 				<div id="chart">
 					<apexchart type="line" height="350" width="1100" :options="chartOptions"
 						:series="series"></apexchart>
@@ -143,6 +144,7 @@ table th, td {
 			sessionId : "${sessionBizId}",
 			orderCnt : "",
 			daySellList : [],
+			title1 : "안녕",
 			
 			series : [ {
 				name : "일매출",
@@ -163,7 +165,7 @@ table th, td {
 					curve : 'straight'
 				},
 				title : {
-					text : '11',
+					text : '',
 					align : 'left'
 				},
 				grid : {
@@ -227,8 +229,8 @@ table th, td {
                             name: "일매출",
                             data: data.daySellList.map(item => item.sum)
                         }];
-						
-						console.log(self.chartOptions.title.text);
+						console.log(data.daySellList[0].day);
+						self.title1 = data.daySellList[0].day + " ~ " + data.daySellList[data.daySellList.length - 1].day;
 					}
 				});
 			}
@@ -236,7 +238,9 @@ table th, td {
 		created : function() {
 			var self = this;
 			self.fnOrderList();
-			self.fnDaySellList();
+		},
+		mounted: function() {
+			this.fnDaySellList();
 		}
 	});
 </script>

@@ -173,7 +173,11 @@ table th, td {
 					},
 				},
 				xaxis : {
+<<<<<<< HEAD
 					categories : [],
+=======
+					categories : [1],
+>>>>>>> branch 'JINSOON' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 				}
 			},
 		},
@@ -219,10 +223,20 @@ table th, td {
 					success : function(data) {
 						self.daySellList = data.daySellList;
 						console.log(data);
+<<<<<<< HEAD
 						for(var i=0; i<data.daySellList.length; i++){
 							self.series.data.push(data.daySellList.sum);
 							self.chartOptions.xaxis.categories.push(data.daySellList.day);
 						}
+=======
+						data.daySellList.forEach((item, index) => {
+						    self.chartOptions.xaxis.categories[index] = item.day;
+						});
+						self.series = [{
+                            name: "일매출",
+                            data: data.daySellList.map(item => item.sum)
+                        }];
+>>>>>>> branch 'JINSOON' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 					}
 				});
 			}
