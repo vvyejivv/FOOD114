@@ -142,10 +142,11 @@ table th, td {
 			orderList : [],
 			sessionId : "${sessionBizId}",
 			orderCnt : "",
+			daySellList : [],
 			
 			series : [ {
-				name : "철판볶음밥",
-				data : [ 10, 41, 35, 51, 49, 62, 69, 91, 148, 205 ]
+				name : "일매출",
+				data : []
 			} ],
 			chartOptions : {
 				chart : {
@@ -172,17 +173,25 @@ table th, td {
 					},
 				},
 				xaxis : {
-					categories : ['2024.03.02', '2024.03.03', '2024.03.04', '2024.03.05', '2024.03.06', '2024.03.07', '2024.03.08','2024.03.09','2024.03.10','2024.03.11'],
+					categories : [1],
 				}
 			},
 		},
 		methods : {
 			fnInfoUpdate : function() {
 				var self = this;
+				if(!self.sessionId){
+					$.pageChange("/bizLogin.do", {});
+					return;
+				}
 				self.updateFlg = !self.updateFlg;
 			},
 			fnOrderList : function() {
 				var self = this;
+				if(!self.sessionId){
+					$.pageChange("/bizLogin.do", {});
+					return;
+				}
 				var nparmap = {
 					bizId : self.sessionId
 				};
@@ -196,11 +205,35 @@ table th, td {
 						self.orderCnt = data.cnt;
 					}
 				});
+			},
+			fnDaySellList : function() {
+				var self = this;
+				var nparmap = {
+					bizId : self.sessionId
+				};
+				$.ajax({
+					url : "/selectDaySellList.dox",
+					dataType : "json",
+					type : "POST",
+					data : nparmap,
+					success : function(data) {
+						self.daySellList = data.daySellList;
+						console.log(data);
+						data.daySellList.forEach((item, index) => {
+						    self.chartOptions.xaxis.categories[index] = item.day;
+						});
+						self.series = [{
+                            name: "일매출",
+                            data: data.daySellList.map(item => item.sum)
+                        }];
+					}
+				});
 			}
 		},
 		created : function() {
 			var self = this;
 			self.fnOrderList();
+			self.fnDaySellList();
 		}
 	});
 </script>

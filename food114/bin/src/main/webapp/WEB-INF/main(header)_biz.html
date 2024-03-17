@@ -9,7 +9,7 @@ pageEncoding="UTF-8"%>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MAIN-HEADER</title>
-<link rel="stylesheet" href="../css/main.css">
+<link rel="stylesheet" href="../css/main_biz.css">
 <style>
 </style>
 </head>
@@ -24,7 +24,7 @@ pageEncoding="UTF-8"%>
 				</a>
 				<div id="status">
 					<template v-if="sessionId==null || sessionId==''">
-						<a class="buttonBox" href="bizLogin.do"
+						<a class="buttonBoxBiz" href="bizLogin.do"
 							style="background-color: #ccc; border: none;">사업자로그인 </a>
 						<a class="join" href="business-signup.do"> 사업자회원가입 </a>
 						<a class="join" href="food114.do">고객페이지로</a>
@@ -38,8 +38,8 @@ pageEncoding="UTF-8"%>
 			<!-- menuBar -->
 			<div id="menuBar">
 				<div id="container" class="menuBar">
-					<a class="menu" href="biz-info.do">가게관리 </a>
-					<a class="menu">고객지원</a>
+					<a href="javascript:;" class="menu" @click="fnPageChange('biz-info.do',map)">가게관리 </a>
+					<a href="javascript:;" class="menu" @click="fnPageChange('boardNoticeList.do',map)">문의하기 </a>
 				</div>
 			</div>
 		</div>
@@ -52,7 +52,8 @@ pageEncoding="UTF-8"%>
 	var header = new Vue({
 		el : '#header',
 		data : {
-			sessionId : "${sessionBizId}"
+			sessionId : "${sessionBizId}",
+			map :{}
 		},
 		methods : {
 			fnLogout : function() {
@@ -67,7 +68,7 @@ pageEncoding="UTF-8"%>
 					type : "POST",
 					data : nparmap,
 					success : function(data) {
-						location.reload();
+						$.pageChange("/business-main.do", {});
 					}
 				});
 			},
@@ -76,10 +77,19 @@ pageEncoding="UTF-8"%>
 				$.pageChange(link, {
 					type : str
 				});
+			},
+			fnSessionCheck : function(){
+				var self = this;
+					$.pageChange("/biz-info.do", {});
+			},
+			fnPageChange : function(link,map){
+				var self = this;
+				$.pageChange(link, map);
 			}
 		},
 		created : function() {
 			var self = this;
+			console.log(self.sessionId);
 		}
 	});
 </script>

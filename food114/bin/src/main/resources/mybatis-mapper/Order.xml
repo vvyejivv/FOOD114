@@ -58,4 +58,12 @@
 		WHERE ORDERNO = #{orderNo}
 	</update>
 	
+	<select id="selectDaySell" parameterType="hashmap" resultType="teamProject.food114.model.Order">
+		SELECT DATEDATE AS DAY,SUM(SUMSUM) AS SUM FROM
+		(SELECT O.ORDERNO, SUM(UNITPRICE * COUNT) AS SUMSUM, DATE_FORMAT(O.ORDERDATE, '%Y-%m-%d') AS DATEDATE
+		FROM FOOD114_ORDERS O 
+		INNER JOIN FOOD114_ORDER_DETAIL D ON O.ORDERNO = D.ORDERNO
+		WHERE BIZID = #{bizId}
+		GROUP BY O.ORDERNO) T GROUP BY T.DATEDATE
+	</select>
 </mapper>

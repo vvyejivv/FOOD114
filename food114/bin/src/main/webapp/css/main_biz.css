@@ -1,0 +1,155 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+@import "all.css";
+
+.notosanskr * {
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+* {
+	font-family: 'Noto Sans KR';
+}
+
+body {
+	margin: 0px;
+}
+
+#container {
+	width: 1200px;
+	margin: 15px auto;
+	padding: 10px;
+}
+
+#logo {
+	float: left;
+	position: relative;
+}
+
+.logo {
+	width: 200px;
+	height: 58px;
+	margin-top: 5px;
+	object-fit: cover;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+}
+
+#status {
+	float: right;
+	width: 500px;
+}
+
+a {
+	text-decoration: none;
+}
+
+.buttonBoxBiz {
+	padding: 0px 15px;
+	height: 30px;
+	border: 1px solid #ff7f00;
+	background-color: #ff7f00;
+	border-radius: 5px;
+	font-size: 14px;
+	line-height: 30px;
+	color: white;
+	margin: 5px;
+	float: right;
+	margin-left: 10px;
+	margin-top: 10px;
+}
+
+footer {
+	background-color: antiquewhite;
+	height: 400px;
+	padding-top: 15px;
+	color: dimgray;
+}
+
+.partition {
+	color: #ccc;
+	font-size: 20px;
+}
+
+.menu {
+	font-size: 16px;
+	color: rgb(72, 72, 72);
+	font-weight: 500;
+}
+
+.join {
+	float: right;
+	line-height: 50px;
+	font-size: 14px;
+	margin: 0px 10px;
+	color: dimgray;
+}
+
+#menuBar {
+	height: 50px;
+	/* border-bottom: 1px solid #ccc; */
+	box-shadow: 0px 2px 2px 0px #e0dbdba6;
+}
+
+.menuBar {
+	display: flex;
+	justify-content: space-around
+}
+
+.receipt {
+	position: fixed;
+	right: 20px;
+	bottom: 20px;
+	border: 1px solid black;
+	width: 300px;
+	height: 400px;
+	box-sizing: border-box;
+}
+
+.goOrder {
+	position: absolute;
+	bottom: 0px;
+	border: solid black;
+	width: 100%;
+	height: 100px;
+	box-sizing: border-box;
+}
+
+.addMenuContainer {
+	position: absolute;
+	height: 200px;
+	width: 100%;
+}
+
+.ad {
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
+	border: 1px solid black;
+	width: 300px;
+	height: 400px;
+	box-sizing: border-box;
+}
+
+.adClose {
+	position: absolute;
+	right: 5px;
+	top: 5px;
+}
+
+.footerImg {
+	float: left;
+	padding: 10px;
+	box-sizing: border-box;
+	padding-top: 15px;
+	height: 80px;
+}
+
+.footerImg img {
+	width: 150px;
+}
+
+footer {
+	padding-left: 100px;
+	height: 220px;
+}

@@ -25,7 +25,7 @@
         <button class="adClose">x</button>
     </div> -->
 	<section>
-		<div id="app">
+		<div id="app" v-cloak>
 			<div id="orderContainer">
 				<div id="title">
 					<span>주문하기</span>
@@ -57,7 +57,7 @@
 					<span>주문 요청사항</span>
 				</div>
 				<div class="deliveryBox">
-<!-- 				<div id="ecoYN">
+					<!-- 				<div id="ecoYN">
 						<label><input type="checkbox" v-model="ecoYNChecked">
 							일회용 수저, 포크 안 주셔도 됩니다.</label>
 
@@ -80,7 +80,7 @@
 					<span>결제수단 선택</span>
 				</div>
 				<div class="deliveryBox">
-<!-- 					<div class="payMargin">
+					<!-- 					<div class="payMargin">
 						<div class="payBox">
 							<span class="payMainText">바로 결제</span>
 							<div id="payText">*등록된 결제 수단으로 결제됩니다.</div>
@@ -138,7 +138,6 @@
 							<input type="text" placeholder="쿠폰 목록에서 선택해주세요"
 								class="couponInput" v-model="couponTitle" disabled="disabled">
 						</div>
-						<!-- <button @click="fnUseCoupon">적용</button> -->
 						<button @click="fnCouponPopupOpen">쿠폰 목록</button>
 					</div>
 					<!--            <div id="couponBox" class="payMainText">
@@ -174,12 +173,12 @@
 							</template>
 						</table>
 						<div class="hrLine"></div>
-							<div style="float: left; margin-right: 300px;">쿠폰 할인 금액</div>
-							<div>원</div>
+						<div style="float: left; margin-right: 300px;">쿠폰 할인 금액</div>
+						<div>{{discount}}원</div>
 						<div class="hrLine"></div>
 						<div class="priceBox">
 							<div class="priceTxt">총 금액</div>
-							<div class="totalPrice">{{selectTotalPrice.toLocaleString()}}원</div>
+							<div class="totalPrice">{{couponAmount.toLocaleString()}}원</div>
 						</div>
 
 						<div class="orderBtn" @click="fnPay">결제하기</div>
@@ -214,9 +213,9 @@
 			selectedPaymentMethod : "", /* 바로 결제 선택  */
 			selectedMeetPaymentMethod : "", /* 만나서 결제 선택  */
 			paymentType : "", /* 결제방식  */
-			couponNo : "", /* 쿠폰번호  */
+			couponNo : 0, /* 쿠폰번호  */
 			couponTitle : "", /* 쿠폰 이름  */
-			couponSaleMount : 0, /* 쿠폰 할인액 */
+			couponSaleAmount : 0, /* 쿠폰 할인액 */
 			couponSalePercent : 0, /* 쿠폰 할인 퍼센트  */
 			discount : 0, /* 할인율 적용 금액  */
 			couponList : {}, /* 쿠폰 목록  */
@@ -224,6 +223,8 @@
 			couponAmount : 0, /* 쿠폰 적용된 총 금액 */
 			selectMenuList : ${map.selectMenuList}, /* 장바구니에 담아온 메뉴  */
 			paymentStatus : "", /* 결제여부  */
+			couponId : "",
+			flg : false,
 		},
 		methods : {
 			fnView : function() {
@@ -244,6 +245,7 @@
 						self.userDetail = self.userAddrList[0].detail;
 						/* 총 금액  */
 						self.selectTotalPrice = self.fnTotalPrice(self.selectMenuList);
+						self.couponAmount = self.selectTotalPrice;
 					}
 				});
 			},
@@ -298,20 +300,36 @@
 		        var height = 300;
 		        pop = window.open("couponList.do", "couponPopup", 'width=' + width + ',height=' + height + ',left=' + (left - (width / 2)) + ',top=' + (top - (height / 2)));
 				
+		        self.flg = false;
 		     // 팝업 창에서 부모 창의 데이터를 전달 받을 수 있도록 콜백 함수 설정
-		        pop.onApplyCoupon = function (couponNo, title, saleMount, salePercent) {
-		        	self.onApplyCoupon(couponNo, title, saleMount, salePercent); 
+		        pop.onApplyCoupon = function (couponNo, title, saleAmount, salePercent) {
+		        	self.onApplyCoupon(couponNo, title, saleAmount, salePercent); 
 		        };
 			},
-			/* 쿠폰 적용  */
+			/* 쿠폰 적용 - 이부분 어디서 실행해야할지 모르겠습니다..  */
 			fnUseCoupon : function(){	
 				var self = this;
+				if(self.couponSaleAmount == 0){
+					console.log("쿠폰 적용 전 : " + self.selectTotalPrice );
+					self.discount = self.selectTotalPrice * self.couponSalePercent;
+					self.couponAmount = self.selectTotalPrice - self.discount;
+					console.log("쿠폰 적용 후 : " + self.couponAmount );
+					return;
+				}
+				if(self.couponSalePercent == 0){					
+					console.log("쿠폰 적용 전 : " + self.selectTotalPrice );
+					self.discount = self.couponSaleAmount;
+					self.couponAmount = self.selectTotalPrice - self.couponSaleAmount;
+					console.log("쿠폰 적용 후 : " + self.couponAmount );
+					return;
+				}
+				return;
 				if(self.couponNo !== "" || self.couponNo !== 0){
 					if(self.couponSalePercent > 0){	
 						self. discount = selectTotalPrice * (couponSalePercent/100); //쿠폰 할인율금액
 						self.couponAmount = selectTotalPrice - discount; //쿠폰 할인 금액
-					}else if(self.couponSaleMount > 0){
-						self.couponAmount = selectTotalPrice - self.couponSaleMount //쿠폰 할인 금액
+					}else if(self.couponSaleAmount > 0){
+						self.couponAmount = selectTotalPrice - self.couponSaleAmount //쿠폰 할인 금액
 					}
 				}
 			},
@@ -348,7 +366,7 @@
 				self.fnStatus("결제중");
 				 if (self.paymentType == 'card') {
 					self.fnPayInfoSave(); /* 결제정보 저장  */
-					/* self.fnCreditCard();  *//* 신용카드 결제 */
+					self.fnCreditCard();  /* 신용카드 결제 */
 				} else if (self.paymentType == 'phone') {
 					self.fnPayInfoSave(); /* 결제정보 저장  */
 					self.fnPhonePayment();
@@ -360,10 +378,12 @@
 					self.fnToss();
 				} else if (self.paymentType == 'meetCard'){
 					self.fnPayInfoSave(); /* 결제정보 저장  */
-					alert("만나서 카드 결제");
+					self.fnOrder();
+					self.fnPageChang('success'); /* 결제완료 후 페이지이동 */
 				} else if (self.paymentType == 'cash'){
-					self.fnPayInfoSave(); /* 결제정보 저장  */
-					alert("현금결제");					
+					self.fnPayInfoSave(); /* 결제정보 저장  */		
+					self.fnOrder();
+					self.fnPageChang('success'); /* 결제완료 후 페이지이동 */
 				}  else {
 					alert("다시 시도하세요");
 				}		 
@@ -402,17 +422,17 @@
 						userId : self.sessionId,
 						couponNo : self.couponNo,
 						type : self.paymentType,
-						price : self.selectTotalPrice, /* 결제 금액 확인  */
+						price : self.couponAmount, /* 결제 금액 확인  */
 					};
-					 /* $.ajax({
-			                url:"test.dox",
+					 $.ajax({
+			                url:"PaymentInfoSave.dox",
 			                dataType:"json",	
 			                type : "POST", 
 			                data : nparmap,
 			                success : function(data) {
 			        			console.log("결제정보 결과 : " + data.result);
 			                }
-			            });  */
+			            });
 			},
 			fnRemoveMenu : function(index){
 				var self = this;
@@ -474,6 +494,7 @@
 							 console.log("결제 : success");
 		                     self.paymentStatus = "success";
 		                     self.fnOrder();/* 주문내용 저장  */
+		                     self.fnPageChang('success'); /* 결제완료 후 페이지이동 */
 						} else {
 							alert("Fail.");
 						}
@@ -499,6 +520,7 @@
 						 console.log("결제 : success");
 	                     self.paymentStatus = "success";
 	                     self.fnOrder();/* 주문내용 저장  */
+	                     self.fnPageChang('success'); /* 결제완료 후 페이지이동 */
 					} else {
 						alert("Fail.");
 					}
@@ -524,10 +546,19 @@
 						 console.log("결제 : success");
 	                     self.paymentStatus = "success";
 	                     self.fnOrder();/* 주문내용 저장  */
+	                     self.fnPageChang('success'); /* 결제완료 후 페이지이동 */
 					} else {
 						alert("Fail.");
 					}
 				});
+			},
+			fnPageChang : function(type){
+				var self = this;
+				if(type == "success"){
+					$.pageChange("/food114.do", {});
+				}else if(type == "fail"){
+					/* 오류창 */
+				}
 			}
 		},
 		watch : {
@@ -535,17 +566,23 @@
 			selectMenuList: function (newMenuList, oldMenuList) {
                 var self = this;
                 self.selectTotalPrice = self.fnTotalPrice(newMenuList);
-            }	
+            },
+            flg : function (){
+            	var self = this;
+            	self.fnUseCoupon();
+            }
 		},
 		created : function() {
 			var self = this;
 			self.fnView();
 		}
 	});
-	function onApplyCoupon(couponNo, title, saleMount, salePercent){
+	function onApplyCoupon(couponNo, title, saleAmount, salePercent,couponId){
 		app.couponNo = couponNo;
 		app.couponTitle = title;
-		app.couponSaleMount = saleMount;
+		app.couponSaleAmount = saleAmount;
 		app.couponSalePercent = salePercent;
-	}
+		app.couponId = couponId;
+		app.flg = true;
+	} 
 </script>

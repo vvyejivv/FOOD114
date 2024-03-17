@@ -34,7 +34,7 @@
 				<div class="content" style="width : 900px;">
 					<h2>
 						<a href="javascript:;" style="font-size: 25px; color: #747171;">
-							<span style="color: #ff7f00; font-weight: bold;">| </span>비밀번호 변경
+							<span style="color: #ff7f00; font-weight: bold;">| </span>등급
 						</a>
 					</h2>
 					<div>

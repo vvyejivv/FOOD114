@@ -9,13 +9,16 @@
 <title>첫번째 페이지</title>
 <link rel="stylesheet" href="../css/review_info_biz.css">
 </head>
+<style>
+[v-cloak] { display: none; }
+</style>
 <body>
 	<header>
 		<%@include file="main(header)_biz.html"%>
 	</header>
 	<section>
 		<%@include file="sideBar_biz.html"%>
-		<div id="app">
+		<div id="app" v-cloak>
 			<div class="mold">
 				<h2>
 					<span style="color: #ff7f00; font-weight: bold;">| </span><span
@@ -56,9 +59,13 @@
 					</tr>
 					<tr>
 						<td class="event_title">리뷰 답글</td>
-						<td>
-							<input style="width: 700px;" placeholder="리뷰 작성을 해주세요!">
-							<button class="addReview">저장</button>
+						<td v-if="reviewInfo.pContents">
+							<textarea style="width: 700px;" placeholder="리뷰 작성을 해주세요!" v-model="contents">{{reviewInfo.pContents}}</textarea>
+							<button class="addReview" @click="fnBizUpdate()">수정</button>
+						</td>
+						<td v-if="!reviewInfo.pContents">
+							<textarea style="width: 700px;" placeholder="리뷰 작성을 해주세요!" v-model="contents"></textarea>
+							<button class="addReview" @click="fnBizAdd()">저장</button>
 						</td>
 					</tr>
 				</table>
@@ -76,11 +83,17 @@
 		el : '#app',
 		data : {
 			reviewNo : '${map.reviewNo}',
-			reviewInfo : {}
+			reviewInfo : {},
+			sessionId : "${sessionBizId}",
+			contents : ""
 		},
 		methods : {
 			bizInfo : function() {
 				var self = this;
+				if(!self.sessionId){
+					$.pageChange("/bizLogin.do", {});
+					return;
+				}
 				console.log(self.reviewNo);
 				var nparmap = {
 					reviewNo : self.reviewNo
@@ -97,7 +110,56 @@
 			},
 			goBack : function() {
 				// 이전으로 버튼을 눌렀을 때의 동작을 정의합니다.
-				window.history.back();
+				$.pageChange("/bizReview.do", {});
+			},
+			fnBizAdd : function() {
+				var self = this;
+				if(!self.sessionId){
+					$.pageChange("/bizLogin.do", {});
+					return;
+				}
+				console.log(self.reviewNo);
+				if(!self.contents){
+					return;
+				}
+				var nparmap = {
+					reviewNo : self.reviewNo,
+					bizId : self.sessionId,
+					orderNo : self.reviewInfo.orderNo,
+					contents : self.contents
+				};
+				$.ajax({
+					url : "reviewBizComment.dox",
+					dataType : "json",
+					type : "POST",
+					data : nparmap,
+					success : function(data) {
+						location.reload(true);
+					}
+				});
+			},
+			fnBizUpdate : function() {
+				var self = this;
+				if(!self.sessionId){
+					$.pageChange("/bizLogin.do", {});
+					return;
+				}
+				if(!self.contents){
+					return;
+				}
+				var nparmap = {
+					reviewNo : self.reviewInfo.pNo,
+					contents : self.contents
+				};
+				$.ajax({
+					url : "reviewBizCommentUpdate.dox",
+					dataType : "json",
+					type : "POST",
+					data : nparmap,
+					success : function(data) {
+						location.reload(true);
+					}
+				});
 			}
 		},
 		created : function() {

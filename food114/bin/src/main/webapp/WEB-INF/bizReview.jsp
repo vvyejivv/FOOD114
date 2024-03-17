@@ -9,13 +9,16 @@
 <title>첫번째 페이지</title>
 <link rel="stylesheet" href="../css/review_biz.css">
 </head>
+<style>
+[v-cloak] { display: none; }
+</style>
 <body>
 	<header>
 		<%@include file="main(header)_biz.html"%>
 	</header>
 	<section>
 		<%@include file="sideBar_biz.html"%>
-		<div id="app">
+		<div id="app" v-cloak>
 			<div class="mold">
 				<h2>
 					<span style="color: #ff7f00; font-weight: bold;">| </span><span
@@ -63,7 +66,7 @@
 							<td class="reviewFont">{{ review.userId }}</td>
 							<td class="reviewFont">{{ review.orderDate }}</td>
 							<td>
-    							<img v-if="review.P_REVIEWNO" width="22" height="20" src="https://img.icons8.com/sf-black/64/ff7f00/circled.png" alt="circled" />
+    							<img v-if="review.pContents" width="22" height="20" src="https://img.icons8.com/sf-black/64/ff7f00/circled.png" alt="circled" />
     							<img v-else width="23" height="20" src="https://img.icons8.com/sf-black-filled/64/ff7f00/x.png" alt="x" />
 							</td>
 							<td><button class="review-detail" @click="fnInfo(review)">자세히</button></td>
@@ -82,13 +85,20 @@
 	var app = new Vue({
 		el : '#app',
 		data : {
-			reviews : []
+			reviews : [],
+			sessionId : "${sessionBizId}"
 		// 받은 데이터를 저장할 배열
 		},
 		methods : {
 			list : function() {
 				var self = this;
-				var nparmap = {};
+				if(!self.sessionId){
+					$.pageChange("/bizLogin.do", {});
+					return;
+				}
+				var nparmap = {
+						bizId : self.sessionId
+				};
 				$.ajax({
 					url : "reviewBizList.dox",
 					dataType : "json",
@@ -100,7 +110,7 @@
 				});
 			},
 			fnInfo : function(review) {
-				$.pageChange("/bizReview_info.do", {reviewNo : review.reviewNo});
+					$.pageChange("/bizReview_info.do", {reviewNo : review.reviewNo});
 			}
 		},
 		created : function() {

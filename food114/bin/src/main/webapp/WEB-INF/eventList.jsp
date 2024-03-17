@@ -67,6 +67,7 @@
 	/* border: 1px solid #ccc; */
 	text-align: center;
 }
+[v-cloak] { display: none; }
 </style>
 
 
@@ -78,7 +79,7 @@
 	<section>
 		<div style="width: 1200px; margin: 0px auto">
 			<%@include file="event_header.jsp"%>
-			<div id="app">
+			<div id="app" v-cloak>
 				<div
 					style="width: 1200px; color: rgb(72, 72, 72); margin-top: 35px; padding: 0px;">
 					<div v-if="list.length==0"

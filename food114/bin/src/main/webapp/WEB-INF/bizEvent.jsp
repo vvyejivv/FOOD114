@@ -28,28 +28,32 @@
 							style="width: 40px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
 							번호</th>
 						<th
-							style="width: 110px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+							style="width: 60px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
 							이벤트 종류</th>
 						<th
-							style="width: 180px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+							style="width: 60px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
 							이벤트 제목</th>
 						<th
-							style="width: 60px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
-							이벤트 상태</th>
+							style="width: 180px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+							이벤트 내용</th>
 						<th
 							style="width: 60px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
-							작성일</th>
+							이벤트 기간</th>
+						<th
+							style="width: 60px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+							종료 여부</th>	
 						<th
 							style="width: 60px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
 							관리</th>
 					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td><button class="event-detail">자세히</button></td>
+					<tr v-for="(event, index) in events" :key="index">
+						<td>{{ index + 1 }}</td>
+						<td>{{event.type}}</td>
+						<td>{{event.title}}</td>
+						<td>{{event.contents}}</td>
+						<td>{{event.eventTime}}</td>
+						<td>{{event.endYn}}</td>
+						<td><button class="event-detail" @click="fnDetail(event.boardNo)">자세히</button></td>
 					</tr>
 				</table>
 			</div>
@@ -64,12 +68,15 @@
 	var app = new Vue({
 		el : '#app',
 		data : {
-			events : []
+			events : [],
+			sessionId : "${sessionBizId}"
 		},
 		methods : {
 			list : function() {
 				var self = this;
-				var nparmap = {};
+				var nparmap = {
+						bizId : self.sessionId
+				};
 				$.ajax({
 					url : "listBizEvent.dox",
 					dataType : "json",
@@ -79,6 +86,9 @@
 						self.events = data.listBizEvent;
 					}
 				});
+			},
+			fnDetail : function(boardNo) {
+					$.pageChange("/bizEvent_info.do", {boardNo : boardNo});
 			}
 		},
 		created : function() {

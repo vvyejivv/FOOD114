@@ -41,7 +41,8 @@
 		endtime2
 		FROM
 		FOOD114_BOARD b
-		INNER JOIN FOOD114_BIZ_INFO i ON
+		INNER
+		JOIN FOOD114_BIZ_INFO i ON
 		b.USERID=i.bizid
 		WHERE
 		CODE = 4
@@ -97,9 +98,11 @@
 		fb.TYPE,
 		fb.TITLE,
 		fb.CONTENTS,
+		fb.ENDYN,
 		CASE
 		WHEN fb.ENDYN = 'Y' THEN DATE_FORMAT(fb.ENDTIME, '%Y-%m-%d')
-		ELSE CONCAT(DATE_FORMAT(fb.BEGINTIME, '%Y-%m-%d'), ' ~ ',
+		ELSE
+		CONCAT(DATE_FORMAT(fb.BEGINTIME, '%Y-%m-%d'), ' ~ ',
 		DATE_FORMAT(fb.ENDTIME, '%Y-%m-%d'))
 		END AS eventTime,
 		fi.BIZNAME
@@ -107,5 +110,44 @@
 		FOOD114_BOARD fb
 		JOIN
 		FOOD114_BIZ_INFO fi ON fb.USERID = fi.BIZID
+		WHERE
+		fi.BIZID = #{bizId}
 	</select>
+
+	<select id="selectBizEventView" parameterType="hashmap"
+		resultType="teamProject.food114.model.Board">
+		SELECT B.*, CONCAT(F.FILEPATH, F.FILENAME) AS PATH
+		FROM
+		FOOD114_BOARD B
+		LEFT JOIN FOOD114_BOARD_FILE F ON B.BOARDNO = F.BOARDNO
+		WHERE B.BOARDNO = #{boardNo}
+	</select>
+	
+	<select id="selectBizEventFileYn" parameterType="hashmap"
+		resultType="teamProject.food114.model.Board">
+		SELECT * FROM FOOD114_BOARD_FILE WHERE BOARDNO = #{boardNo}
+	</select>
+	
+	<insert id="insertBizEventFile" parameterType="hashmap">
+		INSERT INTO
+		FOOD114_BOARD_FILE VALUES(null, #{boardNo}, #{path}, #{fileName},
+		#{orgName}, #{fileSize}, #{etc}, 'TITLE',null)
+	</insert>
+
+	<update id="updateBizEventFile" parameterType="hashmap">
+		UPDATE FOOD114_BOARD_FILE
+		SET FILEPATH = #{path},
+		FILENAME = #{fileName},
+		FILEORGNAME = #{orgName}, FILESIZE =
+		#{fileSize},
+		FILEETC = #{etc}
+		WHERE BOARDNO = #{boardNo}
+	</update>
+
+	<update id="updateBizEventBoard" parameterType="hashmap">
+		UPDATE FOOD114_BOARD
+		SET TITLE = #{title}, CONTENTS = #{contents},
+		ENDYN = #{endYn}, TYPE = #{type}
+		WHERE BOARDNO = #{boardNo}
+	</update>
 </mapper>

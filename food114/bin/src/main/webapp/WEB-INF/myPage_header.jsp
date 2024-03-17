@@ -31,16 +31,16 @@
 					<br>
 					<li>결제/주문/리뷰<span style="color: #b1b0b0;">───────────</span>
 						<ul>
-							<li><a href="javascript:;">결제수단 관리</a></li>
+							<li><a href="myInfoPayment.do">결제수단 관리</a></li>
 							<li><a href="javascript:;" @click="fnMyOrderList">주문내역</a></li>
-							<li><a href="javascript:;">MY리뷰목록</a></li>
+							<li><a href="myInfoReview.do">MY리뷰목록</a></li>
 						</ul>
 					</li>
 					<br>
 					<li>이벤트<span style="color: #b1b0b0;">───────────</span>
 						<ul>
-							<li><a href="javascript:;">쿠폰</a></li>
-							<li><a href="javascript:;">포인트</a></li>
+							<li><a href="myInfoCoupon.do">쿠폰</a></li>
+							<li><a href="myInfoPoint.do">포인트</a></li>
 						</ul>
 					</li>
 				</ul>

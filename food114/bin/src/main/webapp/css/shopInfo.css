@@ -1,5 +1,9 @@
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 
+[v-cloak] {
+   display: none;
+}
+
 .notosanskr * {
 	font-family: 'Noto Sans KR', sans-serif;
 }
@@ -238,6 +242,7 @@ ul.tab {
 	/* background-color: rgb(203, 231, 46); */
 	width: 1000px;
 	margin: 0px auto;
+	overflow: hidden;
 }
 
 .menuBox {
@@ -313,18 +318,25 @@ ul.tab {
 /* 이벤트 페이지  */
 #eventBox {
 	width: 1000px;
-	height : auto;
 	margin: 0px auto;
 }
 
 .eventInfo {
 	width: 980px;
+	height: 1000px;
 	margin: 0px auto;
 	border: 1px solid #cccccc34;
 	border-radius: 3px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	margin-bottom: 20px;
 }
 
+.eventInfo img {
+	width: 950px;
+	height: 1000px;
+}
 
 /* 리뷰 페이지 */
 #reviewContainer {
@@ -339,38 +351,41 @@ ul.tab {
 	border: 1px solid #cccccc34;
 	border-radius: 3px;
 }
-
+.reviewSetBox{
+	width : 980px;
+	height : auto;
+}
 .reviewBox {
 	width: 980px;
-	height: 250px;
+	height: auto;
+	overflow :hidden;
 	/* 	background-color : #ff80c0; */
-	padding-top: 5px;
 }
 
 .userPhoto {
-	width: 75px;
-	height: 75px;
+	width: 50px;
+	height: 50px;
 	/* background-color: white; */
 	margin-left: 7px;
-	margin-top: 70px;
+	margin-top: 10px;
 	margin-right: 10px;
 	float: left;
 }
 
 .userPhoto img {
-	width: 75px;
-	height: 75px;
+	width: 50px;
+	height: 50px;
 	border-radius: 50px;
 }
 
 .userInfo {
 	width: 850px;
-	height: 220px;
+	height: 185px;
 	/*  	background-color: rgb(128, 128, 255); */
 	border: 1px solid #cccccc34;
 	float: left;
-	margin-top: 10px;
 	border-radius: 5px;
+	margin-top:5px;
 }
 
 .userInfoBox {
@@ -395,7 +410,7 @@ ul.tab {
 	width: 450px;
 	border-bottom: 1px solid #cccccc34;
 	margin-left: 5px;
-	margin-top: 5px;
+	margin-top: 40px;
 	margin-bottom: 5px;
 	text-wrap: nowrap;
 	text-overflow: ellipsis;
@@ -406,22 +421,29 @@ ul.tab {
 }
 
 .starRating {
-	border-bottom: 1px solid #cccccc34;
-	width: 110px;
+	width: 80px;
 	float: left;
-	margin-top: 2px;
-	margin-bottom: 5px;
-	text-align: center;
+	margin-top: 10px;
+	
+
 }
 
 .reviewDate {
 	float: left;
-	border-bottom: 1px solid #cccccc34;
+	width: 65px;
+	float: left;
+	margin-top: 10px;
+	margin-left: 10px;
+	font-size: 14px;
+}
+.shop_reviewDate{
+	float: left;
 	width: 77px;
 	float: left;
-	margin-top: 2px;
+	margin-top: 10px;
 	margin-left: 5px;
 	text-align: center;
+	font-size: 14px;
 }
 
 .foodContents {
@@ -429,13 +451,23 @@ ul.tab {
 	padding-left: 5px;
 	border: 1px solid #cccccc34;
 	border-radius: 5px;
-	width: 450px;
-	height: 115px;
+	width: 600px;
+	height: 100px;
 	float: left;
 	margin-top: 5px;
 	color: rgb(72, 72, 72);
 }
-
+.shopContents {
+	padding-top: 5px;
+	padding-left: 5px;
+	border: 1px solid #cccccc34;
+	border-radius: 5px;
+	width: 800px;
+	height: 130px;
+	float: left;
+	margin-top: 5px;
+	color: rgb(72, 72, 72);
+}
 .reviewContents {
 	width: 530px;
 	height: 120px;
@@ -456,16 +488,19 @@ ul.tab {
 }
 
 .reviewImg {
-	width: 300px;
-	height: 200px;
-	/* 	background-color: blue; */
+	width: 120px;
+	height: 120px;
 	float: right;
 	margin-top: 10px;
 	margin-right: 10px;
 }
 
 .reviewImg img {
-	width: 300px;
-	height: 200px;
+	width: 120px;
+	height: 120px;
 	border-radius: 5px;
+}
+
+.reviewLine{
+	border-bottom: 2px solid  #dddada;
 }
