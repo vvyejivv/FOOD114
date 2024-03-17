@@ -32,6 +32,9 @@ public class MenuController {
 			throws Exception {
 		if(!map.containsKey("category")) {
 			map.put("category", "%%%%");			
+		}
+		if(map.get("latitude")=="") {
+			map.put("flg", false);
 		} else {
 			map.put("flg", true);
 		}

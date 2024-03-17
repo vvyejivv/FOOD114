@@ -163,7 +163,7 @@ table th, td {
 					curve : 'straight'
 				},
 				title : {
-					text : '2024.03.02~2024.03.11',
+					text : '11',
 					align : 'left'
 				},
 				grid : {
@@ -218,6 +218,7 @@ table th, td {
 					data : nparmap,
 					success : function(data) {
 						self.daySellList = data.daySellList;
+						self.chartOptions.title.text="22";
 						console.log(data);
 						data.daySellList.forEach((item, index) => {
 						    self.chartOptions.xaxis.categories[index] = item.day;
@@ -226,6 +227,8 @@ table th, td {
                             name: "일매출",
                             data: data.daySellList.map(item => item.sum)
                         }];
+						
+						console.log(self.chartOptions.title.text);
 					}
 				});
 			}

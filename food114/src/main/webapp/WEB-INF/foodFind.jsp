@@ -381,7 +381,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 			longitude : "${map.longitude}",
 			bizBaedalOk : [],
 			order : "",
-			searchFlg : "${map.flg}"
+			searchFlg : ${map.flg}
 			
 			
 		},
@@ -439,6 +439,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 								self.latitude = result[0].y;
 								self.longitude = result[0].x;
 								console.log("1."+self.latitude);
+								console.log("1."+self.longitude);
 							}
 						};
 						geocoder.addressSearch(addr,callback);
@@ -547,6 +548,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 				watch: {
 					  inputAddr: function(newVal, oldVal) {
 						  var self=this;
+					    return;
 					    self.convertAddressToCoordinates(self.inputAddr);
 						setTimeout(function(){
 							$.pageChange("/food114_foodfind.do", {
@@ -560,7 +562,6 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 					},
 				created : function() {
 					var self = this;
-					console.log(self.sessionId);
 					self.fnList();
 					self.fnCategoryList();
 					self.fnAddrList();
