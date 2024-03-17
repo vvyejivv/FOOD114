@@ -104,7 +104,9 @@
 		WHERE O.USERID = #{userId}
 		GROUP BY O.ORDERNO
 		ORDER BY O.ORDERDATE DESC
+		<if test="startOrder!=''">
 		LIMIT ${startOrder}, ${endOrder}
+		</if>
 	</select>
 	<!-- 마이페이지 - 주문내역 갯수  -->
 	<select id="selectMyOrderListCnt" parameterType="hashmap" resultType="teamProject.food114.model.Order">
