@@ -17,10 +17,10 @@
 </head>
 <body>
 
-	<div id="Container">
+	<div id="Container" >
 		<!-- 헤더 -->
 		<%@include file="food114_header.jsp"%>
-		<div id="app">
+		<div id="app" v-cloak>
 			<!-- 메인 1페이지 -->
 			<div id="main1-container">
 				<div class="swiper" style="width: 1420px; overflow: visible;">
