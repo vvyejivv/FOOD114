@@ -249,11 +249,11 @@ ul.tab {
 
 .menuBox {
 	/* background-color: rgb(209, 46, 231); */
-	width: 1000px;
+	width: 1350px;
 	margin : 0px auto;
 	border: 1px solid #cccccc34;
 	/* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
-	border-radius: 3px;
+	border-radius: 5px;
 	/* border: 1px solid black; */
 	margin-bottom: 30px;
 	overflow: hidden;

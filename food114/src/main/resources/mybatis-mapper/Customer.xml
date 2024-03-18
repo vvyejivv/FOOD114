@@ -84,11 +84,11 @@
 	<select id="selectMyInfoAddr" parameterType="hashmap"
 		resultType="teamProject.food114.model.CustomerAddr">
 		SELECT *
-		FROM FOOD114_CONSUMER C
+		FROM FOOD114_CONSUMER_ADDR A
 		INNER JOIN
-		FOOD114_CONSUMER_ADDR A ON C.USERID =
+		FOOD114_CONSUMER C ON C.USERID =
 		A.USERID
-		WHERE C.USERID =
+		WHERE A.USERID =
 		#{userId}
 		ORDER BY DEFAULTYN DESC
 	</select>

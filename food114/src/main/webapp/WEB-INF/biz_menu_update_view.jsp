@@ -7,8 +7,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="../css/main.css">
-<link rel="stylesheet" href="../css/sideBar_biz.css">
+<link rel="stylesheet" href="../css/food114.css">
 <title>로그인</title>
 </head>
 <style>
@@ -179,13 +178,14 @@ button img {
 }
 </style>
 <body>
-	<%@include file="main(header)_biz.html"%>
+	<div id="Container">
+	<%@include file="food114_header.jsp"%>
 	<!-- 광고창 -->
 	<!-- <div class="ad">
         광고창
         <button class="adClose">x</button>
     </div> -->
-	<section>
+    <section>
 		<%@include file="sideBar_biz.html"%>
 		<div id="app">
 			<div class="mold">
@@ -254,8 +254,9 @@ button img {
 				<button class="btn-modify" @click="fnMenuUpdate()">정보 변경</button>
 			</div>
 		</div>
-	</section>
-	<%@include file="main(footer)_biz.html"%>
+		</section>
+	<%@include file="food114_footer.jsp"%>
+	</div>
 </body>
 
 </html>
@@ -285,6 +286,16 @@ button img {
 			},
 			fnMenuUpdate : function(){
 				var self = this;
+				if(!self.menuView.menu){
+	       			alert("메뉴이름을 작성해주세요.");
+	       			return;
+	       		} else if(!self.menuView.price){
+	       			alert("가격을 작성해주세요.");
+	       			return;
+	       		} else if(!self.menuView.menuInfo){
+	       			alert("메뉴설명을 작성해주세요.");
+	       			return;
+	       		}
 				var form = new FormData();
 				var fileInput = document.getElementById('file1');
 			    if (fileInput.files.length > 0) {

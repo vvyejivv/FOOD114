@@ -7,12 +7,12 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <meta charset="UTF-8">
 <title>첫번째 페이지</title>
+<link rel="stylesheet" href="../css/food114.css">
 <link rel="stylesheet" href="../css/event_biz.css">
 </head>
 <body>
-	<header>
-		<%@include file="main(header)_biz.html"%>
-	</header>
+	<div id="Container">
+	<%@include file="food114_header.jsp"%>
 	<section>
 		<%@include file="sideBar_biz.html"%>
 		<div id="app">
@@ -60,7 +60,8 @@
 		</div>
 	</section>
 
-	<%@include file="main(footer)_biz.html"%>
+	<%@include file="food114_footer.jsp"%>
+	</div>
 
 </body>
 </html>

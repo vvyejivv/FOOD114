@@ -400,7 +400,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 				var self=this;
 				console.log(self.searchFlg);
 				var nparmap = {
-						category : self.nowCategory,
+						nowCategory : self.nowCategory,
 						order : self.order
 				};
 				$.ajax({

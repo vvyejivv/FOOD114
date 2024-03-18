@@ -13,21 +13,20 @@ import teamProject.food114.model.Review;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
-	
+
 	@Autowired
 	ReviewMapper reviewMapper;
 
 	@Autowired
 	HttpSession session;
-	
-	
-	//리뷰 리스트 확인
+
+	// 리뷰 리스트 확인
 	@Override
 	public HashMap<String, Object> searchReviewList(HashMap<String, Object> map) {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		try {
 			List<Review> reviewList = reviewMapper.selectReviewList(map);
-			List<Review> review = reviewMapper.selectReviewInfo(map);			
+			List<Review> review = reviewMapper.selectReviewInfo(map);
 			resultMap.put("reviewList", reviewList);
 			resultMap.put("review", review);
 			resultMap.put("result", "success");
@@ -37,12 +36,13 @@ public class ReviewServiceImpl implements ReviewService {
 		}
 		return resultMap;
 	}
-	//리뷰리스트 확인(user)
+
+	// 리뷰리스트 확인(user)
 	@Override
 	public HashMap<String, Object> searchUserReviewList(HashMap<String, Object> map) {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		try {
-			List<Review> reviewList = reviewMapper.selectUserReviewList(map);		
+			List<Review> reviewList = reviewMapper.selectUserReviewList(map);
 			resultMap.put("reviewList", reviewList);
 			resultMap.put("result", "success");
 		} catch (Exception e) {
@@ -51,7 +51,8 @@ public class ReviewServiceImpl implements ReviewService {
 		}
 		return resultMap;
 	}
-	//리뷰 사업자
+
+	// 리뷰 사업자
 	@Override
 	public HashMap<String, Object> searchBizReviewList(HashMap<String, Object> map) {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
@@ -108,5 +109,32 @@ public class ReviewServiceImpl implements ReviewService {
 		return resultMap;
 	}
 
-	
+	@Override
+	public HashMap<String, Object> searchOrederListView(HashMap<String, Object> map) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			List<Review> listView = reviewMapper.selectOrederListView(map);
+			resultMap.put("listView", listView);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			resultMap.put("result", "fail");
+		}
+		return resultMap;
+	}
+
+	@Override
+	public HashMap<String, Object> addReviewAdd(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			reviewMapper.insertReviewAdd(map);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			resultMap.put("result", "fail");
+		}
+		return resultMap;
+	}
+
 }

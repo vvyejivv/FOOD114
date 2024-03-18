@@ -48,6 +48,16 @@ public class BoardController {
 	@RequestMapping("/event-biz-list.do")
 	public String eventBizList(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
+		if(!map.containsKey("order") || map.get("order")=="") {
+			map.put("order", "ORDER BY ENDYN DESC");
+		}
+		if(!map.containsKey("nowCategory")||map.get("nowCategory")=="") {
+			map.put("nowCategory","%%");
+		}
+		if(!map.containsKey("nowPage")) {
+			map.put("nowPage", 1);
+		}
+		request.setAttribute("map", map);
 		return "/event-biz02";
 	}
 

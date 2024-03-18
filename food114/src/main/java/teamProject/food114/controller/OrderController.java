@@ -71,6 +71,14 @@ public class OrderController {
 		resultMap = orderService.updateOrderStatus(map);
 		return new Gson().toJson(resultMap);
 	}
+	//주문 중 메뉴 삭제	
+	@RequestMapping(value = "/removeMenu.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String removeMenu(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = orderService.removeMenu(map);
+		return new Gson().toJson(resultMap);
+	}
 	//주문 내용 저장	
 	@RequestMapping(value = "/orderUpdate.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody

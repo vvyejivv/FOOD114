@@ -8,17 +8,9 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MAIN</title>
+<title>리뷰목록</title>
 <style>
-@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 
-.notosanskr * {
-	font-family: 'Noto Sans KR', sans-serif;
-}
-
-* {
-	font-family: 'Noto Sans KR';
-}
 
 .orderListContainer {
 	margin: 10px;
@@ -76,7 +68,7 @@ a{
 <body>
 
 	<header>
-		<%@include file="main(header).html"%>
+		<%@include file="food114_header.jsp"%>
 	</header>
 
 	<section>
@@ -139,7 +131,7 @@ a{
 		</div>
 	</section>
 
-	<%@include file="main(footer).html"%>
+	<%@include file="food114_footer.jsp"%>
 </body>
 
 <script type="text/javascript">
@@ -179,7 +171,7 @@ a{
 			/* 페이지 기능  */
 			fnPageList : function(num){
 				var self = this;
-				$.pageChange("myOrderList.do",{
+				$.pageChange("myInfoReview.do",{
 					nowPage : num
 				});
 			},

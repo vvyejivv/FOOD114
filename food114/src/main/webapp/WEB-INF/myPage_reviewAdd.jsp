@@ -34,26 +34,42 @@
 	border-collapse: collapse;
 }
 
-.review_info_table {
-	width: 1000px;
-	border-collapse: collapse;
+.orderListTable th, td {
+	border-right: none;
+	border-bottom: 1px solid #e4e3e3;
+	padding: 10px 10px;
+	color: (72, 72, 72);
+	text-align: center;
 }
 
-.event_title {
-	font-size: 14px;
-	width: 100px;
-	min-width: 100px;
-	border-right: 1px solid #ccc;
-	max-width: 100px;
+.orderListTable td {
+	font-size: 13px;
 }
 
-.review_info_table td {
-	border-bottom: 1px solid #ccc;
-	padding: 15px 25px;
+.pageBox {
+	margin-left: 400px;
+}
+
+a {
+	text-decoration: none;
+	color: black;
 }
 
 [v-cloak] {
 	display: none;
+}
+.reviewAdd {
+	background-color: #ffffff; 
+	border: 1px solid #ff7f00; 
+	color: #ff7f00; 
+	transition-duration: 0.4s; /* 트랜지션 효과 지속 시간 */
+	cursor: pointer;
+	border-radius: 4px; /* 버튼에 border-radius 적용 */
+}
+.reviewAdd:hover {
+	background-color: #ff7f00;
+	border: 1px solid #FBCEB1;
+	color: #ffffff;
 }
 </style>
 <body>
@@ -69,52 +85,46 @@
 				<div id="app" v-cloak>
 					<h2>
 						<a href="javascript:;" style="font-size: 25px; color: #747171;">
-							<span style="color: #ff7f00; font-weight: bold;">| </span> 리뷰 작성
+							<span style="color: #ff7f00; font-weight: bold;">| </span> my리뷰
 						</a>
 					</h2>
-					<table class="review_info_table">
-						<tr>
-							<td style="border-top: 2px solid rgba(72, 72, 72);"
-								class="event_title">메뉴</td>
-							<td
-								style="border-top: 2px solid rgba(72, 72, 72); overflow: hidden;">
-								<div
-									style="white-space: nowrap; text-overflow: ellipsis; max-width: 900px; overflow: hidden"></div>
-							</td>
-						</tr>
-						<tr>
-							<td class="event_title">별점</td>
-							<td style="color: #ffcc00;"><span><!--  v-for="i in 5" :key="i" -->
-									<span>★</span> <span> <!-- v-else -->☆</span>
-							</span></td>
-						</tr>
-						<tr>
-							<td class="event_title">리뷰 사진</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td class="event_title">리뷰 내용</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td class="event_title">작성자</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td class="event_title">작성일</td>
-							<td></td>
-						</tr>
-						<tr>
-							<!-- <td class="event_title">리뷰 답글</td>
-							<td v-if="reviewInfo.pContents"><textarea class="reviewText"
-									placeholder="리뷰 작성을 해주세요!" v-model="contents"></textarea>
-								<button class="addReview">수정</button></td>
-							<td v-if="!reviewInfo.pContents"><textarea
-									class="reviewText" placeholder="리뷰 작성을 해주세요!"
-									v-model="contents"></textarea>
-								<button class="addReview">저장</button></td> -->
-						</tr>
-					</table>
+					<div>
+						<table class="orderListTable">
+							<tr>
+								<th
+									style="width: 50px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+									NO</th>
+								<th
+									style="width: 250px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+									가게명</th>
+								<th
+									style="width: 450px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+									메뉴</th>
+								<th
+									style="width: 200px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+									주문 시간</th>
+								<th
+									style="width: 100px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+									리뷰 상태</th>
+								<th
+									style="width: 100px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+									리뷰</th>
+							</tr>
+							<tr v-for="(item, index) in reviewList">
+								<td style="font-size: 13px">{{index + 1}}</td>
+								<td class="reviewFont">{{item.bizName}}</td>
+								<td class="reviewFont">{{item.menuList}}</td>
+								<td class="reviewFont">{{item.orderDate}}</td>
+								<td class="reviewFont"><img v-if="item.reviewNo"
+									width="22" height="20"
+									src="https://img.icons8.com/sf-black/64/ff7f00/circled.png"
+									alt="circled" /> <img v-else width="23" height="20"
+									src="https://img.icons8.com/sf-black-filled/64/ff7f00/x.png"
+									alt="x" /></td>
+								<td class="reviewFont"><button class="reviewAdd" @click="fnHellow(item)">작성</button></td>
+							</tr>
+						</table>
+					</div>
 					<button>이전으로</button>
 				</div>
 			</div>
@@ -128,20 +138,29 @@
 <script type="text/javascript">
 	var app = new Vue({
 		el : '#app',
-		data : {},
+		data : {
+			reviewList : [],
+			sessionId : "${sessionId}"
+		},
 		methods : {
 			list : function() {
 				var self = this;
-				var nparmap = {};
+				var nparmap = {
+					userId : this.sessionId
+				};
 				$.ajax({
-					url : "test.dox",
+					url : "myPageReViewList.dox",
 					dataType : "json",
 					type : "POST",
 					data : nparmap,
 					success : function(data) {
+						self.reviewList = data.listView;
 					}
 				});
-			}
+			},
+			fnHellow : function(item) {
+				$.pageChange("/myPage_review_Insert.do", {orderNo : item.orderNo});
+		}
 		},
 		created : function() {
 			var self = this;

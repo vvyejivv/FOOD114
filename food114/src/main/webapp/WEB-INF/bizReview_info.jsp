@@ -7,15 +7,15 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <meta charset="UTF-8">
 <title>첫번째 페이지</title>
+<link rel="stylesheet" href="../css/food114.css">
 <link rel="stylesheet" href="../css/review_info_biz.css">
 </head>
 <style>
 [v-cloak] { display: none; }
 </style>
 <body>
-	<header>
-		<%@include file="main(header)_biz.html"%>
-	</header>
+	<div id="Container">
+	<%@include file="food114_header.jsp"%>
 	<section>
 		<%@include file="sideBar_biz.html"%>
 		<div id="app" v-cloak>
@@ -74,7 +74,8 @@
 		</div>
 	</section>
 
-	<%@include file="main(footer)_biz.html"%>
+	<%@include file="food114_footer.jsp"%>
+	</div>
 </body>
 </html>
 
@@ -90,10 +91,6 @@
 		methods : {
 			bizInfo : function() {
 				var self = this;
-				if(!self.sessionId){
-					$.pageChange("/bizLogin.do", {});
-					return;
-				}
 				console.log(self.reviewNo);
 				var nparmap = {
 					reviewNo : self.reviewNo
@@ -114,10 +111,6 @@
 			},
 			fnBizAdd : function() {
 				var self = this;
-				if(!self.sessionId){
-					$.pageChange("/bizLogin.do", {});
-					return;
-				}
 				console.log(self.reviewNo);
 				if(!self.contents){
 					return;
@@ -140,10 +133,6 @@
 			},
 			fnBizUpdate : function() {
 				var self = this;
-				if(!self.sessionId){
-					$.pageChange("/bizLogin.do", {});
-					return;
-				}
 				if(!self.contents){
 					return;
 				}

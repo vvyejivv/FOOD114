@@ -15,4 +15,8 @@ public interface ReviewService {
 	HashMap<String, Object> addPreivew(HashMap<String, Object> map);
 	//리뷰 답글 수정
 	HashMap<String, Object> editPreview(HashMap<String, Object> map);
+	
+	HashMap<String, Object> searchOrederListView(HashMap<String, Object> map);
+	
+	HashMap<String, Object> addReviewAdd(HashMap<String, Object> map);
 }

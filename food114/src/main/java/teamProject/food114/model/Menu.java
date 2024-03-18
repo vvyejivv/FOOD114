@@ -20,6 +20,7 @@ public class Menu {
 	private String ing;
 	private String soldOut;
 	private String path;
+	private String totalCnt;
 	
 	public int getMenuNo() {
 		return menuNo;
@@ -134,5 +135,11 @@ public class Menu {
 	}
 	public void setPath(String path) {
 		this.path = path;
+	}
+	public String getTotalCnt() {
+		return totalCnt;
+	}
+	public void setTotalCnt(String totalCnt) {
+		this.totalCnt = totalCnt;
 	}
 }
