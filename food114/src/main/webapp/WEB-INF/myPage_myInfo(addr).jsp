@@ -3,8 +3,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=753d2e1bb03d5938bad9908725e5ad41&libraries=services"></script>
 <script src="js/jquery.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script type="text/javascript"
+	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MAIN</title>
@@ -72,13 +76,13 @@
 										<h2 v-html="modalTitle">이름 변경</h2>
 										<p style="color: #888; margin-top: none;" v-html="modalText">변경할
 											주소를 입력해주세요.</p>
-										<input class="modalInput" v-model="changeAddrValue" type="text"
-											placeholder="주소" > <input style="text-align: left;"
-											class="modalInput" v-model="changePhoneValue" type="text"
-											placeholder="연락처"  id="phone"
-											style="width: 200px"> <input class="modalInput"
-											v-model="changeRequestValue" type="text" placeholder="배송 요청 사항"
-											>
+											<input class="modalInput" v-model="selectedAddr.oldAddr" type="text" placeholder="주소"  style="margin-left: 100px;">
+											<button @click="openAddressSearch()" class="btn-modify" style="margin: 0px; width: auto; ">주소조회</button>
+
+
+
+										<input style="text-align: left;" class="modalInput" v-model="changePhoneValue" type="text" placeholder="연락처"  id="phone" style="width: 200px"> 
+											<input class="modalInput" v-model="changeRequestValue" type="text" placeholder="배송 요청 사항">
 
 
 										<!-- 주소 변경시 -->
@@ -226,7 +230,9 @@
 			changePhoneValue : "",
 			changeRequestValue : "",
 			modalFlg : false,
-			addrNo : ''
+			addrNo : '',
+			updateFlg : false,
+			selectedAddr : {}
 
 		},
 		methods : {
@@ -280,6 +286,33 @@
 				self.modalFlg = true;
 				self.addrNo = addrNo;
 				
+			},
+			// 해당 주소의 위도 경도 구하기
+			convertAddressToCoordinates : function(addr) {
+				var self = this;
+				// 주소-좌표 변환 객체를 생성합니다
+				var geocoder = new kakao.maps.services.Geocoder();
+
+				var callback = function(result, status) {
+					if (status === kakao.maps.services.Status.OK) {								
+						self.info.latitude = result[0].y;
+						self.info.longitude = result[0].x;								
+					}
+				};
+				geocoder.addressSearch(addr, callback);
+			},
+			//주소조회 api
+			openAddressSearch : function() {
+				var self = this;
+				new daum.Postcode({
+					oncomplete : function(data) {
+					/* self.selectedAddr = data.address; */
+						self.selectedAddr = data;
+						self.selectedAddr.oldAddr = data.address;
+						self.selectedAddr.newAddr = data.roadAddress;
+						self.convertAddressToCoordinates(data.address);
+					}
+				}).open(()=>{});
 			},
 			/* 모달창 닫기 */
 			cancelModal : function() {
