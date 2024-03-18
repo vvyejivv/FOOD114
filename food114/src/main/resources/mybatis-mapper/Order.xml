@@ -57,6 +57,12 @@
 			DELIVERYREQUEST = #{deliveryRequest}
 		WHERE ORDERNO = #{orderNo}
 	</update>
+	<!-- 주문 중 메뉴 삭제 -->
+	<delete id="deleteMenu" parameterType="hashmap">
+		DELETE
+		FROM FOOD114_ORDER_DETAIL
+		WHERE ORDERNO = #{orderNo} AND MENUNO = #{menuNo}
+	</delete>
 	
 	<select id="selectDaySell" parameterType="hashmap" resultType="teamProject.food114.model.Order">
 		SELECT DATEDATE AS DAY,SUM(SUMSUM) AS SUM FROM

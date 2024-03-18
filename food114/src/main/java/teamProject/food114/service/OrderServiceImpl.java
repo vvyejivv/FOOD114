@@ -88,6 +88,19 @@ public class OrderServiceImpl implements OrderService {
 		}
 		return resultMap;
 	}
+	// 주문중 메뉴 삭제
+	@Override
+	public HashMap<String, Object> removeMenu(HashMap<String, Object> map) {
+		HashMap<String, Object> resultMap = new HashMap<>();
+		try {
+			orderMapper.deleteMenu(map);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			resultMap.put("result", "error");
+			System.out.println(e.getMessage());
+		}
+		return resultMap;
+	}
 	//주문 완료
 	@Override
 	public HashMap<String, Object> updateOrder(HashMap<String, Object> map) {
