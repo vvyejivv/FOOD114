@@ -63,7 +63,7 @@ body {
 	height: 200px;
 	border-radius: 10px;
 	position: fixed;
-	top: 50%;
+	top: 40%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	background-color: white;
@@ -146,14 +146,13 @@ input[type='text']:focus {
 	<div id="Container" >
 			<%@include file="food114_header.jsp"%>
 
-	<section style="height: fit-content">
-
+	<section>
 		<div style="width: 1420px; display: flex; margin: 0px auto;">
 			<%@include file="myPage_header.jsp"%>
 			<div id="app" v-cloak>
-				<div class="content" style="width: 900px; float: left; height: fit-content">
+				<div class="content">
 					<h2>
-						<a href="javascript:;" style="font-size: 25px; color: #747171;">
+						<a style="font-size: 25px; color: #747171;">
 							<span style="color: #ff7f00; font-weight: bold;">| </span>MY정보
 							확인/변경
 						</a>

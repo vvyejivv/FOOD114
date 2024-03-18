@@ -86,11 +86,9 @@ a {
 .content {
 	margin: 10px;
 	margin-left: 20px;
-	/* padding: 5px;
-	padding-left: 30px; */
-	width: 1000px;
-	height: 800px;
-	/* border: 1px solid black; */
+	width: 900px;
+	float: left;
+	height: fit-content
 }
 
 .span {
@@ -142,8 +140,8 @@ a {
 	align-items: center;
 }
 
-.buttonSubmit{
-	border:1px solid #ededed;
+.buttonSubmit {
+	border: 1px solid #ccc;
 	background-color: white;
 	border-radius: 8px;
 	font-size: 14px;
