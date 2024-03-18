@@ -204,7 +204,6 @@ ul, ol {
 	height: 80px;
 	float: left;
 	margin: 10px;
-	border: 1px solid black;
 }
 /* 장소 리스트 스타일 */
 #placesList1 {
@@ -213,7 +212,7 @@ ul, ol {
 
 .select_button {
 	padding: 10px;
-	background-color: #ff7f00;
+	background-color: #ff8002;
 	border: none;
 	cursor: pointer;
 	height: 50px;
@@ -279,6 +278,12 @@ ul, ol {
 	border:none;
 	color:#777;
 }
+
+.sampleImg {
+	width: 200px;
+	height: 200px;
+	margin-left:5px;
+}
 </style>
 <link rel="stylesheet" href="../css/food114.css">
 </head>
@@ -294,11 +299,11 @@ ul, ol {
 				<div id="menu_view" class="bg_white">
 					<img :src="restView.path" class="restViewImg">
 					<a href="javascript:;" @click="fnRestClose()" class="backBtn">❮</a>
-					<div style="margin:10px;">
+					<div style="margin:20px;">
 						<h1 style="font-size: 1.5em;">{{restView.bizName}}<span style="color:#ccc; margin-top:5px;"> {{restView.categoryName}}</span></h1>
 						<div style="margin-top:10px;">리뷰 {{restView.reviewCnt}}</div>
 					</div>
-						<div style="border-top:1px solid #ccc; width:100%; margin:20px 0 20px 0;"></div>
+						<div style="border-top:1px solid #eee; width:414px; margin:20px 0px 20px 10px;"></div>
 					<div style="margin:10px;">
 						<div class="detailView">
 							<img class="solidImg" src="../img/location-dot-solid.png">
@@ -325,6 +330,18 @@ ul, ol {
 						<div style="width:100%; text-align:center;">
 							<button @click="fnShopInfo(restView.bizId)" class="plusBtn">정보 더보기 ❯</button>
 						</div>
+						<div style="border-top:1px solid #eee; width:415px; margin:20px auto;"></div>
+						<div style="margin-left:10px;">
+							<span style="font-size:1.5em; font-weight:bold;">메뉴</span><span style="font-size:16px; color:#aaa;"> {{menuCnt.totalCnt}}</span>
+						</div>
+						<div class="detailView" v-for="item in menuSampleList" style="float:left;">
+							<img class="sampleImg" :src="item.path">
+							<div style="font-size:15px; margin-left:50px;">{{item.menu}}</div>
+							<div style="font-size:15px; margin-left:50px; margin-top:10px; font-weight:bold;">{{item.price}}<span style="font-size:15px; font-weight:100;">원</span></div>
+						</div>
+						<div style="width:100%; text-align:center;">
+							<button @click="fnShopInfo(restView.bizId)" class="plusBtn">메뉴 더보기 ❯</button>
+						</div>
 					</div>
 				</div>
 				<div id="menu_wrap" class="bg_white">
@@ -334,12 +351,12 @@ ul, ol {
 								style="padding: 10px; border-radius: 5px; background-color: white; overflow: hidden; padding: 0px; width: 400px; display: block">
 								<div>
 									<a href="javascript:;" id="menu1" @click="fnSearchType1()"
-										:style="{'color': searchFlg1 ? '#fff' : '#ff7f00'}"
+										:style="{'color': searchFlg1 ? '#fff' : '#ff8002'}"
 										:class="searchFlg1 ? 'select_button' : 'none_select_button'"  style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;">지역검색</a>
 								</div>
 								<div>
 									<a href="javascript:;" id="menu2" @click="fnSearchType2()"
-										:style="{'color': searchFlg2 ? '#fff' : '#ff7f00'}"
+										:style="{'color': searchFlg2 ? '#fff' : '#ff8002'}"
 										:class="searchFlg2 ? 'select_button' : 'none_select_button'" style="border-top-right-radius: 5px;border-bottom-right-radius: 5px;">가게명</a>
 								</div>
 							</div>
@@ -379,10 +396,10 @@ ul, ol {
 							<a style="font-size: 1.5em;" href="javascript:;"
 								@click="fnRestView(item.bizId)">{{item.bizName}}</a><span style="color: #aaa;"> {{item.categoryName}}</span>
 						</h3>
-						<div id="placesList1">
+						<div id="placesList1" style="margin-top:5px;">
 							<span style="color: #ff7f00;">★ {{item.reviewAvg}}</span> | 리뷰 {{item.reviewCnt}}
-							<p style="margin-left: 60px;">{{item.title}}</p>
-							<p style="margin-left: 60px;">{{item.contents}}</p>
+							<p style="margin-left: 60px; margin-top:5px;">{{item.title}}</p>
+							<p style="margin-left: 60px; margin-top:5px;">{{item.contents}}</p>
 						</div>
 					</div>
 					<div class="restList" v-if="areaRestList.length > 0" v-for="item in areaRestList" @click="fnRestView(item.bizId)">
@@ -391,10 +408,10 @@ ul, ol {
 							<a style="font-size: 1.5em;" href="javascript:;"
 								>{{item.bizName}}</a><span style="color: #aaa;"> {{item.categoryName}}</span>
 						</h3>
-						<div id="placesList1">
+						<div id="placesList1" style="margin-top:5px;">
 							<span style="color: #ff7f00;">★ {{item.reviewAvg}}</span> | 리뷰 {{item.reviewCnt}}
-							<p style="margin-left: 60px;">{{item.title}}</p>
-							<p style="margin-left: 60px;">{{item.contents}}</p>
+							<p style="margin-left: 60px; margin-top:5px;">{{item.title}}</p>
+							<p style="margin-left: 60px; margin-top:5px;">{{item.contents}}</p>
 						</div>
 					</div>
 					<div class="restList" v-if="areaRestList.length == 0 && !searchFlg">
@@ -488,7 +505,9 @@ ul, ol {
 				longitude : "",
 				areaRestList : [],
 				restView : {},
-				restNameInput : ""
+				restNameInput : "",
+				menuSampleList : [],
+				menuCnt : {}
 			},
 			methods: {
 				fnRestList : function() {
@@ -860,6 +879,8 @@ ul, ol {
 						data : nparmap,
 						success : function(data) {
 							self.restView = data.restView;
+							self.menuSampleList = data.menuSampleList;
+							self.menuCnt = data.menuCnt;
 							console.log(data.restView.latitude);
 							self.searchSetCenter(data.restView.latitude, data.restView.longitude);
 						}
