@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import teamProject.food114.model.Addr;
 import teamProject.food114.model.Customer;
+import teamProject.food114.model.CustomerAddr;
 import teamProject.food114.model.Order;
 
 @Mapper
@@ -33,7 +34,7 @@ public interface CustomerMapper {
 	void updatePwd(HashMap<String, Object> map);
 	
 	// myInfo - my주소지 관리 - 주소지 상세보기
-	List<Addr> selectMyInfoAddr(HashMap<String,Object> map);
+	List<CustomerAddr> selectMyInfoAddr(HashMap<String,Object> map);
 	
 	//마이페이지 - 주문/리뷰 - 주문내역리스트
 	List<Order> selectMyOrderList(HashMap<String,Object> map);
@@ -53,6 +54,9 @@ public interface CustomerMapper {
 	
 	//  myInfo - my주소지 관리 - 주소지 삭제
 	void deleteAddrList(HashMap<String, Object> map);
+	
+//  myInfo - my주소지 관리 - 주소지 수정
+	void updateAddr(HashMap<String, Object> map);
 	
 	
 }

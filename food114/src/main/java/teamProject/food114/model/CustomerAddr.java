@@ -15,6 +15,7 @@ public class CustomerAddr {
 	private String dong;
 	private String defaultYn;
 	private String request;	
+	private String phone;
 	
 	public String getSi() {
 		return si;

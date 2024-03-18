@@ -123,7 +123,7 @@
 
 										<div>
 											<button class="modalButton"
-												@click="fnUpdate({column:modalType, value:changeValue})">저장</button>
+												@click="fnUpdate({oldAddr:changeAddrValue, phone:changePhoneValue, request:changeRequestValue})">저장</button>
 											<button class="modalCancel" @click="cancelModal">닫기</button>
 										</div>
 									</div>
@@ -134,7 +134,7 @@
 								<div class="addrSelectDiv">
 									<button @click="setDefaultAddr(info.addrNo)" class="addrSelect"
 										style="display: inline;">기본주소지 설정</button>
-									<button @click="openModal" class="addrUpdate"
+									<button @click="openModal(info.addrNo)" class="addrUpdate"
 										style="display: inline;">수정</button>
 									<button @click="selectDelAddr(info.addrNo)" class="addrRemove"
 										style="display: inline;">삭제</button>
@@ -217,6 +217,7 @@
 			inputOldAddr : '',
 			inputDetail : '',
 			inputPhone : '',
+			inputRequest : '',
 			modalTitle : "",
 			modalText : "",
 			modalType : "",
@@ -224,7 +225,8 @@
 			changeAddrValue : "",
 			changePhoneValue : "",
 			changeRequestValue : "",
-			modalFlg : false
+			modalFlg : false,
+			addrNo : ''
 
 		},
 		methods : {
@@ -273,25 +275,11 @@
 				});
 			},
 			// 수정 클릭시 오픈 모달창
-			openModal : function(type) {
+			openModal : function(addrNo) {
 				var self = this;
-				self.modalType = type;
 				self.modalFlg = true;
-				if (type == "oldAddr") {
-					self.modalTitle = "주소 변경";
-					self.modalText = "변경하실 주소를 입력해주세요."
-					return;
-				}
-				if (type == "phone") {
-					self.modalTitle = "휴대폰번호 변경";
-					self.modalText = "변경하실 휴대폰번호를 입력해주세요."
-					return;
-				}
-				if (type == "request") {
-					self.modalTitle = "배송요청사항 변경";
-					self.modalText = "배송요청사항을 입력해주세요."
-					return;
-				}
+				self.addrNo = addrNo;
+				
 			},
 			/* 모달창 닫기 */
 			cancelModal : function() {
@@ -331,15 +319,13 @@
 			},
 			fnUpdate : function(map) {
 				var self = this;
-				map["userId"] = self.info.userId;
-/* 
-				if (self.modalType == "phone" && !self.phoneCheckFlg) {
-					alert("휴대폰 인증을 진행해주세요.");
-					return;
-				}
- */
+				/* map["userId"] = self.info.userId; */
+				map["userId"] = self.sessionId;
+				map["addrNo"] = self.addrNo;
+				
+
 				$.ajax({
-					url : "updateMyInfo.dox",
+					url : "updateAddr.dox",
 					dataType : "json",
 					type : "POST",
 					data : map,
