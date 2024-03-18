@@ -63,9 +63,9 @@ td {
 }
 
 .listButton {
-	background-color: #ff7f00;
-	color: white;
-	border: none;
+	background-color: #ffffff;
+	color: #5f5f5f;
+	border: 1px solid #9e9e9e;
 	border-radius: 4px;
 	width: 80px;
 	height: 40px;
@@ -73,20 +73,20 @@ td {
 	cursor: pointer;
 }
 </style>
-	<%@include file="main(header).html"%>
-	<section>
-		<div style="width: 1200px; margin: 0px auto;">
+<div id="Container">
+	<%@include file="food114_header.jsp"%>
+		<div style="width: 1420px; margin: 0px auto;">
 			<%@include file="event_header.jsp"%>
 			<div id="app">
 				<div
-					style="width: 1200px; color: rgb(72, 72, 72); margin-top: 35px; padding: 0px;">
-					<div style="width: 1100px; margin: 0px auto;">
-						<table style="width: 1100px;">
+					style="width: 1420px; color: rgb(72, 72, 72); margin-top: 35px; padding: 0px;">
+					<div style="width: 1420px; margin: 0px auto;">
+						<table style="width: 1420px;">
 							<tr>
-								<td style="border-top: 2px solid rgba(72, 72, 72);"
+								<td style="border-top: 2px solid #ccc"
 									class="borderTitle">제목</td>
 								<td
-									style="border-top: 2px solid rgba(72, 72, 72); overflow: hidden;"><div
+									style="border-top: 2px solid #ccc; overflow: hidden;"><div
 										style="white-space: nowrap; text-overflow: ellipsis; max-width: 900px; overflow: hidden">{{board.title}}</div></td>
 							</tr>
 							<tr>
@@ -104,17 +104,16 @@ td {
 						</table>
 						<div style="text-align: right">
 							<button
-								style="margin: 10px; margin-bottom: 35px; background-color: #ccc" class="listButton"
+								style="margin: 10px; margin-bottom: 35px;" class="listButton"
 								@click="fnGoList(endYn)">목록</button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</section>
 
-	<%@include file="main(footer).html"%>
-
+	<%@include file="food114_footer.jsp"%>
+</div>
 	<script>
 		var app = new Vue({
 			el : '#app',

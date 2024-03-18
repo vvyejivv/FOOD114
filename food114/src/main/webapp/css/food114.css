@@ -16,7 +16,7 @@
 }
 
 section{
-	height: fit-content;
+	height: 580px;
 	
 }
 ::-webkit-scrollbar-thumb {
@@ -50,7 +50,7 @@ body {
 	overflow: hidden;
 	overflow-y: scroll;
 	color: #222222;
-	;
+
 }
 
 #Container {

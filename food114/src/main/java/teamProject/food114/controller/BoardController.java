@@ -44,7 +44,7 @@ public class BoardController {
 	@RequestMapping("/event-biz-list.do")
 	public String eventBizList(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
-		return "/event_biz";
+		return "/event-biz02";
 	}
 
 	// 웹 주관 이벤트 페이지 상세보기

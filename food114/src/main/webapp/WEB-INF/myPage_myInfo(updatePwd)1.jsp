@@ -28,7 +28,7 @@
 						</a>
 					</h2>
 					<div>
-						<div style="font-size: 13px; color: #969393;">회원님의 정보를 안전하게
+						<div style="font-size: 13px; color: #969393;margin-bottom: 5px;">회원님의 정보를 안전하게
 							보호하기 위해 비밀번호를 다시 한 번 확인합니다.</div>
 						<div class="table">
 
@@ -38,12 +38,12 @@
 							</div>
 							<div class="row">
 								<div class="cell1">비밀번호</div>
-								<div class="cell2" style="">
+								<div class="cell2">
 									<input type="password" v-model="pwd" style="margin-left: 0px;">
 								</div>
 
 							</div>
-							<div class="row" >
+							<div class="row" style="justify-content: center; padding-top:20px;">
 								<div style="">
 									<button class="buttonSubmit" @click="fnClick" >취소</button>
 									<button class="buttonSubmit" @click="checkPwd">확인</button>

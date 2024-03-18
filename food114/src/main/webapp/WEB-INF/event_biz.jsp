@@ -14,9 +14,7 @@
 </head>
 
 <body>
-	<header>
-		<%@include file="main(header).html"%>
-	</header>
+
 
 	<style>
 select {
@@ -32,7 +30,7 @@ section {
 
 .ourTownTitle {
 	text-align: center;
-	font-size: 30px;
+	font-size: 20px;
 	margin-top: 35px;
 }
 
@@ -79,7 +77,7 @@ section {
 
 a {
 	text-decoration: none;
-	color: rgb(72, 72, 72);
+	color:#222222;
 }
 
 .sortText>a:hover {
@@ -87,83 +85,84 @@ a {
 }
 </style>
 
+	<div id="Container">
+		<%@include file="food114_header.jsp"%>
+			<div id="app" v-cloak>
+				<div class="ourTownTitle">우리 동네 이벤트</div>
+				<!-- 컨테이너 -->
+				<div id="eventBizContainer">
+					<!-- 상세옵션 -->
+					<div style="margin-bottom: 25px;">
+						<div class="subTitleText">
+							<span>|</span>지역설정
+						</div>
+						<div class="areaSelect">
+							<select @change="fnGuList()" v-model="selectSi">
+								<option value="">선택</option>
+								<option v-for="item in siList" :value="item.si">{{item.si}}</option>
+							</select>
+							<select @change="fnDongList()" v-model="selectGu">
+								<option value="">선택</option>
+								<option v-for="item in guList" :value="item.gu">{{item.gu}}</option>
+							</select>
+							<select v-model="selectDong" @change="fnBizList()">
+								<option value="">선택</option>
+								<option v-for="item in dongList" :value="item.dong">{{item.dong}}</option>
+							</select>
 
-	<section>
-		<div id="app">
-			<div class="ourTownTitle">우리동네 이벤트</div>
-			<!-- 컨테이너 -->
-			<div id="eventBizContainer">
-				<!-- 상세옵션 -->
-				<div style="margin-bottom: 25px;">
+
+						</div>
+					</div>
+
+					<!-- 현재 이벤트 중인 가게 -->
 					<div class="subTitleText">
-						<span>|</span>지역설정
+						<span>|</span>현재 이벤트 중인 가게
 					</div>
-					<div class="areaSelect">
-						<select @change="fnGuList()" v-model="selectSi">
-							<option value="">선택</option>
-							<option v-for="item in siList" :value="item.si">{{item.si}}</option>
-						</select>
-						<select @change="fnDongList()" v-model="selectGu">
-							<option value="">선택</option>
-							<option v-for="item in guList" :value="item.gu">{{item.gu}}</option>
-						</select>
-						<select v-model="selectDong" @change="fnBizList()">
-							<option value="">선택</option>
-							<option v-for="item in dongList" :value="item.dong">{{item.dong}}</option>
-						</select>
-
-
+					<div class="sortText">
+						<a href="javascript:;" style="margin-right: 10px;"
+							@click="fnOrder('ORDER BY B.CDATETIME')">최근등록순</a><a
+							href="javascript:;" @click="fnOrder('ORDER BY REVIEWAVG DESC')">리뷰높은순</a>
 					</div>
-				</div>
 
-				<!-- 현재 이벤트 중인 가게 -->
-				<div class="subTitleText">
-					<span>|</span>현재 이벤트 중인 가게
-				</div>
-				<div class="sortText">
-					<a href="javascript:;" style="margin-right: 10px;" @click="fnOrder('ORDER BY B.CDATETIME')">최근등록순</a><a
-						href="javascript:;" @click="fnOrder('ORDER BY REVIEWAVG DESC')">리뷰높은순</a>
-				</div>
-
-				<!-- 이벤트 중인 가게 리스트 -->
-				<div class="ingEventBizContainer">
-					<!-- 가게 박스 -->
-					<div class="EventBizBox" v-for="item in bizList"
-						v-if="selectDong!=''" @click="fnShopInfo(item.bizId)">
-						<div style="overflow: hidden; margin: 10px; cursor: pointer;">
-							<!-- 가게 이미지 -->
-							<div
-								style="width: 80px; height: 80px; border: 1px solid #ccc; float: left; position: relative;">
-								<img :src="item.path"
-									style="width: 80px; height: 80px; object-fit: cover; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 1px solid #ccc;">
+					<!-- 이벤트 중인 가게 리스트 -->
+					<div class="ingEventBizContainer">
+						<!-- 가게 박스 -->
+						<div class="EventBizBox" v-for="item in bizList"
+							v-if="selectDong!=''" @click="fnShopInfo(item.bizId)">
+							<div style="overflow: hidden; margin: 10px; cursor: pointer;">
+								<!-- 가게 이미지 -->
 								<div
-									style="width: 80px; height: 80px; font-size: 10px; padding: 5px;"
-									v-if="item.path==null">
-									등록된 이미지가<br> 없습니다
+									style="width: 80px; height: 80px; border: 1px solid #ccc; float: left; position: relative;">
+									<img :src="item.path"
+										style="width: 80px; height: 80px; object-fit: cover; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 1px solid #ccc;">
+									<div
+										style="width: 80px; height: 80px; font-size: 10px; padding: 5px;"
+										v-if="item.path==null">
+										등록된 이미지가<br> 없습니다
+									</div>
+								</div>
+								<!-- 가게 설명 -->
+								<div
+									style="float: left; width: 230px; height: 80px; font-size: 14px; margin-left: 10px;">
+									<div>{{item.bizName}}</div>
+									<div style="color: orange">★
+										{{item.reviewAvg}}({{item.reviewCnt}})</div>
+									<div>행사기간 : {{item.beginTime}} ~ {{item.endTime}}</div>
+									<div>행사시간 : {{item.setBeginTime}}시 ~ {{item.setEndTime}}시</div>
 								</div>
 							</div>
-							<!-- 가게 설명 -->
 							<div
-								style="float: left; width: 230px; height: 80px; font-size: 14px; margin-left: 10px;">
-								<div>{{item.bizName}}</div>
-								<div style="color: orange">★
-									{{item.reviewAvg}}({{item.reviewCnt}})</div>
-								<div>행사기간 : {{item.beginTime}} ~ {{item.endTime}}</div>
-								<div>행사시간 : {{item.setBeginTime}}시 ~ {{item.setEndTime}}시</div>
-							</div>
+								style="width: 330px; margin: 10px; height: 40px; overflow: hidden; text-overflow: ellipsis; font-size: 13px; word-break: break-all; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical">
+								{{item.contents}}</div>
 						</div>
-						<div
-							style="width: 330px; margin: 10px; height: 40px; overflow: hidden; text-overflow: ellipsis; font-size: 13px; word-break: break-all; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical">
-							{{item.contents}}</div>
-					</div>
-					<div style="font-weight: bold;" v-html="bizListMsg"></div>
+						<div style="font-weight: bold;" v-html="bizListMsg"></div>
 
+					</div>
 				</div>
 			</div>
-		</div>
-	</section>
 
-	<%@include file="main(footer).html"%>
+		<%@include file="food114_footer.jsp"%>
+	</div>
 </body>
 
 </html>
@@ -185,9 +184,9 @@ a {
 				},
 				methods : {
 					/* 정렬 방법 */
-					fnOrder : function(order){
-						var self=this;
-						self.order=order;
+					fnOrder : function(order) {
+						var self = this;
+						self.order = order;
 						self.fnBizList();
 					},
 					/* select 시 불러오기 */
@@ -263,7 +262,7 @@ a {
 									success : function(data) {
 										self.bizList = data.list;
 										console.log(data.list.length);
-										
+
 										if (data.list.length == 0) {
 											self.bizListMsg = "<div style='height:200px'>선택하신 지역에 현재 이벤트 중인 매장이 없습니다.</div>";
 										} else {
