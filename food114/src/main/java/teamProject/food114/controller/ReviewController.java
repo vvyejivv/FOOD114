@@ -73,6 +73,11 @@ public class ReviewController {
 		return new Gson().toJson(resultMap);
 	}
 	
+	@RequestMapping("/myPage_reviewAdd.do")
+	public String myPage_reviewAdd(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		request.setAttribute("map", map);
+		return "/myPage_reviewAdd"; 
+	}
 	
 	//리뷰 정보
 	@RequestMapping(value = "/reviewList.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")

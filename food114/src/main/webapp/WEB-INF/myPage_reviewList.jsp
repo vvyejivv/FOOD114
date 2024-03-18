@@ -53,6 +53,23 @@ a{
 	color: black;
 }
 [v-cloak] { display: none; }
+.reviewButton {
+	background-color: #ffffff;
+	border: 1px solid #ff7f00;
+	color: #ff7f00;
+	transition-duration: 0.4s; /* 트랜지션 효과 지속 시간 */
+	cursor: pointer;
+	border-radius: 4px; /* 버튼에 border-radius 적용 */
+	width: 70px;
+	height: 35px;
+	margin-left: 930px;
+	margin-top: 5px;
+}
+.reviewButton:hover {
+	background-color: #ff7f00;
+	border: 1px solid #FBCEB1;
+	color: #ffffff;
+}
 </style>
 </head>
 <link rel="stylesheet" href="../css/myPage_myInfo(main).css">
@@ -92,7 +109,7 @@ a{
 									금액</th>
 								<th
 									style="width: 150px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
-									리뷰 작성일</th>
+									리뷰 작성일</th>	
 							</tr>
 							<tr v-for="(item, index) in reviewList">
 								<td style="font-size: 13px">{{ index + 1 + startOrder }}</td>
@@ -104,6 +121,7 @@ a{
 							</tr>
 						</table>
 					</div>
+					<button class="reviewButton" @click="fnReviewAdd">리뷰 쓰기</button>
 					<!-- 페이지  -->
 					<div class="pageBox">
 						<span><a href="javascript:;" @click="fnfirstPage" style="text-decoration: none; color: black;">≤</a></span>
@@ -189,6 +207,10 @@ a{
 				self.nowPage = self.pageCount;
 				self.fnPageList(self.nowPage);
 			
+			},
+			fnReviewAdd : function() {
+				var self = this;
+				$.pageChange("myPage_reviewAdd.do", {});
 			}
 		},
 		created : function() {
