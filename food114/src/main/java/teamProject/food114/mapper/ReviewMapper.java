@@ -20,4 +20,7 @@ public interface ReviewMapper {
 	
 	void updatePreview(HashMap<String, Object> map); //리뷰 답글 수정
 	
+	List<Review> selectOrederListView(HashMap<String, Object> map);
+	
+	void insertReviewAdd(HashMap<String, Object> map);
 }

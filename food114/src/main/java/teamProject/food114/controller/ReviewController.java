@@ -79,6 +79,28 @@ public class ReviewController {
 		return "/myPage_reviewAdd"; 
 	}
 	
+	@RequestMapping("/myPage_review_Insert.do")
+	public String myPage_review_Insert(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		request.setAttribute("map", map);
+		return "/myPage_review_Insert"; 
+	}
+	
+	@RequestMapping(value = "/myPageReViewList.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String myPageReViewList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = reviewService.searchOrederListView(map);
+		return new Gson().toJson(resultMap);
+	}
+	
+	@RequestMapping(value = "/myPageReviewAdd.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String myPageReviewAdd(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = reviewService.addReviewAdd(map);
+		return new Gson().toJson(resultMap);
+	}
+	
 	//리뷰 정보
 	@RequestMapping(value = "/reviewList.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
