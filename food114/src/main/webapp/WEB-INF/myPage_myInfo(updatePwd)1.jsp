@@ -11,30 +11,19 @@
 <title>MAIN</title>
 <style>
 [v-cloak] { display: none; }
-@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 </style>
 </head>
-<link rel="stylesheet" href="../css/myPage_myInfo(updatePwd).css">
 <body>
-	<header>
-		<%@include file="main(header).html"%>
-	</header>
-
-	<!-- 광고창 -->
-	<!--
-        <div class="ad">
-            광고창
-            <button class="adClose">x</button>
-        </div>
-    -->
+<div id="Container">
+		<%@include file="food114_header.jsp"%>
+		
 	<section>
-
-		<div class="container">
+		<div style="width: 1420px; display: flex; margin: 0px auto;">
 			<%@include file="myPage_header.jsp"%>
 			<div id="app" v-cloak>
-				<div class="content" style="width : 900px;">
+				<div class="content">
 					<h2>
-						<a href="javascript:;" style="font-size: 25px; color: #747171;">
+						<a  style="font-size: 25px; color: #747171;">
 							<span style="color: #ff7f00; font-weight: bold;">| </span>비밀번호 변경
 						</a>
 					</h2>
@@ -49,14 +38,14 @@
 							</div>
 							<div class="row">
 								<div class="cell1">비밀번호</div>
-								<div class="cell2">
+								<div class="cell2" style="">
 									<input type="password" v-model="pwd" style="margin-left: 0px;">
 								</div>
 
 							</div>
 							<div class="row" >
-								<div style="margin-left: 350px;">
-									<button class="buttonRemove" @click="fnClick" >취소</button>
+								<div style="">
+									<button class="buttonSubmit" @click="fnClick" >취소</button>
 									<button class="buttonSubmit" @click="checkPwd">확인</button>
 								</div>
 							</div>
@@ -70,7 +59,8 @@
 		</div>
 	</section>
 
-	<%@include file="main(footer).html"%>
+	<%@include file="food114_footer.jsp"%>
+	</div>
 </body>
 <script type="text/javascript">
 	var app = new Vue({
