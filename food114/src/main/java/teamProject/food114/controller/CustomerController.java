@@ -204,6 +204,14 @@ public class CustomerController {
 		request.setAttribute("map", map);
 		return "/mainPage";
 	}
+	
+	// 고객 메인 페이지 ver2
+	@RequestMapping("/food114-2.do")
+	public String food114Main2(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
+			throws Exception {
+		request.setAttribute("map", map);
+		return "/food114";
+	}
 
 	// 고객 회원가입 페이지
 	@RequestMapping("/consumer-join.do")
@@ -276,7 +284,6 @@ public class CustomerController {
 	@ResponseBody
 	public String logout(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		System.out.println(session.getAttribute("sessionId"));
 		session.invalidate();
 
 		return new Gson().toJson(resultMap);
