@@ -48,11 +48,11 @@
 					</tr>
 					<tr v-for="(event, index) in events" :key="index">
 						<td>{{ index + 1 }}</td>
-						<td>{{event.type}}</td>
+						<td>{{ event.type === 'SHORT' ? '우리동네' : (event.type === 'REGULAR' ? '리뷰 이벤트' : '') }}</td>
 						<td>{{event.title}}</td>
 						<td>{{event.contents}}</td>
 						<td>{{event.eventTime}}</td>
-						<td>{{event.endYn}}</td>
+						<td>{{ event.endYn === 'Y' ? '종료' : (event.endYn === 'N' ? '진행중' : '') }}</td>
 						<td><button class="event-detail" @click="fnDetail(event.boardNo)">자세히</button></td>
 					</tr>
 				</table>
