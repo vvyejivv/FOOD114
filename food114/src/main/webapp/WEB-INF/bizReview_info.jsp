@@ -60,11 +60,11 @@
 					<tr>
 						<td class="event_title">리뷰 답글</td>
 						<td v-if="reviewInfo.pContents">
-							<textarea style="width: 700px;" placeholder="리뷰 작성을 해주세요!" v-model="contents">{{reviewInfo.pContents}}</textarea>
+							<textarea class="reviewText" placeholder="리뷰 작성을 해주세요!" v-model="contents">{{reviewInfo.pContents}}</textarea>
 							<button class="addReview" @click="fnBizUpdate()">수정</button>
 						</td>
 						<td v-if="!reviewInfo.pContents">
-							<textarea style="width: 700px;" placeholder="리뷰 작성을 해주세요!" v-model="contents"></textarea>
+							<textarea class="reviewText" placeholder="리뷰 작성을 해주세요!" v-model="contents"></textarea>
 							<button class="addReview" @click="fnBizAdd()">저장</button>
 						</td>
 					</tr>

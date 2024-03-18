@@ -67,7 +67,7 @@
 }
 
 .updateInput {
-	height: 17px;
+	height: 21px;
 	border: 1px solid #ddd;
 	border-radius: 3px;
 }
@@ -95,6 +95,24 @@ input[type="file"] {
 	padding: 2px;
 }
 .button-detail:hover{
+	background-color: #ff7f00;
+	border: 1px solid #FBCEB1;
+	color: #ffffff;
+}
+.backButton{
+	background-color: #ffffff; 
+	border: 1px solid #ff7f00; 
+	color: #ff7f00; 
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 14px;
+	transition-duration: 0.4s; /* 트랜지션 효과 지속 시간 */
+	cursor: pointer;
+	border-radius: 4px; /* 버튼에 border-radius 적용 */
+	padding: 8px 12px;
+}
+.backButton:hover {
 	background-color: #ff7f00;
 	border: 1px solid #FBCEB1;
 	color: #ffffff;
