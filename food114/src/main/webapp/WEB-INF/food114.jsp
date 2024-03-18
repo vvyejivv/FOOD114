@@ -93,7 +93,7 @@
 						푸드114 신규 회원 선착순 100명에게만 제공되는<br> 특별한 이벤트와 쿠폰을 확인해 보세요.
 					</div>
 					<div style="margin-top: 20px;">
-						<button id="main2-text-btn">자세히 보기</button>
+						<button class="main2-text-btn">자세히 보기</button>
 					</div>
 				</div>
 			</div>

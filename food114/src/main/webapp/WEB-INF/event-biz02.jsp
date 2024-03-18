@@ -187,10 +187,30 @@
 				<!-- 모달 -->
 				<div id="modal-back" hidden>
 					<div
-						style="position: fixed; top: 0px; left: 0px; right: 0px; bottom: 0px; background-color: rgba(0, 0, 0, 0.05); "
-						 @click="fnCloseModal"></div>
+						style="position: fixed; top: 0px; left: 0px; right: 0px; bottom: 0px; background-color: rgba(0, 0, 0, 0.1);"
+						@click="fnCloseModal"></div>
 					<div
-						style="position: fixed; top: 150px; left: 50%; width: 700px; height: 300px; background-color: white; transform: translate(-50%); border-radius: 8px;"></div>
+						style="position: fixed; top: 25px; left: 50%; width: 500px; background-color: white; transform: translate(-50%); border-radius: 8px; border: 1px solid #9e9e9e; overflow: hidden; height: 840px;">
+						<div
+							style="background-color: #f7f7f7; margin-bottom: 10px; padding: 10px; color: #222222; font-weight: 500; text-align: center;">내
+							주소지</div>
+						<span style="position: absolute; top: 7px; right: 10px; cursor: pointer;" @click="fnCloseModal">✖</span>
+						<div
+							style="display: flex; flex-direction: column; gap: 10px; padding: 10px;">
+							<template v-for="item in list.addrList">
+								<div
+									style="font-size: 14px; height: fit-content; display: flex; flex-direction: column; gap: 5px; padding: 10px; border: 1px solid #ededed; border-radius: 8px;">
+
+									<div>이름 : {{item.addrAs}}</div>
+									<div>연락처 : {{item.phone}}</div>
+									<div>주소 : {{item.newAddr}}</div>
+									<div>상세주소 : {{item.detail}}</div>
+									<button class="main2-text-btn" @click="fnAddrSelect(item.newAddr)">선택</button>
+								</div>
+							</template>
+						</div>
+
+					</div>
 				</div>
 
 
@@ -285,6 +305,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 	var app = new Vue({
 		el : '#app',
 		data : {
+			sessionId : "${sessionId}",
 			map : {
 				inputAddr : "${map.inputAddr}",				
 				nowCategory : "${map.nowCategory}",
@@ -295,7 +316,9 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 			},
 			list : {
 				bizBaedalOkList : [] ,
-				bizInfo : []
+				bizInfo : [],
+				addrList : []
+				
 			},
 			totalPage : "", // 총 페이지 
 			showCnt : 9, //보여지는 개수
@@ -305,6 +328,12 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 		},
 		
 		methods : {
+			// 주소 선택시
+			fnAddrSelect : function(addr){
+				var self=this;
+				self.map.inputAddr=addr;				
+			},
+			
 			fnCloseModal:function(){
 				var self=this;
 				$("#modal-back").prop("hidden",true);
@@ -312,14 +341,31 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 					"overflow-y" : "auto"
 				})
 			},
+			// 
 			fnLoadMyAddr : function(){
 				var self=this;
 				$("#modal-back").prop("hidden",false);
 				$("body").css({
 					"overflow" : "hidden"
 				})
+				var nparmap = {
+					userId : self.sessionId
+				}
+				$.ajax({
+					url : "myInfoAddr.dox",
+					dataType : "json",
+					type : "POST",
+					data : nparmap,
+					success : function(data) {
+						self.list.addrList=data.list;
+						console.log(self.list.addrList);		
+						
+						
+					}
+				});
 				
 			},
+			// 페이지 체인지
 			fnPageChange : function(link,map){
 				var self=this;
 				$.pageChange(link, map);
@@ -333,8 +379,9 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 				if (status === kakao.maps.services.Status.OK) {
 					self.map.latitude = result[0].y;
 					self.map.longitude = result[0].x;
-					console.log("1."+self.map.latitude);
-					console.log("1."+self.map.longitude);
+				} else{
+					self.map.latitude = "";
+					self.map.longitude = "";
 				}
 				};
 				geocoder.addressSearch(addr,callback);
@@ -342,7 +389,6 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 			// 배달가능한 가게목록 전체
 			fnList : function() {
 				var self=this;
-				console.log(self.searchFlg);
 				var nparmap = {
 						nowCategory : self.map.nowCategory,
 						order : self.map.order
@@ -353,8 +399,6 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 					type : "POST",
 					data : nparmap,
 					success : function(data) {
-						console.log(data);
-						console.log(self.list);
 						self.list.bizInfo=data.list;
 						self.bizInfo = data.list;
 						if(self.map.latitude!="" && self.map.longitude!=""){
@@ -416,6 +460,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 		created : function() {
 			var self = this;
 			self.fnList();
+			console.log(self.sessionId);
 				
 
 		}
