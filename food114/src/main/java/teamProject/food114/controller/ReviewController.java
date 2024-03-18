@@ -93,6 +93,14 @@ public class ReviewController {
 		return new Gson().toJson(resultMap);
 	}
 	
+	@RequestMapping(value = "/myPageReViewListEdit.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String myPageReViewListEdit(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = reviewService.searchOrederListEdit(map);
+		return new Gson().toJson(resultMap);
+	}
+	
 	@RequestMapping(value = "/myPageReviewAdd.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String myPageReviewAdd(Model model, @RequestParam HashMap<String, Object> map) throws Exception {

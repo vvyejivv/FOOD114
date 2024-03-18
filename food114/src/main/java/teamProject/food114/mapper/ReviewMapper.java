@@ -23,4 +23,6 @@ public interface ReviewMapper {
 	List<Review> selectOrederListView(HashMap<String, Object> map);
 	
 	void insertReviewAdd(HashMap<String, Object> map);
+	
+	List<Review>selectOrederListEdit(HashMap<String, Object> map);
 }

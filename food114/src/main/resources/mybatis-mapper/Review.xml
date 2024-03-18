@@ -178,7 +178,8 @@
 		GROUP BY O.ORDERNO
 	</select>
 	
-	<select id="">
+	<select id="selectOrederListEdit" parameterType="hashmap"
+		resultType="teamProject.food114.model.Review">
 		SELECT O.ORDERNO,O.USERID,O.BIZID,
 		GROUP_CONCAT(CONCAT(M.MENU, '(', D.COUNT, ')') SEPARATOR ',
 		') AS
@@ -191,8 +192,8 @@
 		INNER JOIN FOOD114_MENU M ON D.MENUNO = M.MENUNO
 		INNER JOIN
 		FOOD114_BIZ_INFO I ON O.BIZID = I.BIZID
-		WHERE O.USERID = 'yeji' AND
-		O.orderno = 14 AND
+		WHERE O.USERID = #{userId} AND
+		O.ORDERNO = #{orderNo} AND
 		R.REVIEWNO IS NULL
 		GROUP BY O.ORDERNO
 	</select>
