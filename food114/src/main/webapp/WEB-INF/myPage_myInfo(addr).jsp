@@ -71,63 +71,18 @@
 								</div>
 								<!-- 모달창 -->
 								<div class="modal-backdrop" id="Modal" v-if="modalFlg">
-									<div class="modal-content"
-										:style="{height: modalType=='phone'&&!phoneCheckFlg&&phoneCheckShow ?'270px':'220px'}">
+									<div class="modal-content" :style="{height: modalType=='phone'&&!phoneCheckFlg&&phoneCheckShow ?'270px':'220px'}">
 										<h2 v-html="modalTitle">이름 변경</h2>
-										<p style="color: #888; margin-top: none;" v-html="modalText">변경할
-											주소를 입력해주세요.</p>
+										<p style="color: #888; margin-top: none;" v-html="modalText">변경할 주소를 입력해주세요.</p>
 											<input class="modalInput" v-model="selectedAddr.oldAddr" type="text" placeholder="주소"  style="margin-left: 100px;">
 											<button @click="openAddressSearch()" class="btn-modify" style="margin: 0px; width: auto; ">주소조회</button>
 
 
-
-										<input style="text-align: left;" class="modalInput" v-model="changePhoneValue" type="text" placeholder="연락처"  id="phone" style="width: 200px"> 
+										<input style="text-align: left;" class="modalInput" v-model="changePhoneValue" type="text" placeholder="연락처"  style="width: 200px"> 
 											<input class="modalInput" v-model="changeRequestValue" type="text" placeholder="배송 요청 사항">
-
-
-										<!-- 주소 변경시 -->
-										<template v-if="modalType=='oldAddr'">
-											<input class="modalInput" v-model="oldAddr" type="text"
-												@input="fnConcat" placeholder="변경할 주소"
-												style="width: 130px; margin-right: 5px;"> @ <input
-												class="modalInput" v-model="oldAddr" type="text"
-												@input="fnConcat" style="width: 130px;" placeholder="주소">
-										</template>
-
-
-
-										<!-- 연락처 변경시 -->
-										<template v-if="modalType=='phone'">
-											<button class="phone" @click="fnPhoneCheck"
-												v-if="!phoneCheckShow&&!phoneCheckFlg">인증</button>
-											<div style="color: #2196F3; font-size: 14px;"
-												v-html="phoneCheckText" v-if="phoneCheckFlg">인증되었습니다</div>
-											<div style="padding-left: 10px;" v-if="phoneCheckShow">
-												<input class="modalInput" style="width: 125px;"
-													placeholder="인증번호" v-model="phoneCheckInput">
-												<button class="phone" @click="fnPhoneCheckConfirm">확인</button>
-											</div>
-											<div style="height: 20px">
-												<div style="color: red; font-size: 14px;"
-													v-html="phoneCheckText"
-													v-if="!phoneCheckFlg&&phoneCheckShow">인증번호가 일치하지
-													않습니다.</div>
-											</div>
-										</template>
-
-										<!-- 배송요청사항 변경시 -->
-										<template v-if="modalType=='request'">
-											<input class="modalInput" v-model="request" type="text"
-												@input="fnConcat" placeholder="배송요청사항"
-												style="width: 130px; margin-right: 5px;"> @ <input
-												class="modalInput" v-model="emailAddr" type="text"
-												@input="fnConcat" style="width: 130px;" placeholder="주소">
-										</template>
-
-
 										<div>
 											<button class="modalButton"
-												@click="fnUpdate({oldAddr:changeAddrValue, phone:changePhoneValue, request:changeRequestValue})">저장</button>
+												@click="fnUpdate({oldAddr:selectedAddr.oldAddr, phone:changePhoneValue, request:changeRequestValue})">저장</button>
 											<button class="modalCancel" @click="cancelModal">닫기</button>
 										</div>
 									</div>
@@ -232,7 +187,7 @@
 			modalFlg : false,
 			addrNo : '',
 			updateFlg : false,
-			selectedAddr : {}
+			selectedAddr : {},
 
 		},
 		methods : {
@@ -367,6 +322,7 @@
 							alert("정보가 수정되었습니다");
 							self.cancelModal();
 							self.fnList();
+							location.reload();
 						} else {
 							alert("실패");
 						}
