@@ -41,8 +41,7 @@
 				<div class="content" style="width: 880px;">
 					<h2>
 						<a href="javascript:;" style="font-size: 25px; color: #747171;">
-							<span style="color: #ff7f00; font-weight: bold;">| </span>MY주소지
-							관리
+							<span style="color: #ff7f00; font-weight: bold;">| </span>MY주소지 관리
 						</a>
 					</h2>
 					<div>
@@ -280,6 +279,16 @@
 			},
 			fnSubmit : function(info) {
 				var self = this;
+				if(self.info && self.info.oldAddr){
+					var addrCount = self.info.oldAddr.length;
+					if(addrCount >= 5){
+						alert("주소는 최대 5개까지만 등록할 수 있습니다.");
+						return;
+					}
+				}else{
+					self.info = {oldAddr: []};
+				}
+				
 				var nparmap = {
 					userId : self.sessionId,
 					addrAs : self.inputAddrAs,
@@ -311,7 +320,6 @@
 				map["userId"] = self.sessionId;
 				map["addrNo"] = self.addrNo;
 				
-
 				$.ajax({
 					url : "updateAddr.dox",
 					dataType : "json",
