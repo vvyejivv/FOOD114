@@ -26,6 +26,7 @@ public class BizServiceImpl implements BizService {
 
 	@Autowired
 	CodeMapper codeMapper;
+	
 
 	@Autowired
 	HttpSession session;
@@ -182,6 +183,7 @@ public class BizServiceImpl implements BizService {
 		Biz biz = bizMapper.selectBizInfoFile(map);
 		try {
 			resultMap.put("bizInfo", biz);
+			resultMap.put("shopEvent", boardMapper.selectShopEvent(map));
 			resultMap.put("result", "success");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

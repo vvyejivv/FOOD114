@@ -1,15 +1,17 @@
-@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
-
 [v-cloak] {
-   display: none;
+	display: none;
 }
-
-.notosanskr * {
-	font-family: 'Noto Sans KR', sans-serif;
+@font-face {
+	font-family: 'Pretendard-Regular';
+	src:
+		url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
+		format('woff');
+	font-weight: 400;
+	font-style: normal;
 }
 
 * {
-	font-family: 'Noto Sans KR';
+	font-family: 'Pretendard-Regular';
 }
 
 .orderContainer {
@@ -19,7 +21,7 @@
 }
 
 #tabContainer {
-	width: 210px;
+	width: fit-content;
 	height: 56px;
 	margin: 0px auto;
 	/* background-color: aqua; */
@@ -234,13 +236,13 @@ ul.tab {
 
 #map {
 	width: 100%;
-	height: 220px; /* 높이는 필요에 따라 조절하세요. */
+	height: 280px; /* 높이는 필요에 따라 조절하세요. */
 }
 
 /* 메뉴 정보 */
 #menuContainer {
 	/* background-color: rgb(203, 231, 46); */
-	width: 1000px;
+	width: 1920px;
 	margin: 0px auto;
 	overflow: hidden;
 }
@@ -248,6 +250,7 @@ ul.tab {
 .menuBox {
 	/* background-color: rgb(209, 46, 231); */
 	width: 1000px;
+	margin : 0px auto;
 	border: 1px solid #cccccc34;
 	/* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
 	border-radius: 3px;
@@ -277,7 +280,6 @@ ul.tab {
 
 .menuImgBox {
 	/* background-color: rgb(46, 188, 231); */
-	border: 1px solid #ccc;
 	border-radius: 5px;
 	width: 320px;
 	height: 250px;
@@ -289,7 +291,12 @@ ul.tab {
 	width: 320px;
 	height: 250px;
 	border-radius: 5px;
+	cursor: pointer;
 }
+/* .menuImgBox img:hover{
+	transform: scale(1.1); 1.2배 확대
+    transition: transform 0.3s ease; 부드러운 애니메이션 적용
+} */
 
 .menuName {
 	/* background-color: rgb(231, 98, 46); */
@@ -312,7 +319,8 @@ ul.tab {
 }
 
 .menuName th, .menuName td {
-	border-bottom: 1px solid #ccc;
+	border-bottom: 1px solid #EDEDED;
+	cursor: pointer;
 }
 
 /* 이벤트 페이지  */
@@ -347,18 +355,20 @@ ul.tab {
 #reviewList {
 	width: 980px;
 	margin: 0px auto;
-	margin-bottom : 10px;
+	margin-bottom: 10px;
 	border: 1px solid #cccccc34;
 	border-radius: 3px;
 }
-.reviewSetBox{
-	width : 980px;
-	height : auto;
+
+.reviewSetBox {
+	width: 980px;
+	height: auto;
 }
+
 .reviewBox {
 	width: 980px;
 	height: auto;
-	overflow :hidden;
+	overflow: hidden;
 	/* 	background-color : #ff80c0; */
 }
 
@@ -385,7 +395,7 @@ ul.tab {
 	border: 1px solid #cccccc34;
 	float: left;
 	border-radius: 5px;
-	margin-top:5px;
+	margin-top: 5px;
 }
 
 .userInfoBox {
@@ -417,15 +427,12 @@ ul.tab {
 	overflow: hidden;
 	color: rgb(72, 72, 72);
 	font-size: 14px;
-	
 }
 
 .starRating {
 	width: 80px;
 	float: left;
 	margin-top: 10px;
-	
-
 }
 
 .reviewDate {
@@ -436,7 +443,8 @@ ul.tab {
 	margin-left: 10px;
 	font-size: 14px;
 }
-.shop_reviewDate{
+
+.shop_reviewDate {
 	float: left;
 	width: 77px;
 	float: left;
@@ -457,6 +465,7 @@ ul.tab {
 	margin-top: 5px;
 	color: rgb(72, 72, 72);
 }
+
 .shopContents {
 	padding-top: 5px;
 	padding-left: 5px;
@@ -468,6 +477,7 @@ ul.tab {
 	margin-top: 5px;
 	color: rgb(72, 72, 72);
 }
+
 .reviewContents {
 	width: 530px;
 	height: 120px;
@@ -501,6 +511,6 @@ ul.tab {
 	border-radius: 5px;
 }
 
-.reviewLine{
-	border-bottom: 2px solid  #dddada;
+.reviewLine {
+	border-bottom: 2px solid #dddada;
 }

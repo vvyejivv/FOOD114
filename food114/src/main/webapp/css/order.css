@@ -1,15 +1,7 @@
-@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
-
 [v-cloak] {
    display: none;
 }
-.notosanskr * {
-    font-family: 'Noto Sans KR', sans-serif;
-}
 
-* {
-    font-family: 'Noto Sans KR';
-}
 
 #orderContainer {
     display: flex;

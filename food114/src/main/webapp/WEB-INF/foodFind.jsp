@@ -553,7 +553,6 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 				watch: {
 					  inputAddr: function(newVal, oldVal) {
 						  var self=this;
-					    return;
 					    self.convertAddressToCoordinates(self.inputAddr);
 						setTimeout(function(){
 							$.pageChange("/food114_foodfind.do", {
