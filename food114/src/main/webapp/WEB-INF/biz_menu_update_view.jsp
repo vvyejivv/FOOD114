@@ -157,7 +157,7 @@ button img {
 }
 
 .file_input {
-	width: 645px;
+	width: 629px;
 	height: 30px;
 	margin-top: 30px;
 	margin-left: 20px;
@@ -171,10 +171,18 @@ button img {
 	color: #ccc;
 }
 
-.menuImg {
-	width: 100px;
-	height: 50px;
+.menuTempImg {
+	width: 120px;
 	margin-left: 20px;
+	heigth:30px;
+	margin-right:13px;
+}
+
+.menuImg {
+	width: 120px;
+	height: 80px;
+	margin-left: 20px;
+	object-fit:contain;
 }
 </style>
 <body>
@@ -245,11 +253,13 @@ button img {
 					<div class="inputDiv">
 						메뉴 사진<small><small style="color: #ff7f00;"> ＊ </small></small>
 					</div>
-					<img v-if="menuView.filePath"
-						:src="menuView.filePath + menuView.fileName" class="menuImg"
-						alt="이미지 미등록"> <input type="file" class="file_input"
+					<div :style="{display : !src ? 'block' : 'flex'}">
+					<img
+						:src="src" :class="!src ? 'menuTempImg' : 'menuImg'"
+						alt="이미지 미등록"> <input @change="fnBizFileView" type="file" class="file_input"
 						id="file1" name="file1" accept=".jpg, .png, .gif"
 						style="color: #ccc; font-size: 12px; line-height: 30px;">
+					</div>
 				</div>
 				<button class="btn-modify" @click="fnMenuUpdate()">정보 변경</button>
 			</div>
@@ -266,9 +276,21 @@ button img {
 		data : {
 			sessionId : "${sessionBizId}",
 			menuNo : ${map.menuNo},
-			menuView : {}
+			menuView : {},
+			src : ""
 		},
 		methods : {
+			fnBizFileView : function(event) {
+				var self = this;
+				console.log(event);
+				var file = event.target.files[0];
+				var reader = new FileReader();
+
+				reader.onload = function(e) {
+					self.src = e.target.result;
+				};
+				reader.readAsDataURL(file);
+			},
 			fnMenuView : function() {
 				var self = this;
 				var nparmap = {
@@ -281,6 +303,7 @@ button img {
 					data : nparmap,
 					success : function(data) {
 						self.menuView = data.menuView;
+						self.src = data.menuView.filePath + data.menuView.fileName;
 					}
 				});
 			},
