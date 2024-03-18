@@ -58,5 +58,8 @@ public interface CustomerMapper {
 //  myInfo - my주소지 관리 - 주소지 수정
 	void updateAddr(HashMap<String, Object> map);
 	
+	//주문완료
+	Order selectMyOrder(HashMap<String,Object> map);
+	
 	
 }

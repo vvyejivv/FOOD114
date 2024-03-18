@@ -10,15 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MAIN</title>
 <style>
-@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 
-.notosanskr * {
-	font-family: 'Noto Sans KR', sans-serif;
-}
-
-* {
-	font-family: 'Noto Sans KR';
-}
 
 .orderListContainer {
 	margin: 10px;
@@ -59,7 +51,7 @@ a{
 <body>
 
 	<header>
-		<%@include file="main(header).html"%>
+		<%@include file="food114_header.jsp"%>
 	</header>
 
 	<section>
@@ -125,7 +117,7 @@ a{
 		</div>
 	</section>
 
-	<%@include file="main(footer).html"%>
+	<%@include file="food114_footer.jsp"%>
 </body>
 
 <script type="text/javascript">

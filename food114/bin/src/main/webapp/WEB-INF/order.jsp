@@ -15,9 +15,9 @@
 </head>
 <style>
 </style>
-<body>
+<body style="margin: 0px;">
 	<header>
-		<%@include file="main(header).html"%>
+		<%@include file="food114_header.jsp"%>
 	</header>
 	<!-- 광고창 -->
 	<!-- <div class="ad">
@@ -173,12 +173,14 @@
 							</template>
 						</table>
 						<div class="hrLine"></div>
-						<div style="float: left; margin-right: 300px;">쿠폰 할인 금액</div>
-						<div>{{discount}}원</div>
+						<div style="width:400px; display:flex; padding: 10px 30px;">
+							<div style="width: 320px; color:#000000; font-size:14px;">쿠폰 할인 금액</div>						
+							<div style="margin-left: auto; color:#5F5F5F; font-size:14px;">{{discount}} 원</div>
+						</div>
 						<div class="hrLine"></div>
-						<div class="priceBox">
-							<div class="priceTxt">총 금액</div>
-							<div class="totalPrice">{{couponAmount.toLocaleString()}}원</div>
+						<div class="priceBox" style="width:400px; display :flex; padding : 10px 30px;">
+							<div class="priceTxt" style="width: 320px; color:#000000; font-size:14px;">총 금액</div>
+							<div class="totalPrice" style="margin-left: auto; color:#5F5F5F; font-size:14px;">{{couponAmount.toLocaleString()}}원</div>
 						</div>
 
 						<div class="orderBtn" @click="fnPay">결제하기</div>
@@ -189,7 +191,7 @@
 		</div>
 	</section>
 
-	<%@include file="main(footer).html"%>
+	<%@include file="food114_footer.jsp"%>
 
 </body>
 </html>
@@ -222,6 +224,7 @@
 			selectTotalPrice : 0, /* 총 금액  */
 			couponAmount : 0, /* 쿠폰 적용된 총 금액 */
 			selectMenuList : ${map.selectMenuList}, /* 장바구니에 담아온 메뉴  */
+			menuNo :0,
 			paymentStatus : "", /* 결제여부  */
 			couponId : "",
 			flg : false,
@@ -306,7 +309,7 @@
 		        	self.onApplyCoupon(couponNo, title, saleAmount, salePercent); 
 		        };
 			},
-			/* 쿠폰 적용 - 이부분 어디서 실행해야할지 모르겠습니다..  */
+			/* 쿠폰 적용  */
 			fnUseCoupon : function(){	
 				var self = this;
 				if(self.couponSaleAmount == 0){
@@ -402,6 +405,7 @@
 					deliveryRequest : self.deliveryRequest,
 					status : self.status,
 					couponNo : self.couponNo,
+					menuNo : self.menuNo,
 				};
 				 $.ajax({
 		                url:"orderUpdate.dox",
@@ -436,8 +440,22 @@
 			},
 			fnRemoveMenu : function(index){
 				var self = this;
+				self.menuNo = self.selectMenuList[index].menuNo; /* 삭제한 메뉴 번호  */
 				self.selectMenuList.splice(index,1);
-				self.selectTotalPrice = self.fnTotalPrice(self.selectMenuList);
+				self.couponAmount = self.fnTotalPrice(self.selectMenuList);
+				var nparmap = {	
+						orderNo : self.orderNo,
+						menuNo : self.menuNo,
+					};
+					 $.ajax({
+			                url:"removeMenu.dox",
+			                dataType:"json",	
+			                type : "POST", 
+			                data : nparmap,
+			                success : function(data) {
+			        			console.log("삭제 결과 : " + data.result);
+			                }
+			            });
 			},
 			/* 장바구니 총 금액  */
 			fnTotalPrice : function(menuList){

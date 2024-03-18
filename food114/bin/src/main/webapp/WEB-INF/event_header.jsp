@@ -14,18 +14,16 @@
 
 <body>
 	<style>
-section {
-	color: rgb(72, 72, 72);
-}
 
 .container {
-	width: 1300px;
+	width: 1420px;
 	margin: 0px auto;
 	margin-top: 35px;
+	
 }
 
 .menuTitle {
-	font-size: 30px;
+	font-size: 20px;
 	text-align: center;
 }
 
@@ -50,7 +48,7 @@ section {
 }
 
 .nowWatchType {
-	border: 2px solid #ff7f00;
+	border: 2px solid #ff8002;
 	position: absolute;
 	width: 246px;
 	top: -1px;
@@ -68,16 +66,15 @@ a {
 </style>
 
 	<div id="eventHeader">
-		<div class="container">
+		<div class="container" style="padding-bottom: 0px;">
 			<div class="menuTitle">이벤트</div>
 			<div class="eventSelect">
-				<div class="eventSelectType">
+				<div class="eventSelectType" :style="{'border-bottom' : endYn=='N' ? '1px solid white' : '1px solid #ccc'}">
 					<div class="nowWatchType" id="ingEventLine" hidden></div>
 					<a href="javascript:;" @click="fnSelect('N')">진행중인 이벤트</a>
 				</div>
 
-				<div class="eventSelectType"
-					style="border-bottom: 1px solid #ccc; margin-left: -1px;">
+				<div class="eventSelectType"  style="margin-left: -1px;" :style="{'border-bottom' : endYn=='Y' ? '1px solid white' : '1px solid #ccc'}"> <!-- :style="{border-bottom: endYn=='Y' ? 'none' : '1px solid #ccc'}" -->
 					<div class="nowWatchType" id="endEventLine" hidden></div>
 					<a href="javascript:;" @click="fnSelect('Y')">종료된 이벤트</a>
 				</div>

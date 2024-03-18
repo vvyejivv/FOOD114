@@ -299,6 +299,21 @@ public class CustomerServiceImpl implements CustomerService {
 		}
 		return resultMap;
 	}
+	//내 주문목록 불러오기	
+	@Override
+	public HashMap<String, Object> searchMyOrder(HashMap<String, Object> map) {
+		HashMap<String, Object> resultMap = new HashMap<>();
+		try {
+			Order order = customerMapper.selectMyOrder(map);
+			resultMap.put("result", "success");
+			resultMap.put("order", order);			
+		} catch (Exception e) {
+			// TODO: handle exception
+			resultMap.put("result", "error");
+			System.out.println(e.getMessage());
+		}
+		return resultMap;
+	}
 
 	
 }

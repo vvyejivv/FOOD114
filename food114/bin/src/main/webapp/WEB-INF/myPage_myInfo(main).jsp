@@ -4,6 +4,7 @@
 <html lang="en">
 
 <head>
+<link rel="stylesheet" href="../css/food114.css">
 <script src="js/jquery.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <meta charset="UTF-8">
@@ -12,7 +13,6 @@
 <style>
 [v-cloak] { display: none; }
 
-@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 /* 모달 스타일링 */
 .modal {
 	/* display: none; */
@@ -63,7 +63,7 @@ body {
 	height: 200px;
 	border-radius: 10px;
 	position: fixed;
-	top: 50%;
+	top: 40%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	background-color: white;
@@ -76,7 +76,7 @@ body {
 	border: none;
 	background-color: white;
 	font-size: 14px;
-	color: rgb(161, 1, 161);
+	color: #ff8002;
 	font-weight: bold;
 	float: none;
 	cursor: pointer;
@@ -84,12 +84,12 @@ body {
 	margin-top: 15px;
 }
 
-.modalButton:hover {
-	/* color: white; */
+/* .modalButton:hover {
+	 color: white;
 	color: #ff7f00;
 	font-size: 14px;
 	font-weight: bold;
-}
+} */
 
 .modalCancel {
 	border: none;
@@ -138,23 +138,21 @@ input[type='text']:focus {
 	margin: 10px;
 	margin-top: 15px;
 }
+
+
 </style>
 </head>
-<link rel="stylesheet" href="../css/myPage_myInfo(main).css">
 <body>
-
-	<header>
-		<%@include file="main(header).html"%>
-	</header>
+	<div id="Container" >
+			<%@include file="food114_header.jsp"%>
 
 	<section>
-
-		<div class="container">
+		<div style="width: 1420px; display: flex; margin: 0px auto;">
 			<%@include file="myPage_header.jsp"%>
 			<div id="app" v-cloak>
-				<div class="content" style="width: 900px;">
+				<div class="content">
 					<h2>
-						<a href="javascript:;" style="font-size: 25px; color: #747171;">
+						<a style="font-size: 25px; color: #747171;">
 							<span style="color: #ff7f00; font-weight: bold;">| </span>MY정보
 							확인/변경
 						</a>
@@ -167,8 +165,8 @@ input[type='text']:focus {
 							</div>
 							<div class="row">
 								<div class="cell1">이름</div>
-								<div class="cell2">
-									{{info.name}}
+								<div class="cell2"><div style="width:fit-content;">
+									{{info.name}}</div>
 									<button class="buttonSubmit" @click="openNameModal('name')">이름
 										변경</button>
 								</div>
@@ -255,13 +253,13 @@ input[type='text']:focus {
 								</div>
 							</div>
 
-							<div class="row">
+							<div class="row" >
 								<div class="cell1">회원가입일자</div>
 								<div class="cell2">{{info.cdate}}</div>
 							</div>
-							<div class="row">
+							<div class="row" style="justify-content: flex-end; align-items: center">
 								<div
-									style="margin-top: 10px; margin-left: 520px; right; font-size: 13px; color: #747171;">
+									style="font-size: 13px; color: #747171;">
 									탈퇴를 원하시면 우측의 회원탈퇴 버튼을 눌러주세요.&nbsp; <a href="javascript:;"><span
 										class="span" @click="fnLeave">회원탈퇴</span></a>
 								</div>
@@ -271,9 +269,11 @@ input[type='text']:focus {
 				</div>
 			</div>
 		</div>
+		
 	</section>
 
-	<%@include file="main(footer).html"%>
+	<%@include file="food114_footer.jsp"%>
+	</div>
 </body>
 
 <script type="text/javascript">
