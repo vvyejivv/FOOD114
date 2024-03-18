@@ -15,68 +15,68 @@
 </head>
 <style>
 </style>
-<body>
+<body style="margin: 0px;">
 	<header>
-		<%@include file="main(header).html"%>
+		<%@include file="food114_header.jsp"%>
 	</header>
 	<%@include file="shopInfo_header.jsp"%>
-	<div id="app">
+	<div id="app" v-cloak style="width: 1920px; margin: 0px auto;">
 		<section>
-			<div id="menuContainer">
-				<div id="reviewContainer">
-					<div id="reviewList">
-						<!-- 리뷰 작성 -->
-						<template v-for="item in review">
-							<div class="reviewSetBox">
-								<div class="reviewBox">
-									<!-- 고객  -->
-									<div class="userPhoto">
-										<img src="../img/기본_프로필.jpg">
-									</div>
-									<div class="userInfo">
-										<div class="userInfoBox">
-											<div class="userId">{{item.userId}}님</div>
-											<div class="reviewDate">{{item.userReviewDate}}</div>
-												<div class="starRating"
-													style="font-size: 12px; color: #ffcc00;">
-													<span v-if="item.raiting >= 1">★</span> <span v-else>☆</span>
-													<span v-if="item.raiting >= 2">★</span> <span v-else>☆</span>
-													<span v-if="item.raiting >= 3">★</span> <span v-else>☆</span>
-													<span v-if="item.raiting >= 4">★</span> <span v-else>☆</span>
-													<span v-if="item.raiting >= 5">★</span> <span v-else>☆</span>
-												</div>
-												
-											<div class="reviewContents">
-												<div class="reviewMenu">메뉴 : {{item.menuList}}</div>
-												<div class="foodContents">{{item.userReview}}</div>
-											</div>
-										</div>
-										<div class="reviewImg">
-											<img :src="item.path">
-										</div>
-									</div>
-								</div>
-								<div class="reviewBox" v-if="item.shopCmt">
-									<!-- 가게  -->
-									<div class="userPhoto">
-									<!-- 	<img src="../img/기본_프로필.jpg"> -->
-									</div>
-									<div class="userInfo">
-										<div class="userInfoBox">
-											<div class="userId">{{item.bizId}}님</div>
-											<div class="shop_reviewDate">{{item.shopCmtDate}}</div>
-											<div class="reviewContents">									
-												<div class="shopContents">{{item.shopCmt}}</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</template>
-					</div>
+		<!-- 리뷰 -->
+        <div style="width: 1420px; margin: 0px auto;">
+            <!-- 고객 리뷰  -->
+            <div style="width: 1420px; display: flex;" v-for="item in review">
+                <!-- 고객프로필 사진 -->
+                <div style="width: 92px; height: 92px; border-radius: 999px; margin : 20px 20px;">
+                    <img src="../img/기본_프로필.jpg" style="width: 92px; height: 92px; border-radius: 999px;">
+                </div>
+                <!-- 고객 리뷰 내용 -->
+                <div style="width: 1268px; margin : 20px 0px 20px 0px;" >
+                    <div style="width: 1268px;">
+                        <div style="width: 1268px; height: 50px; margin-bottom: 20px;">
+                            <!-- 날짜 -->
+                            <div style="font-size: 14px; line-height: 14px; color: #9E9E9E; float: right; right: 0px; bottom: 0px;">{{item.userReviewDate}}</div>
+                            <!-- 고객이름 / 별점-->
+                            <div style="width: fit-content; height: 17px; display: flex; margin-bottom: 15px;">
+                                <div style="width: fit-content; margin-right: 15px; line-height: 17px; color: #000000; font-size: 17px;">{{item.userId}}님</div>
+                                <div style="width: 78.83; height: 13.47px; margin-right: 2px;"><img src="../img/star.png"></div>
+                                <div style="width: 78.83; height: 13.47px; margin-right: 2px;"><img src="../img/star.png"></div>
+                                <div style="width: 78.83; height: 13.47px; margin-right: 2px;"><img src="../img/star.png"></div>
+                                <div style="width: 78.83; height: 13.47px; margin-right: 2px;"><img src="../img/star.png"></div>
+                                <div style="width: 78.83; height: 13.47px; margin-right: 2px;"><img src="../img/star_gray.png"></div>
+                            </div>
+                            <!-- 메뉴 -->
+                            <div style="width: fit-content;; height:14px; line-height: 14px; font-size: 14px; color: #9E9E9E;">{{item.menuList}}</div>
+                        </div>
+                        <!-- 리뷰 내용 -->
+                        <div style="width: 1268px; border: 1px solid #EDEDED; border-radius: 10px; margin-bottom: 20px;">
+                            <!-- 리뷰사진 -->
+                            <div style="width: 300px; height: 300px; margin: 20px 20px;"><img src="../img/메가커피_리뷰사진.jpg" style="width: 300px; height: 300px;"></div>
+                            <!-- 리뷰 글 -->
+                            <div style="width: fit-content; line-height: 14px; font-size: 14px; color: #5F5F5F; margin: 0px 0px 20px 20px;">{{item.userReview}}</div>
+                        </div>
+                        <!-- 사장님 답글 -->
+                        <div style="width: 1228px; border: 1px solid #EDEDED; border-radius: 10px; padding: 20px 20px;" v-if="item.shopCmt">
+                            <div style="width: 1228px; height: 24px; display: flex; margin-bottom: 15px; justify-content: space-between;">
+                                <div style="width: fit-content; display: flex;">
+                                    <div style="width: 24px; height: 24px;"><img src="../img/리뷰답글아이콘.png" style="width: 24px; height: 24px;"></div>
+                                    <div style="width: fit-content; line-height: 17px; color: #000000; font-size: 17px; margin: 3.5px 0px 3.5px 10px;">{{item.bizId}}</div>
+                                </div>
+                                <!-- 날짜 -->
+                                <div style="font-size: 14px; line-height: 14px; color: #9E9E9E;">{{item.shopCmtDate}}</div>
+                            </div>
+                            <div style="width: 893px; padding-left: 34px;">
+                                <div style="color:#5F5F5F; width: fit-content; line-height: 20px;">{{item.shopCmt}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-				</div>
-			</div>
+
+         
+   
+        </div>
 		</section>
 	</div>
 

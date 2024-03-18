@@ -28,6 +28,9 @@ public interface BoardMapper {
 
 	// 이벤트 상세보기
 	Board selectEventView(HashMap<String, Object> map);
+	// 가게 이벤트 상세보기
+	Board selectShopEvent(HashMap<String, Object> map);
+	
 	
 	// biz 이벤트 목록 select
 	List<Board> selectBizEventList(HashMap<String, Object> map);
