@@ -140,7 +140,29 @@ body {
 }
 .addrSelectDiv{
 	margin: none;
-	
+}
+.addrUpdate{
+	width: 60px;
+	height: 30px;
+	border: 1px solid #ff7f00;
+	background-color: white;
+	border-radius: 3px;
+	font-size: 11px;
+	line-height: 30px;
+	color: #ff7f00;
+	margin: 5px;
+	cursor: pointer;
+	display: inline-block;
+	text-align: center;
+	line-height: 18px;
+	vertical-align: middle;
+	padding : 0 10px;
+	margin-top: 7px; 
+}
+.addrUpdate:hover{
+	border: 1px solid #ff7f00;
+	background-color: #ff7f00;
+	color: white;
 }
 .sidebar {
 	margin: 10px;
@@ -247,4 +269,84 @@ input[type='password']:focus {
 .newTableContainer{
 	overflow-y: auto; 
 	max-height: 500px;
+}
+
+
+/* 모달 추가 css */
+.modal-backdrop {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 1000;
+}
+
+.modal-content {
+	margin-bottom: 10px;
+	width: 400px;
+	height: 200px;
+	border-radius: 10px;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: white;
+	padding: 20px;
+	z-index: 1001;
+	text-align: center;
+}
+.modalButton {
+	border: none;
+	background-color: white;
+	font-size: 14px;
+	color: rgb(161, 1, 161);
+	font-weight: bold;
+	float: none;
+	cursor: pointer;
+	margin: 10px;
+	margin-top: 15px;
+}
+
+.modalButton:hover {
+	/* color: white; */
+	color: #ff7f00;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.modalCancel {
+	border: none;
+	background-color: white;
+	font-size: 14px;
+	font-weight: bold;
+	color: rgb(72, 72, 72);
+	cursor: pointer;
+	margin: 10px;
+	margin-top: 15px;
+}
+
+.modalCancel:hover {
+	color: rgb(72, 72, 72);
+	font-weight: bold;
+}
+
+.modalInput {
+	width: 300px;
+	height: 30px;
+	border: 1px solid #f9f9f9;
+	background-color: #f9f9f9;
+	border-radius: 4px;
+	padding: 5px 15px;
+}
+
+input[type="text"] {
+	border: none;
+	margin-left: 10px;
+	margin : 3px;
+}
+
+input[type="text"]:focus {
+	outline: none;
 }

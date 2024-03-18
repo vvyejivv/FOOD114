@@ -170,6 +170,15 @@ public class CustomerController {
 		return new Gson().toJson(resultMap);
 	}
 	
+	// myInfo - my주소지 관리 - 주소지 수정
+	@RequestMapping(value = "/updateAddr.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String updateAddr(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = customerService.editAddr(map);
+		return new Gson().toJson(resultMap);
+	}
+	
 	
 	// 마이페이지 - 나의정보 - 등급
 	@RequestMapping("/myInfoGrade.do")

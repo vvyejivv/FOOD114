@@ -7,4 +7,5 @@ public class Addr {
 	private String oldAddr;
 	private String newAddr;
 	private String detail;
+	private String defaultYn;
 }

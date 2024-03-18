@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import teamProject.food114.mapper.CustomerMapper;
 import teamProject.food114.model.Addr;
 import teamProject.food114.model.Customer;
+import teamProject.food114.model.CustomerAddr;
 import teamProject.food114.model.Order;
 
 @Service
@@ -190,7 +191,7 @@ public class CustomerServiceImpl implements CustomerService {
 		// TODO Auto-generated method stub
 		HashMap<String, Object> resultMap = new HashMap<>();
 		try {
-			List<Addr> Addr = customerMapper.selectMyInfoAddr(map);
+			List<CustomerAddr> Addr = customerMapper.selectMyInfoAddr(map);
 			resultMap.put("result", "success");
 			resultMap.put("list", Addr);
 		} catch (Exception e) {
@@ -268,7 +269,7 @@ public class CustomerServiceImpl implements CustomerService {
 		return resultMap;
 	}
 
-//  myInfo - my주소지 관리 - 주소지 삭제
+	//  myInfo - my주소지 관리 - 주소지 삭제
 	@Override
 	public HashMap<String, Object> deleteAddr(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
@@ -279,6 +280,22 @@ public class CustomerServiceImpl implements CustomerService {
 		} catch (Exception e) {
 			// TODO: handle exception
 			resultMap.put("result", "fail");
+		}
+		return resultMap;
+	}
+
+	// myInfo - my주소지 관리 - 수정  : 주소, 휴대폰번호, 배송요청사항
+	@Override
+	public HashMap<String, Object> editAddr(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> resultMap = new HashMap<>();
+		try {
+			customerMapper.updateAddr(map);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			// TODO: handle exception
+			resultMap.put("result", "error");
+			System.out.println(e.getMessage());
 		}
 		return resultMap;
 	}

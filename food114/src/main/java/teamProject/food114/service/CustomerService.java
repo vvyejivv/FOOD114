@@ -44,4 +44,8 @@ public interface CustomerService {
 	
 	// myInfo - my주소지 관리 - 주소지 추가 
 	HashMap<String, Object> insertAddr(HashMap<String, Object> map);
+	
+	// myInfo - my주소지 관리 - 기본주소지 Y
+	HashMap<String, Object> editAddr(HashMap<String, Object> map);
+	
 }
