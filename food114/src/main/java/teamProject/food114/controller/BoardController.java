@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 //github.com/dlehdwo01/TeamProject1-FOOD114.git
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,10 @@ public class BoardController {
 
 	@Autowired
 	BoardService boardService;
-
+	
+	@Autowired
+	HttpSession session;
+	
 	// 웹 주관 이벤트 페이지
 	@RequestMapping("/event-web-list.do")
 	public String eventWeb(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
@@ -124,6 +128,9 @@ public class BoardController {
 
 	@RequestMapping("/bizEvent.do")
 	public String bizEvent(Model model) throws Exception {
+		if(session.getAttribute("sessionBizId")==null) {
+			return "redirect:/nosession.do";
+		}
 		return "/bizEvent"; // bizEvent.jsp
 	}
 
@@ -138,6 +145,9 @@ public class BoardController {
 	@RequestMapping("/bizEvent_info.do")
 	public String bizEvent_info(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
+		if(session.getAttribute("sessionBizId")==null) {
+			return "redirect:/nosession.do";
+		}
 		request.setAttribute("map", map);
 		return "/bizEvent_info"; // bizEvent_info.jsp
 	}

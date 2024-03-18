@@ -158,11 +158,17 @@ public class BizController {
 
 	@RequestMapping("/biz-sales.do")
 	public String bizSales(Model model) throws Exception {
+		if(session.getAttribute("sessionBizId")==null) {
+			return "redirect:/nosession.do";
+		}
 		return "/biz_sales_data"; // biz_sales_data.jsp
 	}	
 
 	@RequestMapping("/bizOrder.do")
 	public String bizOrder(Model model) throws Exception {
+		if(session.getAttribute("sessionBizId")==null) {
+			return "redirect:/nosession.do";
+		}
 		return "/bizOrder"; // bizOrder.jsp
 	}
 
