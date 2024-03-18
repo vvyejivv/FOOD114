@@ -246,10 +246,6 @@ button img {
 		methods : {
 			fnMenuUpload : function(){
 	       		var self = this;
-	       		if(!self.sessionId){
-					$.pageChange("/bizLogin.do", {});
-					return;
-				}
 				var form = new FormData();
 				var fileInput = document.getElementById('file1');
 			    if (fileInput.files.length > 0) {

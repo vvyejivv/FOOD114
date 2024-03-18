@@ -166,10 +166,6 @@ input[type="checkbox"], .btn-modify {
 		methods : {
 			fnMenuList : function() {
 				var self = this;
-				if(!self.sessionId){
-					$.pageChange("/bizLogin.do", {});
-					return;
-				}
 				var nparmap = {
 					bizId : self.sessionId						
 				};

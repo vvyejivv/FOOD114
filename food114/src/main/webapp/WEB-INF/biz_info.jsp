@@ -377,10 +377,6 @@ section {
 					// 휴대폰 인증번호 기입 후 확인시
 					fnPhoneConfirm : function() {
 						var self = this;
-						if(!self.sessionId){
-							$.pageChange("/bizLogin.do", {});
-							return;
-						}
 						if (self.phoneConfirmInputNum == self.phoneConfirmNum) {
 							self.phoneFlg = true;
 							self.inputPhoneCheckFlg = false;
@@ -392,10 +388,6 @@ section {
 					// 휴대폰 인증 클릭시
 					fnPhoneCheck : function() {
 						var self = this;
-						if(!self.sessionId){
-							$.pageChange("/bizLogin.do", {});
-							return;
-						}
 						let phone = /^(010|011)[0-9]{7,8}$/
 						if (!phone.test(self.bizInfo.phone)) {
 							alert("휴대폰번호를 제대로 입력해주세요.");
@@ -424,10 +416,6 @@ section {
 					// 수정버튼 클릭시
 					fnInfoUpdateComplete : function() {
 						var self = this;
-						if(!self.sessionId){
-							$.pageChange("/bizLogin.do", {});
-							return;
-						}
 						if (self.bizInfo.bizName == ""
 								|| self.bizInfo.ownerName == ""
 								|| self.bizInfo.accountNumber == ""
@@ -470,19 +458,11 @@ section {
 					// 정보 변경하기 클릭시
 					fnInfoUpdate : function() {
 						var self = this;
-						if(!self.sessionId){
-							$.pageChange("/bizLogin.do", {});
-							return;
-						}
 						self.updateFlg = true;
 					},
 					// 사용자 정보 불러오기
 					fnBizView : function() {
 						var self = this;
-						if(!self.sessionId){
-							$.pageChange("/bizLogin.do", {});
-							return;
-						}
 						var nparmap = {
 							bizId : self.sessionId
 						};
@@ -533,10 +513,6 @@ section {
 					,
 					upload : function(form) {
 						var self = this;
-						if(!self.sessionId){
-							$.pageChange("/bizLogin.do", {});
-							return;
-						}
 						$.ajax({
 							url : "/fileUpload.dox",
 							type : "POST",
@@ -551,10 +527,6 @@ section {
 					// select 내용들 db에서 가져오기
 					fnSelectAll : function() {
 						var self = this;
-						if(!self.sessionId){
-							$.pageChange("/bizLogin.do", {});
-							return;
-						}
 						var nparmap = {};
 						$.ajax({
 							url : "selectAll.dox",
@@ -571,10 +543,6 @@ section {
 					// 이미지만 새로고침
 					fnBizFileView : function() {
 						var self = this;
-						if(!self.sessionId){
-							$.pageChange("/bizLogin.do", {});
-							return;
-						}
 						var nparmap = {
 							bizId : self.sessionId
 						};

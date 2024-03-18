@@ -5,7 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="../css/main.css">
 <link rel="stylesheet" href="../css/map.css">
 <script src="js/jquery.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -32,7 +31,7 @@
 .map_wrap {
 	position: relative;
 	width: 1470px;
-	height: 820px;
+	height: 890px;
 	padding-left: 432px;
 	margin: 0px auto;
 }
@@ -220,6 +219,7 @@ ul, ol {
 	height: 50px;
 	font-size: 18px;
 	font-weight: bold;
+	line-height:30px;
 }
 
 .none_select_button {
@@ -231,6 +231,7 @@ ul, ol {
 	height: 50px;
 	font-size: 18px;
 	font-weight: bold;
+	line-height:30px;
 }
 
 #menu_view {
@@ -279,9 +280,11 @@ ul, ol {
 	color:#777;
 }
 </style>
+<link rel="stylesheet" href="../css/food114.css">
 </head>
 <body>
-	<%@include file="main(header).html"%>
+	<div id="Container">
+	<%@include file="food114_header.jsp"%>
 
 	<div id="app" v-cloak>
 		<section>
@@ -320,7 +323,7 @@ ul, ol {
 							<div style="font-size:15px; margin-left:25px; margin-top:10px;">{{restView.contents}}</div>
 						</div>
 						<div style="width:100%; text-align:center;">
-							<button @click="fnShopInfo()" class="plusBtn">정보 더보기 ❯</button>
+							<button @click="fnShopInfo(restView.bizId)" class="plusBtn">정보 더보기 ❯</button>
 						</div>
 					</div>
 				</div>
@@ -401,7 +404,7 @@ ul, ol {
 			</div>
 		</section>
 	</div>
-	<%@include file="main(footer).html"%>
+	<%@include file="food114_footer.jsp"%>
 
 	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	<script type="text/javascript"
@@ -459,6 +462,11 @@ ul, ol {
         var distance = R * c; // 두 지점 사이의 거리 (단위: km)
         return distance * 1000; // 거리를 미터로 변환하여 반환
     }
+    
+    function goToPage(bizId){
+    	$.pageChangeBlank("/shopInfo.do", {bizId : bizId});
+    }
+    
 		var app = new Vue({
 			el: '#app',
 			data: {
@@ -622,7 +630,7 @@ ul, ol {
 				    self.map.setLevel(4);
 				    console.log(self.areaRestList);
 				    for(var i = 0; i < self.areaRestList.length; i++){
-				    	self.searchAddMarkers(self.areaRestList[i].newAddr, self.areaRestList[i].bizName);
+				    	self.searchAddMarkers(self.areaRestList[i].newAddr, self.areaRestList[i].bizName, self.areaRestList[i].bizId);
 				    }
 				},
 				searchSetCenter : function(latitude, longitude) {
@@ -688,10 +696,10 @@ ul, ol {
 		                    
 		                    // 오버레이 내용 설정
 		                    var overlayContent = '<div class="customoverlay">' +
-	    								'  <a href="/shopInfo.do" target="_blank">' +
-	    								'    <span class="title">'+place.bizName+'</span>' +
-	    								'  </a>' +
-	   									'</div>';
+		                     '  <a href="javascript:;" onclick="goToPage(\'' + place.bizId + '\')">' +
+		                     '    <span class="title">' + place.bizName + '</span>' +
+		                     '  </a>' +
+		                     '</div>';
 		                    var overlay = new kakao.maps.CustomOverlay({
 		                        content: overlayContent, // 오버레이에 표시할 내용
 		                        map: self.map, // 오버레이를 표시할 지도
@@ -707,7 +715,7 @@ ul, ol {
 		                            overlay.setMap(null); // 오버레이를 지도에서 숨김
 		                            isOverlayVisible = false; // 오버레이가 숨겨진 상태로 설정
 		                        }
-		                    });
+		                    });		                    
 		                    overlay.setMap(null);
 		                    marker.setMap(self.map); // 마커를 지도에 표시
 		                    self.markers.push(marker);
@@ -760,10 +768,10 @@ ul, ol {
 				            
 				            // 오버레이 내용 설정
 				            var overlayContent = '<div class="customoverlay">' +
-				                        '  <a href="/shopInfo.do" target="_blank">' +
-				                        '    <span class="title">'+place.bizName+'</span>' +
-				                        '  </a>' +
-				                        '</div>';
+		                     '  <a href="javascript:;" onclick="goToPage(\'' + place.bizId + '\')">' +
+		                     '    <span class="title">' + place.bizName + '</span>' +
+		                     '  </a>' +
+		                     '</div>';
 				            var overlay = new kakao.maps.CustomOverlay({
 				                content: overlayContent, // 오버레이에 표시할 내용
 				                map: self.map, // 오버레이를 표시할 지도
@@ -790,7 +798,7 @@ ul, ol {
 				    })
 				},
 				// 검색된 지역에 해당하는 가게들 마커찍기
-				searchAddMarkers : function (searchedLocation,bizName) {
+				searchAddMarkers : function (searchedLocation,bizName,bizId) {
 				    var self = this;
 				    
 				    var markerImage = new kakao.maps.MarkerImage('../img/free-icon-restaurant-4551357.png',
@@ -810,10 +818,10 @@ ul, ol {
 
 				            // 오버레이 내용 설정
 				            var overlayContent = '<div class="customoverlay">' +
-				                '  <a href="/shopInfo.do" target="_blank">' +
-				                '    <span class="title">' + bizName + '</span>' +
-				                '  </a>' +
-				                '</div>';
+		                     '  <a href="javascript:;" onclick="goToPage(\'' + bizId + '\')">' +
+		                     '    <span class="title">' + bizName + '</span>' +
+		                     '  </a>' +
+		                     '</div>';
 				            var overlay = new kakao.maps.CustomOverlay({
 				                content: overlayContent,
 				                map: self.map,
@@ -893,7 +901,7 @@ ul, ol {
 							    self.overlays = [];
 							    
 							    for(var i = 0; i < self.areaRestList.length; i++){
-							    	self.searchAddMarkers(self.areaRestList[i].newAddr, self.areaRestList[i].bizName);
+							    	self.searchAddMarkers(self.areaRestList[i].newAddr, self.areaRestList[i].bizName, self.areaRestList[i].bizId);
 							    }
 							    self.map.setCenter(moveLatLon);
 							    self.map.setLevel(4);
@@ -907,8 +915,8 @@ ul, ol {
 				    menuView.style.transition = "left 0.5s ease"; // 슬라이드 효과를 위한 CSS transition 속성 적용
 				    menuView.style.left = "0";
 				},
-			  fnShopInfo: function() {
-				  window.open('/shopInfo.do');
+			  fnShopInfo: function(bizId) {
+				  $.pageChangeBlank("/shopInfo.do", {bizId : bizId});
 			  }
 			},
 			mounted() {
@@ -925,5 +933,6 @@ ul, ol {
 			}
 		});
 	</script>
+	</div>
 </body>
 </html>

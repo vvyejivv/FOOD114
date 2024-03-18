@@ -205,20 +205,6 @@ button img {
 				</div>
 				<div class="inputBox">
 					<div class="inputDiv">
-						카테고리<small><small style="color: #ff7f00;"> ＊ </small></small>
-					</div>
-					<button class="cateBtn">카테고리 검색</button>
-					<button class="subCateBtn">카테고리 선택</button>
-					<div>
-						<button class="searchIcon">
-							<img src="../img/magnifying-glass-gray-solid.png">
-						</button>
-						<input type="text" class="cate_input" placeholder="카테고리명 입력"
-							disabled>
-					</div>
-				</div>
-				<div class="inputBox">
-					<div class="inputDiv">
 						가격<small><small style="color: #ff7f00;"> ＊ </small></small>
 					</div>
 					<input type="text" v-model="menuView.price" class="mod_input"
@@ -284,10 +270,6 @@ button img {
 		methods : {
 			fnMenuView : function() {
 				var self = this;
-				if(!self.sessionId){
-					$.pageChange("/bizLogin.do", {});
-					return;
-				}
 				var nparmap = {
 					menuNo : self.menuNo						
 				};
@@ -303,10 +285,6 @@ button img {
 			},
 			fnMenuUpdate : function(){
 				var self = this;
-				if(!self.sessionId){
-					$.pageChange("/bizLogin.do", {});
-					return;
-				}
 				var form = new FormData();
 				var fileInput = document.getElementById('file1');
 			    if (fileInput.files.length > 0) {
