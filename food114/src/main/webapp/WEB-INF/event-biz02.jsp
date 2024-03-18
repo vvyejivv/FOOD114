@@ -55,6 +55,7 @@
 	font-size: 14px;
 	line-height: 14px;
 	border-radius: 8px;
+	cursor: pointer;
 }
 
 .addrSearch {
@@ -174,8 +175,10 @@
 				<div class="topSection">
 					<div id="title">우리 동네 이벤트</div>
 					<div id="addrContainer">
-						<input id="addrInput" placeholder="주소를 입력해 주세요." v-model="inputAddr">
-						<button class="addrSearchBtn addrSearch">주소 검색하기</button>
+						<input id="addrInput" placeholder="주소를 입력해 주세요."
+							disabled="disabled" v-model="map.inputAddr">
+						<button class="addrSearchBtn addrSearch" @click="openAddressSearch"
+							>주소 검색하기</button>
 						<button class="addrSearchBtn addrLoad">내 주소지 불러오기</button>
 					</div>
 				</div>
@@ -189,7 +192,7 @@
 					</div>
 					<div id="bizListContainer">
 						<div id="bizListGrid">
-							<div v-for="item in 9" class="bizBox">
+							<div v-for="item in 5" class="bizBox">
 								<div class="bizBoxContent">
 									<img src="../image/yu3.jpg">
 
@@ -238,7 +241,7 @@
 			</div>
 
 		</div>
-	<%@include file="food114_footer.jsp"%>
+		<%@include file="food114_footer.jsp"%>
 	</div>
 </body>
 </html>
@@ -255,41 +258,47 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     var distance = R * c; // 두 지점 사이의 거리 (단위: km)
     return distance * 1000; // 거리를 미터로 변환하여 반환
-}
+};
+
 	var app = new Vue({
 		el : '#app',
 		data : {
-			categoryList : [], // 카테고리 리스트			
-			sortType : "기본 정렬 순", // 정렬
-			showAddr : false, // 현재 아이디의 주소 목록 보이기 여부
-			addrList : [], // 현재 아이디의 주소 목록
-			addrNo : "",
-			oldAddr : "",
-			newAddr : "",
-			bizInfo : [],
-			sessionId : "${sessionId}", // 현재 로그인된 아이디
-			nowCategory : "${map.category}", // 현재 선택된 카테고리
-			inputAddr : "${map.inputAddr}",
-			latitude : "${map.latitude}",
-			longitude : "${map.longitude}",
-			bizBaedalOk : [],
-			order : "",
-			searchFlg : ${map.flg}
-			
-			
+			map : {
+				inputAddr : "",
+				nowCategory : "%%",
+				order : "",
+				latitude : "",
+				longitude : ""
+			},
+			list : {
+				bizBaedalOkList : [] 
+			}
+		
 		},
+		
 		methods : {
-			fnBizView : function(map){
-				var self=this;
-				$.pageChange("/shopInfo.do", map);				
+			// 해당 주소의 위도 경도 구하기
+			convertAddressToCoordinates : function(addr) {
+				var self = this;
+				// 주소-좌표 변환 객체를 생성합니다
+				var geocoder = new kakao.maps.services.Geocoder();
+				var callback = function(result, status) {
+				if (status === kakao.maps.services.Status.OK) {
+					self.map.latitude = result[0].y;
+					self.map.longitude = result[0].x;
+					console.log("1."+self.map.latitude);
+					console.log("1."+self.map.longitude);
+				}
+				};
+				geocoder.addressSearch(addr,callback);
 			},
 			// 배달가능한 가게목록 전체
 			fnList : function() {
 				var self=this;
 				console.log(self.searchFlg);
 				var nparmap = {
-						category : self.nowCategory,
-						order : self.order
+						category : self.map.nowCategory,
+						order : self.map.order
 				};
 				$.ajax({
 					url : "baedalok.dox",
@@ -297,168 +306,58 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 					type : "POST",
 					data : nparmap,
 					success : function(data) {
+						console.log(data);
 						self.bizInfo = data.list;
 						if(self.latitude!="" && self.longitude!=""){
 							self.fnBaedalOk();
 						}
+						
 					}
 				});
 			},
+			/* 배달 가능한 가게 리스트 채우기 */
 			fnBaedalOk : function () {
 				var self=this;
-				self.bizBaedalOk=[];
-				self.searchFlg=true;
+				self.list.bizBaedalOkList=[];
 				
 	                self.bizInfo.forEach(function (item) {
 	                	
 	                 	// 현재 위치와 각 장소의 위치 사이의 거리를 계산합니다.
-	                    var distance = calculateDistance(self.latitude, self.longitude, item.latitude, item.longitude);
+	                    var distance = calculateDistance(self.map.latitude, self.map.longitude, item.latitude, item.longitude);
 	                    
 	                 	// 반경 내에 있는지 확인 후 배달가능리스트 push
 	                    if (distance <= item.range) {
-	                    	self.bizBaedalOk.push(item);
+	                    	self.list.bizBaedalOkList.push(item);
 	                    }
 	                })
-	                console.log(self.bizBaedalOk);
-			}
-			,
-			// 해당 주소의 위도 경도 구하기
-			convertAddressToCoordinates : function(addr) {
+			},
+			//주소조회 api
+			openAddressSearch : function() {
 				var self = this;
-				// 주소-좌표 변환 객체를 생성합니다
-				var geocoder = new kakao.maps.services.Geocoder();
-						var callback = function(result, status) {
-							if (status === kakao.maps.services.Status.OK) {
-								self.latitude = result[0].y;
-								self.longitude = result[0].x;
-								console.log("1."+self.latitude);
-								console.log("1."+self.longitude);
-							}
-						};
-						geocoder.addressSearch(addr,callback);
-						
-						console.log("2."+self.latitude);
-					},
-					//주소조회 api
-					openAddressSearch : function() {
-						var self = this;
-						new daum.Postcode(
-								{
-									oncomplete : function(data) {
-										self.oldAddr = data.jibunAddress != "" ? data.jibunAddress
-												: data.autoJibunAddress;
-										self.inputAddr = data.roadAddress;
-										self.newAddr = data.roadAddress;
-										self
-												.convertAddressToCoordinates(data.address);
-										
-									}
-								}).open();
-					},
-					fnAddrClick : function() {
-						alert("안녕");
-					},
-					/* 카테고리 목록 불러오기 */
-					fnCategoryList : function() {
-						var self = this;
-						var nparmap = {};
-						$.ajax({
-							url : "foodCategoryAll.dox",
-							dataType : "json",
-							type : "POST",
-							data : nparmap,
-							success : function(data) {
-								self.categoryList = data.categoryList;
-							}
-						});
-					},
-					/* 카테고리 선택시 */
-					fnCategorySelect : function(map) {
-						var self = this;
-						map["latitude"]=self.latitude;
-						map["longitude"]=self.longitude;
-						map["inputAddr"]=self.inputAddr;
-						$.pageChange("/food114_foodfind.do", map);
-					},
-					/* 사업자 리스트 불러오기 */
-					fnBizList : function() {
-						var self = this;
-						var nparmap = {};
-						$.ajax({
-							url : "a.dox",
-							dataType : "json",
-							type : "POST",
-							data : nparmap,
-							success : function(data) {
-								self.categoryList = data.categoryList;
-								console.log(self.categoryList);
-							}
-						});
-					},
-					/* 회원 주소 목록 불러오기 */
-					fnAddrList : function() {
-						var self = this;
-						var nparmap = {
-							userId : self.sessionId
-						};
-						$.ajax({
-							url : "consumerAddrList.dox",
-							dataType : "json",
-							type : "POST",
-							data : nparmap,
-							success : function(data) {
-								self.addrList = data.addrList;
-							}
-						});
-					},
-					fnAddrChange : function(){
-						var self=this;
-						console.log("변경");
-							
-						
-					},
-					/* 회원 주소 선택시 */
-					fnAddrSelect : function(idx) {
-						var self = this;
-						self.showAddr = false;
-						self.inputAddr = self.addrList[idx].newAddr;
-							
-										
-					},
-					fnPageChange : function(){
-						var self = this;
-					},
-					fnShowAddr : function() {
-						var self = this;
-						self.showAddr = true;
-					},
-					fnHiddenAddr : function() {
-						var self = this;
-						self.showAddr = false;
+				new daum.Postcode({
+					oncomplete : function(data) {
+						self.map.inputAddr = data.roadAddress;		
+						self.convertAddressToCoordinates(data.address);								
 					}
+				}).open();
+			}
+		},
+		watch: {
+		  inputAddr: function(newVal, oldVal) {
+			  var self=this;
+			  console.log("aa");
+			  self.convertAddressToCoordinates(self.map.inputAddr);
+			  setTimeout(function(){
+				  console.log(self.map.inputAddr);
+			  /* $.pageChange("/food114_foodfind.do", self.map); */
+			}, 100)	
+		  }
+		},
+		created : function() {
+			var self = this;
+			self.fnList();
+				
 
-				},
-				watch: {
-					  inputAddr: function(newVal, oldVal) {
-						  var self=this;
-					    return;
-					    self.convertAddressToCoordinates(self.inputAddr);
-						setTimeout(function(){
-							$.pageChange("/food114_foodfind.do", {
-								latitude : self.latitude,
-								longitude : self.longitude,
-								inputAddr : self.inputAddr,
-								category : self.nowCategory
-							});
-						}, 50)	
-					  }
-					},
-				created : function() {
-					var self = this;
-					self.fnList();
-					self.fnCategoryList();
-					self.fnAddrList();
-
-				}
+		}
 			});
 </script>

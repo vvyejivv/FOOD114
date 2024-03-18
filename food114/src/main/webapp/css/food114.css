@@ -15,10 +15,7 @@
 	font-family: 'Pretendard-Regular';
 }
 
-section{
-	height: 580px;
-	
-}
+
 ::-webkit-scrollbar-thumb {
 	border-radius: 10px;
 	/* 스크롤바 둥근 테두리 */
