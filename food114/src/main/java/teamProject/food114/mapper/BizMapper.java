@@ -9,6 +9,7 @@ import teamProject.food114.model.Area;
 import teamProject.food114.model.Biz;
 import teamProject.food114.model.BizFile;
 import teamProject.food114.model.Category;
+import teamProject.food114.model.Menu;
 
 
 @Mapper
@@ -46,6 +47,8 @@ public interface BizMapper {
 	Biz selectBizView(HashMap<String, Object> map); // 클릭한 식당 내용
 	List<Biz> selectBizListSearchByName(HashMap<String, Object> map); // 식당이름 검색 리스트 조회
 	List<Biz> selectBizDelivery(HashMap<String, Object> map); // 배달가능 식당리스트조회
+	List<Menu> selectMenuSample(HashMap<String, Object> map); // 식당 상세보기 샘플 메뉴리스트
+	Menu selectMenuTotalCount(HashMap<String, Object> map); // 식당 총 메뉴 갯수
 	
 }
 

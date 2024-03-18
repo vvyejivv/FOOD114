@@ -14,6 +14,7 @@ import teamProject.food114.mapper.CodeMapper;
 import teamProject.food114.model.Area;
 import teamProject.food114.model.Biz;
 import teamProject.food114.model.BizFile;
+import teamProject.food114.model.Menu;
 
 @Service
 public class BizServiceImpl implements BizService {
@@ -301,9 +302,13 @@ public class BizServiceImpl implements BizService {
 	public HashMap<String, Object> searchBizView(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
 		Biz restView = bizMapper.selectBizView(map);
+		List<Menu> menuSampleList = bizMapper.selectMenuSample(map);
+		Menu menuCnt = bizMapper.selectMenuTotalCount(map);
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		try {
 			resultMap.put("restView", restView);
+			resultMap.put("menuSampleList", menuSampleList);
+			resultMap.put("menuCnt", menuCnt);
 			resultMap.put("result", "success");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -334,6 +339,4 @@ public class BizServiceImpl implements BizService {
 		resultMap.put("list",bizMapper.selectBizDelivery(map));
 		return resultMap;
 	}
-
-
 }

@@ -461,4 +461,14 @@
 		(#{category})
 		${order}
 	</select>
+	
+	<select id="selectMenuSample" parameterType="hashmap"
+		resultType="teamProject.food114.model.Menu">
+		SELECT MENU, CONCAT(SUBSTRING(PRICE,1,1),',',SUBSTRING(PRICE,2)) AS PRICE, CONCAT(FILEPATH, FILENAME) AS PATH FROM FOOD114_MENU WHERE BIZID = #{bizId} LIMIT 4
+	</select>
+	
+	<select id="selectMenuTotalCount" parameterType="hashmap"
+		resultType="teamProject.food114.model.Menu">
+		SELECT COUNT(*) AS TOTALCNT FROM FOOD114_MENU WHERE BIZID = #{bizId}
+	</select>
 </mapper>

@@ -7,8 +7,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="../css/main.css">
-<link rel="stylesheet" href="../css/sideBar_biz.css">
+<link rel="stylesheet" href="../css/food114.css">
 <title>로그인</title>
 </head>
 <style>
@@ -160,7 +159,8 @@ button img {
 [v-cloak] { display: none; }
 </style>
 <body>
-	<%@include file="main(header)_biz.html"%>
+	<div id="Container">
+	<%@include file="food114_header.jsp"%>
 	<!-- 광고창 -->
 	<!-- <div class="ad">
         광고창
@@ -230,7 +230,8 @@ button img {
 			</div>
 		</div>
 	</section>
-	<%@include file="main(footer)_biz.html"%>
+	<%@include file="food114_footer.jsp"%>
+	</div>
 </body>
 
 </html>
@@ -246,6 +247,16 @@ button img {
 		methods : {
 			fnMenuUpload : function(){
 	       		var self = this;
+	       		if(!self.menu){
+	       			alert("메뉴이름을 작성해주세요.");
+	       			return;
+	       		} else if(!self.price){
+	       			alert("가격을 작성해주세요.");
+	       			return;
+	       		} else if(!self.menuInfo){
+	       			alert("메뉴설명을 작성해주세요.");
+	       			return;
+	       		}
 				var form = new FormData();
 				var fileInput = document.getElementById('file1');
 			    if (fileInput.files.length > 0) {

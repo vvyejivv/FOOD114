@@ -7,8 +7,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="../css/main.css">
-<link rel="stylesheet" href="../css/sideBar_biz.css">
+<link rel="stylesheet" href="../css/food114.css">
 <title>로그인</title>
 </head>
 <style>
@@ -80,7 +79,8 @@ input[type="checkbox"], .btn-modify {
 }
 </style>
 <body>
-	<%@include file="main(header)_biz.html"%>
+	<div id="Container">
+	<%@include file="food114_header.jsp"%>
 	<!-- 광고창 -->
 	<!-- <div class="ad">
         광고창
@@ -151,7 +151,8 @@ input[type="checkbox"], .btn-modify {
 			</div>
 		</div>
 	</section>
-	<%@include file="main(footer)_biz.html"%>
+	<%@include file="food114_footer.jsp"%>
+	</div>
 </body>
 
 </html>
