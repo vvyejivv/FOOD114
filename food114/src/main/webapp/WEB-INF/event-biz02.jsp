@@ -365,8 +365,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 			,
 			// 내 주소 불러오기
 			fnLoadMyAddr : function(){
-				var self=this;
-				
+				var self=this;				
 				var nparmap = {
 					userId : self.sessionId
 				}
@@ -382,8 +381,6 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 						}
 					}
 				});
-				
-				
 			},
 			// 페이지 체인지
 			fnPageChange : function(link,map){
