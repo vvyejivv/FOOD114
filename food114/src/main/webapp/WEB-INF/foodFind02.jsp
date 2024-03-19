@@ -179,7 +179,7 @@
 							disabled="disabled" v-model="map.inputAddr">
 						<button class="addrSearchBtn addrSearch"
 							@click="openAddressSearch">주소 검색하기</button>
-						<button class="addrSearchBtn addrLoad" @click="fnLoadMyAddr">내
+						<button class="addrSearchBtn addrLoad" @click="fnAddrClick">내
 							주소지 불러오기</button>
 					</div>
 				</div>
@@ -215,8 +215,15 @@
 
 					</div>
 				</div>
-				<div style="width: 1420px; margin: 0px auto; display: flex; gap:30px; justify-content: center;">
-				<a href="javascript:;" v-for="item in list.categoryList" style="color:#9e9e9e;" @click="map.nowCategory=item.categoryNo" :style="{color: map.nowCategory==item.categoryNo ? '#222222' : '#9e9e9e'}">{{item.categoryName}}</a>
+				<!-- 카테고리 -->
+				<div
+					style="width: 1420px; margin: 0px auto; display: flex; gap: 30px; justify-content: center;">
+					<a href="javascript:;" 
+						style="color: #9e9e9e;" @click="map.nowCategory='%%'"
+						:style="{color: map.nowCategory=='%%' ? '#222222' : '#9e9e9e'}">전체</a>
+					<a href="javascript:;" v-for="item in list.categoryList"
+						style="color: #9e9e9e;" @click="map.nowCategory=item.categoryNo"
+						:style="{color: map.nowCategory==item.categoryNo ? '#222222' : '#9e9e9e'}">{{item.categoryName}}</a>
 				</div>
 
 
@@ -371,8 +378,8 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 					"overflow-y" : "auto"
 				})
 			},
-			// 
-			fnLoadMyAddr : function(){
+			// 내 주소지 선택시
+			fnAddrClick : function(){
 				var self=this;
 				if(!self.sessionId){
 					alert("로그인 후 이용 가능합니다");
@@ -382,6 +389,11 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 				$("body").css({
 					"overflow" : "hidden"
 				})
+			}
+			,
+			// 내 주소 불러오기
+			fnLoadMyAddr : function(){
+				var self=this;				
 				var nparmap = {
 					userId : self.sessionId
 				}
@@ -392,12 +404,12 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 					data : nparmap,
 					success : function(data) {
 						self.list.addrList=data.list;
-						console.log(self.list.addrList);		
-						
-						
+						console.log(data);
+						if(self.map.inputAddr==""){
+						self.map.inputAddr=self.list.addrList[0].newAddr;
+						}
 					}
 				});
-				
 			},
 			// 페이지 체인지
 			fnPageChange : function(link,map){
@@ -499,6 +511,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 		},
 		created : function() {
 			var self = this;
+			self.fnLoadMyAddr();
 			self.fnCategoryList();
 			self.fnList();
 			console.log(self.sessionId);

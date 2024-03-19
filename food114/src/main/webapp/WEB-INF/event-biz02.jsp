@@ -179,7 +179,7 @@
 							disabled="disabled" v-model="map.inputAddr">
 						<button class="addrSearchBtn addrSearch"
 							@click="openAddressSearch">주소 검색하기</button>
-						<button class="addrSearchBtn addrLoad" @click="fnLoadMyAddr">내
+						<button class="addrSearchBtn addrLoad" @click="fnAddrClick">내
 							주소지 불러오기</button>
 					</div>
 				</div>
@@ -351,8 +351,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 					"overflow-y" : "auto"
 				})
 			},
-			// 
-			fnLoadMyAddr : function(){
+			fnAddrClick : function(){
 				var self=this;
 				if(!self.sessionId){
 					alert("로그인 후 이용 가능합니다");
@@ -362,6 +361,12 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 				$("body").css({
 					"overflow" : "hidden"
 				})
+			}
+			,
+			// 내 주소 불러오기
+			fnLoadMyAddr : function(){
+				var self=this;
+				
 				var nparmap = {
 					userId : self.sessionId
 				}
@@ -372,11 +377,12 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 					data : nparmap,
 					success : function(data) {
 						self.list.addrList=data.list;
-						console.log(self.list.addrList);		
-						
-						
+						if(self.map.inputAddr==""){
+						self.map.inputAddr=self.list.addrList[0].newAddr;
+						}
 					}
 				});
+				
 				
 			},
 			// 페이지 체인지
@@ -475,6 +481,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 		created : function() {
 			var self = this;
 			self.fnList();
+			self.fnLoadMyAddr();
 			console.log(self.sessionId);
 				
 

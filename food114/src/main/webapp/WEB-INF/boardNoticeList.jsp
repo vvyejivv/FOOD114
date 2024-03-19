@@ -15,17 +15,8 @@
 </head>
 <link rel="stylesheet" href="../css/boardNoticeList.css">
 <body>
- 	<header>
-		<%@include file="main(header).html"%>
-	</header> 
+		<%@include file="main(header)_biz.html"%>
 
-	<!-- 광고창 -->
-	<!--
-        <div class="ad">
-            광고창
-            <button class="adClose">x</button>
-        </div>
-    -->
 	<section>
 		<div id="app">
 			<div class="container">
