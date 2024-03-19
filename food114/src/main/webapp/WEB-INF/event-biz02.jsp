@@ -71,7 +71,6 @@
 }
 
 .orderSelect {
-	float: right;
 	font-size: 14px;
 	border: 1px solid #ededed;
 	border-radius: 5px;
@@ -227,8 +226,12 @@
 								<option value="ORDER BY ENDYN DESC,ORDERCNT DESC">주문
 									많은순</option>
 								<option value="ORDER BY ENDYN DESC,SETBEGINTIME ASC">이벤트
-									시간 이른순</option>
+									시간순</option>
 							</select>
+							<div style="display: inline-block;">
+								<input
+									style="font-size: 14px; border: 1px solid #ededed; border-radius: 5px; padding: 12px 23.5px 12px 23.5px; color: #5f5f5f;">
+							</div>
 						</div>
 					</div>
 					<div id="bizListContainer">
