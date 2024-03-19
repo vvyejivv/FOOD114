@@ -5,6 +5,7 @@ import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import teamProject.food114.mapper.BizMapper;
 import teamProject.food114.mapper.MenuMapper;
 
 @Service
@@ -12,6 +13,9 @@ public class MenuServiceImpl implements MenuService {
 
 	@Autowired
 	MenuMapper menuMapper;
+	
+	@Autowired
+	BizMapper bizMapper;
 
 	@Override
 	public HashMap<String, Object> searchCategory(HashMap<String, Object> map) {
@@ -33,6 +37,7 @@ public class MenuServiceImpl implements MenuService {
 		try {
 			resultMap.put("menuList", menuMapper.selectMenuList(map));
 			resultMap.put("menuCnt", menuMapper.selectMenuCount(map));
+			resultMap.put("eventStatus", bizMapper.selectEventStatus(map));
 			resultMap.put("result", "success");
 		} catch (Exception e) {
 			// TODO: handle exception
