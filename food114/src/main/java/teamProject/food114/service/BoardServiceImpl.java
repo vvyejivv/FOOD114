@@ -150,5 +150,20 @@ public class BoardServiceImpl implements BoardService {
 		return resultMap;
 	}
 
+	@Override
+	public HashMap<String, Object> searchBoardListLimit(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			List<Board> limitBoardList = boardMapper.selectBoardListLimit(map);
+			boardMapper.updateEndYn();
+			resultMap.put("limitBoardList", limitBoardList);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+		}
+		return resultMap;
+	}
+
 
 }

@@ -94,7 +94,7 @@
 					data : nparmap,
 					success : function(data) {
 						if (data.pwd == "pwdSuccess") {
-							location.href="/business-main.do";							
+							location.href="/biz_main.do";							
 						}else{
 							self.errormsg = data.message;						
 						}

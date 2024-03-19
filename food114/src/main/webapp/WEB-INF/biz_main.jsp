@@ -7,6 +7,11 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	<meta charset="UTF-8">
 	<title>첫번째 페이지</title>
+<style>
+	button {
+		cursor : pointer;
+	}	
+</style>
 </head>
 <body style="margin: 0px auto;">
 	<header>
@@ -24,7 +29,7 @@
 	                <div style="width: 900px; height: 200px; border:1px solid #EDEDED; border-radius: 10px; display: flex; justify-content: center; align-items: center;">
 	                    <!-- 메뉴 -->
 	                    <div style="height: 150px; display: flex; align-items: center; gap: 20px;">
-	                        <div style="width: 100px; height: 100px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px;">
+	                        <div @click="fnSelectMenu('/biz-menu-insert.do')" style="cursor:pointer; width: 100px; height: 100px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px;">
 	                            <div style="width: 50px; height: 50px;">
 	                            	<img width="50" height="50"
 											src="https://img.icons8.com/ios/50/4D4D4D/new-store.png"
@@ -34,7 +39,7 @@
 	                        </div>
 	                        <!-- 구분선  -->
 	                        <div style="width: 1px; height: 50px; background-color: #ccc;"></div>
-	                        <div style="width: 100px; height: 100px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px;">
+	                        <div @click="fnSelectMenu('/biz-menu-update.do')" style="cursor:pointer; width: 100px; height: 100px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px;">
 	                            <div style="width: 50px; height: 50px; border: 1px solid #EDEDED;">
 	                            	<img width="50" height="50"
 											src="https://img.icons8.com/external-tal-revivo-light-tal-revivo/50/4D4D4D/external-brief-article-homepage-search-online-service-template-wireframe-light-tal-revivo.png"
@@ -44,7 +49,7 @@
 	                        </div>
 	                       	<!-- 구분선  -->
 	                        <div style="width: 1px; height: 50px; background-color: #ccc;"></div>
-	                        <div style="width: 100px; height: 100px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px;">
+	                        <div @click="fnSelectMenu('/bizReview.do')" style="cursor:pointer; width: 100px; height: 100px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px;">
 	                            <div style="width: 50px; height: 50px; ">
 	                            	<img width="50" height="50"
 											src="https://img.icons8.com/ios/50/4D4D4D/favorite-window.png"
@@ -54,7 +59,7 @@
 	                        </div>
 	                        <!-- 구분선  -->
 	                        <div style="width: 1px; height: 50px; background-color: #ccc;"></div>	                        
-	                        <div style="width: 100px; height: 100px;  display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px;">
+	                        <div @click="fnSelectMenu('/bizEvent.do')" style="cursor:pointer; width: 100px; height: 100px;  display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px;">
 	                            <div style="width: 50px; height: 50px;">
 	                            	<img width="50" height="50"
 											src="https://img.icons8.com/ios/50/4D4D4D/event-accepted-tentatively.png"
@@ -64,7 +69,7 @@
 	                        </div>
 	                        <!-- 구분선  -->
 	                        <div style="width: 1px; height: 50px; background-color: #ccc;"></div>	                        
-	                        <div style="width: 100px; height: 100px;  display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px;">
+	                        <div @click="fnSelectMenu('/biz-sales.do')" style="cursor:pointer; width: 100px; height: 100px;  display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px;">
 	                            <div style="width: 50px; height: 50px; ">
 	                            	<img width="50" height="50"
 											src="https://img.icons8.com/wired/50/4D4D4D/combo-chart--v1.png"
@@ -74,7 +79,7 @@
 	                        </div>
 	                        <!-- 구분선  -->
 	                        <div style="width: 1px; height: 50px; background-color: #ccc;"></div>	                        
-	                        <div style="width: 100px; height: 100px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px;">
+	                        <div @click="fnSelectMenu('/biz-info.do')" style="cursor:pointer; width: 100px; height: 100px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px;">
 	                            <div style="width: 50px; height: 50px;">
 	                            	<img width="50" height="50"
 											src="https://img.icons8.com/forma-thin/50/4D4D4D/user-male-circle.png"
@@ -82,16 +87,18 @@
 	                            </div>
 	                            <div style="font-size: 14px; color: #5F5F5F;">판매자정보</div>
 	                        </div>
-	                        
 	                    </div>
 	                </div>
 	                <div style="width: 450px; height: 200px; border:1px solid #EDEDED; border-radius: 10px;">
 	                    <div style="text-align: center; padding: 40px; font-size: 16px; color: #222222;">사장님 반갑습니다!</div>
-	                    <div style="display: flex; justify-content: center;">
-	                        <button style="border-radius: 5px; border: 1px solid #EDEDED; padding: 10px 150px; color: #222222; font-size: 14px;">로그인</button>
+	                    <div v-if="!sessionId" style="display: flex; justify-content: center;">
+	                        <button style="border-radius: 5px; border: 1px solid #EDEDED; padding: 10px 150px; color: #222222; font-size: 14px;" @click="fnBizLogin()">로그인</button>
+	                    </div>
+	                    <div v-else style="display: flex; justify-content: center;">
+	                        <button style="border-radius: 5px; border: 1px solid #EDEDED; padding: 10px 150px; color: #222222; font-size: 14px;" @click="fnBizLogout()">로그아웃</button>
 	                    </div>
 	                    <div style="display: flex; justify-content: center; margin-top: 5px;">
-	                        <button style="border-radius: 5px; border: 1px solid #EDEDED; padding: 10px 144px; background-color: #fff; color: #5F5F5F; font-size: 14px;">회원가입</button>
+	                        <button style="border-radius: 5px; border: 1px solid #EDEDED; padding: 10px 144px; background-color: #fff; color: #5F5F5F; font-size: 14px;" @click="fnBizSignup()">회원가입</button>
 	                    </div>
 	                </div>
 	            </div>
@@ -112,23 +119,11 @@
 	                                <th style="width: 200px; color: #5F5F5F; padding: 12px 8px; font-size: 14px;">작성일</th>
 	    
 	                            </tr>
-	                            <tr style="text-align: center;">
-	                                <td style="color: #5F5F5F; font-size: 13px; padding: 12px 10px; font-size: 13px;">1</td>
-	                                <td style="color: #5F5F5F; font-size: 13px; padding: 12px 10px; font-size: 13px;"><a href="javascript:;"></a>[공지] 앱푸시 알림센터 서비스 오픈(2024.02.01)</a></td>
-	                                <td style="color: #5F5F5F; font-size: 13px; padding: 12px 10px; font-size: 13px;">홍길동</td>
-	                                <td style="color: #5F5F5F; font-size: 13px; padding: 12px 10px; font-size: 13px;">2024/03/01</td>
-	                            </tr>
-	                            <tr style="text-align: center;">
-	                                <td style="color: #5F5F5F; font-size: 13px; padding: 12px 10px; font-size: 13px;">1</td>
-	                                <td style="color: #5F5F5F; font-size: 13px; padding: 12px 10px; font-size: 13px;"><a href="javascript:;"></a>[공지] 앱푸시 알림센터 서비스 오픈(2024.02.01)</a></td>
-	                                <td style="color: #5F5F5F; font-size: 13px; padding: 12px 10px; font-size: 13px;">홍길동</td>
-	                                <td style="color: #5F5F5F; font-size: 13px; padding: 12px 10px; font-size: 13px;">2024/03/01</td>
-	                            </tr>
-	                            <tr style="text-align: center;">
-	                                <td style="color: #5F5F5F; font-size: 13px; padding: 12px 10px; font-size: 13px;">1</td>
-	                                <td style="color: #5F5F5F; font-size: 13px; padding: 12px 10px; font-size: 13px;"><a href="javascript:;"></a>[공지] 앱푸시 알림센터 서비스 오픈(2024.02.01)</a></td>
-	                                <td style="color: #5F5F5F; font-size: 13px; padding: 12px 10px; font-size: 13px;">홍길동</td>
-	                                <td style="color: #5F5F5F; font-size: 13px; padding: 12px 10px; font-size: 13px;">2024/03/01</td>
+	                            <tr style="text-align: center;" v-for="item in limitBoardList">
+	                                <td style="color: #5F5F5F; font-size: 13px; padding: 12px 10px; font-size: 13px;">{{item.boardNo}}</td>
+	                                <td style="color: #5F5F5F; font-size: 13px; padding: 12px 10px; font-size: 13px;"><a style="text-decoration: none; color:#5f5f5f;" href="javascript:;" @click="fnBoardView(item.boardNo)">{{item.title}}</a></td>
+	                                <td style="color: #5F5F5F; font-size: 13px; padding: 12px 10px; font-size: 13px;">관리자</td>
+	                                <td style="color: #5F5F5F; font-size: 13px; padding: 12px 10px; font-size: 13px;">{{item.cdateTime}}</td>
 	                            </tr>
 	                        </table>
 	                    </div>
@@ -165,24 +160,55 @@
 var app = new Vue({ 
     el: '#app',
     data: {
+    	sessionId : "${sessionBizId}",
+    	limitBoardList : []
     }   
     , methods: {
-    	list : function(){    		
+    	fnBoardListLimit : function(){    		
             var self = this;
             var nparmap = {};
             $.ajax({
-                url:"test.dox",
+                url:"searchBoardListLimit.dox",
                 dataType:"json",	
                 type : "POST", 
                 data : nparmap,
                 success : function(data) { 
+                	self.limitBoardList = data.limitBoardList;
                 }
             }); 
-        } 
+        },
+        fnBizLogin : function(){
+        	location.assign("/bizLogin.do");
+        },
+        fnBizLogout : function() {
+			var self = this;
+			if (!confirm("정말 로그아웃 하시겠습니까?")) {
+				return;
+			}
+			var nparmap = {};
+			$.ajax({
+				url : "logout.dox",
+				dataType : "json",
+				type : "POST",
+				data : nparmap,
+				success : function(data) {
+					$.pageChange("/biz_main.do", {});
+				}
+			});
+		},
+		fnBizSignup : function() {
+			location.assign("/business-signup.do");
+		},
+		fnSelectMenu : function(addr) {
+			location.assign(addr);
+		},
+		fnBoardView : function(boardNo) {
+			$.pageChange("/boardNoticeVeiw.do", {boardNo : boardNo});
+		}
     }   
     , created: function () {
     	var self = this;    	
-
+		self.fnBoardListLimit();
 	}
 });
 </script>

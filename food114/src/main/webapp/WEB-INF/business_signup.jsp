@@ -703,7 +703,7 @@ select {
 							success : function(data) {
 								if (data.result == "success") {
 									alert("가입되었습니다.");
-									location.reload(true);
+									location.assign("/bizLogin.do");
 								} else {
 									alert("다시 시도해주세요.");
 									location.reload(true);
