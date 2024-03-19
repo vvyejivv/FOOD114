@@ -156,6 +156,29 @@ button img {
 	font-size: 12px;
 	color: #ccc;
 }
+
+.menuTempImg {
+	width: 120px;
+	margin-left: 20px;
+	heigth:30px;
+	margin-right:13px;
+}
+
+.menuImg {
+	width: 120px;
+	height: 80px;
+	margin-left: 20px;
+	object-fit:contain;
+}
+
+.file_input {
+	width: 629px;
+	height: 30px;
+	margin-top: 30px;
+	margin-left: 20px;
+	border: 1px solid #ddd;
+	border-radius: 2px;
+}
 [v-cloak] { display: none; }
 </style>
 <body>
@@ -224,7 +247,12 @@ button img {
 					<div class="inputDiv">
 						메뉴 사진<small><small style="color: #ff7f00;"> ＊ </small></small>
 					</div>
-					<input type="file" class="mod_input" id="file1" name="file1" accept=".jpg, .png, .gif" style="color: #ccc; font-size:12px; line-height:30px;">
+					<div :style="{display : !src ? 'block' : 'flex'}">
+					<img
+						:src="src" :class="!src ? 'menuTempImg' : 'menuImg'"
+						alt="이미지 미등록">
+					<input @change="fnBizFileView" type="file" class="file_input" id="file1" name="file1" accept=".jpg, .png, .gif" style="color: #ccc; font-size:12px; line-height:30px;">
+					</div>
 				</div>
 				<button class="btn-modify" @click="fnMenuUpload()">메뉴 등록</button>
 			</div>
@@ -242,9 +270,21 @@ button img {
 			sessionId : "${sessionBizId}",
 			menu : "",
 			price : "",
-			menuInfo : ""
+			menuInfo : "",
+			src : ""
 		},
 		methods : {
+			fnBizFileView : function(event) {
+				var self = this;
+				console.log(event);
+				var file = event.target.files[0];
+				var reader = new FileReader();
+
+				reader.onload = function(e) {
+					self.src = e.target.result;
+				};
+				reader.readAsDataURL(file);
+			},
 			fnMenuUpload : function(){
 	       		var self = this;
 	       		if(!self.menu){

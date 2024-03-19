@@ -48,4 +48,7 @@ public interface CustomerService {
 	// myInfo - my주소지 관리 - 기본주소지 Y
 	HashMap<String, Object> editAddr(HashMap<String, Object> map);
 	
+	// 주문완료창
+	HashMap<String, Object> searchMyOrder(HashMap<String, Object> map);
+	
 }

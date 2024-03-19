@@ -573,7 +573,7 @@
 			fnPageChang : function(type){
 				var self = this;
 				if(type == "success"){
-					$.pageChange("/food114.do", {});
+					$.pageChange("/paymentCompleted.do", {orderNo : self.orderNo});
 				}else if(type == "fail"){
 					/* 오류창 */
 				}

@@ -38,6 +38,7 @@ public class MenuServiceImpl implements MenuService {
 			resultMap.put("menuList", menuMapper.selectMenuList(map));
 			resultMap.put("menuCnt", menuMapper.selectMenuCount(map));
 			resultMap.put("eventStatus", bizMapper.selectEventStatus(map));
+			resultMap.put("saleList", menuMapper.selectSalePrice(map));
 			resultMap.put("result", "success");
 		} catch (Exception e) {
 			// TODO: handle exception

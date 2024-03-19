@@ -7,15 +7,15 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <meta charset="UTF-8">
 <title>첫번째 페이지</title>
+<link rel="stylesheet" href="../css/food114.css">
 <link rel="stylesheet" href="../css/review_info_biz.css">
 </head>
 <style>
 [v-cloak] { display: none; }
 </style>
 <body>
-	<header>
-		<%@include file="main(header)_biz.html"%>
-	</header>
+	<div id="Container">
+	<%@include file="food114_header.jsp"%>
 	<section>
 		<%@include file="sideBar_biz.html"%>
 		<div id="app" v-cloak>
@@ -60,11 +60,11 @@
 					<tr>
 						<td class="event_title">리뷰 답글</td>
 						<td v-if="reviewInfo.pContents">
-							<textarea style="width: 700px;" placeholder="리뷰 작성을 해주세요!" v-model="contents">{{reviewInfo.pContents}}</textarea>
+							<textarea class="reviewText" placeholder="리뷰 작성을 해주세요!" v-model="contents">{{reviewInfo.pContents}}</textarea>
 							<button class="addReview" @click="fnBizUpdate()">수정</button>
 						</td>
 						<td v-if="!reviewInfo.pContents">
-							<textarea style="width: 700px;" placeholder="리뷰 작성을 해주세요!" v-model="contents"></textarea>
+							<textarea class="reviewText" placeholder="리뷰 작성을 해주세요!" v-model="contents"></textarea>
 							<button class="addReview" @click="fnBizAdd()">저장</button>
 						</td>
 					</tr>
@@ -74,7 +74,8 @@
 		</div>
 	</section>
 
-	<%@include file="main(footer)_biz.html"%>
+	<%@include file="food114_footer.jsp"%>
+	</div>
 </body>
 </html>
 
@@ -90,10 +91,6 @@
 		methods : {
 			bizInfo : function() {
 				var self = this;
-				if(!self.sessionId){
-					$.pageChange("/bizLogin.do", {});
-					return;
-				}
 				console.log(self.reviewNo);
 				var nparmap = {
 					reviewNo : self.reviewNo
@@ -114,10 +111,6 @@
 			},
 			fnBizAdd : function() {
 				var self = this;
-				if(!self.sessionId){
-					$.pageChange("/bizLogin.do", {});
-					return;
-				}
 				console.log(self.reviewNo);
 				if(!self.contents){
 					return;
@@ -140,10 +133,6 @@
 			},
 			fnBizUpdate : function() {
 				var self = this;
-				if(!self.sessionId){
-					$.pageChange("/bizLogin.do", {});
-					return;
-				}
 				if(!self.contents){
 					return;
 				}

@@ -91,7 +91,7 @@
 							<tr v-for="(order, index) in selectMenuList">
 								<td class="tdFirst">{{order.menuName}}</td>
 								<td class="tdAmount">{{order.cnt}}</td>
-								<td class="tdSecond">{{order.price.toLocaleString()}}</td>
+								<td class="tdSecond">{{order.price.toLocaleString()}}  <span></span></td>
 								<td class="tdremove">
 									<div class="removeBtn" @click="fnRemoveMenu(index)">×</div>
 								</td>
@@ -179,6 +179,7 @@
 			selectTotalPrice : 0, /* 장바구니 총 금액  */
 			status : "결제전", /* 주문상태  */
 			orderNo : "", /* 주문번호  */
+			saleList : []
 
 		},
 		methods : {
@@ -194,7 +195,10 @@
 					data : nparmap,
 					success : function(data) {
 						self.menuList = data.menuList;
-						console.log(data);
+						if(data.eventStatus==1){
+						self.saleList = data.saleList;
+						}
+						console.log(self.saleList);
 		
 					}
 				});
@@ -343,4 +347,16 @@
 
 		}
 	});
+	// javascript 영역에 추가 
+	window.addEventListener('scroll', function() {
+		    var orderListBox = document.querySelector('.orderListBox');
+		    var currentPosition = window.scrollY;
+
+		    // 스크롤 위치에 따라 top 값을 조정
+		    if (currentPosition > 200) {
+		        orderListBox.style.top = '250px';
+		    } else {
+		        orderListBox.style.top = '560px';
+		    }
+		});
 </script>

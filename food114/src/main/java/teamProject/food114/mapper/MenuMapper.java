@@ -26,6 +26,9 @@ public interface MenuMapper {
 	
 	Menu selectMenuView(HashMap<String, Object> map);
 	
+	
+	List<Menu> selectSalePrice(HashMap<String, Object> map); // 세일중인 메뉴 불러오기 
+	
 	void updateMenu(HashMap<String, Object> map);
 	
 	void updateMenuNoFile(HashMap<String, Object> map);

@@ -5,7 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="../css/main.css">
 <link rel="stylesheet" href="../css/map.css">
 <script src="js/jquery.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -32,7 +31,7 @@
 .map_wrap {
 	position: relative;
 	width: 1470px;
-	height: 820px;
+	height: 890px;
 	padding-left: 432px;
 	margin: 0px auto;
 }
@@ -205,7 +204,6 @@ ul, ol {
 	height: 80px;
 	float: left;
 	margin: 10px;
-	border: 1px solid black;
 }
 /* 장소 리스트 스타일 */
 #placesList1 {
@@ -214,12 +212,13 @@ ul, ol {
 
 .select_button {
 	padding: 10px;
-	background-color: #ff7f00;
+	background-color: #ff8002;
 	border: none;
 	cursor: pointer;
 	height: 50px;
 	font-size: 18px;
 	font-weight: bold;
+	line-height:30px;
 }
 
 .none_select_button {
@@ -231,6 +230,7 @@ ul, ol {
 	height: 50px;
 	font-size: 18px;
 	font-weight: bold;
+	line-height:30px;
 }
 
 #menu_view {
@@ -278,10 +278,18 @@ ul, ol {
 	border:none;
 	color:#777;
 }
+
+.sampleImg {
+	width: 200px;
+	height: 200px;
+	margin-left:5px;
+}
 </style>
+<link rel="stylesheet" href="../css/food114.css">
 </head>
 <body>
-	<%@include file="main(header).html"%>
+	<div id="Container">
+	<%@include file="food114_header.jsp"%>
 
 	<div id="app" v-cloak>
 		<section>
@@ -291,11 +299,11 @@ ul, ol {
 				<div id="menu_view" class="bg_white">
 					<img :src="restView.path" class="restViewImg">
 					<a href="javascript:;" @click="fnRestClose()" class="backBtn">❮</a>
-					<div style="margin:10px;">
+					<div style="margin:20px;">
 						<h1 style="font-size: 1.5em;">{{restView.bizName}}<span style="color:#ccc; margin-top:5px;"> {{restView.categoryName}}</span></h1>
 						<div style="margin-top:10px;">리뷰 {{restView.reviewCnt}}</div>
 					</div>
-						<div style="border-top:1px solid #ccc; width:100%; margin:20px 0 20px 0;"></div>
+						<div style="border-top:1px solid #eee; width:414px; margin:20px 0px 20px 10px;"></div>
 					<div style="margin:10px;">
 						<div class="detailView">
 							<img class="solidImg" src="../img/location-dot-solid.png">
@@ -320,7 +328,19 @@ ul, ol {
 							<div style="font-size:15px; margin-left:25px; margin-top:10px;">{{restView.contents}}</div>
 						</div>
 						<div style="width:100%; text-align:center;">
-							<button @click="fnShopInfo()" class="plusBtn">정보 더보기 ❯</button>
+							<button @click="fnShopInfo(restView.bizId)" class="plusBtn">정보 더보기 ❯</button>
+						</div>
+						<div style="border-top:1px solid #eee; width:415px; margin:20px auto;"></div>
+						<div style="margin-left:10px;">
+							<span style="font-size:1.5em; font-weight:bold;">메뉴</span><span style="font-size:16px; color:#aaa;"> {{menuCnt.totalCnt}}</span>
+						</div>
+						<div class="detailView" v-for="item in menuSampleList" style="float:left;">
+							<img class="sampleImg" :src="item.path">
+							<div style="font-size:15px; margin-left:50px;">{{item.menu}}</div>
+							<div style="font-size:15px; margin-left:50px; margin-top:10px; font-weight:bold;">{{item.price}}<span style="font-size:15px; font-weight:100;">원</span></div>
+						</div>
+						<div style="width:100%; text-align:center;">
+							<button @click="fnShopInfo(restView.bizId)" class="plusBtn">메뉴 더보기 ❯</button>
 						</div>
 					</div>
 				</div>
@@ -331,12 +351,12 @@ ul, ol {
 								style="padding: 10px; border-radius: 5px; background-color: white; overflow: hidden; padding: 0px; width: 400px; display: block">
 								<div>
 									<a href="javascript:;" id="menu1" @click="fnSearchType1()"
-										:style="{'color': searchFlg1 ? '#fff' : '#ff7f00'}"
+										:style="{'color': searchFlg1 ? '#fff' : '#ff8002'}"
 										:class="searchFlg1 ? 'select_button' : 'none_select_button'"  style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;">지역검색</a>
 								</div>
 								<div>
 									<a href="javascript:;" id="menu2" @click="fnSearchType2()"
-										:style="{'color': searchFlg2 ? '#fff' : '#ff7f00'}"
+										:style="{'color': searchFlg2 ? '#fff' : '#ff8002'}"
 										:class="searchFlg2 ? 'select_button' : 'none_select_button'" style="border-top-right-radius: 5px;border-bottom-right-radius: 5px;">가게명</a>
 								</div>
 							</div>
@@ -376,10 +396,10 @@ ul, ol {
 							<a style="font-size: 1.5em;" href="javascript:;"
 								@click="fnRestView(item.bizId)">{{item.bizName}}</a><span style="color: #aaa;"> {{item.categoryName}}</span>
 						</h3>
-						<div id="placesList1">
+						<div id="placesList1" style="margin-top:5px;">
 							<span style="color: #ff7f00;">★ {{item.reviewAvg}}</span> | 리뷰 {{item.reviewCnt}}
-							<p style="margin-left: 60px;">{{item.title}}</p>
-							<p style="margin-left: 60px;">{{item.contents}}</p>
+							<p style="margin-left: 60px; margin-top:5px;">{{item.title}}</p>
+							<p style="margin-left: 60px; margin-top:5px;">{{item.contents}}</p>
 						</div>
 					</div>
 					<div class="restList" v-if="areaRestList.length > 0" v-for="item in areaRestList" @click="fnRestView(item.bizId)">
@@ -388,10 +408,10 @@ ul, ol {
 							<a style="font-size: 1.5em;" href="javascript:;"
 								>{{item.bizName}}</a><span style="color: #aaa;"> {{item.categoryName}}</span>
 						</h3>
-						<div id="placesList1">
+						<div id="placesList1" style="margin-top:5px;">
 							<span style="color: #ff7f00;">★ {{item.reviewAvg}}</span> | 리뷰 {{item.reviewCnt}}
-							<p style="margin-left: 60px;">{{item.title}}</p>
-							<p style="margin-left: 60px;">{{item.contents}}</p>
+							<p style="margin-left: 60px; margin-top:5px;">{{item.title}}</p>
+							<p style="margin-left: 60px; margin-top:5px;">{{item.contents}}</p>
 						</div>
 					</div>
 					<div class="restList" v-if="areaRestList.length == 0 && !searchFlg">
@@ -401,7 +421,7 @@ ul, ol {
 			</div>
 		</section>
 	</div>
-	<%@include file="main(footer).html"%>
+	<%@include file="food114_footer.jsp"%>
 
 	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	<script type="text/javascript"
@@ -459,6 +479,11 @@ ul, ol {
         var distance = R * c; // 두 지점 사이의 거리 (단위: km)
         return distance * 1000; // 거리를 미터로 변환하여 반환
     }
+    
+    function goToPage(bizId){
+    	$.pageChangeBlank("/shopInfo.do", {bizId : bizId});
+    }
+    
 		var app = new Vue({
 			el: '#app',
 			data: {
@@ -480,7 +505,9 @@ ul, ol {
 				longitude : "",
 				areaRestList : [],
 				restView : {},
-				restNameInput : ""
+				restNameInput : "",
+				menuSampleList : [],
+				menuCnt : {}
 			},
 			methods: {
 				fnRestList : function() {
@@ -622,7 +649,7 @@ ul, ol {
 				    self.map.setLevel(4);
 				    console.log(self.areaRestList);
 				    for(var i = 0; i < self.areaRestList.length; i++){
-				    	self.searchAddMarkers(self.areaRestList[i].newAddr, self.areaRestList[i].bizName);
+				    	self.searchAddMarkers(self.areaRestList[i].newAddr, self.areaRestList[i].bizName, self.areaRestList[i].bizId);
 				    }
 				},
 				searchSetCenter : function(latitude, longitude) {
@@ -688,10 +715,10 @@ ul, ol {
 		                    
 		                    // 오버레이 내용 설정
 		                    var overlayContent = '<div class="customoverlay">' +
-	    								'  <a href="/shopInfo.do" target="_blank">' +
-	    								'    <span class="title">'+place.bizName+'</span>' +
-	    								'  </a>' +
-	   									'</div>';
+		                     '  <a href="javascript:;" onclick="goToPage(\'' + place.bizId + '\')">' +
+		                     '    <span class="title">' + place.bizName + '</span>' +
+		                     '  </a>' +
+		                     '</div>';
 		                    var overlay = new kakao.maps.CustomOverlay({
 		                        content: overlayContent, // 오버레이에 표시할 내용
 		                        map: self.map, // 오버레이를 표시할 지도
@@ -707,7 +734,7 @@ ul, ol {
 		                            overlay.setMap(null); // 오버레이를 지도에서 숨김
 		                            isOverlayVisible = false; // 오버레이가 숨겨진 상태로 설정
 		                        }
-		                    });
+		                    });		                    
 		                    overlay.setMap(null);
 		                    marker.setMap(self.map); // 마커를 지도에 표시
 		                    self.markers.push(marker);
@@ -760,10 +787,10 @@ ul, ol {
 				            
 				            // 오버레이 내용 설정
 				            var overlayContent = '<div class="customoverlay">' +
-				                        '  <a href="/shopInfo.do" target="_blank">' +
-				                        '    <span class="title">'+place.bizName+'</span>' +
-				                        '  </a>' +
-				                        '</div>';
+		                     '  <a href="javascript:;" onclick="goToPage(\'' + place.bizId + '\')">' +
+		                     '    <span class="title">' + place.bizName + '</span>' +
+		                     '  </a>' +
+		                     '</div>';
 				            var overlay = new kakao.maps.CustomOverlay({
 				                content: overlayContent, // 오버레이에 표시할 내용
 				                map: self.map, // 오버레이를 표시할 지도
@@ -790,7 +817,7 @@ ul, ol {
 				    })
 				},
 				// 검색된 지역에 해당하는 가게들 마커찍기
-				searchAddMarkers : function (searchedLocation,bizName) {
+				searchAddMarkers : function (searchedLocation,bizName,bizId) {
 				    var self = this;
 				    
 				    var markerImage = new kakao.maps.MarkerImage('../img/free-icon-restaurant-4551357.png',
@@ -810,10 +837,10 @@ ul, ol {
 
 				            // 오버레이 내용 설정
 				            var overlayContent = '<div class="customoverlay">' +
-				                '  <a href="/shopInfo.do" target="_blank">' +
-				                '    <span class="title">' + bizName + '</span>' +
-				                '  </a>' +
-				                '</div>';
+		                     '  <a href="javascript:;" onclick="goToPage(\'' + bizId + '\')">' +
+		                     '    <span class="title">' + bizName + '</span>' +
+		                     '  </a>' +
+		                     '</div>';
 				            var overlay = new kakao.maps.CustomOverlay({
 				                content: overlayContent,
 				                map: self.map,
@@ -852,6 +879,8 @@ ul, ol {
 						data : nparmap,
 						success : function(data) {
 							self.restView = data.restView;
+							self.menuSampleList = data.menuSampleList;
+							self.menuCnt = data.menuCnt;
 							console.log(data.restView.latitude);
 							self.searchSetCenter(data.restView.latitude, data.restView.longitude);
 						}
@@ -893,7 +922,7 @@ ul, ol {
 							    self.overlays = [];
 							    
 							    for(var i = 0; i < self.areaRestList.length; i++){
-							    	self.searchAddMarkers(self.areaRestList[i].newAddr, self.areaRestList[i].bizName);
+							    	self.searchAddMarkers(self.areaRestList[i].newAddr, self.areaRestList[i].bizName, self.areaRestList[i].bizId);
 							    }
 							    self.map.setCenter(moveLatLon);
 							    self.map.setLevel(4);
@@ -907,8 +936,8 @@ ul, ol {
 				    menuView.style.transition = "left 0.5s ease"; // 슬라이드 효과를 위한 CSS transition 속성 적용
 				    menuView.style.left = "0";
 				},
-			  fnShopInfo: function() {
-				  window.open('/shopInfo.do');
+			  fnShopInfo: function(bizId) {
+				  $.pageChangeBlank("/shopInfo.do", {bizId : bizId});
 			  }
 			},
 			mounted() {
@@ -925,5 +954,6 @@ ul, ol {
 			}
 		});
 	</script>
+	</div>
 </body>
 </html>

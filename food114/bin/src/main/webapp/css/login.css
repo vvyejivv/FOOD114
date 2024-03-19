@@ -1,12 +1,4 @@
-@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 
-.notosanskr * {
-    font-family: 'Noto Sans KR', sans-serif;
-}
-
-*{
-    font-family: 'Noto Sans KR';
-}
 .login_Container {
     display: flex;
     justify-content: center;
@@ -47,7 +39,6 @@
 
 }
 .idPwd_input:focus{
-	outline:  #ff7f00 solid thin;
     border: none;
 }
 

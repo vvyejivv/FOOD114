@@ -234,6 +234,13 @@ public class CustomerController {
 		return "/consumerJoinAfter";
 	}
 
+	// 결제완료창	
+	@RequestMapping("/paymentCompleted.do")
+	public String paymentCompleted(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		request.setAttribute("map", map);
+		return "/paymentCompleted"; 
+	}
+	
 	// 고객 주소 목록 불러오기
 	@RequestMapping(value = "/consumerAddrList.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
@@ -286,6 +293,15 @@ public class CustomerController {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		session.invalidate();
 
+		return new Gson().toJson(resultMap);
+	}
+
+	// 고객 회원가입 클릭시
+	@RequestMapping(value = "/paymentCompleted.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String paymentCompleted(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = customerService.searchMyOrder(map);
 		return new Gson().toJson(resultMap);
 	}
 	

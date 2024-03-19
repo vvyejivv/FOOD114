@@ -12,14 +12,16 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../css/food114.css">
 <title>MAIN</title>
 <style>
 </style>
 </head>
 
 <body>
+	<div id="Container">
 	<header>
-		<%@include file="main(header).html"%>
+		<%@include file="food114_header.jsp"%>
 	</header>
 
 	<style>
@@ -190,162 +192,165 @@ input {
 	display: none;
 }
 </style>
-	<div id="app" v-cloak>
-		<section style="color: rgb(72, 72, 72); font-size: 15px;">
-			<!-- 카테고리 나열 -->
-			<div class="container">
-				<div class="categoryBox">
-					<div class="category" @click="fnCategorySelect({category:'%%%%'})"
-						:style='{"font-weight" : nowCategory=="%%%%" ? "bold" : "none"}'>전체</div>
-					<!-- db에서 category 반복문 쓰기 -->
-					<div class="category" v-for="(item,index) in categoryList"
-						@click="fnCategorySelect({category : item.categoryNo})"
-						:style='{"font-weight" : nowCategory==item.categoryNo ? "bold" : "none"}'>{{item.categoryName}}</div>
 
-				</div>
+		<div id="app" v-cloak>
+			<section style="color: rgb(72, 72, 72); font-size: 15px;">
+				<!-- 카테고리 나열 -->
+				<div class="container">
+					<div class="categoryBox">
+						<div class="category" @click="fnCategorySelect({category:'%%%%'})"
+							:style='{"font-weight" : nowCategory=="%%%%" ? "bold" : "none"}'>전체</div>
+						<!-- db에서 category 반복문 쓰기 -->
+						<div class="category" v-for="(item,index) in categoryList"
+							@click="fnCategorySelect({category : item.categoryNo})"
+							:style='{"font-weight" : nowCategory==item.categoryNo ? "bold" : "none"}'>{{item.categoryName}}</div>
 
-
-			</div>
-
-			<!-- container -->
-			<div style="width: 1000px; margin: 0px auto;">
-
-				<!-- 주소 container -->
-				<div style="overflow: hidden">
-					<!-- 현재 입력된 주소 -->
-					<div class="addrContainer"
-						style="padding-top: 8px; height: 40px; margin: 0px auto; margin-top: 40px;">
-						<input class="addrInput" placeholder="주소검색 혹은 등록된 주소지를 선택해주세요."
-							disabled v-model="inputAddr" @change="fnAddrChange()"
-							style="background-color: white; font-size: 14px;">
-
-						<!-- 주소창 더보기 클릭시-->
-						<template v-if="showAddr">
-							<div @click="fnHiddenAddr" class="modalBackGround"></div>
-							<div class="modalContents" style="padding: 10px;">
-								<div>내 주소록</div>
-								<!-- 반복 box -->
-								<div
-									style="border: 1px solid #ccc; border-radius: 5px; padding: 10px; margin-bottom: 10px; cursor: pointer;"
-									v-for="(item,index) in addrList" @click="fnAddrSelect(index)">
-
-									<div>이름 : {{item.addrAs}}</div>
-									<div>
-										<span
-											style="border: 1px solid #ccc; border-radius: 5px; padding: 0px 5px;">구주소</span>
-										{{item.newAddr}}
-									</div>
-									<div>
-										<span
-											style="border: 1px solid #ccc; border-radius: 5px; padding: 0px 5px;">신주소</span>
-										{{item.oldAddr}}
-									</div>
-									<div>상세주소 : {{item.detail}}</div>
-								</div>
-							</div>
-						</template>
-					</div>
-					<!-- addr 컨테이너 종료 -->
-
-					<!-- 버튼 -->
-					<div
-						style="margin: 10px auto; width: 450px; display: flex; justify-content: center;">
-						<button @click="openAddressSearch"
-							style="margin-left: 50px; margin-right: 10px;" class="searchAddr">주소
-							검색하기</button>
-						<button @click="fnShowAddr()" class="searchAddr"
-							v-if="sessionId!=''">내 주소 불러오기</button>
 					</div>
 
 
 				</div>
-				<!-- 주소 container 끝-->
 
-				<!-- 가게 정렬순 -->
-				<div style="height: 35px; margin-top: 70px;" v-if="searchFlg">
-					<div style="float: right; padding-right: 35px;">
-						<select v-model="order" @change="fnList()"
-							style="width: 300px; font-size: 13px; padding: 3px; border: 1px solid #ccc; border-radius: 5px;">
-							<option value="">기본 정렬 순</option>
-							<option value="ORDER BY ORDERCNT DESC">주문 많은 순</option>
-							<option value="ORDER BY REVIEWAVG DESC">별점 높은 순</option>
-						</select>
-					</div>
+				<!-- container -->
+				<div style="width: 1000px; margin: 0px auto;">
 
-				</div>
+					<!-- 주소 container -->
+					<div style="overflow: hidden">
+						<!-- 현재 입력된 주소 -->
+						<div class="addrContainer"
+							style="padding-top: 8px; height: 40px; margin: 0px auto; margin-top: 40px;">
+							<input class="addrInput" placeholder="주소검색 혹은 등록된 주소지를 선택해주세요."
+								disabled v-model="inputAddr" @change="fnAddrChange()"
+								style="background-color: white; font-size: 14px;">
 
-
-				<!-- 음식점 목록 container -->
-				<div
-					style="background-color: white; width: 1000px; margin: 0px auto; padding: 10px 0px; margin-bottom: 25px;">
-					<!-- 목록 정렬 -->
-					<div
-						style="width: 960px; margin: 0px auto; display: grid; grid-template-columns: 1fr 1fr;"
-						:style="{height: !searchFlg ? '300px' : 'auto'}">
-						<!-- :style="{height: bizBaedalOk.length <7 ? '300px' : 'auto'}" -->
-						<div v-if="bizBaedalOk.length==0&&longitude!=''&&searchFlg"
-							style="text-align: center">해당 위치에 배달가능한 가게가 없습니다.</div>
-
-						<!-- 가게 1개 -->
-						<div
-							style="border-radius: 5px; width: 460px; height: 100px; border: 1px solid #ccc; margin-bottom: 10px; display: flex; align-items: center; cursor: pointer;"
-							@click="fnBizView({selectTab : 'menu', bizId : item.bizId})"
-							v-for="item in bizBaedalOk">
-							<!-- 가게 로고 -->
-							<div class="bizLogoContainer">
-								<img :src="item.path" class="bizLogo">
-							</div>
-
-							<div style="" class="bizContents">
-								<!-- 가게 이름 -->
-								<div
-									style="font-weight: bold; margin-bottom: 3px; margin-top: -5px; line-height: 20px;">
-									{{item.bizName}} <span style="font-size: 11px;">
-										{{item.categoryName}}</span>
-								</div>
-								<div style="color: #ccc; font-size: 14px;">
-
-									<!-- 가게 평점 -->
-									<span
-										style="color: orange; line-height: 20px; letter-spacing: 20;">
-										★ {{item.reviewAvg}}({{item.reviewCnt}})</span>
-
-									<!-- 판매 형식 -->
-									<div style="color: black; padding-top: 3px; line-height: 20px;"
-										v-if="item.takeOut=='1'">
-										<span>배달</span>
-									</div>
-									<div style="color: black; padding-top: 3px;"
-										v-if="item.takeOut=='2'">
-										<span>포장</span>
-									</div>
-									<div style="color: black; padding-top: 3px;"
-										v-if="item.takeOut=='3'" class="takeOut">
-										<span>배달</span> <span>포장</span>
-									</div>
-									<!-- 운영시간 -->
+							<!-- 주소창 더보기 클릭시-->
+							<template v-if="showAddr">
+								<div @click="fnHiddenAddr" class="modalBackGround"></div>
+								<div class="modalContents" style="padding: 10px;">
+									<div>내 주소록</div>
+									<!-- 반복 box -->
 									<div
-										style="color: black; font-size: 11px; margin-top: 3px; letter-spacing: 20">
-										<div
-											v-if="typeof item.openTime!='undefined'||typeof item.closeTime!='undefined'">운영시간
-											:
-											{{item.openTime.substring(0,2)}}:{{item.openTime.substring(2,4)}}~{{item.closeTime.substring(0,2)}}:{{item.closeTime.substring(2,4)}}</div>
+										style="border: 1px solid #ccc; border-radius: 5px; padding: 10px; margin-bottom: 10px; cursor: pointer;"
+										v-for="(item,index) in addrList" @click="fnAddrSelect(index)">
+
+										<div>이름 : {{item.addrAs}}</div>
+										<div>
+											<span
+												style="border: 1px solid #ccc; border-radius: 5px; padding: 0px 5px;">구주소</span>
+											{{item.newAddr}}
+										</div>
+										<div>
+											<span
+												style="border: 1px solid #ccc; border-radius: 5px; padding: 0px 5px;">신주소</span>
+											{{item.oldAddr}}
+										</div>
+										<div>상세주소 : {{item.detail}}</div>
 									</div>
 								</div>
-							</div>
+							</template>
 						</div>
-						<div style="height: 200px; width: 10px;"
-							v-if="bizBaedalOk.length<7"></div>
+						<!-- addr 컨테이너 종료 -->
+
+						<!-- 버튼 -->
+						<div
+							style="margin: 10px auto; width: 450px; display: flex; justify-content: center;">
+							<button @click="openAddressSearch"
+								style="margin-left: 50px; margin-right: 10px;"
+								class="searchAddr">주소 검색하기</button>
+							<button @click="fnShowAddr()" class="searchAddr"
+								v-if="sessionId!=''">내 주소 불러오기</button>
+						</div>
 
 
 					</div>
-					<!-- 음식점 container 끝-->
-				</div>
-			</div>
-		</section>
-	</div>
+					<!-- 주소 container 끝-->
 
-	<%@include file="main(footer).html"%>
+					<!-- 가게 정렬순 -->
+					<div style="height: 35px; margin-top: 70px;" v-if="searchFlg">
+						<div style="float: right; padding-right: 35px;">
+							<select v-model="order" @change="fnList()"
+								style="width: 300px; font-size: 13px; padding: 3px; border: 1px solid #ccc; border-radius: 5px;">
+								<option value="">기본 정렬 순</option>
+								<option value="ORDER BY ORDERCNT DESC">주문 많은 순</option>
+								<option value="ORDER BY REVIEWAVG DESC">별점 높은 순</option>
+							</select>
+						</div>
+
+					</div>
+
+
+					<!-- 음식점 목록 container -->
+					<div
+						style="background-color: white; width: 1000px; margin: 0px auto; padding: 10px 0px; margin-bottom: 25px;">
+						<!-- 목록 정렬 -->
+						<div
+							style="width: 960px; margin: 0px auto; display: grid; grid-template-columns: 1fr 1fr;"
+							:style="{height: !searchFlg ? '300px' : 'auto'}">
+							<!-- :style="{height: bizBaedalOk.length <7 ? '300px' : 'auto'}" -->
+							<div v-if="bizBaedalOk.length==0&&longitude!=''&&searchFlg"
+								style="text-align: center">해당 위치에 배달가능한 가게가 없습니다.</div>
+
+							<!-- 가게 1개 -->
+							<div
+								style="border-radius: 5px; width: 460px; height: 100px; border: 1px solid #ccc; margin-bottom: 10px; display: flex; align-items: center; cursor: pointer;"
+								@click="fnBizView({selectTab : 'menu', bizId : item.bizId})"
+								v-for="item in bizBaedalOk">
+								<!-- 가게 로고 -->
+								<div class="bizLogoContainer">
+									<img :src="item.path" class="bizLogo">
+								</div>
+
+								<div style="" class="bizContents">
+									<!-- 가게 이름 -->
+									<div
+										style="font-weight: bold; margin-bottom: 3px; margin-top: -5px; line-height: 20px;">
+										{{item.bizName}} <span style="font-size: 11px;">
+											{{item.categoryName}}</span>
+									</div>
+									<div style="color: #ccc; font-size: 14px;">
+
+										<!-- 가게 평점 -->
+										<span
+											style="color: orange; line-height: 20px; letter-spacing: 20;">
+											★ {{item.reviewAvg}}({{item.reviewCnt}})</span>
+
+										<!-- 판매 형식 -->
+										<div
+											style="color: black; padding-top: 3px; line-height: 20px;"
+											v-if="item.takeOut=='1'">
+											<span>배달</span>
+										</div>
+										<div style="color: black; padding-top: 3px;"
+											v-if="item.takeOut=='2'">
+											<span>포장</span>
+										</div>
+										<div style="color: black; padding-top: 3px;"
+											v-if="item.takeOut=='3'" class="takeOut">
+											<span>배달</span> <span>포장</span>
+										</div>
+										<!-- 운영시간 -->
+										<div
+											style="color: black; font-size: 11px; margin-top: 3px; letter-spacing: 20">
+											<div
+												v-if="typeof item.openTime!='undefined'||typeof item.closeTime!='undefined'">운영시간
+												:
+												{{item.openTime.substring(0,2)}}:{{item.openTime.substring(2,4)}}~{{item.closeTime.substring(0,2)}}:{{item.closeTime.substring(2,4)}}</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div style="height: 200px; width: 10px;"
+								v-if="bizBaedalOk.length<7"></div>
+
+
+						</div>
+						<!-- 음식점 container 끝-->
+					</div>
+				</div>
+			</section>
+		</div>
+
+		<%@include file="food114_footer.jsp"%>
+	</div>
 </body>
 </html>
 
@@ -366,8 +371,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 	var app = new Vue({
 		el : '#app',
 		data : {
-			categoryList : [], // 카테고리 리스트
-			sessionId : "${sessionId}", // 현재 로그인된 아이디
+			categoryList : [], // 카테고리 리스트			
 			sortType : "기본 정렬 순", // 정렬
 			showAddr : false, // 현재 아이디의 주소 목록 보이기 여부
 			addrList : [], // 현재 아이디의 주소 목록
@@ -375,13 +379,14 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 			oldAddr : "",
 			newAddr : "",
 			bizInfo : [],
+			sessionId : "${sessionId}", // 현재 로그인된 아이디
 			nowCategory : "${map.category}", // 현재 선택된 카테고리
 			inputAddr : "${map.inputAddr}",
 			latitude : "${map.latitude}",
 			longitude : "${map.longitude}",
 			bizBaedalOk : [],
 			order : "",
-			searchFlg : "${map.flg}"
+			searchFlg : ${map.flg}
 			
 			
 		},
@@ -395,7 +400,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 				var self=this;
 				console.log(self.searchFlg);
 				var nparmap = {
-						category : self.nowCategory,
+						nowCategory : self.nowCategory,
 						order : self.order
 				};
 				$.ajax({
@@ -439,6 +444,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 								self.latitude = result[0].y;
 								self.longitude = result[0].x;
 								console.log("1."+self.latitude);
+								console.log("1."+self.longitude);
 							}
 						};
 						geocoder.addressSearch(addr,callback);
@@ -560,7 +566,6 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 					},
 				created : function() {
 					var self = this;
-					console.log(self.sessionId);
 					self.fnList();
 					self.fnCategoryList();
 					self.fnAddrList();

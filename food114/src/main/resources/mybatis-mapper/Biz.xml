@@ -3,7 +3,7 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="teamProject.food114.mapper.BizMapper">
-
+	<!-- 이벤트 활성화 여부 -->
 	<select id="selectEventStatus" parameterType="hashmap"
 		resultType="int">
 		SELECT
@@ -188,8 +188,9 @@
 		newAddr=#{newAddr},
 		detail=#{detail},
 		latitude=#{latitude},
-		longitude=#{longitude}
-		WHERE bizid=#{bizId};
+		longitude=#{longitude},
+		`range`=#{range}
+		WHERE bizid=#{bizId}
 	</update>
 
 	<!-- biz 로고사진 파일 수정시1 -->
