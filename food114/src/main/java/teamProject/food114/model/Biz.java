@@ -45,6 +45,9 @@ public class Biz {
 	private String title;
 	private String contents;
 	
+	// 총 카운트 수
+	private int totalCnt;
+	
 	// 반경, 배달포장가능여부,주문양
 	private String range;
 	private String takeOut;

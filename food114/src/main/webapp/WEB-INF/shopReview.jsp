@@ -21,7 +21,7 @@
 	</header>
 	<%@include file="shopInfo_header.jsp"%>
 	<div id="app" v-cloak style="width: 1920px; margin: 0px auto;">
-		<section>
+		<section style="height: fit-content;">
 		<!-- 리뷰 -->
         <div style="width: 1420px; margin: 0px auto;">
             <!-- 고객 리뷰  -->
@@ -80,7 +80,7 @@
 		</section>
 	</div>
 
-<%@include file="main(footer).html"%>
+	<%@include file="food114_footer.jsp"%>
 
 </body>
 </html>

@@ -64,6 +64,12 @@ public class BizController {
 		
 		return "/business_main"; // business_main.jsp
 	}
+	//20240319 메인
+	@RequestMapping("/biz_main.do")
+	public String bizMain(Model model) throws Exception {
+		
+		return "/biz_main";
+	}
 
 	// 가게 정보
 	@RequestMapping("/shopInfo.do")

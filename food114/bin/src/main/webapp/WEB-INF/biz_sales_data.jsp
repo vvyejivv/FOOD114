@@ -10,8 +10,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vue-apexcharts"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="../css/all.css">
-<link rel="stylesheet" href="../css/sideBar_biz.css">
+<link rel="stylesheet" href="../css/food114.css">
 <title>로그인</title>
 </head>
 <style>
@@ -73,7 +72,8 @@ table th, td {
 }
 </style>
 <body>
-	<%@include file="main(header)_biz.html"%>
+	<div id="Container">
+	<%@include file="food114_header.jsp"%>
 	<!-- 광고창 -->
 	<!-- <div class="ad">
         광고창
@@ -87,6 +87,7 @@ table th, td {
 					<span style="color: #ff7f00; font-weight: bold;">| </span><span
 						style="text-align: left; color: rgba(72, 72, 72);">판매통계&nbsp;</span>
 				</h2>
+				<strong v-html="title1"></strong>
 				<div id="chart">
 					<apexchart type="line" height="350" width="1100" :options="chartOptions"
 						:series="series"></apexchart>
@@ -127,7 +128,8 @@ table th, td {
 			</div>
 		</div>
 	</section>
-	<%@include file="main(footer)_biz.html"%>
+	<%@include file="food114_footer.jsp"%>
+	</div>
 </body>
 
 </html>
@@ -143,6 +145,7 @@ table th, td {
 			sessionId : "${sessionBizId}",
 			orderCnt : "",
 			daySellList : [],
+			title1 : "안녕",
 			
 			series : [ {
 				name : "일매출",
@@ -163,7 +166,7 @@ table th, td {
 					curve : 'straight'
 				},
 				title : {
-					text : '2024.03.02~2024.03.11',
+					text : '',
 					align : 'left'
 				},
 				grid : {
@@ -173,29 +176,17 @@ table th, td {
 					},
 				},
 				xaxis : {
-<<<<<<< HEAD
-					categories : [],
-=======
 					categories : [1],
->>>>>>> branch 'JINSOON' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 				}
 			},
 		},
 		methods : {
 			fnInfoUpdate : function() {
 				var self = this;
-				if(!self.sessionId){
-					$.pageChange("/bizLogin.do", {});
-					return;
-				}
 				self.updateFlg = !self.updateFlg;
 			},
 			fnOrderList : function() {
 				var self = this;
-				if(!self.sessionId){
-					$.pageChange("/bizLogin.do", {});
-					return;
-				}
 				var nparmap = {
 					bizId : self.sessionId
 				};
@@ -222,13 +213,8 @@ table th, td {
 					data : nparmap,
 					success : function(data) {
 						self.daySellList = data.daySellList;
+						self.chartOptions.title.text="22";
 						console.log(data);
-<<<<<<< HEAD
-						for(var i=0; i<data.daySellList.length; i++){
-							self.series.data.push(data.daySellList.sum);
-							self.chartOptions.xaxis.categories.push(data.daySellList.day);
-						}
-=======
 						data.daySellList.forEach((item, index) => {
 						    self.chartOptions.xaxis.categories[index] = item.day;
 						});
@@ -236,7 +222,8 @@ table th, td {
                             name: "일매출",
                             data: data.daySellList.map(item => item.sum)
                         }];
->>>>>>> branch 'JINSOON' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
+						console.log(data.daySellList[0].day);
+						self.title1 = data.daySellList[0].day + " ~ " + data.daySellList[data.daySellList.length - 1].day;
 					}
 				});
 			}
@@ -244,7 +231,9 @@ table th, td {
 		created : function() {
 			var self = this;
 			self.fnOrderList();
-			self.fnDaySellList();
+		},
+		mounted: function() {
+			this.fnDaySellList();
 		}
 	});
 </script>

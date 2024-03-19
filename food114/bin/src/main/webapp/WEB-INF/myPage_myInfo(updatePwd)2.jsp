@@ -13,66 +13,62 @@
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 </style>
 </head>
-<link rel="stylesheet" href="../css/myPage_myInfo(updatePwd).css">
 <body>
-	<header>
-		<%@include file="main(header).html"%>
-	</header>
+	<div id="Container">
+		<%@include file="food114_header.jsp"%>
 
-	<!-- 광고창 -->
-	<!--
-        <div class="ad">
-            광고창
-            <button class="adClose">x</button>
-        </div>
-    -->
-	<section>
-		<div class="container">
-			<%@include file="myPage_header.jsp"%>
-			<div id="app">
-				<div class="content" style="width : 900px;">
-					<h2>
-						<a href="javascript:;" style="font-size: 25px; color: #747171;">
-							<span style="color: #ff7f00; font-weight: bold;">| </span>비밀번호 변경
-						</a>
-					</h2>
-					<div>
-						<div class="table">
-							<div class="row" style="height: 200px;">
-								<div class="cell1">비밀번호 변경</div>
-								<div class="cell2">
-									<div>
-										새 비밀번호
-										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<input type="password" style="height: 20px;" v-model="newPwd"
-											@input="fnNewPwd"> <span v-if="inputPwd"
-											style="color: red; font-size: 11px;"> <br>
-											※영문/숫자/특수문자 2가지 이상 조합(8~20자) 3개 이상 연속되거나 동일한 문자/숫자 제외
-										</span>
+		<section>
+			<div style="width: 1420px; display: flex; margin: 0px auto;">
+				<%@include file="myPage_header.jsp"%>
+				<div id="app" v-cloak>
+					<div class="content" style="width: 900px;">
+						<h2>
+							<a href="javascript:;" style="font-size: 25px; color: #747171;">
+								<span style="color: #ff7f00; font-weight: bold;">| </span>비밀번호
+								변경
+							</a>
+						</h2>
+						<div>
+							<div class="table">
+								<div class="row" style="height: 200px;">
+									<div class="cell1">비밀번호 변경</div>
+									<div class="cell2">
+										<div>
+											<div>
+												새 비밀번호
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<input type="password" style="height: 20px;"
+													v-model="newPwd" @input="fnNewPwd">
+												<span v-if="inputPwd" style="color: red; font-size: 11px;">
+													<br> ※영문/숫자/특수문자 2가지 이상 조합(8~20자) 3개 이상 연속되거나 동일한
+													문자/숫자 제외
+												</span>
+											</div>
+											<div>
+												비밀번호 다시 입력&nbsp;
+												<input type="password" style="height: 20px;" v-model="rePwd">
+											</div>
+											<span v-if="newPwd !== rePwd && rePwd !== '' "
+												style="color: red; font-size: 11px;"> ※ 비밀번호가 다릅니다. </span>
+										</div>
 									</div>
-									<div>
-										비밀번호 다시 입력&nbsp;<input type="password" style="height: 20px;"
-											v-model="rePwd">
-									</div>
-									<span v-if="newPwd !== rePwd && rePwd !== '' "
-										style="color: red; font-size: 11px;"> ※ 비밀번호가 다릅니다. </span>
 								</div>
-							</div>
 
-							<div class="row">
-								<div style="margin-left: 350px;">
-									<button class="buttonSubmit" @click="pwdChange" style="float: left;">변경</button>
-									<button class="buttonRemove" @click="pwdRemove">취소</button>
+								<div class="row" style="padding-top: 20px; justify-content: center;">
+									<div style="">
+										<button class="buttonSubmit" @click="pwdChange"
+											style="float: left;">변경</button>
+										<button class="buttonSubmit" @click="pwdRemove">취소</button>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-
 				</div>
-			</div>
-	</section>
+		</section>
 
-	<%@include file="main(footer).html"%>
+		<%@include file="food114_footer.jsp"%>
+	</div>
 </body>
 <script type="text/javascript">
 	var app = new Vue(
@@ -127,9 +123,7 @@
 					},
 					pwdChange : function() {
 						var self = this;
-						
-						
-						
+
 						var nparmap = {
 							userId : self.sessionId,
 							newPwd : self.newPwd
@@ -140,10 +134,10 @@
 							type : "POST",
 							data : nparmap,
 							success : function(data) {
-								if(data.result == "success"){
+								if (data.result == "success") {
 									alert("변경되었습니다.");
 									return location.href = "/myInfo.do";
-								}else{
+								} else {
 									alert("오류가 발생하였습니다.");
 								}
 								self.info = data.info;
@@ -170,7 +164,7 @@
 				},
 				created : function() {
 					var self = this;
-				//	self.fnList();
+					//	self.fnList();
 				}
 			});
 </script>

@@ -84,11 +84,11 @@
 	<select id="selectMyInfoAddr" parameterType="hashmap"
 		resultType="teamProject.food114.model.CustomerAddr">
 		SELECT *
-		FROM FOOD114_CONSUMER C
+		FROM FOOD114_CONSUMER_ADDR A
 		INNER JOIN
-		FOOD114_CONSUMER_ADDR A ON C.USERID =
+		FOOD114_CONSUMER C ON C.USERID =
 		A.USERID
-		WHERE C.USERID =
+		WHERE A.USERID =
 		#{userId}
 		ORDER BY DEFAULTYN DESC
 	</select>
@@ -130,7 +130,20 @@
 		      GROUP BY O.ORDERNO) T
 		      GROUP BY T.USERID
 	</select>	
-
+	
+	<!-- 주문완료 -->
+	<select id="selectMyOrder" parameterType="hashmap" resultType="teamProject.food114.model.Order">
+		SELECT O.ORDERNO, COUNT(*) AS ORDERCNT, O.STATUS, B.BIZNAME, GROUP_CONCAT(CONCAT(M.MENU, '(', D.COUNT, ')') SEPARATOR ', ') AS MENUS, P.PRICE, 
+		DATE_FORMAT(O.ORDERDATE, '%Y-%m-%d %H:%i') AS ORDERDATE
+		FROM FOOD114_ORDERS O
+		INNER JOIN FOOD114_ORDER_DETAIL D ON O.ORDERNO = D.ORDERNO
+		INNER JOIN FOOD114_BIZ_INFO B ON O.BIZID = B.BIZID
+		INNER JOIN FOOD114_MENU M ON D.MENUNO = M.MENUNO
+		LEFT JOIN FOOD114_PAYMENT P ON O.ORDERNO = P.ORDERNO
+		WHERE O.USERID = #{userId} AND O.ORDERNO = #{orderNo}
+		GROUP BY O.ORDERNO
+		ORDER BY O.ORDERDATE DESC
+	</select>
 	
 	<!-- myInfo - my주소지 관리 - 기본주소지 DEFAULTYN = 'N' 으로 설정 -->
 	<update id="updateAddrList" parameterType="hashmap">

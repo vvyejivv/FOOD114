@@ -14,17 +14,18 @@
 
 <style>
 .eventContainer {
+	
 	margin-top: 25px;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
-	width: 1000px;
+	width: fit-content;
 	margin-bottom: 50px;
 }
 
 .eventBox {
 	width: 380px;
 	height: 340px;
-	border: 1px solid #ccc;
+	border: 1px solid #ededed;
 	padding: 10px;
 	margin: 10px;
 	cursor: pointer;
@@ -33,7 +34,7 @@
 .previewBox {
 	width: 380px;
 	height: 300px;
-	border-bottom: 1px solid #ccc;
+	border-bottom: 1px solid #ededed;
 	margin-bottom: 10px;
 	font-weight: 500;
 	font-size: 17px;
@@ -42,7 +43,7 @@
 .imgBox {
 	width: 100%;
 	height: 225px;
-	border: 1px solid #ccc;
+	border: 1px solid #ededed;
 	overflow: hidden;
 }
 
@@ -72,16 +73,14 @@
 
 
 <body>
-	<header>
-		<%@include file="main(header).html"%>
-	</header>
+<div id="Container">
+		<%@ include file="food114_header.jsp"%>
 
-	<section>
-		<div style="width: 1200px; margin: 0px auto">
+		<div style="width: 1420px; margin: 0px auto">
 			<%@include file="event_header.jsp"%>
-			<div id="app" v-cloak>
+			<div id="app" v-cloak style="width:fit-content; margin:0px auto; margin-top:-5px;">
 				<div
-					style="width: 1200px; color: rgb(72, 72, 72); margin-top: 35px; padding: 0px;">
+					style="width: fit-content; color: rgb(72, 72, 72); margin-top: 0px; padding: 0px; border: 1px solid #ccc">
 					<div v-if="list.length==0"
 						style="margin-top: 50px; width: 1000px; margin-bottom: 50px; text-align: center; height: 230px">현재
 						진행중인 이벤트가 없습니다.</div>
@@ -104,11 +103,9 @@
 
 			</div>
 		</div>
-	</section>
 
-	<!-- footer -->
-	<%@ include file="main(footer).html"%>
-
+	<%@ include file="food114_footer.jsp"%>
+</div>
 </body>
 
 </html>

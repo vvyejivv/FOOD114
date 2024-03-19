@@ -406,6 +406,7 @@
 	<select id="selectBizDelivery" parameterType="hashmap"
 		resultType="teamProject.food114.model.Biz">
 		SELECT
+		ENDYN,
 		I.*,
 		REVIEWAVG,
 		REVIEWCNT,
@@ -434,7 +435,8 @@
 		B.TITLE,
 		B.CONTENTS,
 		COUNT(REVIEWNO) AS
-		REVIEWCNT
+		REVIEWCNT,
+		B.ENDYN
 		FROM
 		FOOD114_BIZ_INFO I
 		LEFT JOIN
@@ -459,7 +461,7 @@
 		GROUP BY i.bizid)
 		OC ON OC.BIZID=I.BIZID
 		WHERE BIZCATEGORY LIKE
-		(#{category})
+		(#{nowCategory})
 		${order}
 	</select>
 	
