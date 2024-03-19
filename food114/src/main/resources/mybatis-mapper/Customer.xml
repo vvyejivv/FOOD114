@@ -152,7 +152,7 @@
 	<insert id="insertAddrList" parameterType="hashmap">
 		INSERT INTO
 		FOOD114_CONSUMER_ADDR
-		VALUES(#{addrNo}, #{userId},#{addrAs},#{oldAddr},#{newAddr},#{detail},'N',#{request},#{phone})
+		VALUES(null, #{userId},#{addrAs},#{oldAddr},#{newAddr},#{detail},'N',#{request},#{phone})
 	</insert>
 	<!-- myInfo - my주소지 관리 - 주소지 삭제 -->
 	<delete id="deleteAddrList" parameterType="hashmap">

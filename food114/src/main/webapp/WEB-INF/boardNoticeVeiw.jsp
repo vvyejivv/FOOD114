@@ -19,32 +19,24 @@
 	<header>
 		<%@include file="main(header).html"%>
 	</header>
-
-	<!-- 광고창 -->
-	<!--
-        <div class="ad">
-            광고창
-            <button class="adClose">x</button>
-        </div>
-    -->
 	<section>
 		<div id="app">
 			<div class="container">
 				<div class="content">
-				<div style="float: left;">
-					<ul class="sidebar">
-						<li><a href="javascript:;" @click="fnClickNoticeList">공지사항</a> <a href="javascript:;"
-							style="font-size: 17px; color: #a3a2a2;"><span
-								style="margin-left: 100px;">❯</span></a></li>
-						<li><a href="javascript:;">자주하는 질문</a> <a href="javascript:;"
-							style="font-size: 17px; color: #a3a2a2;"><span
-								style="margin-left: 70px;">❯</span></a></li>
-						<li><a href="javascript:;" @click="fnclick">1:1 문의</a> <a href="javascript:;"
-							style="font-size: 17px; color: #a3a2a2;"><span
-								style="margin-left: 100px;">❯</span></a></li>
-					</ul>
-				</div>
-				
+					<div style="float: left;">
+						<ul class="sidebar">
+							<li @click="fnClickNoticeList">공지사항<a href="javascript:;"
+								style="font-size: 17px; color: #a3a2a2;"><span
+									style="margin-left: 85px;">❯</span></a></li>
+							<li>자주하는 질문 <a href="javascript:;"
+								style="font-size: 17px; color: #a3a2a2;"><span
+									style="margin: 0px;">❯</span></a></li>
+							<li>1:1 문의<a href="javascript:;"
+								style="font-size: 17px; color: #a3a2a2;"><span
+									style="margin-left: 85px;">❯</span></a></li>
+						</ul>
+					</div>
+
 					<br>
 					<h2>
 						<span style="color: #ff7f00; font-weight: bold;">| </span><span
@@ -52,7 +44,8 @@
 						<span class="span">새로운 소식과 유용한 정보를 한 곳에서 확인하세요.</span>
 					</h2>
 					<div>
-						<table border="1" style="border-collapse: collapse; margin: 10px; width: 850px;">
+						<table border="1"
+							style="border-collapse: collapse; margin: 10px; width: 850px;">
 							<tr>
 								<td colspan="1"
 									style="background-color: #f9f9f9; border-top: 2px solid rgba(72, 72, 72);">제목</td>
@@ -67,11 +60,10 @@
 								<td colspan="1">{{formatDate(info.cdateTime)}}</td>
 							</tr>
 							<tr>
-								<td colspan="4" style="padding-top:30px; padding-bottom:30px;">
-										<div style="text-align: justify;  font-size: 16px;">
-							            	{{info.contents}}
-							        	</div>
-									</td>
+								<td colspan="4" style="padding-top: 30px; padding-bottom: 30px;">
+									<div style="text-align: justify; font-size: 16px;">
+										{{info.contents}}</div>
+								</td>
 							</tr>
 						</table>
 						<div>
@@ -84,53 +76,53 @@
 	<%@include file="main(footer).html"%>
 
 	<script type="text/javascript">
-		var app = new Vue({ 
-		    el: '#app',
-		    data: {
-		    	boardNo : "${boardNo}",
-		    	list : [],
-		    	info : {},
-		    	boardList : ""
-		    },   
-		     methods : {
-		    	fnList : function(){
-		            var self = this;		            		            
-		            var nparmap = {
-		            		boardNo : self.boardNo
-		            };
-		            $.ajax({
-		                url:"boardNoticeVeiw.dox",
-		                dataType:"json",	
-		                type : "POST", 
-		                data : nparmap,
-		                success : function(data) {
-		                	self.info = data.info;		                	
-		                }
-		            }); 
-		    } ,
-		    fnclick : function(userId){
-				location.href="/boardQnaInsert.do";
-	        },
-		    fnClickNoticeList : function(userId){
-				location.href= "/boardNoticeList.do";
-		    	},
-		    	formatDate : function(dateString) {
+		var app = new Vue({
+			el : '#app',
+			data : {
+				boardNo : "${boardNo}",
+				list : [],
+				info : {},
+				boardList : ""
+			},
+			methods : {
+				fnList : function() {
+					var self = this;
+					var nparmap = {
+						boardNo : self.boardNo
+					};
+					$.ajax({
+						url : "boardNoticeVeiw.dox",
+						dataType : "json",
+						type : "POST",
+						data : nparmap,
+						success : function(data) {
+							self.info = data.info;
+						}
+					});
+				},
+				fnclick : function(userId) {
+					location.href = "/boardQnaInsert.do";
+				},
+				fnClickNoticeList : function(userId) {
+					location.href = "/boardNoticeList.do";
+				},
+				formatDate : function(dateString) {
 					if (dateString) {
 						return dateString.split(' ')[0];
 					}
 				}
-		     },
-		     computed : {
-					paginatedList : function() {
-						var self = this;
-						var startIndex = (this.nowPage - 1) * self.searchCnt;
-						var endIndex = startIndex + self.searchCnt;
-						return this.list.slice(startIndex, endIndex);
-					}
+			},
+			computed : {
+				paginatedList : function() {
+					var self = this;
+					var startIndex = (this.nowPage - 1) * self.searchCnt;
+					var endIndex = startIndex + self.searchCnt;
+					return this.list.slice(startIndex, endIndex);
 				}
-		    , created: function () {
-		    	var self = this;
-		    	self.fnList();
+			},
+			created : function() {
+				var self = this;
+				self.fnList();
 			}
 		});
-</script>
+	</script>
