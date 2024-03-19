@@ -128,13 +128,17 @@ public class CustomerController {
 		return new Gson().toJson(resultMap);
 	}
 
-	// 마이페이지 - 나의정보 - 주소지
+	// 마이페이지 - 나의정보 - 주소지	
 	@RequestMapping("/myInfoAddr.do")
 	public String myInfoAddr(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
 		request.setAttribute("map", map);
 		return "/myPage_myInfo(addr)";
 	}
+	
+	
+	
+	
 
 	// myInfo - my주소지 관리 - 주소지 상세보기
 	@RequestMapping(value = "/myInfoAddr.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")

@@ -17,18 +17,8 @@
 </head>
 <link rel="stylesheet" href="../css/myPage_myInfo(updatePwd).css">
 <body>
-	<header>
-		<%@include file="main(header).html"%>
-	</header>
+		<%@include file="food114_header.jsp"%>
 
-	<!-- 광고창 -->
-	<!--
-        <div class="ad">
-            광고창
-            <button class="adClose">x</button>
-        </div>
-    -->
-	<section>
 
 		<div class="container">
 			<%@include file="myPage_header.jsp"%>
@@ -36,7 +26,7 @@
 				<div class="content" style="width : 880px;">
 					<h2>
 						<a href="javascript:;" style="font-size: 25px; color: #747171;">
-							<span style="color: #ff7f00; font-weight: bold;">| </span>MY주소지 관리
+							<span style="color: #ff7f00; font-weight: bold;">| </span>MY주소지 관리aaa
 						</a>
 					</h2>
 					<div>
@@ -108,7 +98,6 @@
 					</div>
 				</div>
 			</div>
-	</section>
 
 	<%@include file="main(footer).html"%>
 </body>
@@ -142,7 +131,7 @@
 					data : nparmap,
 					success : function(data) {
 						self.list = data.list;
-						console.log(self.list);
+						
 					}
 				});
 			},
@@ -169,12 +158,20 @@
 							alert("오류가 발생하였습니다.");
 						}
 						self.info = data.info;
-						console.log(data.info);
 					}
 				});
 			},
 			fnSubmit : function(info) {
-				var self = this;						
+				var self = this;	
+				 if (self.info) {
+				        var addrCount = self.info.length;
+				        if (addrCount >= 5) {
+				            alert("주소는 최대 5개까지만 등록할 수 있습니다.");
+				            return;
+				        }
+				    } else {
+				        self.info = {oldAddr: []};
+				    }
 				var nparmap = {
 					userId : self.sessionId,
 					addrAs : self.inputAddrAs,
@@ -190,13 +187,13 @@
 					data : nparmap,
 					success : function(data) {
 						if(data.result == "success"){
+							
 							alert("주소가 추가 되었습니다.");
 							return location.href = "/myInfoAddr.do";
 						}else{
 							alert("오류가 발생하였습니다.");
 						}
 						self.info = data.info;
-						console.log(data.info);
 					}
 				});
 			},
@@ -219,7 +216,6 @@
 							alert("오류가 발생하였습니다.");
 						}
 						self.info = data.info;
-						console.log(data.info);
 					}
 				});
 			},
