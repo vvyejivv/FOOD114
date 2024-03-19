@@ -119,14 +119,14 @@ section {
 }
 
 #menu1, #menu2 {
-	font-size: 16px;
-	color: #000;
+	color: #222222;
 	padding: 10px 20px;
 	width: 50%;
 	box-sizing: border-box;
 	float: left;
 	height: 50px;
 	margin: 0px;
+	font-size : 14px;
 }
 
 .option {
@@ -307,25 +307,25 @@ ul, ol {
 					<div style="margin:10px;">
 						<div class="detailView">
 							<img class="solidImg" src="../img/location-dot-solid.png">
-							<span style="font-size:17px;">{{restView.newAddr}} {{restView.detail}}</span>
+							<span style="font-size:14px;">{{restView.newAddr}} {{restView.detail}}</span>
 						</div>
 						<div class="detailView">
 							<img class="solidImg" src="../img/clock-solid.png">
-							<span style="font-size:17px;">{{restView.sepaOpenTime}} - {{restView.sepaCloseTime}}</span>
+							<span style="font-size:14px;">{{restView.sepaOpenTime}} - {{restView.sepaCloseTime}}</span>
 						</div>
 						<div class="detailView">
 							<img class="solidImg" src="../img/phone-solid.png">
-							<span style="font-size:17px;">{{restView.sepaPhone}}</span>
+							<span style="font-size:14px;">{{restView.sepaPhone}}</span>
 						</div>
 						<div class="detailView">
 							<img class="solidImg" src="../img/store-solid.png">
-							<span style="font-size:17px;">{{restView.devType}}</span>
+							<span style="font-size:14px;">{{restView.devType}}</span>
 						</div>
 						<div class="detailView">
 							<img class="solidImg" src="../img/store-solid.png">
-							<span style="font-size:1.5em;">가게이벤트</span>
-							<div style="font-size:15px; margin-left:25px; margin-top:10px;">{{restView.title}}</div>
-							<div style="font-size:15px; margin-left:25px; margin-top:10px;">{{restView.contents}}</div>
+							<span style="font-size:16px;">가게이벤트</span>
+							<div style="font-size:14px; margin-left:25px; margin-top:10px;">{{restView.title}}</div>
+							<div style="font-size:14px; margin-left:25px; margin-top:10px;">{{restView.contents}}</div>
 						</div>
 						<div style="width:100%; text-align:center;">
 							<button @click="fnShopInfo(restView.bizId)" class="plusBtn">정보 더보기 ❯</button>
@@ -393,7 +393,7 @@ ul, ol {
 					<div class="restList" v-if="areaRestList.length == 0 && searchFlg" v-for="item in locationRestList">
 						<img :src="item.path" alt="Hi" class="restImg">
 						<h3 style="margin-top: 8px;">
-							<a style="font-size: 1.5em;" href="javascript:;"
+							<a style="font-size: 16px;" href="javascript:;"
 								@click="fnRestView(item.bizId)">{{item.bizName}}</a><span style="color: #aaa;"> {{item.categoryName}}</span>
 						</h3>
 						<div id="placesList1" style="margin-top:5px;">
