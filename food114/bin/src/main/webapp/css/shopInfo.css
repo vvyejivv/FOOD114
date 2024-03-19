@@ -249,7 +249,7 @@ ul.tab {
 
 .menuBox {
 	/* background-color: rgb(209, 46, 231); */
-	width: 1350px;
+	width: 1000px;
 	margin : 0px auto;
 	border: 1px solid #cccccc34;
 	/* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
@@ -292,6 +292,7 @@ ul.tab {
 	height: 250px;
 	border-radius: 5px;
 	cursor: pointer;
+	object-fit: contain;
 }
 /* .menuImgBox img:hover{
 	transform: scale(1.1); 1.2배 확대
