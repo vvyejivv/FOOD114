@@ -6,11 +6,11 @@
 <script src="js/jquery.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	<meta charset="UTF-8">
-	<title>첫번째 페이지</title>
+	<title>FOOD114 사장님</title>
 </head>
 <body style="margin: 0px auto;">
 	<header>
-		<%@include file="food114_header.jsp"%>
+		<%@include file="food114_header(biz).jsp"%>
 	</header>
 	<section>
 		<div id="app" style="width: 1920px; margin: 0px auto;">
@@ -157,7 +157,7 @@
 	    </div>
     </section>
 	<footer>
-		<%@include file="food114_footer.jsp"%>
+		<%@include file="food114_footer(biz).jsp"%>
 	</footer>
 </body>
 </html>
