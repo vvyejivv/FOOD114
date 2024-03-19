@@ -152,9 +152,9 @@
 	</update>
 	<!-- 가게 이벤트 검색  -->
 	<select id="selectShopEvent" parameterType="hashmap" resultType="teamProject.food114.model.Board">
-		SELECT *
-		FROM FOOD114_BOARD E
-		INNER JOIN FOOD114_BIZ_INFO B ON E.USERID = B.BIZID
-		WHERE B.BIZID = #{bizId}
+				SELECT *
+		FROM FOOD114_BIZ_INFO B
+		left JOIN 	FOOD114_BOARD E ON E.USERID = B.BIZID AND E.ENDYN='N' AND CODE=4
+		WHERE B.BIZID = #{bizId};
 	</select>
 </mapper>

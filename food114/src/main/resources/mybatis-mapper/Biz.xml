@@ -5,7 +5,7 @@
 <mapper namespace="teamProject.food114.mapper.BizMapper">
 	<!-- 이벤트 활성화 여부 -->
 	<select id="selectEventStatus" parameterType="hashmap"
-		resultType="int">
+		resultType="teamProject.food114.model.Biz">
 		SELECT
 		<![CDATA[ setbegintime<= DATE_FORMAT(NOW(), '%H%i')
 		AND DATE_FORMAT(NOW(), '%H%i')<= setendtime AS EVENTSTATUS ]]>		
@@ -47,7 +47,7 @@
 		ELSE '알 수 없음'
 		END AS SHOPOPENYN
 		FROM FOOD114_BIZ_INFO B
-		INNER JOIN FOOD114_BIZ_FILE F ON
+		LEFT JOIN FOOD114_BIZ_FILE F ON
 		B.BIZID = F.BIZID AND STATUS = 'COMPLETE'
 		WHERE B.BIZID = #{bizId}
 	</select>
