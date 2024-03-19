@@ -342,4 +342,16 @@
 
 		}
 	});
+	// javascript 영역에 추가 
+	window.addEventListener('scroll', function() {
+		    var orderListBox = document.querySelector('.orderListBox');
+		    var currentPosition = window.scrollY;
+
+		    // 스크롤 위치에 따라 top 값을 조정
+		    if (currentPosition > 200) {
+		        orderListBox.style.top = '250px';
+		    } else {
+		        orderListBox.style.top = '560px';
+		    }
+		});
 </script>
