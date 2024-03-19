@@ -27,7 +27,7 @@ public class MenuController {
 	MenuService menuService;
 
 	// 배달 메뉴 찾기
-	@RequestMapping("/food114_foodfind.do")
+	@RequestMapping("/food114-foodfind.do")
 	public String food114FoodFind(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
 		if(!map.containsKey("order") || map.get("order")=="") {

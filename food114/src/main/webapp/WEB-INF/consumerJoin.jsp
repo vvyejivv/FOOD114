@@ -143,12 +143,11 @@ select {
 </style>
 
 <body>
-	<header>
-		<%@include file="main(header).html"%>
-	</header>
+<div id="Container">
+		<%@include file="food114_header.jsp"%>
 
 	<section>
-		<div id="app">
+		<div id="app" v-cloak>
 			<div class="container">
 				<div class="title">회원가입</div>
 				<div
@@ -316,9 +315,8 @@ select {
 	</section>
 
 
-	<footer>
-		<%@include file="main(footer).html"%>
-	</footer>
+		<%@include file="food114_footer.jsp"%>
+	</div>
 </body>
 
 </html>
@@ -403,7 +401,7 @@ select {
 							data : nparmap,
 							success : function(data) {
 								if (data.result == "success") {
-									location.href = "consumer-join-success.do";
+									location.href = "food114-welcome.do";
 								} else {
 									alert("실패");
 								}

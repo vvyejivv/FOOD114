@@ -55,7 +55,7 @@ public class ReviewController {
 	}
 	
 	//리뷰 보기 고객 내정보
-	@RequestMapping("/myInfoReview.do")
+	@RequestMapping("/food114-myPage-review.do")
 	public String myInfoReview(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		if(!map.containsKey("nowPage")) {
 			map.put("nowPage",1);

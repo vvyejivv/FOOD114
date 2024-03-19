@@ -208,7 +208,7 @@
 									<div>주소 : {{item.newAddr}}</div>
 									<div>상세주소 : {{item.detail}}</div>
 									<button class="main2-text-btn"
-										@click="fnAddrSelect(item.newAddr)">선택</button>
+										@click="fnAddrSelect(item.newAddr,item.detail)">선택</button>
 								</div>
 							</template>
 						</div>
@@ -280,7 +280,7 @@
 								</div>
 								<div style="clear: both; margin-left: -20px;">
 									<button class="bizDetailBtn"
-										@click="fnPageChange('shopInfo.do',{selectTab : 'menu', bizId : item.bizId})">자세히
+										@click="fnPageChange('shopInfo.do',Object.assign(map, {selectTab : 'menu', bizId : item.bizId}))">자세히
 										보기</button>
 								</div>
 							</div>
@@ -337,7 +337,8 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 				order : "${map.order}",
 				latitude : "${map.latitude}",
 				longitude : "${map.longitude}",
-				nowPage : ${map.nowPage}
+				nowPage : ${map.nowPage},
+				detail : "${map.detail}"
 			},
 			list : {
 				bizBaedalOkList : [] ,
@@ -369,9 +370,12 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 				});
 			},
 			// 주소 선택시
-			fnAddrSelect : function(addr){
+			fnAddrSelect : function(addr,detail){
 				var self=this;
-				self.map.inputAddr=addr;				
+				self.map.detail=detail;
+				self.map.inputAddr=addr;
+				
+				
 			},
 			
 			fnCloseModal:function(){
@@ -408,6 +412,9 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 					success : function(data) {
 						self.list.addrList=data.list;
 						console.log(data);
+						if(data.list.length==0){							
+							return;
+						}
 						if(self.map.inputAddr==""){
 						self.map.inputAddr=self.list.addrList[0].newAddr;
 						}
@@ -417,6 +424,8 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 			// 페이지 체인지
 			fnPageChange : function(link,map){
 				var self=this;
+				console.log(map);
+				return;
 				$.pageChange(link, map);
 			},
 			// 해당 주소의 위도 경도 구하기
