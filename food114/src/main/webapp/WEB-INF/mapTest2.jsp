@@ -283,6 +283,7 @@ ul, ol {
 	width: 200px;
 	height: 200px;
 	margin-left:5px;
+	margin-top:10px;
 }
 </style>
 <link rel="stylesheet" href="../css/food114.css">
@@ -301,7 +302,7 @@ ul, ol {
 					<a href="javascript:;" @click="fnRestClose()" class="backBtn">❮</a>
 					<div style="margin:20px;">
 						<h1 style="font-size: 1.5em;">{{restView.bizName}}<span style="color:#ccc; margin-top:5px;"> {{restView.categoryName}}</span></h1>
-						<div style="margin-top:10px;">리뷰 {{restView.reviewCnt}}</div>
+						<div style="margin-top:10px;"><a href="javascript:;" @click="fnShopInfoReview(restView.bizId)">리뷰 {{restView.reviewCnt}}</a></div>
 					</div>
 						<div style="border-top:1px solid #eee; width:414px; margin:20px 0px 20px 10px;"></div>
 					<div style="margin:10px;">
@@ -339,7 +340,7 @@ ul, ol {
 							<div style="font-size:15px; margin-left:50px;">{{item.menu}}</div>
 							<div style="font-size:15px; margin-left:50px; margin-top:10px; font-weight:bold;">{{item.price}}<span style="font-size:15px; font-weight:100;">원</span></div>
 						</div>
-						<div style="width:100%; text-align:center;">
+						<div style="width:100%; text-align:center; clear:both;">
 							<button @click="fnShopInfo(restView.bizId)" class="plusBtn">메뉴 더보기 ❯</button>
 						</div>
 					</div>
@@ -481,7 +482,7 @@ ul, ol {
     }
     
     function goToPage(bizId){
-    	$.pageChangeBlank("/shopInfo.do", {bizId : bizId});
+    	$.pageChangeBlank("/shopInfo.do", {bizId : bizId, selectTab : 'menu'});
     }
     
 		var app = new Vue({
@@ -937,7 +938,10 @@ ul, ol {
 				    menuView.style.left = "0";
 				},
 			  fnShopInfo: function(bizId) {
-				  $.pageChangeBlank("/shopInfo.do", {bizId : bizId});
+				  $.pageChangeBlank("/shopInfo.do", {bizId : bizId, selectTab : 'menu'});
+			  },
+			  fnShopInfoReview: function(bizId) {
+				  $.pageChangeBlank("/shopReview.do", {bizId : bizId, selectTab : 'review'});
 			  }
 			},
 			mounted() {

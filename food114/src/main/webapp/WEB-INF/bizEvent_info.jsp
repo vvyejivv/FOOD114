@@ -11,12 +11,10 @@
 <link rel="stylesheet" href="../css/event_info_biz.css">
 </head>
 <body>
-	<header>
-		<%@include file="main(header)_biz.html"%>
-	</header>
-	<section>
 		<div id="Container">
 		<%@include file="food114_header.jsp"%>
+			<section style="height: 850px">
+				<%@include file="sideBar_biz.html"%>
 		<div id="app">
 			<div class="mold">
 				<h2>

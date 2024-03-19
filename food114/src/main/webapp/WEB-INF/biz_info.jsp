@@ -304,7 +304,12 @@ section {
 							</select>
 							분
 						</template>
-
+					</div>
+					<div class="infoDiv">
+						<div class="infoName">배달 가능 거리(m)</div>
+						<span v-if="!updateFlg" class="viewInfo">{{bizInfo.range}}</span>
+						<input v-if="updateFlg" class="updateInput"
+							v-model="bizInfo.range">
 					</div>
 				</div>
 				<button v-if="!updateFlg" class="btn-modify" @click="fnInfoUpdate()">정보
@@ -420,7 +425,7 @@ section {
 						if (self.bizInfo.bizName == ""
 								|| self.bizInfo.ownerName == ""
 								|| self.bizInfo.accountNumber == ""
-								|| self.email == "" || self.emailAddr == "") {
+								|| self.email == "" || self.emailAddr == "" || self.bizInfo.range == "") {
 							alert("판매자 정보를 제대로 기입해주세요.");
 							return;
 						}
