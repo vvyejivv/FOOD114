@@ -6,7 +6,7 @@
 <script src="js/jquery.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	<meta charset="UTF-8">
-	<title>FOOD114 사장님</title>
+	<title>FOOD114 사장님 페이지</title>
 </head>
 <body style="margin: 0px auto;">
 	<header>
@@ -107,8 +107,8 @@
 	                        <table style="margin: 0px auto; border-collapse: collapse;">
 	                            <tr style="border-top: 2px solid #b0b0b0; border-bottom: 1px solid #EDEDED;">
 	                                <th style="width: 50px; color: #5F5F5F; padding: 12px 8px; font-size: 14px;">NO</th>
-	                                <th style="width: 450px; color: #5F5F5F; padding: 12px 8px; font-size: 14px;">제목</th>
-	                                <th style="width: 200px; color: #5F5F5F; padding: 12px 8px; font-size: 14px;">작성자</th>
+	                                <th style="width: 550px; color: #5F5F5F; padding: 12px 8px; font-size: 14px;">제목</th>
+	                                <th style="width: 100px; color: #5F5F5F; padding: 12px 8px; font-size: 14px;">작성자</th>
 	                                <th style="width: 200px; color: #5F5F5F; padding: 12px 8px; font-size: 14px;">작성일</th>
 	    
 	                            </tr>

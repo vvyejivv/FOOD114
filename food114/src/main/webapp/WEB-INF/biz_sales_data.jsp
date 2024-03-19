@@ -84,22 +84,22 @@ table th, td {
 		<div id="app">
 			<div class="mold">
 				<h2>
-					<span style="color: #ff7f00; font-weight: bold;">| </span><span
-						style="text-align: left; color: rgba(72, 72, 72);">판매통계&nbsp;</span>
+					<span style="color: #ff7f00; font-weight: bold; font-size : 16px;">| </span><span
+						style="text-align: left; color: #222222; font-size : 16px;">판매통계&nbsp;</span>
 				</h2>
-				<strong v-html="title1"></strong>
+				<strong v-html="title1" style="font-size: 14px; color:#5F5F5F"></strong>
 				<div id="chart">
 					<apexchart type="line" height="350" width="1100" :options="chartOptions"
 						:series="series"></apexchart>
 				</div>
 				<div class="thin"></div>
 				<h2>
-					<span style="color: #ff7f00; font-weight: bold;">| </span><span
-						style="text-align: left; color: rgba(72, 72, 72);">판매이력&nbsp;</span>
+					<span style="color: #ff7f00; font-weight: bold; font-size : 16px;">| </span><span
+						style="text-align: left; color: #222222; font-size : 16px;">판매이력&nbsp;</span>
 				</h2><small> 총 {{orderCnt.cnt}}건</small>
 				<div>
 					<table class="order">
-						<tr>
+						<tr style="color: #222222; font-size : 14px;">
 							<th
 								style="width: 30px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
 								번호</th>
@@ -116,7 +116,7 @@ table th, td {
 								style="width: 100px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
 								주문일</th>
 						</tr>
-						<tr v-for="(item,index) in orderList">
+						<tr v-for="(item,index) in orderList"  style="font-size : 14px;">
 							<td>{{item.orderNo}}</td>
 							<td>{{item.menuList}}</td>
 							<td>{{item.totalAmount}}원</td>
