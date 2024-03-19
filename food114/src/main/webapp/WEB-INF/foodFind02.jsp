@@ -173,7 +173,7 @@
 		<div id="app" v-cloak>
 			<div id="container">
 				<div class="topSection">
-					<div id="title">우리 동네 이벤트</div>
+					<div id="title">메뉴</div>
 					<div id="addrContainer">
 						<input id="addrInput" placeholder="주소를 입력해 주세요."
 							disabled="disabled" v-model="map.inputAddr">
@@ -208,12 +208,22 @@
 									<div>주소 : {{item.newAddr}}</div>
 									<div>상세주소 : {{item.detail}}</div>
 									<button class="main2-text-btn"
-										@click="fnAddrSelect(item.newAddr)">선택</button>
+										@click="fnAddrSelect(item.newAddr,item.detail)">선택</button>
 								</div>
 							</template>
 						</div>
 
 					</div>
+				</div>
+				<!-- 카테고리 -->
+				<div
+					style="width: 1420px; margin: 0px auto; display: flex; gap: 30px; justify-content: center;">
+					<a href="javascript:;" style="color: #9e9e9e;"
+						@click="map.nowCategory='%%'"
+						:style="{color: map.nowCategory=='%%' ? '#222222' : '#9e9e9e'}">전체</a>
+					<a href="javascript:;" v-for="item in list.categoryList"
+						style="color: #9e9e9e;" @click="map.nowCategory=item.categoryNo"
+						:style="{color: map.nowCategory==item.categoryNo ? '#222222' : '#9e9e9e'}">{{item.categoryName}}</a>
 				</div>
 
 
@@ -231,7 +241,10 @@
 					</div>
 					<div id="bizListContainer">
 						<div id="bizListGrid">
-							<div v-for="(item,index) in list.bizBaedalOkList" class="bizBox" :style="{'background-color': !item.contents? '#ededed3c':'white'}"								
+
+							<!-- 가게 보여주기 -->
+							<div v-for="(item,index) in list.bizBaedalOkList" class="bizBox"
+								:style="{'background-color': !item.contents? '#ededed3c':'white'}"
 								v-if="(map.nowPage*showCnt-showCnt)<= index && index<(map.nowPage*showCnt)">
 								<div class="bizBoxContent">
 									<img :src="item.path">
@@ -239,11 +252,7 @@
 									<div class="bizInfo">
 
 										<div class="bizInfoName">
-											<div style="width: fit-content">{{item.bizName}}{{index}}</div>
-											<div style="display: flex; gap: 5px;">
-												<div class="takeOutStatus" v-if="item.takeOut!=2">배달</div>
-												<div class="takeOutStatus" v-if="item.takeOut!=1">포장</div>
-											</div>
+											<div style="width: fit-content">{{item.bizName}}</div>
 										</div>
 
 										<div class="bizInfoBottom">
@@ -256,20 +265,25 @@
 												</template>
 											</span>
 										</div>
-										<div class="bizInfoEvent">
-											<span>{{item.contents}}</span> <span
-												v-if="typeof item.contents=='undefined'" style="font-size: 12px; color:#9e9e9e">현재 진행중인 이벤트가
-												없습니다.</span>
+										<div style="margin-top: 10px; font-size: 14px">
+											배달비 4,000원 · <span style="color: #5f5f5f">{{Math.ceil(item.distance)}}m</span>
+										</div>
+										<div style="margin-top: 10px; font-size: 14px">최소주문금액
+											11,000원</div>
+										<div style="display: flex; gap: 5px; margin-top: 10px;">
+											<div class="takeOutStatus" v-if="item.takeOut!=2">배달</div>
+											<div class="takeOutStatus" v-if="item.takeOut!=1">포장</div>
 										</div>
 									</div>
 
 								</div>
 								<div style="clear: both; margin-left: -20px;">
 									<button class="bizDetailBtn"
-										@click="fnPageChange('shopInfo.do',{selectTab : 'menu', bizId : item.bizId})">자세히
+										@click="fnPageChange('shopInfo.do',Object.assign(map, {selectTab : 'menu', bizId : item.bizId}))">자세히
 										보기</button>
 								</div>
 							</div>
+
 
 						</div>
 
@@ -318,30 +332,47 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 			sessionId : "${sessionId}",
 			map : {
 				inputAddr : "${map.inputAddr}",				
-				nowCategory : "%%",
+				nowCategory : "${map.nowCategory}",
 				order : "${map.order}",
 				latitude : "${map.latitude}",
 				longitude : "${map.longitude}",
-				nowPage : ${map.nowPage}
+				nowPage : ${map.nowPage},
+				detail : "${map.detail}"
 			},
 			list : {
 				bizBaedalOkList : [] ,
 				bizInfo : [],
-				addrList : []
+				addrList : [],
+				categoryList :[]
 				
 			},
 			totalPage : "", // 총 페이지 
 			showCnt : 9, //보여지는 개수
 			totalCnt : "" // 총 개수
-			
-		
-		},
-		
+		},		
 		methods : {
+			/* 카테고리 목록 불러오기 */
+			fnCategoryList : function() {
+				var self = this;
+				var nparmap = {};
+				$.ajax({
+					url : "foodCategoryAll.dox",
+					dataType : "json",
+					type : "POST",
+					data : nparmap,
+					success : function(data) {
+						self.list.categoryList = data.categoryList;
+						console.log(data);
+					}
+				});
+			},
 			// 주소 선택시
-			fnAddrSelect : function(addr){
+			fnAddrSelect : function(addr,detail){
 				var self=this;
-				self.map.inputAddr=addr;				
+				self.map.detail=detail;
+				self.map.inputAddr=addr;
+				
+				
 			},
 			
 			fnCloseModal:function(){
@@ -351,6 +382,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 					"overflow-y" : "auto"
 				})
 			},
+			// 내 주소지 선택시
 			fnAddrClick : function(){
 				var self=this;
 				if(!self.sessionId){
@@ -376,6 +408,10 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 					data : nparmap,
 					success : function(data) {
 						self.list.addrList=data.list;
+						console.log(data);
+						if(data.list.length==0){							
+							return;
+						}
 						if(self.map.inputAddr==""){
 						self.map.inputAddr=self.list.addrList[0].newAddr;
 						}
@@ -385,6 +421,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 			// 페이지 체인지
 			fnPageChange : function(link,map){
 				var self=this;
+				console.log(map);
 				$.pageChange(link, map);
 			},
 			// 해당 주소의 위도 경도 구하기
@@ -464,22 +501,28 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 			  self.convertAddressToCoordinates(self.map.inputAddr);
 			  setTimeout(function(){
 				  console.log(self.map.inputAddr);
-			  $.pageChange("/event-biz-list.do", self.map);
+			  $.pageChange("/food114_foodfind.do", self.map);
 			}, 50)	
 		  },
 		  'map.nowPage' : function(){
 			  var self=this;
-			  $.pageChange("/event-biz-list.do", self.map);
+			  $.pageChange("/food114_foodfind.do", self.map);
 		  },
 		  'map.order' : function(){
 			  var self=this;
-			  $.pageChange("/event-biz-list.do", self.map);
+			  $.pageChange("/food114_foodfind.do", self.map);
+		  },
+		  'map.nowCategory' : function(){
+			  var self=this;
+			  self.map.nowPage=1;			  
+			  $.pageChange("/food114_foodfind.do", self.map);
 		  }
 		},
 		created : function() {
 			var self = this;
-			self.fnList();
 			self.fnLoadMyAddr();
+			self.fnCategoryList();
+			self.fnList();
 			console.log(self.sessionId);
 				
 

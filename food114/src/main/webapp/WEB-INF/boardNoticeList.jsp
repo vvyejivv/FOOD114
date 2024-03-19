@@ -8,24 +8,15 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MAIN</title>
+<title></title>
 <style>
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 </style>
 </head>
 <link rel="stylesheet" href="../css/boardNoticeList.css">
 <body>
- 	<header>
-		<%@include file="main(header).html"%>
-	</header> 
+		<%@include file="food114_header(biz).jsp"%>
 
-	<!-- 광고창 -->
-	<!--
-        <div class="ad">
-            광고창
-            <button class="adClose">x</button>
-        </div>
-    -->
 	<section>
 		<div id="app">
 			<div class="container">
@@ -104,7 +95,7 @@
 	</section>
 
 	
-		<%@include file="main(footer).html"%>
+		<%@include file="food114_footer(biz).jsp"%>
 	
 
 	<script type="text/javascript">

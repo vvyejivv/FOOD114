@@ -6,7 +6,7 @@
 <script src="js/jquery.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <meta charset="UTF-8">
-<title>첫번째 페이지</title>
+<title>사장님 페이지</title>
 <link rel="stylesheet" href="../css/food114.css">
 <link rel="stylesheet" href="../css/review_biz.css">
 </head>
@@ -15,7 +15,7 @@
 </style>
 <body>
 	<div id="Container">
-	<%@include file="food114_header.jsp"%>
+		<%@include file="food114_header(biz).jsp"%>
 	<section>
 		<%@include file="sideBar_biz.html"%>
 		<div id="app" v-cloak>
@@ -77,7 +77,7 @@
 		</div>
 	</section>
 
-	<%@include file="food114_footer.jsp"%>
+		<%@include file="food114_footer(biz).jsp"%>
 	</div>
 
 </body>

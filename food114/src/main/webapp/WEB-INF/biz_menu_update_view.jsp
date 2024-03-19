@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="../css/food114.css">
-<title>로그인</title>
+<title>사장님 페이지</title>
 </head>
 <style>
 .inputBox {
@@ -187,7 +187,7 @@ button img {
 </style>
 <body>
 	<div id="Container">
-	<%@include file="food114_header.jsp"%>
+		<%@include file="food114_header(biz).jsp"%>
 	<!-- 광고창 -->
 	<!-- <div class="ad">
         광고창
@@ -265,7 +265,7 @@ button img {
 			</div>
 		</div>
 		</section>
-	<%@include file="food114_footer.jsp"%>
+		<%@include file="food114_footer(biz).jsp"%>
 	</div>
 </body>
 

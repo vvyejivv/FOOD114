@@ -6,12 +6,12 @@
 <script src="js/jquery.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <meta charset="UTF-8">
-<title>첫번째 페이지</title>
+<title>사장님 페이지</title>
 <link rel="stylesheet" href="../css/view_biz.css">
 </head>
 <body>
 	<header>
-		<%@include file="main(header)_biz.html"%>
+	<%@include file="food114_header(biz).jsp"%>
 	</header>
 	<section>
 		<%@include file="sideBar_biz.html"%>
@@ -22,7 +22,7 @@
 		</div>
 	</section>
 
-	<%@include file="main(footer)_biz.html"%>
+		<%@include file="food114_footer(biz).jsp"%>
 
 </body>
 </html>

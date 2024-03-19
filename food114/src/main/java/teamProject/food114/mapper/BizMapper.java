@@ -24,6 +24,7 @@ public interface BizMapper {
 	List<Area> selectSiList(HashMap<String, Object> map); // 시 리스트 조회
 	List<Area> selectGuList(HashMap<String, Object> map); // 구 리스트 조회
 	List<Area> selectDongList(HashMap<String, Object> map); // 동 리스트 조회
+	int selectEventStatus(HashMap<String, Object> map); // 이벤트 활성화 여부
 
 
 

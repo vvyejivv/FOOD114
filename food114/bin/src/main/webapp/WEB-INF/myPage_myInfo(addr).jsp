@@ -22,18 +22,8 @@
 </head>
 <link rel="stylesheet" href="../css/myPage_myInfo(updatePwd).css">
 <body>
-	<header>
-		<%@include file="main(header).html"%>
-	</header>
+		<%@include file="food114_header.jsp"%>
 
-	<!-- 광고창 -->
-	<!--
-        <div class="ad">
-            광고창
-            <button class="adClose">x</button>
-        </div>
-    -->
-	<section>
 
 		<div class="container">
 			<%@include file="myPage_header.jsp"%>
@@ -41,8 +31,12 @@
 				<div class="content" style="width: 880px;">
 					<h2>
 						<a href="javascript:;" style="font-size: 25px; color: #747171;">
+<<<<<<< HEAD
 							<span style="color: #ff7f00; font-weight: bold;">| </span>MY주소지
 							관리
+=======
+							<span style="color: #ff7f00; font-weight: bold;">| </span>MY주소지 관리aaa
+>>>>>>> branch 'DONGJAE' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 						</a>
 					</h2>
 					<div>
@@ -157,8 +151,11 @@
 					</div>
 				</div>
 			</div>
+<<<<<<< HEAD
 		</div>
 	</section>
+=======
+>>>>>>> branch 'DONGJAE' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 
 	<%@include file="main(footer).html"%>
 </body>
@@ -203,7 +200,7 @@
 					data : nparmap,
 					success : function(data) {
 						self.list = data.list;
-						console.log(self.list);
+						
 					}
 				});
 			},
@@ -231,7 +228,6 @@
 							alert("오류가 발생하였습니다.");
 						}
 						self.info = data.info;
-						console.log(data.info);
 					}
 				});
 			},
@@ -279,7 +275,20 @@
 				self.phoneCheckText = "";
 			},
 			fnSubmit : function(info) {
+<<<<<<< HEAD
 				var self = this;
+=======
+				var self = this;	
+				 if (self.info) {
+				        var addrCount = self.info.length;
+				        if (addrCount >= 5) {
+				            alert("주소는 최대 5개까지만 등록할 수 있습니다.");
+				            return;
+				        }
+				    } else {
+				        self.info = {oldAddr: []};
+				    }
+>>>>>>> branch 'DONGJAE' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 				var nparmap = {
 					userId : self.sessionId,
 					addrAs : self.inputAddrAs,
@@ -294,14 +303,18 @@
 					type : "POST",
 					data : nparmap,
 					success : function(data) {
+<<<<<<< HEAD
 						if (data.result == "success") {
+=======
+						if(data.result == "success"){
+							
+>>>>>>> branch 'DONGJAE' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 							alert("주소가 추가 되었습니다.");
 							return location.href = "/myInfoAddr.do";
 						} else {
 							alert("오류가 발생하였습니다.");
 						}
 						self.info = data.info;
-						console.log(data.info);
 					}
 				});
 			},
@@ -348,7 +361,6 @@
 							alert("오류가 발생하였습니다.");
 						}
 						self.info = data.info;
-						console.log(data.info);
 					}
 				});
 			},

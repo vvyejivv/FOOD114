@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="../css/food114.css">
-<title>로그인</title>
+<title>사장님 페이지</title>
 </head>
 <style>
 .box {
@@ -24,14 +24,16 @@
 
 .box-text {
 	margin: 8px 0 8px 12px;
+	font-size : 14px;
+	color : #222222;
 }
 
 table {
 	margin-top: 30px;
 	width: 1100px;
 	border-collapse: collapse;
-	border-radius: 8px;
 	overflow: hidden;
+	font-size : 14px;
 }
 
 th, td {
@@ -44,6 +46,9 @@ th {
 	background-color: #f2f2f2;
 }
 
+td{
+	color:#5F5F5F;
+}
 tr:hover {
 	background-color: #ddd;
 }
@@ -54,9 +59,9 @@ input[type="checkbox"], .btn-modify {
 
 .btn-modify {
 	width: 60px;
-	background-color: #ffffff; /* 버튼 배경색 (흰색) */
-	border: 1px solid #ff7f00; /* 버튼 테두리 (파란색) */
-	color: #ff7f00; /* 텍스트 색상 (파란색) */
+	background-color: #fff; /* 버튼 배경색 (흰색) */
+	border: 1px solid #ededed; /* 버튼 테두리 (파란색) */
+	color: #222222; /* 텍스트 색상 (파란색) */
 	padding: 8px 12px; /* 내부 여백 */
 	text-align: center;
 	text-decoration: none;
@@ -68,11 +73,11 @@ input[type="checkbox"], .btn-modify {
 	border-radius: 4px; /* 버튼에 border-radius 적용 */
 }
 
-.btn-modify:hover {
+/* .btn-modify:hover {
 	background-color: #ff7f00;
 	border: 1px solid #FBCEB1;
 	color: #ffffff;
-}
+} */
 
 [v-cloak] {
 	display: none;
@@ -80,7 +85,7 @@ input[type="checkbox"], .btn-modify {
 </style>
 <body>
 	<div id="Container">
-	<%@include file="food114_header.jsp"%>
+		<%@include file="food114_header(biz).jsp"%>
 	<!-- 광고창 -->
 	<!-- <div class="ad">
         광고창
@@ -91,8 +96,8 @@ input[type="checkbox"], .btn-modify {
 		<div id="app" v-cloak>
 			<div class="mold">
 				<h2>
-					<span style="color: #ff7f00; font-weight: bold;">| </span><span
-						style="text-align: left; color: rgba(72, 72, 72);">상품조회/수정&nbsp;</span>
+					<span style="color: #ff7f00; font-weight: bold; font-size : 16px;">| </span><span
+						style="text-align: left; color: #222222; font-size : 16px;">상품조회/수정&nbsp;</span>
 				</h2>
 				<div>
 					<div class="box">
@@ -126,8 +131,8 @@ input[type="checkbox"], .btn-modify {
 						</div>
 					</div>
 				</div>
-				<div style="margin-top: 30px;">
-					상품목록<small>(총 {{menuCnt.cnt}}개)</small>
+				<div style="margin-top: 30px; font-size:15px;">
+					상품목록 <small>(총 {{menuCnt.cnt}}개)</small>
 				</div>
 				<table>
 					<tr>
@@ -151,7 +156,7 @@ input[type="checkbox"], .btn-modify {
 			</div>
 		</div>
 	</section>
-	<%@include file="food114_footer.jsp"%>
+		<%@include file="food114_footer(biz).jsp"%>
 	</div>
 </body>
 

@@ -194,6 +194,7 @@
 					data : nparmap,
 					success : function(data) {
 						self.menuList = data.menuList;
+						console.log(data);
 		
 					}
 				});

@@ -40,7 +40,7 @@ public class BoardController {
 		} else {
 			request.setAttribute("endYn", map.get("endYn"));
 		}
-
+		request.setAttribute("map", map);
 		return "/eventList";
 	}
 

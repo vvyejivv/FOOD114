@@ -27,6 +27,9 @@ public class Biz {
 	private String open;
 	private String close;
 	private String shopOpenYN;
+	
+	//event
+	private int eventStatus;
 
 	// 이벤트board 조인시
 	private String beginTime2;
