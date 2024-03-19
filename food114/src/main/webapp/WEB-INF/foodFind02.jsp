@@ -241,6 +241,8 @@
 					</div>
 					<div id="bizListContainer">
 						<div id="bizListGrid">
+						
+						<!-- 가게 보여주기 -->
 							<div v-for="(item,index) in list.bizBaedalOkList" class="bizBox"
 								:style="{'background-color': !item.contents? '#ededed3c':'white'}"
 								v-if="(map.nowPage*showCnt-showCnt)<= index && index<(map.nowPage*showCnt)">
@@ -282,6 +284,7 @@
 										보기</button>
 								</div>
 							</div>
+							
 
 						</div>
 

@@ -45,19 +45,22 @@ public class CustomerController {
 	
 	// 마이페이지 - 결제수단 관리
 	@RequestMapping("/myInfoPayment.do")
-	public String myInfoPayment(Model model) throws Exception {
+	public String myInfoPayment(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		request.setAttribute("map", map);
 		return "/myPage_myInfo(payment)"; // bizReview.jsp
 	}
 	
 	// 마이페이지 - 쿠폰 관리
 	@RequestMapping("/myInfoCoupon.do")
-	public String myInfoCoupon(Model model) throws Exception {
+	public String myInfoCoupon(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		request.setAttribute("map", map);
 		return "/myPage_myInfo(coupon)"; // bizReview.jsp
 	}
 	
 	// 마이페이지 - 포인트 관리
 	@RequestMapping("/myInfoPoint.do")
-	public String myInfoPoint(Model model) throws Exception {
+	public String myInfoPoint(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		request.setAttribute("map", map);
 		return "/myPage_myInfo(point)"; // bizReview.jsp
 	}
 

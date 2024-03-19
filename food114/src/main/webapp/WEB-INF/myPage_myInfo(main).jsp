@@ -393,6 +393,7 @@ input[type='text']:focus {
 
 						map["userId"] = self.info.userId;
 
+						
 						if (self.modalType == "email"
 								&& (self.email == "" || self.emailAddr == "")) {
 							alert("최소 한글자 이상 입력해주세요");
