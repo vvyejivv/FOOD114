@@ -218,8 +218,8 @@
 				<!-- 카테고리 -->
 				<div
 					style="width: 1420px; margin: 0px auto; display: flex; gap: 30px; justify-content: center;">
-					<a href="javascript:;" 
-						style="color: #9e9e9e;" @click="map.nowCategory='%%'"
+					<a href="javascript:;" style="color: #9e9e9e;"
+						@click="map.nowCategory='%%'"
 						:style="{color: map.nowCategory=='%%' ? '#222222' : '#9e9e9e'}">전체</a>
 					<a href="javascript:;" v-for="item in list.categoryList"
 						style="color: #9e9e9e;" @click="map.nowCategory=item.categoryNo"
@@ -241,8 +241,8 @@
 					</div>
 					<div id="bizListContainer">
 						<div id="bizListGrid">
-						
-						<!-- 가게 보여주기 -->
+
+							<!-- 가게 보여주기 -->
 							<div v-for="(item,index) in list.bizBaedalOkList" class="bizBox"
 								:style="{'background-color': !item.contents? '#ededed3c':'white'}"
 								v-if="(map.nowPage*showCnt-showCnt)<= index && index<(map.nowPage*showCnt)">
@@ -252,14 +252,10 @@
 									<div class="bizInfo">
 
 										<div class="bizInfoName">
-											<div style="width: fit-content">{{item.bizName}}{{index}}</div>
-											<div style="display: flex; gap: 5px;">
-												<div class="takeOutStatus" v-if="item.takeOut!=2">배달</div>
-												<div class="takeOutStatus" v-if="item.takeOut!=1">포장</div>
-											</div>
+											<div style="width: fit-content">{{item.bizName}}</div>
 										</div>
 
-										<div class="bizInfoBottom" >
+										<div class="bizInfoBottom">
 											<span class="bizInfoBottomText">⭐
 												{{item.reviewAvg}}({{item.reviewCnt}})</span> <span
 												class="bizInfoBottomText" style="color: #9e9e9e;">운영시간
@@ -269,8 +265,15 @@
 												</template>
 											</span>
 										</div>
-										<div style="margin-top:10px; font-size: 14px">배달비 4,000원</div>
-										<div style="margin-top:10px; font-size: 14px">최소주문금액 11,000원</div>
+										<div style="margin-top: 10px; font-size: 14px">
+											배달비 4,000원 · <span style="color: #5f5f5f">{{Math.ceil(item.distance)}}m</span>
+										</div>
+										<div style="margin-top: 10px; font-size: 14px">최소주문금액
+											11,000원</div>
+										<div style="display: flex; gap: 5px; margin-top: 10px;">
+											<div class="takeOutStatus" v-if="item.takeOut!=2">배달</div>
+											<div class="takeOutStatus" v-if="item.takeOut!=1">포장</div>
+										</div>
 									</div>
 
 								</div>
@@ -280,7 +283,7 @@
 										보기</button>
 								</div>
 							</div>
-							
+
 
 						</div>
 
@@ -290,14 +293,14 @@
 					<div style="text-align: center;">
 						<div
 							style="display: flex; justify-content: center; align-items: center; width: fit-content; margin: 0px auto; gap: 10px;">
-							<span style="display: inline-block; color: #9e9e9e;">&lt;</span>
+							<!-- <span style="display: inline-block; color: #9e9e9e;">&lt;</span> -->
 
 							<template v-for="(item,index) in totalPage">
 								<span style="display: inline-block; cursor: pointer"
 									:style="{'color' : index + 1==map.nowPage ? '#ff7f00' : '#222222'}"
 									@click="map.nowPage=index+1">{{index+1}}</span>
 							</template>
-							<span style="display: inline-block;">&gt;</span>
+							<!-- <span style="display: inline-block;">&gt;</span> -->
 						</div>
 					</div>
 				</div>
@@ -346,8 +349,6 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 			totalPage : "", // 총 페이지 
 			showCnt : 9, //보여지는 개수
 			totalCnt : "" // 총 개수
-			
-		
 		},		
 		methods : {
 			/* 카테고리 목록 불러오기 */
@@ -421,7 +422,6 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 			fnPageChange : function(link,map){
 				var self=this;
 				console.log(map);
-				return;
 				$.pageChange(link, map);
 			},
 			// 해당 주소의 위도 경도 구하기

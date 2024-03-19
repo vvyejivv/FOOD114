@@ -279,14 +279,14 @@
 					<div style="text-align: center;">
 						<div
 							style="display: flex; justify-content: center; align-items: center; width: fit-content; margin: 0px auto; gap: 10px;">
-							<span style="display: inline-block; color: #9e9e9e;">&lt;</span>
+							<!-- <span style="display: inline-block; color: #9e9e9e;">&lt;</span> -->
 
 							<template v-for="(item,index) in totalPage">
 								<span style="display: inline-block; cursor: pointer"
 									:style="{'color' : index + 1==map.nowPage ? '#ff7f00' : '#222222'}"
 									@click="map.nowPage=index+1">{{index+1}}</span>
 							</template>
-							<span style="display: inline-block;">&gt;</span>
+							<!-- <span style="display: inline-block;">&gt;</span> -->
 						</div>
 					</div>
 				</div>
