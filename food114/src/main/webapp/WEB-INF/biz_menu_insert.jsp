@@ -165,8 +165,8 @@ button img {
 }
 
 .menuImg {
-	width: 120px;
-	height: 80px;
+	width: 200px;
+	height: 200px;
 	margin-left: 20px;
 	object-fit:contain;
 }
@@ -243,7 +243,7 @@ button img {
 					</div>
 					<input type="text" class="mod_input" placeholder="메뉴 옵션 입력" disabled>
 				</div>
-				<div class="inputBox">
+				<div class="inputBox" style="height:250px;">
 					<div class="inputDiv">
 						메뉴 사진<small><small style="color: #ff7f00;"> ＊ </small></small>
 					</div>

@@ -145,7 +145,7 @@ table th, td {
 			sessionId : "${sessionBizId}",
 			orderCnt : "",
 			daySellList : [],
-			title1 : "안녕",
+			title1 : "",
 			
 			series : [ {
 				name : "일매출",

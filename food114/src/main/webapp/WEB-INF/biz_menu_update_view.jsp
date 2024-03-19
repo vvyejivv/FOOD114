@@ -179,8 +179,8 @@ button img {
 }
 
 .menuImg {
-	width: 120px;
-	height: 80px;
+	width: 200px;
+	height: 200px;
 	margin-left: 20px;
 	object-fit:contain;
 }
@@ -249,7 +249,7 @@ button img {
 						<option value="3">품절</option>
 					</select>
 				</div>
-				<div class="inputBox">
+				<div class="inputBox" style="height:250px;">
 					<div class="inputDiv">
 						메뉴 사진<small><small style="color: #ff7f00;"> ＊ </small></small>
 					</div>

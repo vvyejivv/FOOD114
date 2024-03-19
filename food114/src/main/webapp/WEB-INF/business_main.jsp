@@ -204,6 +204,7 @@ window.onload = function() {
 var app = new Vue({ 
     el: '#app',
     data: {
+    	sessionId : "${sessionBizId}"
     }   
     , methods: {
     	list : function(){    		
