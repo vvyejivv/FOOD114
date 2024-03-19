@@ -259,7 +259,7 @@
 											</div>
 										</div>
 
-										<div class="bizInfoBottom">
+										<div class="bizInfoBottom" >
 											<span class="bizInfoBottomText">⭐
 												{{item.reviewAvg}}({{item.reviewCnt}})</span> <span
 												class="bizInfoBottomText" style="color: #9e9e9e;">운영시간
@@ -269,12 +269,8 @@
 												</template>
 											</span>
 										</div>
-										<div class="bizInfoEvent">
-											<span>{{item.contents}}</span> <span
-												v-if="typeof item.contents=='undefined'"
-												style="font-size: 12px; color: #9e9e9e">현재 진행중인 이벤트가
-												없습니다.</span>
-										</div>
+										<div style="margin-top:10px; font-size: 14px">배달비 4,000원</div>
+										<div style="margin-top:10px; font-size: 14px">최소주문금액 11,000원</div>
 									</div>
 
 								</div>
@@ -479,6 +475,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 	                    
 	                 	// 반경 내에 있는지 확인 후 배달가능리스트 push
 	                    if (distance <= item.range) {
+	                    	item["distance"]=distance;
 	                    	self.list.bizBaedalOkList.push(item);
 	                    }
 	                })

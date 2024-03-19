@@ -438,6 +438,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 	                    
 	                 	// 반경 내에 있는지 확인 후 배달가능리스트 push
 	                    if (distance <= item.range) {
+	                    	item["distance"]=distance;
 	                    	self.list.bizBaedalOkList.push(item);
 	                    }
 	                })
