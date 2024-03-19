@@ -32,11 +32,11 @@
 					<h2>
 						<a href="javascript:;" style="font-size: 25px; color: #747171;">
 <<<<<<< HEAD
-							<span style="color: #ff7f00; font-weight: bold;">| </span>MY주소지 관리aaa
-=======
 							<span style="color: #ff7f00; font-weight: bold;">| </span>MY주소지
 							관리
->>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
+=======
+							<span style="color: #ff7f00; font-weight: bold;">| </span>MY주소지 관리aaa
+>>>>>>> branch 'DONGJAE' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 						</a>
 					</h2>
 					<div>
@@ -152,10 +152,10 @@
 				</div>
 			</div>
 <<<<<<< HEAD
-=======
 		</div>
 	</section>
->>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
+=======
+>>>>>>> branch 'DONGJAE' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 
 	<%@include file="main(footer).html"%>
 </body>
@@ -276,6 +276,8 @@
 			},
 			fnSubmit : function(info) {
 <<<<<<< HEAD
+				var self = this;
+=======
 				var self = this;	
 				 if (self.info) {
 				        var addrCount = self.info.length;
@@ -286,9 +288,7 @@
 				    } else {
 				        self.info = {oldAddr: []};
 				    }
-=======
-				var self = this;
->>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
+>>>>>>> branch 'DONGJAE' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 				var nparmap = {
 					userId : self.sessionId,
 					addrAs : self.inputAddrAs,
@@ -304,11 +304,11 @@
 					data : nparmap,
 					success : function(data) {
 <<<<<<< HEAD
+						if (data.result == "success") {
+=======
 						if(data.result == "success"){
 							
-=======
-						if (data.result == "success") {
->>>>>>> branch 'YEJI' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
+>>>>>>> branch 'DONGJAE' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 							alert("주소가 추가 되었습니다.");
 							return location.href = "/myInfoAddr.do";
 						} else {

@@ -17,7 +17,7 @@
 <body>
 
 	<header>
-		<%@include file="main(header).html"%>
+		<%@include file="main(header)_biz.html"%>
 	</header>
 
 	<!-- 광고창 -->
@@ -81,7 +81,7 @@
 					</div>
 	</section>
 
-	<%@include file="main(footer).html"%>
+		<%@include file="main(footer).html"%>
 
 	<script type="text/javascript">
 		var app = new Vue({ 

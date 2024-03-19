@@ -31,7 +31,7 @@
 						</div>
 						<div id="header-menu" @click="fnPageChange('boardNoticeList.do',map)">공지사항</div>
 						<div id="header-menu" @click="fnPageChange('event-web-list.do',map)">이벤트</div>
-						<div id="header-menu" @click="fnPageChange('food114-2.do',map)">고객사이트</div>
+						<div id="header-menu" @click="fnPageChange('food114.do',map)">고객사이트</div>
 					</div>
 				</div>
 				<!-- 로그인 했을때 -->

@@ -8,14 +8,14 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MAIN</title>
+<title></title>
 <style>
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 </style>
 </head>
 <link rel="stylesheet" href="../css/boardNoticeList.css">
 <body>
-		<%@include file="main(header)_biz.html"%>
+		<%@include file="food114_header(biz).jsp"%>
 
 	<section>
 		<div id="app">
@@ -95,7 +95,7 @@
 	</section>
 
 	
-		<%@include file="main(footer).html"%>
+		<%@include file="food114_footer(biz).jsp"%>
 	
 
 	<script type="text/javascript">
