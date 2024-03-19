@@ -27,13 +27,7 @@ public class CustomerController {
 	@Autowired
 	HttpSession session;
 
-	// 마이페이지 - 나의정보 - 메인화면 myPage_myInfo(main)
-	@RequestMapping("/food114-myPage.do")
-	public String myPage(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
-			throws Exception {
-		request.setAttribute("map", map);
-		return "/myPage_myInfo(main)";
-	}
+
 
 	// 마이페이지 - 결제수단 관리
 	@RequestMapping("/food114-myPage-payment.do")
@@ -47,6 +41,14 @@ public class CustomerController {
 	public String myInfoCoupon(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		request.setAttribute("map", map);
 		return "/myPage_myInfo(coupon)"; // bizReview.jsp
+	}
+	
+	// 마이페이지 - 나의정보 - 메인화면 myPage_myInfo(main)
+	@RequestMapping("/food114-myPage.do")
+	public String myPage(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
+			throws Exception {
+		request.setAttribute("map", map);
+		return "/myPage_myInfo(main)";
 	}
 	
 	// 마이페이지 - 포인트 관리

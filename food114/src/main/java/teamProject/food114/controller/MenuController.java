@@ -28,7 +28,7 @@ public class MenuController {
 
 	// 배달 메뉴 찾기
 	@RequestMapping("/food114-foodfind.do")
-	public String food114FoodFind(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
+	public String food114FoodFind2(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
 		if(!map.containsKey("order") || map.get("order")=="") {
 			map.put("order", "ORDER BY ENDYN DESC");

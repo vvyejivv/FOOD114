@@ -226,20 +226,23 @@
 									높은순</option>
 								<option value="ORDER BY ENDYN DESC,ORDERCNT DESC">주문
 									많은순</option>
+								<option value="ORDER BY ENDYN DESC,SETBEGINTIME ASC">이벤트
+									시간 이른순</option>
 							</select>
 						</div>
 					</div>
 					<div id="bizListContainer">
 						<div id="bizListGrid">
-							<div v-for="(item,index) in list.bizBaedalOkList" class="bizBox" :style="{'background-color': !item.contents? '#ededed3c':'white'}"								
+							<div v-for="(item,index) in list.bizBaedalOkList" class="bizBox"
+								:style="{'background-color': !item.contents? '#ededed3c':'white'}"
 								v-if="(map.nowPage*showCnt-showCnt)<= index && index<(map.nowPage*showCnt)">
 								<div class="bizBoxContent">
-									<img :src="item.path">
+									<img :src="item.path" style="border-radius: 0px;">
 
 									<div class="bizInfo">
 
 										<div class="bizInfoName">
-											<div style="width: fit-content">{{item.bizName}}{{index}}</div>
+											<div style="width: fit-content">{{item.bizName}}</div>
 											<div style="display: flex; gap: 5px;">
 												<div class="takeOutStatus" v-if="item.takeOut!=2">배달</div>
 												<div class="takeOutStatus" v-if="item.takeOut!=1">포장</div>
@@ -249,16 +252,17 @@
 										<div class="bizInfoBottom">
 											<span class="bizInfoBottomText">⭐
 												{{item.reviewAvg}}({{item.reviewCnt}})</span> <span
-												class="bizInfoBottomText" style="color: #9e9e9e;">운영시간
+												class="bizInfoBottomText" style="color: #9e9e9e;">이벤트시간
 												<template
-													v-if="typeof item.openTime!='undefined'&&typeof item.closeTime!='undefined'">
-													{{item.openTime.slice(0,2)}}:{{item.openTime.slice(2)}}~{{item.closeTime.slice(0,2)}}:{{item.closeTime.slice(2)}}
+													v-if="typeof item.setBeginTime!='undefined'&&typeof item.setEndTime!='undefined'">
+													{{item.setBeginTime.slice(0,2)}}:{{item.setBeginTime.slice(2)}}~{{item.setEndTime.slice(0,2)}}:{{item.setEndTime.slice(2)}}
 												</template>
 											</span>
 										</div>
 										<div class="bizInfoEvent">
 											<span>{{item.contents}}</span> <span
-												v-if="typeof item.contents=='undefined'" style="font-size: 12px; color:#9e9e9e">현재 진행중인 이벤트가
+												v-if="typeof item.contents=='undefined'"
+												style="font-size: 12px; color: #9e9e9e">현재 진행중인 이벤트가
 												없습니다.</span>
 										</div>
 									</div>
@@ -379,6 +383,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 						if(self.map.inputAddr==""){
 						self.map.inputAddr=self.list.addrList[0].newAddr;
 						}
+						
 					}
 				});
 			},
@@ -445,6 +450,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 	                self.totalCnt=self.list.bizBaedalOkList.length;	// 총 개수 초기화     
 	                self.totalPage=Math.ceil(self.totalCnt/9); // 총 페이지 초기화
 	                console.log(self.list.bizBaedalOkList);
+	                
 			},
 			//주소조회 api
 			openAddressSearch : function() {
@@ -480,7 +486,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 			var self = this;
 			self.fnList();
 			self.fnLoadMyAddr();
-			console.log(self.sessionId);
+			
 				
 
 		}

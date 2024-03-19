@@ -217,7 +217,7 @@
 				</div>
 				<!-- 카테고리 -->
 				<div
-					style="width: 1420px; margin: 0px auto; display: flex; gap: 30px; justify-content: center;">
+					style="width: 1420px; margin: 0px auto; display: flex; gap: 30px; justify-content: center; margin-bottom: 30px;">
 					<a href="javascript:;" style="color: #9e9e9e;"
 						@click="map.nowCategory='%%'"
 						:style="{color: map.nowCategory=='%%' ? '#222222' : '#9e9e9e'}">전체</a>
@@ -501,21 +501,21 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 			  self.convertAddressToCoordinates(self.map.inputAddr);
 			  setTimeout(function(){
 				  console.log(self.map.inputAddr);
-			  $.pageChange("/food114_foodfind.do", self.map);
+			  $.pageChange("/food114-foodfind.do", self.map);
 			}, 50)	
 		  },
 		  'map.nowPage' : function(){
 			  var self=this;
-			  $.pageChange("/food114_foodfind.do", self.map);
+			  $.pageChange("/food114-foodfind.do", self.map);
 		  },
 		  'map.order' : function(){
 			  var self=this;
-			  $.pageChange("/food114_foodfind.do", self.map);
+			  $.pageChange("/food114-foodfind.do", self.map);
 		  },
 		  'map.nowCategory' : function(){
 			  var self=this;
 			  self.map.nowPage=1;			  
-			  $.pageChange("/food114_foodfind.do", self.map);
+			  $.pageChange("/food114-foodfind.do", self.map);
 		  }
 		},
 		created : function() {
