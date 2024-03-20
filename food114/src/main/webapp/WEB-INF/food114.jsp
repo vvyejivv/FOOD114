@@ -58,7 +58,7 @@
 					</div>
 					<div class="main1-btn-title-subText">내 주변 이벤트를 한눈에</div>
 				</div>
-				<div class="main1-btn-box" @click="fnPageChange('food114_foodfind.do',map)">
+				<div class="main1-btn-box" @click="fnPageChange('food114-foodfind.do',map)">
 					<div class="main1-btn-title">
 						<div class="main1-btn-title-text">
 							<img src="../img/truck.png">
@@ -142,7 +142,16 @@
 		el : '#app',
 		data : {
 			map : {
+				sessionId : "${sessionId}", // 현재 로그인된 아이디
+				nowCategory : "${map.category}", // 현재 선택된 카테고리
+				inputAddr : "${map.inputAddr}", // 현재 입력된 주소
+				latitude : "${map.latitude}", // 현재 입력된 주소의 위도
+				longitude : "${map.longitude}",	 // 현재 입력된 주소의 경도	
 				nowPage:1,
+				detail : "${map.detail}",
+				addrNo : "${map.addrNo}",
+				phone : "${map.phone}",
+				request : "${map.request}"
 			}
 		},
 		methods : {

@@ -24,7 +24,8 @@
 }
 
 .bottomSection {
-	height: 830px;
+	min-height: 400px;
+	max-height: 830px;
 }
 
 #title {
@@ -145,7 +146,7 @@
 .bizInfoEvent {
 	padding: 10px;
 	background-color: #f7f7f7;
-	margin-top: 20px;
+	margin-top: 3px;
 	height: 44px;
 	border-radius: 5px;
 	font-size: 14px;
@@ -206,8 +207,7 @@
 									<div>연락처 : {{item.phone}}</div>
 									<div>주소 : {{item.newAddr}}</div>
 									<div>상세주소 : {{item.detail}}</div>
-									<button class="main2-text-btn"
-										@click="fnAddrSelect(item)">선택</button>
+									<button class="main2-text-btn" @click="fnAddrSelect(item)">선택</button>
 								</div>
 							</template>
 						</div>
@@ -242,7 +242,7 @@
 						</div>
 					</div>
 					<div id="bizListContainer">
-						<div style="margin-top: 20px; width: 1420px;"
+						<div style="margin-top: 20px; width: 1420px; text-align: center;"
 							v-if="list.bizBaedalOkList.length==0">현재 조회되는 매장이 없습니다.</div>
 						<div id="bizListGrid">
 							<div v-for="(item,index) in list.bizBaedalOkList" class="bizBox"
@@ -264,12 +264,15 @@
 										<div class="bizInfoBottom">
 											<span class="bizInfoBottomText">⭐
 												{{item.reviewAvg}}({{item.reviewCnt}})</span> <span
-												class="bizInfoBottomText" style="color: #9e9e9e;">이벤트시간
-												<template
-													v-if="typeof item.setBeginTime!='undefined'&&typeof item.setEndTime!='undefined'">
-													{{item.setBeginTime.slice(0,2)}}:{{item.setBeginTime.slice(2)}}~{{item.setEndTime.slice(0,2)}}:{{item.setEndTime.slice(2)}}
-												</template>
-											</span>
+												class="bizInfoBottomText" style="color: #9e9e9e;">
+												{{item.beginTime}} ~ {{item.endTime}} </span>
+										</div>
+										<div
+											style="font-size: 14px; ine-height: 14px; color: #9e9e9e; display: flex; justify-content: end; margin-top: 3px;">
+											<template
+												v-if="typeof item.setBeginTime!='undefined'&&typeof item.setEndTime!='undefined'">
+												{{item.setBeginTime.slice(0,2)}}:{{item.setBeginTime.slice(2)}}~{{item.setEndTime.slice(0,2)}}:{{item.setEndTime.slice(2)}}
+											</template>
 										</div>
 										<div class="bizInfoEvent">
 											<span>{{item.contents}}</span> <span
@@ -479,7 +482,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 	                })
 	                self.totalCnt=self.list.bizBaedalOkList.length;	// 총 개수 초기화     
 	                self.totalPage=Math.ceil(self.totalCnt/9); // 총 페이지 초기화
-	                
+	                console.log(self.list.bizBaedalOkList);
 			},
 			//주소조회 api
 			openAddressSearch : function() {

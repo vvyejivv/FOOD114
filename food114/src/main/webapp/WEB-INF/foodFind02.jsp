@@ -24,7 +24,8 @@
 }
 
 .bottomSection {
-	height: 830px;
+	min-height: 400px;
+	max-height: 830px;
 }
 
 #title {
@@ -248,6 +249,9 @@
 						</div>
 					</div>
 					<div id="bizListContainer">
+					<div style="margin-top: 20px; width: 1420px; text-align: center;"
+							v-if="list.bizBaedalOkList.length==0">현재 조회되는 매장이 없습니다.</div>
+					
 						<div id="bizListGrid">
 
 							<!-- 가게 보여주기 -->
