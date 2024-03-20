@@ -29,7 +29,7 @@
 							<div class="header-point"></div>
 							주문하기
 						</div>
-						<div id="header-menu" @click="fnPageChange('food114-map.do',map)">지도로 찾기</div>
+						<div id="header-menu" @click="fnPageChange('food114-map.do',{})">지도로 찾기</div>
 						<div id="header-menu" @click="fnPageChange('food114-town-event.do',map)">우리동네</div>
 						<div id="header-menu" @click="fnPageChange('food114-event.do',map)">이벤트</div>
 						<div id="header-menu" @click="fnPageChange('food114-biz.do',{})">사장님페이지</div>
@@ -37,7 +37,7 @@
 				</div>
 				<!-- 로그인 했을때 -->
 				<div id="header-contents-right" v-if="map.sessionId!=''">
-					<img src="../img/myPage.png" @click="fnPageChange('food114-myPage.do',{})">
+					<img src="../img/myPage.png" @click="fnPageChange('food114-myPage.do',map)">
 					<img src="../img/log-out.png" @click="fnLogout">
 				</div>
 				<div id="header-contents-right" v-if="map.sessionId==''">
@@ -85,7 +85,7 @@
 			},
 			fnPageChange : function(link, map) {
 				var self = this;
-				$.pageChange(link, self.map);
+				$.pageChange(link, map);
 			}
 		},
 		created : function() {

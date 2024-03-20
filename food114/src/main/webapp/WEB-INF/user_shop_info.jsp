@@ -19,9 +19,8 @@
 <style>
 .noPrice {
 	text-decoration: line-through;
-	text-decoration-color:red;
+	text-decoration-color: red;
 	color: red;
-	
 }
 </style>
 
@@ -55,8 +54,8 @@
 								<tr>
 									<td style="border-bottom: none;"><span
 										:class="{noPrice : item.salePrice&&eventStatus==1}">{{parseInt(item.price).toLocaleString()}}원</span>
-										<span v-if="item.salePrice&&eventStatus==1">→ {{parseInt(item.salePrice).toLocaleString()}}원</span>
-									</td>
+										<span v-if="item.salePrice&&eventStatus==1">→
+											{{parseInt(item.salePrice).toLocaleString()}}원</span></td>
 								</tr>
 							</table>
 						</div>
@@ -149,10 +148,11 @@
 					</div>
 					<div id="menuListPrice">
 						<div class="menuPriceBox">가격</div>
-						
-						<div class="menuPriceTxt"><span
-										:class="{noPrice : clickMenu.salePrice&&eventStatus==1}">{{parseInt(clickMenu.price).toLocaleString()}}원</span>
-										<span v-if="clickMenu.salePrice&&eventStatus==1">→ {{parseInt(clickMenu.salePrice).toLocaleString()}}원</span>
+
+						<div class="menuPriceTxt">
+							<span :class="{noPrice : clickMenu.salePrice&&eventStatus==1}">{{parseInt(clickMenu.price).toLocaleString()}}원</span>
+							<span v-if="clickMenu.salePrice&&eventStatus==1">→
+								{{parseInt(clickMenu.salePrice).toLocaleString()}}원</span>
 						</div>
 					</div>
 					<div id="menuListQuantity">
@@ -290,14 +290,22 @@
 					/* 중복메뉴일 경우  */
 					checkMenu.cnt += parseInt(self.cnt,10); /* 수량추가  */
 					checkMenu.price += parseInt(self.totalPrice, 10); /* 가격 추가  */	
-				}else{						
+				}else{			
+					
+					
+					
+					
+					
 					/* 장바구니에 메뉴 추가 */
 					self.selectMenuList.push({ 	menuName : self.clickMenu.menu,
 												cnt : self.cnt, 
 												index : self.selectMenu,
 												price : parseInt(self.totalPrice, 10),
+												unitPrice : self.totalPrice/self.cnt, 
 												menuNo : self.clickMenu.menuNo
 											});
+					
+					console.log(self.totalPrice/self.cnt);
 					}
 				self.selectTotalPrice = self.fnTotalPrice(self.selectMenuList);
 				self.fnMenuClick('close',self.selectMenu);
@@ -319,6 +327,10 @@
 			/* 주문하기 */
 			fnOrder : function(){
 				var self = this;
+				if(self.orderAddr==""){
+					alert("주문하기 페이지에서 주소 입력후 다시 시도해주세요.");
+					return;
+				}
  				if(self.selectMenuList.length == 0){
 					alert("장바구니에 메뉴를 담아주세요.");
 					return;
