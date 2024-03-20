@@ -31,13 +31,10 @@
 							<img src="../img/event1.png">
 						</div>
 						<div class="swiper-slide" style="border-radius: 10px;">
-							<img src="../img/event1.png">
+							<img src="../img/event2.png">
 						</div>
 						<div class="swiper-slide" style="border-radius: 10px;">
-							<img src="../img/event1.png">
-						</div>
-						<div class="swiper-slide" style="border-radius: 10px;">
-							<img src="../img/event1.png">
+							<img src="../img/event3.png">
 						</div>
 					</div>
 					<div id="slide-btn-container">
