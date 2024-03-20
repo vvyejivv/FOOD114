@@ -19,4 +19,6 @@ public interface ReviewService {
 	HashMap<String, Object> searchOrederListView(HashMap<String, Object> map);
 	
 	HashMap<String, Object> addReviewAdd(HashMap<String, Object> map);
+	
+	HashMap<String, Object> searchOrederListEdit(HashMap<String, Object> map);
 }

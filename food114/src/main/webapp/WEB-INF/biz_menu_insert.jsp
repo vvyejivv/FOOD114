@@ -194,8 +194,8 @@ button img {
 		<div id="app" v-cloak>
 			<div class="mold" style="width:1050px">
 				<h2>
-               	<span style="color: #ff7f00; font-weight: bold;">| </span><span
-                  style="text-align: left; color: rgba(72, 72, 72);">상품등록&nbsp;</span>
+               	<span style="color: #ff7f00; font-weight: bold; font-size : 16px;">| </span><span
+                  style="text-align: left; color: rgba(72, 72, 72); font-size : 16px;">상품등록&nbsp;</span>
             	</h2>
 				<div class="inputBox">
 					<div class="inputDiv">
