@@ -102,7 +102,7 @@ a{
 									style="width: 150px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
 									리뷰 작성일</th>	
 							</tr>
-							<tr v-for="(item, index) in reviewList">
+							<tr v-for="(item, index) in reviewList" v-if="true">
 								<td style="font-size: 13px">{{ index + 1 + startOrder }}</td>
 								<td class="reviewFont">{{item.bizName}}</td>
 								<td class="reviewFont">{{item.menuList}}</td>
@@ -117,7 +117,7 @@ a{
 					<div class="pageBox">
 						<span><a href="javascript:;" @click="fnfirstPage" style="text-decoration: none; color: black;">≤</a></span>
 						<span><a href="javascript:;" @click="fnPre" style="text-decoration: none; color: black;">&lt;</a></span> 
-						<template v-for="n in pageCount">
+						<template v-for="n in totalPage">
 							<a href="javascript:;" @click="fnPageList(n)" v-if="nowPage!=n" :class="[nowPage!=n ? 'text' : 'selectText']">{{n}} </a>
 							<span v-else :class="[nowPage!=n ? 'text' : 'selectText']">{{n}} </span>
 						</template>
@@ -143,6 +143,8 @@ a{
 			cnt : 10,
 			nowPage : "${map.nowPage}",
 			startOrder : 0,
+			totalPage : "",
+			totalCnt : ""
 		},
 		methods : {
 			fnView : function() {
@@ -160,8 +162,14 @@ a{
 					data : nparmap,
 					success : function(data) {
 						self.reviewList = data.reviewList;
-						console.log(self.reviewList);
+						console.log(data);
 						/* 페이지당 10개 올림  */
+						self.totalCnt=data.reviewList.length;
+						self.totalPage=Math.ceil(self.totalCnt/self.cnt);
+						console.log(self.totalPage);
+						console.log(self.totalPage);
+						
+						return;
 						self.pageCount = Math.ceil(data.cnt.listCnt/self.cnt);
 						console.log(self.pageCount);
 					}

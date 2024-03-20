@@ -42,7 +42,7 @@
 				style="display: flex; width: fit-content; gap: 20px; margin: 0px auto; margin-top: 50px; margin-bottom: 50px;">
 				<!-- 가게 이미지 -->
 				<div style="width: 369px; height: 369px; border-radius: 10px;">
-					<img :src="bizInfo.path" style="width: 369px; height: 369px; border-radius: 10px;">
+					<img :src="bizInfo.path" style="width: 369px; height: 369px; border-radius: 10px; object-fit:scale-down;">
 				</div>
 				<!-- 가게 정보 내용 -->
 				<div style="width: 451px; height: 369px;">
@@ -92,7 +92,7 @@
 							<div style="width: fit-content; height: 16px; line-height: 16px; color: #222222; margin-right: 20px; font-size: 16px;">주소</div>
 							<div style="width: 350px; height: 16px; line-height: 16px; color: #222222; word-break: break-all; overflow: hidden; font-size: 16px;">{{bizInfo.newAddr}} {{bizInfo.detail}}</div>
 						</div>
-						<div style="width: 60px; height: 16px; padding: 15px 20px; background-color: #ffffff50; border-radius: 1px; color: #5F5F5F; line-height: 16px; border-radius: 8px; cursor: pointer;">거리확인</div>
+						<!-- <div style="width: 60px; height: 16px; padding: 15px 20px; background-color: #ffffff50; border-radius: 1px; color: #5F5F5F; line-height: 16px; border-radius: 8px; cursor: pointer;">거리확인</div> -->
 					</div>
 				</div>
 			</div>

@@ -38,11 +38,11 @@
 				<!-- 메뉴 테이블 -->
 				<template v-for="(item,index) in menuList" v-if="item.sta != '판매종료'">
 					<div class="menuInfo" 
-						style="position: relative;">
+						style="position: relative; padding:5px;">
 						
 						<!-- 품절시 클릭막기 -->
 						<div
-							style="position: absolute; background-color: rgba(0, 0, 0, 0.1); width: 100%; height: 100%; z-index: 999; border-radius: 8px; text-align: center; color:red;" v-if="item.sta=='품절'">
+							style="position: absolute; background-color: rgba(0, 0, 0, 0.1); width: 100%; height: 100%; z-index: 999; border-radius: 8px;color:red;top:0px;left:0px; text-align: center; padding-top: 5px;" v-if="item.sta=='품절'">
 							해당 메뉴는 품절되었습니다.</div>
 
 						<div class="clickBox" style="overflow: hidden;" @click="fnMenuClick('open',index)">

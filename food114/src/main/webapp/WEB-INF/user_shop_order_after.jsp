@@ -63,7 +63,7 @@
 							<td>{{orderList.orderNo}}</td>
 							<td>{{orderList.bizName}}</td>
 							<td>{{orderList.menus}}</td>
-							<td>{{orderList.price}}원</td>
+							<td>{{parseInt(orderList.price).toLocaleString()}}원</td>
 							<td>{{orderList.orderDate}}</td>
 						</tr>
 					</table>
