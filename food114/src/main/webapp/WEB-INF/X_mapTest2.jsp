@@ -109,11 +109,6 @@
 	margin-top: 20px;
 }
 
-#exclude {
-	position: relative;
-	margin-top: 20px;
-}
-
 button img {
 	width: 13px;
 	height: 13px;
@@ -290,7 +285,6 @@ ul, ol {
 	height: 200px;
 	margin-left:5px;
 	margin-top:10px;
-	object-fit: contain;
 }
 </style>
 <link rel="stylesheet" href="../css/food114.css">
@@ -304,7 +298,7 @@ ul, ol {
 			<div class="map_wrap">
 				<div id="map"
 					style="height: 100%; position: relative; overflow: hidden;"></div>
-				<div id="menu_view" class="bg_white" style="paddgin:20px;">
+				<div id="menu_view" class="bg_white">
 					<img :src="restView.path" class="restViewImg">
 					<a href="javascript:;" @click="fnRestClose()" class="backBtn">❮</a>
 					<div style="margin:20px;">
@@ -368,7 +362,7 @@ ul, ol {
 										:class="searchFlg2 ? 'select_button' : 'none_select_button'" style="border-top-right-radius: 5px;border-bottom-right-radius: 5px;">가게명</a>
 								</div>
 							</div>
-							<div id="exclude" v-if="searchFlg2">
+							<div v-if="searchFlg2" class="search-bar">
 								<input v-model="restNameInput" type="text" size="30" placeholder="가게명을 입력해주세요" @keyup.enter="restNameSearch()">
 								<button @click="restNameSearch()">
 									<img src="../img/magnifying-glass-solid.png">

@@ -154,11 +154,11 @@ public class CustomerController {
 	}	
 
 	// 결제완료창
-	@RequestMapping("/paymentCompleted.do")
+	@RequestMapping("/food114-order-complete.do")
 	public String paymentCompleted(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
 		request.setAttribute("map", map);
-		return "/paymentCompleted";
+		return "/user_shop_order_after";
 	}
 
 	// 마이페이지 - 나의 정보 수정 (myInfo 변경 : 이름, 별명, 연락처, 이메일)
