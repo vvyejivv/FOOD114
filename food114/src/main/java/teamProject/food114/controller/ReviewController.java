@@ -27,7 +27,7 @@ public class ReviewController {
 	HttpSession session;
 
 	
-	//가게 리뷰
+	// 고객 - 가게 클릭시 가게 리뷰
 	@RequestMapping("/food114-shop-review.do")
 	public String shopReview(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		request.setAttribute("map", map);
@@ -61,7 +61,7 @@ public class ReviewController {
 			map.put("nowPage",1);
 		}
 		request.setAttribute("map", map);
-		return "/myPage_reviewList"; // bizReview.jsp
+		return "/user_myPage_review"; // bizReview.jsp
 	}
 	
 	//리뷰 정보(user)
@@ -73,16 +73,16 @@ public class ReviewController {
 		return new Gson().toJson(resultMap);
 	}
 	
-	@RequestMapping("/myPage_reviewAdd.do")
+	@RequestMapping("/food114-myPage-review-update.do")
 	public String myPage_reviewAdd(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		request.setAttribute("map", map);
-		return "/myPage_reviewAdd"; 
+		return "/user_myPage_review_update"; 
 	}
 	
-	@RequestMapping("/myPage_review_Insert.do")
+	@RequestMapping("/food114-myPage-review-insert.do")
 	public String myPage_review_Insert(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		request.setAttribute("map", map);
-		return "/myPage_review_Insert"; 
+		return "/user_myPage_review_insert"; 
 	}
 	
 	@RequestMapping(value = "/myPageReViewList.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")

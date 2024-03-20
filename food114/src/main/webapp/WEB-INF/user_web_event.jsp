@@ -79,7 +79,7 @@
 		<%@ include file="food114_header.jsp"%>
 
 		<div style="width: 1420px; margin: 0px auto">
-			<%@include file="event_header.jsp"%>
+			<%@include file="user_web_event_header.jsp"%>
 			<div id="app" v-cloak style="width:fit-content; margin:0px auto; margin-top:-5px;">
 				<div
 					style="width: fit-content; color: rgb(72, 72, 72); margin-top: 0px; padding: 0px; border: 1px solid #ccc; border-radius: 8px;">

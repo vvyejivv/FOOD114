@@ -290,7 +290,7 @@
 								</div>
 								<div style="clear: both; margin-left: -20px;">
 									<button class="bizDetailBtn"
-										@click="fnPageChange('shopInfo.do',Object.assign(map, {selectTab : 'menu', bizId : item.bizId}))">자세히
+										@click="fnPageChange('food114-shop-info.do',Object.assign(map, {selectTab : 'menu', bizId : item.bizId}))">자세히
 										보기</button>
 								</div>
 							</div>

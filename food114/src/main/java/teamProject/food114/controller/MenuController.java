@@ -40,7 +40,7 @@ public class MenuController {
 			map.put("nowPage", 1);
 		}
 		request.setAttribute("map", map);
-		return "/foodFind02";
+		return "/user_find_menu";
 	}
 
 	
