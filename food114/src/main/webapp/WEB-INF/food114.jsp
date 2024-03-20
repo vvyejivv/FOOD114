@@ -142,11 +142,7 @@
 		el : '#app',
 		data : {
 			map : {
-				nowCategory : "${map.category}", // 현재 선택된 카테고리
-				inputAddr : "${map.inputAddr}", // 현재 입력된 주소
-				latitude : "${map.latitude}", // 현재 입력된 주소의 위도
-				longitude : "${map.longitude}",	 // 현재 입력된 주소의 경도	
-				nowPage:1				
+				nowPage:1,
 			}
 		},
 		methods : {

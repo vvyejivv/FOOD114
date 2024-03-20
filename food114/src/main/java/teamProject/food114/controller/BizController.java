@@ -114,7 +114,8 @@ public class BizController {
 	}
 
 	@RequestMapping("/mapTest2.do")
-	public String mapTest2(Model model) throws Exception {
+	public String mapTest2(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		request.setAttribute("map", map);
 		return "/mapTest2"; // mapTest2.jsp
 	}
 

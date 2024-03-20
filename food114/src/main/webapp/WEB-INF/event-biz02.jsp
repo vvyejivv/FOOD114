@@ -225,7 +225,8 @@
 								<input placeholder="검색어를 입력해주세요." v-model="keyword"
 									style="font-size: 14px; border: 1px solid #ededed; border-radius: 5px; padding: 12px 23.5px 12px 23.5px; color: #5f5f5f;">
 							</div>
-							<button @click="fnList()" style="border-radius: 5px; background-color: #ff8002; color:white; border:1px solid #ffffff;padding: 5px 10px; cursor:pointer;">검색</button>
+							<button @click="fnList()"
+								style="border-radius: 5px; background-color: #ff8002; color: white; border: 1px solid #ffffff; padding: 5px 15px; cursor: pointer;">검색</button>
 
 
 							<select class="orderSelect" v-model="map.order">
@@ -241,7 +242,8 @@
 						</div>
 					</div>
 					<div id="bizListContainer">
-					<div style="margin-top: 20px; width: 1420px;" v-if="list.bizBaedalOkList.length==0">현재 조회되는 매장이 없습니다.</div>
+						<div style="margin-top: 20px; width: 1420px;"
+							v-if="list.bizBaedalOkList.length==0">현재 조회되는 매장이 없습니다.</div>
 						<div id="bizListGrid">
 							<div v-for="(item,index) in list.bizBaedalOkList" class="bizBox"
 								:style="{'background-color': !item.contents? '#ededed3c':'white'}"
@@ -337,7 +339,8 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 				latitude : "${map.latitude}",
 				longitude : "${map.longitude}",
 				nowPage : ${map.nowPage},
-				detail : "${map.detail}"
+				detail : "${map.detail}",
+				addrNo : "${map.addrNo}"
 			},
 			list : {
 				bizBaedalOkList : [] ,
@@ -383,7 +386,10 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 			,
 			// 내 주소 불러오기
 			fnLoadMyAddr : function(){
-				var self=this;				
+				var self=this;	
+				if(self.sessionId==""){
+					return;
+				}
 				var nparmap = {
 					userId : self.sessionId
 				}
@@ -394,7 +400,11 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 					data : nparmap,
 					success : function(data) {
 						self.list.addrList=data.list;
-						if(self.map.inputAddr==""){
+						if(data.list.length==0){							
+							return;
+						}
+						if(self.map.addrNo==""){
+						self.map.addrNo=self.list.addrList[0].addrNo;
 						self.map.inputAddr=self.list.addrList[0].newAddr;
 						self.map.detail=self.list.addrList[0].detail;
 						}
