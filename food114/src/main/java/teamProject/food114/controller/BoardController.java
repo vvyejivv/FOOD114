@@ -103,6 +103,24 @@ public class BoardController {
 		return "/boardNoticeVeiw";
 	}
 
+	// 공지사항 게시판 글 작성
+	@RequestMapping("/boardNoticeInsert.do")
+	public String insertNotice(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
+			throws Exception {
+		request.setAttribute("map", map);
+		return "/boardNoticeInsert";
+		}
+	
+	// 공지사항 게시판 글 작성
+	@RequestMapping(value = "/boardNoticeInsert.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String insertNotice(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = boardService.insertNotice(map);
+		return new Gson().toJson(resultMap);
+	}
+	
+	
 	// 1:1 문의 게시판 글 작성
 	@RequestMapping("/boardQnaInsert.do")
 	public String insert(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)

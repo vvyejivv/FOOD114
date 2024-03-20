@@ -22,6 +22,9 @@ public interface BoardMapper {
 
 	// 게시글 상세보기
 	Board selectBoardInfo(HashMap<String, Object> map);
+	
+	// 공지사항 게시글 작성
+	void insertNotictBoard(HashMap<String, Object> map);
 
 	// 이벤트 기간 종료시 update endYn=Y
 	void updateEndYn();

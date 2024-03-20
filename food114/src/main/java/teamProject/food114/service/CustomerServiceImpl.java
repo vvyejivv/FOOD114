@@ -284,7 +284,7 @@ public class CustomerServiceImpl implements CustomerService {
 		return resultMap;
 	}
 
-	// myInfo - my주소지 관리 - 수정  : 주소, 휴대폰번호, 배송요청사항
+	// myInfo - my주소지 관리 - 수정  : 주소, 상세주소, 휴대폰번호, 배송요청사항
 	@Override
 	public HashMap<String, Object> editAddr(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub

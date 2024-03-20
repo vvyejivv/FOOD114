@@ -98,6 +98,8 @@
 		UPDATE FOOD114_CONSUMER_ADDR
 		SET
 			OLDADDR = #{oldAddr},
+			NEWADDR = #{newAddr},
+			DETAIL = #{detail},
 			PHONE = #{phone},
 			REQUEST = #{request}
 		WHERE USERID = #{userId} AND ADDRNO = #{addrNo}
