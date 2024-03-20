@@ -200,6 +200,7 @@ tr:hover {
 			sessionId : "${sessionBizId}",
 			updateFlg : false,
 			eventInfo : {
+				boardNo : "",
 				title : "",
 				type : "",
 				contents : "",
@@ -316,6 +317,7 @@ tr:hover {
 					endTime : self.eventInfo.endHour +''+ self.eventInfo.endMinute,
 					beginDay : self.eventInfo.beginYear +'-'+ self.eventInfo.beginMonth +'-' + self.eventInfo.beginDay,
 					endDay : self.eventInfo.endYear +'-'+ self.eventInfo.endMonth +'-' + self.eventInfo.endDay,
+					bizId : self.sessionId
 				};
 				$.ajax({
 					url : "/editBizEventBoard.dox",
