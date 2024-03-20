@@ -105,9 +105,9 @@
 			},
 			fnPageChang : function(type) {
 				var self = this;
-				if (type == "home") {
+				if(type == "home"){
 					$.pageChange("/food114.do", {});
-				} else if (type == "myPage") {
+				}else if(type == "myPage"){
 					$.pageChange("/food114-myPage.do", {});
 				}
 			}

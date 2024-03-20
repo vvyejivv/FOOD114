@@ -66,8 +66,8 @@ public class BizController {
 	}
 	//20240319 메인
 	@RequestMapping("/biz_main.do")
-	public String bizMain(Model model) throws Exception {
-		
+	public String bizMain(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		request.setAttribute("map", map);
 		return "/biz_main";
 	}
 
@@ -76,7 +76,6 @@ public class BizController {
 	public String shopInfo(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
 		request.setAttribute("map", map);
-		System.out.println(map);
 		return "/shopInfo";
 	}
 
