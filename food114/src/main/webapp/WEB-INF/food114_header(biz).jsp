@@ -29,7 +29,7 @@
 							내 가게관리
 						</div>
 						<div id="header-menu" @click="fnPageChange('food114-biz-notice.do',map)">공지사항</div>
-						<div id="header-menu" @click="fnPageChange('food114-biz-event.do',map)">이벤트</div>
+						<!-- <div id="header-menu" @click="fnPageChange('food114-biz-event.do',map)">이벤트</div> -->
 						<div id="header-menu" @click="fnPageChange('food114.do',map)">고객사이트</div>
 					</div>
 				</div>

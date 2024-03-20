@@ -93,7 +93,7 @@
 			checkPwd : function() {
 				var self = this;
 				if (self.pwd == self.info.pwd) {
-					$.pageChange("myInfoPwdUpdate.do", {
+					$.pageChange("food114-myPage-pwd2.do", {
 						result : "success"
 					});
 					
@@ -103,21 +103,9 @@
 				} else{
 					alert("비밀번호가 다릅니다.");
 				}
-			},
-			fnMyInfo : function() {
-				location.href = "/myInfo.do";
-			},
-			fnMyInfoPwd : function() {
-				location.href = "/myInfoPwd.do";
-			},
-			myInfoAddr : function() {
-				location.href = "/myInfoAddr.do";
-			},
-			fnMyInfoGrade : function() {
-				location.href = "/myInfoGrade.do";
-			},
+			},			
 			fnClick : function() {
-				location.href = "/myInfo.do";
+				location.href = "/food114-myPage.do";
 			},
 		},
 		created : function() {

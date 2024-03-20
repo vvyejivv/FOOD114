@@ -54,7 +54,7 @@ button {
                   <!-- 메뉴 -->
                   <div
                      style="height: 150px; display: flex; align-items: center; gap: 20px;">
-                     <div @click="fnSelectMenu('/biz-menu-insert.do')"
+                     <div @click="fnSelectMenu('/food114-biz-menu-insert.do')"
                         style="cursor: pointer; width: 100px; height: 100px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px;">
                         <div style="width: 50px; height: 50px;">
                            <img width="50" height="50"
@@ -65,7 +65,7 @@ button {
                      </div>
                      <!-- 구분선  -->
                      <div style="width: 1px; height: 50px; background-color: #ccc;"></div>
-                     <div @click="fnSelectMenu('/biz-menu-update.do')"
+                     <div @click="fnSelectMenu('/food114-biz-menu-list.do')"
                         style="cursor: pointer; width: 100px; height: 100px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px;">
                         <div
                            style="width: 50px; height: 50px; border: 1px solid #EDEDED;">
@@ -77,7 +77,7 @@ button {
                      </div>
                      <!-- 구분선  -->
                      <div style="width: 1px; height: 50px; background-color: #ccc;"></div>
-                     <div @click="fnSelectMenu('/bizReview.do')"
+                     <div @click="fnSelectMenu('/food114-biz-review.do')"
                         style="cursor: pointer; width: 100px; height: 100px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px;">
                         <div style="width: 50px; height: 50px;">
                            <img width="50" height="50"
@@ -88,7 +88,7 @@ button {
                      </div>
                      <!-- 구분선  -->
                      <div style="width: 1px; height: 50px; background-color: #ccc;"></div>
-                     <div @click="fnSelectMenu('/bizEvent.do')"
+                     <div @click="fnSelectMenu('/food114-biz-event-view.do')"
                         style="cursor: pointer; width: 100px; height: 100px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px;">
                         <div style="width: 50px; height: 50px;">
                            <img width="50" height="50"
@@ -99,7 +99,7 @@ button {
                      </div>
                      <!-- 구분선  -->
                      <div style="width: 1px; height: 50px; background-color: #ccc;"></div>
-                     <div @click="fnSelectMenu('/biz-sales.do')"
+                     <div @click="fnSelectMenu('/food114-biz-data.do')"
                         style="cursor: pointer; width: 100px; height: 100px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px;">
                         <div style="width: 50px; height: 50px;">
                            <img width="50" height="50"
@@ -110,7 +110,7 @@ button {
                      </div>
                      <!-- 구분선  -->
                      <div style="width: 1px; height: 50px; background-color: #ccc;"></div>
-                     <div @click="fnSelectMenu('/biz-info.do')"
+                     <div @click="fnSelectMenu('/food114-biz-info.do')"
                         style="cursor: pointer; width: 100px; height: 100px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px;">
                         <div style="width: 50px; height: 50px;">
                            <img width="50" height="50"
@@ -262,7 +262,7 @@ button {
             location.assign(addr);
          },
          fnBoardView : function(boardNo) {
-            $.pageChange("/food114-biz-notice.do", {
+            $.pageChange("/food114-biz-notice-view.do", {
                boardNo : boardNo
             });
          }

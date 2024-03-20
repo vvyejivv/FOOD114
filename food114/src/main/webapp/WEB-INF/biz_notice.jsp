@@ -28,7 +28,7 @@ cursor: pointer;
 	<%@include file="food114_header(biz).jsp"%>
 
 	<section>
-		<div id="app">
+		<div id="app" v-cloak>
 			<div class="container">
 
 				<div style="float: left;">
@@ -101,7 +101,7 @@ cursor: pointer;
 								<span style="color: #ff7f00; font-size: 20px;">{{nextIcon}}</span>
 							</button>
 							<button @click="fnPageList(nowPage-1)"
-								v-if="nowPage == pageCount" boardNoticeList.jsp
+								v-if="nowPage == pageCount" 
 								style="border: 1px solid #f5f3f3; cursor: default;" disabled>
 								<span style="color: #f5f3f3; font-size: 20px;">{{nextIcon}}</span>
 							</button>
@@ -177,7 +177,7 @@ cursor: pointer;
 					location.href = "/food114-biz-notice.do";
 				},
 				fnClickBoardNoticeView : function(boardNo) {
-					$.pageChange("/boardNoticeVeiw.do", {
+					$.pageChange("/food114-biz-notice-view.do", {
 						boardNo : boardNo
 					});
 					/* location.href="/boardNoticeVeiw.do"; */
@@ -192,7 +192,7 @@ cursor: pointer;
 				},
 				// 공지사항 삭제하기(수정 중)
 				fnNoticeRemove : function(userId) {
-					location.href = "/boardNoticeList.do";
+					location.href = "/food114-biz-notice.do";
 					
 					var self = this;
 					var nparmap = {
@@ -207,7 +207,7 @@ cursor: pointer;
 						success : function(data) {
 							if (data.result == "success") {
 								alert("주소가 삭제 되었습니다.");
-								return location.href = "/boardNoticeList.do";
+								return location.href = "/food114-biz-notice.do";
 							} else {
 								alert("오류가 발생하였습니다.");
 							}

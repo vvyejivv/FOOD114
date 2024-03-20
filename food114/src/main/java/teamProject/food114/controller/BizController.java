@@ -144,12 +144,7 @@ public class BizController {
 		return "/mapTest"; // mapTest.jsp
 	}
 
-	@RequestMapping("/mapTest2.do")
-	public String mapTest2(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
-			throws Exception {
-		request.setAttribute("map", map);
-		return "/mapTest2"; // mapTest2.jsp
-	}
+
 
 	@RequestMapping("/mapTest3.do")
 	public String mapTest3(Model model) throws Exception {
@@ -163,7 +158,7 @@ public class BizController {
 
 
 
-	@RequestMapping("/biz-sales.do")
+	@RequestMapping("/food114-biz-data.do")
 	public String bizSales(Model model) throws Exception {
 		if (session.getAttribute("sessionBizId") == null) {
 			return "redirect:/nosession.do";

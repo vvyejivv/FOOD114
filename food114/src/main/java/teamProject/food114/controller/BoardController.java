@@ -117,12 +117,11 @@ public class BoardController {
 	}
 
 	// 공지사항 상세보기
-	@RequestMapping("/boardNoticeVeiw.do")
+	@RequestMapping("/food114-biz-notice-view.do")
 	public String boardNotice(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
-		System.out.println(map.get("boardNo"));
 		request.setAttribute("boardNo", map.get("boardNo"));
-		return "/boardNoticeVeiw";
+		return "/biz_notice_view";
 	}
 
 	// 공지사항 게시판 글 작성

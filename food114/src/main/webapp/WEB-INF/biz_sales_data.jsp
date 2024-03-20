@@ -81,7 +81,7 @@ table th, td {
     </div> -->
 	<section>
 		<%@include file="sideBar_biz.html"%>
-		<div id="app">
+		<div id="app" v-cloak>
 			<div class="mold">
 				<h2>
 					<span style="color: #ff7f00; font-weight: bold; font-size : 16px;">| </span><span
