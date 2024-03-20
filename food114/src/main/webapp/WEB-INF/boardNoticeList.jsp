@@ -11,6 +11,11 @@
 <title></title>
 <style>
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+.insertRemoveButton{
+	width: 300px;
+	margin-left: 700px; 
+	display:flex;
+}
 </style>
 </head>
 <link rel="stylesheet" href="../css/boardNoticeList.css">
@@ -67,9 +72,13 @@
 								<td style="text-align: center; font-size: 15px; color: #a3a2a2;">{{formatDate(item.cdateTime)}}</td>
 							</tr>
 						</table>
-						<div style="margin-left: 820px;">
+						<div class="insertRemoveButton">
 							<button @click="fnInsertNotice">글쓰기</button>
+							<button @click="fnNoticeRemove">삭제</button>
 						</div>
+						<!-- <div style="margin-left: 820px; display:left;">
+							<button @click="fnNoticeRemove">삭제</button>
+						</div> -->
 
 						<br>
 						<div style="text-align: center;">
@@ -171,7 +180,33 @@
 				},
 				fnInsertNotice : function(){
 					location.href = "/boardNoticeInsert.do";
-				}
+				},
+				// 공지사항 삭제하기(수정 중)
+				fnNoticeRemove : function(userId) {
+					location.href = "/boardNoticeList.do";
+					
+					var self = this;
+					var nparmap = {
+						userId : self.sessionId,
+						addrNo : addrNo
+					};
+					$.ajax({
+						url : "/boardNoticeRemove.dox",
+						dataType : "json",
+						type : "POST",
+						data : nparmap,
+						success : function(data) {
+							if (data.result == "success") {
+								alert("주소가 삭제 되었습니다.");
+								return location.href = "/boardNoticeList.do";
+							} else {
+								alert("오류가 발생하였습니다.");
+							}
+							self.info = data.info;
+							console.log(data.info);
+						}
+					});
+				},
 			},
 			computed : {
 				paginatedList : function() {

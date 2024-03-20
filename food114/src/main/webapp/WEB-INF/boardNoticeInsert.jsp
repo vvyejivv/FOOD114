@@ -234,7 +234,7 @@ select {
 										</td>
 										<td><input type="text" size="80" v-model="title">
 										</td>
-										<td style="height: 300px;"><vue-editor v-model="contents"></vue-editor>
+										<td style="height: 300px;">
 											<textarea rows="15" cols="85" placeholder="내용을 입력하세요."></textarea>
 										</td>
 									</tr>
@@ -242,7 +242,7 @@ select {
 										<td><label class="custom-file-upload-label" for="file1">
 
 												<input type="file" id="file1" name="file1"
-												accept=".jpg,.png,.gif"> <span
+												accept=".jpg, .png, .gif"> <span
 												class="custom-file-upload"
 												style="margin-top: -5px; background-color: #f9f9f9; color: rgb(72, 72, 72); border: 1px solid #ccc;">업로드</span>
 										</label></td>
@@ -265,8 +265,8 @@ select {
 
 
 <script type="text/javascript">
-Vue.use(Vue2Editor);
-const VueEditor = Vue2Editor.VueEditor;
+/* Vue.use(Vue2Editor);
+const VueEditor = Vue2Editor.VueEditor; */
 	var app = new Vue({
 		el : '#app',
 		data : {
@@ -298,6 +298,7 @@ const VueEditor = Vue2Editor.VueEditor;
 						} else {
 							alert("오류 발생");
 						}
+						location.href = "/boardNoticeList.do";
 					}
 				});
 			},
