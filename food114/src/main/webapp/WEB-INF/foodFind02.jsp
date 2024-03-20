@@ -208,7 +208,7 @@
 									<div>주소 : {{item.newAddr}}</div>
 									<div>상세주소 : {{item.detail}}</div>
 									<button class="main2-text-btn"
-										@click="fnAddrSelect(item.newAddr,item.detail)">선택</button>
+										@click="fnAddrSelect(item)">선택</button>
 								</div>
 							</template>
 						</div>
@@ -345,7 +345,9 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 				longitude : "${map.longitude}",
 				nowPage : ${map.nowPage},
 				detail : "${map.detail}",
-				addrNo : "${map.addrNo}"
+				addrNo : "${map.addrNo}",
+				phone : "${map.phone}",
+				request : "${map.request}"
 			},
 			list : {
 				bizBaedalOkList : [] ,
@@ -371,15 +373,18 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 					data : nparmap,
 					success : function(data) {
 						self.list.categoryList = data.categoryList;
-						console.log(data);
 					}
 				});
 			},
 			// 주소 선택시
-			fnAddrSelect : function(addr,detail){
+			fnAddrSelect : function(item){
 				var self=this;
-				self.map.detail=detail;
-				self.map.inputAddr=addr;				
+				self.map.addrNo=item.addrNo;
+				self.map.detail=item.detail;				
+				self.map.phone=item.phone;
+				self.map.request=item.request;
+				self.map.inputAddr=item.newAddr;
+				
 			},
 			
 			fnCloseModal:function(){
@@ -418,7 +423,6 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 					data : nparmap,
 					success : function(data) {
 						self.list.addrList=data.list;
-						console.log(data);
 						if(data.list.length==0){							
 							return;
 						}
@@ -426,6 +430,9 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 							self.map.addrNo=self.list.addrList[0].addrNo;
 							self.map.inputAddr=self.list.addrList[0].newAddr;
 							self.map.detail=self.list.addrList[0].detail;
+							self.map.phone=self.list.addrList[0].phone;
+							return;
+							self.map.request=self.list.addrList[0].request;
 							}
 					}
 				});
@@ -495,7 +502,6 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 	                })
 	                self.totalCnt=self.list.bizBaedalOkList.length;	// 총 개수 초기화     
 	                self.totalPage=Math.ceil(self.totalCnt/9); // 총 페이지 초기화
-	                console.log(self.list.bizBaedalOkList);
 			},
 			//주소조회 api
 			openAddressSearch : function() {
@@ -514,7 +520,6 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 			  self.map.nowPage=1;
 			  self.convertAddressToCoordinates(self.map.inputAddr);
 			  setTimeout(function(){
-				  console.log(self.map.inputAddr);
 			  $.pageChange("/food114-foodfind.do", self.map);
 			}, 50)	
 		  },
@@ -537,7 +542,6 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 			self.fnLoadMyAddr();
 			self.fnCategoryList();
 			self.fnList();
-			console.log(self.sessionId);
 				
 
 		}
