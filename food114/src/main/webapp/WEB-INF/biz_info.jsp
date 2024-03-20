@@ -307,7 +307,7 @@ section {
 							</select>
 							시
 							<select class="timeSelect" v-model="openMinute">
-								<option v-for="item in 6" :value="(item-1)*10">{{(item-1)*10}}</option>
+								<option v-for="item in 6" :value="(item === 1 ? '00' : (item - 1) * 10)">{{(item-1)*10}}</option>
 							</select>
 							분 <span style="margin: 0px 10px;">~</span>
 							<select class="timeSelect" v-model="closeHour">
@@ -318,7 +318,7 @@ section {
 							</select>
 							시
 							<select class="timeSelect" v-model="closeMinute">
-								<option v-for="item in 6" :value="(item-1)*10">{{(item-1)*10}}</option>
+								<option v-for="item in 6" :value="(item === 1 ? '00' : (item - 1) * 10)">{{(item-1)*10}}</option>
 							</select>
 							분
 						</template>
@@ -456,8 +456,8 @@ section {
 							alert("유효하지 않은 문자가 포함되어 있습니다.");
 							return;
 						}
-						self.bizInfo.openTime = self.openHour + self.openMinute;
-						self.bizInfo.closeTime = self.closeHour
+						self.bizInfo.openTime = self.openHour +''+ self.openMinute;
+						self.bizInfo.closeTime = self.closeHour + ''
 								+ self.closeMinute;
 						self.bizInfo["imgFlg"] = self.changeImgFlg;
 						self.bizInfo["email"] = self.email + "@"

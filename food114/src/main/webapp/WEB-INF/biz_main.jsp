@@ -8,7 +8,6 @@
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue@2/vue.min.js"></script>
 <meta charset="UTF-8">
 <title>FOOD114 사장님 페이지</title>
 <style>
@@ -26,13 +25,12 @@ button {
 				<!-- 배너 -->
 				
 				
-				<div style="width: 1420px; height: 400px;">
+				<div style="width: 1420px; height: 400px; overflow:hidden;">
 
 					<div class="swiper" style="width: 1420px; overflow: visible;">
 						<div class="swiper-wrapper"
 							style="width: 1420px; overflow: visible;">
-							<div class="swiper-slide" style="border-radius: 10px;"
-								@click="fnPageChange('event-web-list.do',map)">
+							<div class="swiper-slide" style="border-radius: 10px;">
 								<img src="../img/bizevent01.png">
 							</div>
 							<div class="swiper-slide" style="border-radius: 10px;">
@@ -97,7 +95,7 @@ button {
 							</div>
 							<!-- 구분선  -->
 							<div style="width: 1px; height: 50px; background-color: #ccc;"></div>
-							<div @click="fnSelectMenu('/bizEvent.do')"
+							<div @click="fnSelectMenu('/bizEvent_info.do')"
 								style="cursor: pointer; width: 100px; height: 100px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px;">
 								<div style="width: 50px; height: 50px;">
 									<img width="50" height="50"

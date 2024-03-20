@@ -21,5 +21,9 @@ public interface MenuService {
 	HashMap<String,Object> editMenu(HashMap<String,Object> map);
 	
 	HashMap<String,Object> editMenuNoFile(HashMap<String,Object> map);
+	
+	HashMap<String,Object> editSalePrice(HashMap<String,Object> map);
+	HashMap<String,Object> addSalePrice(HashMap<String,Object> map);
+	HashMap<String,Object> removeSalePrice(HashMap<String,Object> map);
 
 }

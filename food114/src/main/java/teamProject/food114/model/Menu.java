@@ -21,6 +21,7 @@ public class Menu {
 	private String soldOut;
 	private String path;
 	private String totalCnt;
+	private boolean saleFlg;
 	
 	public int getMenuNo() {
 		return menuNo;
@@ -141,5 +142,11 @@ public class Menu {
 	}
 	public void setTotalCnt(String totalCnt) {
 		this.totalCnt = totalCnt;
+	}
+	public boolean isSaleFlg() {
+		return saleFlg;
+	}
+	public void setSaleFlg(boolean saleFlg) {
+		this.saleFlg = saleFlg;
 	}
 }
