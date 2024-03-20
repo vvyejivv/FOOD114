@@ -408,6 +408,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 						if(data.list.length==0){							
 							return;
 						}
+						console.log(data);
 						if(self.map.addrNo==""){
 						self.map.addrNo=self.list.addrList[0].addrNo;
 						self.map.inputAddr=self.list.addrList[0].newAddr;
@@ -415,6 +416,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 						self.map.phone=self.list.addrList[0].phone;
 						self.map.request=self.list.addrList[0].request;
 						}
+						console.log(self.map.request);
 						
 					}
 				});
