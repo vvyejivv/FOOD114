@@ -8,7 +8,6 @@
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue@2/vue.min.js"></script>
 <meta charset="UTF-8">
 <title>FOOD114 사장님 페이지</title>
 <style>
@@ -26,13 +25,12 @@ button {
 				<!-- 배너 -->
 				
 				
-				<div style="width: 1420px; height: 400px;">
+				<div style="width: 1420px; height: 400px; overflow: hidden;">
 
 					<div class="swiper" style="width: 1420px; overflow: visible;">
 						<div class="swiper-wrapper"
 							style="width: 1420px; overflow: visible;">
-							<div class="swiper-slide" style="border-radius: 10px;"
-								@click="fnPageChange('event-web-list.do',map)">
+							<div class="swiper-slide" style="border-radius: 10px;">
 								<img src="../img/bizevent01.png">
 							</div>
 							<div class="swiper-slide" style="border-radius: 10px;">
@@ -138,7 +136,7 @@ button {
 						<div v-if="!sessionId"
 							style="display: flex; justify-content: center;">
 							<button
-								style="border-radius: 5px; border: 1px solid #EDEDED; padding: 10px 150px; color: #222222; font-size: 14px;"
+								style="border-radius: 5px; border: 1px solid #EDEDED; cursor: pointer;  padding: 10px 150px; color: #222222; font-size: 14px;"
 								@click="fnBizLogin()">로그인</button>
 						</div>
 						<div v-else style="display: flex; justify-content: center;">

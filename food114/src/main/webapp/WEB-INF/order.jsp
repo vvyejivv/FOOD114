@@ -38,10 +38,10 @@
 						<!-- 설정 주소 불러오기 -->
 						<div class="infoText">주소</div>
 						<!--:value="userAddr[0].newAddr"  -->
-						<input type="text" :value="userNewAddr" disabled>
+						<input type="text" :value="!userNewAddr ? orderAddr : userNewAddr" disabled>
 						<!-- 상세주소 -->
 						<div>
-							<input type="text" :value="userDetail">
+							<input type="text" :value="userDetail ? '' : userDetail">
 						</div>
 					</div>
 					<div class="infoBox" id="phone">
@@ -204,6 +204,8 @@
 			userAddrList : {}, /* 주소목록  */
 			userNewAddr : "", /* DB고객 신주소 */
 			userDetail : "", /* DB고객 상세주소 */
+			orderAddr : "${map.orderAddr}",/* 주문하기 설정주소  */
+			orderAddrDetail : "${map.orderAddrDetail}", /* 주문하기 설정주소(상세)  */
 			phone1 : "",
 			phone2 : "",
 			phone3 : "",
@@ -228,11 +230,12 @@
 			paymentStatus : "", /* 결제여부  */
 			couponId : "",
 			flg : false,
+
 		},
 		methods : {
 			fnView : function() {
 				var self = this;
-				var nparmap = {
+				/* var nparmap = {
 					userId : self.sessionId
 				};
 				console.log("주문번호 : " + self.orderNo);
@@ -243,14 +246,16 @@
 					data : nparmap,
 					success : function(data) {
 						self.userAddrList = data.customerAddr;
-						/* 주소 입력 */
-						self.userNewAddr = self.userAddrList[0].newAddr;
-						self.userDetail = self.userAddrList[0].detail;
-						/* 총 금액  */
-						self.selectTotalPrice = self.fnTotalPrice(self.selectMenuList);
-						self.couponAmount = self.selectTotalPrice;
 					}
-				});
+				}); */
+				console.log(self.orderAddr);
+				console.log(self.orderAddrDetail);
+				/* 총 금액  */
+				self.selectTotalPrice = self.fnTotalPrice(self.selectMenuList);
+				self.couponAmount = self.selectTotalPrice;
+				/* 주소 입력 */
+				self.userNewAddr = self.orderAddr;
+				self.userDetail = self.orderAddrDetail;
 			},
 			/* 요청사항 60자 이하 제한  */
 			fnRequestLength : function() {
@@ -395,6 +400,12 @@
 			fnOrder : function(){
 				var self = this;
 				self.phone = self.phone1 + self.phone2 + self.phone3;
+/* 				if(!self.orderAddr){
+					self.userNewAddr = self.orderAddr;
+				}else{							
+					self.userNewAddr = self.userAddrList[0].newAddr;
+					self.userDetail = self.userAddrList[0].detail;
+				} */
 				var nparmap = {	
 					orderNo : self.orderNo,
 					userId : self.sessionId,

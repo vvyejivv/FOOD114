@@ -203,7 +203,9 @@
 			selectTotalPrice : 0, /* 장바구니 총 금액  */
 			status : "결제전", /* 주문상태  */
 			orderNo : "", /* 주문번호  */
-			eventStatus : ""
+			eventStatus : "",
+			orderAddr :"${map.inputAddr}", /* 주문하기에서 설정한 주소  */
+			/* orderAddrDetail ="${map.detail}", */ /* 주문하기에서 설정한 상세 주소  */
 
 		},
 		methods : {
@@ -328,6 +330,8 @@
 						bizId : self.bizId, 
 						selectMenuList: JSON.stringify(self.selectMenuList),
 						status : self.status, /* 결제전  */
+						addr : self.orderAddr,
+						addrDetail : self.orderAddrDetail,
 					};
 					$.ajax({
 						url : "orderAdd.dox",
@@ -336,7 +340,7 @@
 						data : nparmap,
 						success : function(data) {
 							self.orderNo = data.orderNo;
-							$.pageChange("/order.do", {userId : self.sessionId, selectMenuList: self.selectMenuList, orderNo : self.orderNo});
+							$.pageChange("/order.do", {userId : self.sessionId, selectMenuList: self.selectMenuList, orderNo : self.orderNo, orderAddr : self.orderAddr, orderAddrDetail : self.orderAddrDetail});
 						}
 					});  
 			}
