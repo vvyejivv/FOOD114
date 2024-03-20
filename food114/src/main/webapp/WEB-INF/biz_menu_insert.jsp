@@ -311,7 +311,7 @@ button img {
 	   	  		// 파일이 선택되었을 때만 업로드 실행
 	   	     	if (fileInput.files.length > 0) {
 	   	         	self.upload(form);
-	   	         	$.pageChange("/biz-menu-update.do", {});
+	   	         	$.pageChange("/food114-biz-menu-list.do", {});
 	   	     	} else {
 	   	         	// 파일이 선택되지 않았을 때 다른 동작 수행
 	   	         	self.fnSubMenuUpload();
