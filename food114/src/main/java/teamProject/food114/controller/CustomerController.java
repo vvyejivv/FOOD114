@@ -132,7 +132,6 @@ public class CustomerController {
 	
 	
 	
-	
 
 	// myInfo - my주소지 관리 - 주소지 상세보기
 	@RequestMapping(value = "/myInfoAddr.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
