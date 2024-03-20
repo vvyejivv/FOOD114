@@ -240,7 +240,7 @@ section {
 						<div class="infoName">대표 이름</div>
 						<span v-if="!updateFlg" class="viewInfo">{{bizInfo.ownerName}}</span>
 						<input v-if="updateFlg" class="updateInput"
-							v-model="bizInfo.ownerName">
+							v-model="bizInfo.ownerName" @keyup="validateName">
 					</div>
 					<div class="infoDiv">
 						<div class="infoName">대표연락처</div>
@@ -369,7 +369,8 @@ section {
 					phoneConfirmNum : "1234", //인증번호
 					phoneConfirmInputNum : "", //인증번호 입력값 
 					phoneFlg : true, // 휴대폰 인증 여부
-					inputPhoneCheckFlg : false, // 휴대폰 인증/취소 버튼 활성화 여부					
+					inputPhoneCheckFlg : false, // 휴대폰 인증/취소 버튼 활성화 여부	
+					validName : true
 				},
 				methods : {
 					// 해당 주소의 위도 경도 구하기
@@ -451,6 +452,10 @@ section {
 							alert("휴대폰 인증을 진행해주세요.");
 							return;
 						}
+						if (!self.validName) {
+							alert("유효하지 않은 문자가 포함되어 있습니다.");
+							return;
+						}
 						self.bizInfo.openTime = self.openHour + self.openMinute;
 						self.bizInfo.closeTime = self.closeHour
 								+ self.closeMinute;
@@ -498,7 +503,10 @@ section {
 							success : function(data) {
 								console.log(self.bizFile);
 								self.bizInfo = data.bizInfo;
-								self.category = data.bizInfo.bizCategory;
+								console.log(data);
+								if(!data.bizInfo.bizCategory){
+								self.bizInfo.bizCategory = "";
+								}
 								self.bank = data.bizInfo.bank;
 								if(typeof data.bizInfo.openTime !="undefined"){
 								self.openHour = data.bizInfo.openTime.substring(0, 2);
@@ -584,6 +592,16 @@ section {
 								}
 							}
 						});
+					},
+					validateName : function() {
+						// 영어, 숫자만 입력가능 정규식
+						var pattern = /^[a-zA-Z\u3131-\uD79D]*$/;
+
+						if (pattern.test(this.bizInfo.ownerName)) {
+							this.validName = true; // 유효한 이름
+						} else {
+							this.validName = false; // 유효하지 않은 이름
+						}
 					}
 				},
 				created : function() {

@@ -24,14 +24,6 @@
 				</h2>
 				<div class="infoBox">
 					<div class="infoDiv">
-						<div class="infoName">이벤트 메인 이미지</div>
-						<span class="viewInfo"> <img class="mainImg"
-							v-if="!updateFlg" :src="eventInfo.path"> <input
-							v-if="updateFlg" type="file" id="file1" name="file1"
-							accept=".jpg, .png, .gif">
-						</span>
-					</div>
-					<div class="infoDiv">
 						<div class="infoName">이벤트 종류</div>
 						<span v-if="!updateFlg" class="viewInfo">{{ eventInfo.type === 'SHORT' ? '우리동네' : (eventInfo.type === 'REGULAR' ? '리뷰 이벤트' : '') }}</span>
 						<select v-if="updateFlg" class="updateInput"
@@ -40,7 +32,6 @@
 							<option value="REGULAR">리뷰 이벤트</option>
 						</select>
 					</div>
-
 					<div class="infoDiv">
 						<div class="infoName">이벤트 제목</div>
 						<span v-if="!updateFlg" class="viewInfo">{{eventInfo.title}}</span>
@@ -54,13 +45,41 @@
 							v-model="eventInfo.contents">
 					</div>
 					<div class="infoDiv">
-						<div class="infoName">이벤트 종류</div>
+						<div class="infoName">이벤트 상황</div>
 						<span v-if="!updateFlg" class="viewInfo">{{ eventInfo.endYn === 'Y' ? '종료' : (eventInfo.endYn === 'N' ? '진행중' : '') }}</span>
 						<select v-if="updateFlg" class="updateInput"
 							v-model="eventInfo.endYn">
 							<option value="Y">종료</option>
 							<option value="N">진행중</option>
 						</select>
+					</div>
+					<div class="infoDiv">
+					<div class="infoName">이벤트 시간</div>
+					<span v-if="!updateFlg" class="viewInfo">{{eventInfo.sepaSetBeginTime}} ~ {{eventInfo.sepaSetEndTime}}</span>
+					<template v-if="updateFlg">
+							<select class="timeSelect" v-model="eventInfo.beginHour">
+								<template v-for="item in 24">
+									<option :value="'0'+(item-1)" v-if="item<=10">0{{item-1}}</option>
+									<option :value="item-1" v-if="item>10">{{item-1}}</option>
+								</template>
+							</select>
+							시
+							<select class="timeSelect" v-model="eventInfo.beginMinute">
+								<option v-for="item in 6" :value="(item === 1 ? '00' : (item - 1) * 10)">{{(item-1)*10}}</option>
+							</select>
+							분 <span style="margin: 0px 10px;">~</span>
+							<select class="timeSelect" v-model="eventInfo.endHour">
+								<template v-for="item in 24">
+									<option :value="'0'+(item-1)" v-if="item<=10">0{{item-1}}</option>
+									<option :value="item-1" v-if="item>10">{{item-1}}</option>
+								</template>
+							</select>
+							시
+							<select class="timeSelect" v-model="eventInfo.endMinute">
+								<option v-for="item in 6" :value="(item === 1 ? '00' : (item - 1) * 10)">{{(item-1)*10}}</option>
+							</select>
+							분
+					</template>
 					</div>
 				</div>
 				<button v-if="!updateFlg" class="btn-modify" @click="fnInfoUpdate()">정보 변경하기</button>
@@ -109,7 +128,7 @@
 				var self = this;
 				self.updateFlg = !self.updateFlg;
 			},
-			fnAdd : function() {
+			/* fnTempAdd : function() {
 				var self = this;
 				var form = new FormData();
 				var fileInput = document.getElementById('file1');
@@ -145,15 +164,17 @@
 
 					}
 				});
-			},
-			fnNoFile : function() {
+			}, */
+			fnAdd : function() {
 				var self = this;
 				var nparmap = {
 					boardNo : self.boardNo,
 					type : self.eventInfo.type,
 					title : self.eventInfo.title,
 					contents : self.eventInfo.contents,
-					endYn : self.eventInfo.endYn
+					endYn : self.eventInfo.endYn,
+					beginTime : self.eventInfo.beginHour +''+ self.eventInfo.beginMinute,
+					endTime : self.eventInfo.endHour +''+ self.eventInfo.endMinute
 				};
 				$.ajax({
 					url : "/editBizEventBoard.dox",
