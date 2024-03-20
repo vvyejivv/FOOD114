@@ -31,24 +31,16 @@ public class BoardController {
 	@Autowired
 	HttpSession session;
 	
-	// 사업자 이벤트 목록
-	@RequestMapping("/food114-biz-event.do")
-	public String bizEvent(Model model) throws Exception {
-		if(session.getAttribute("sessionBizId")==null) {
-			return "redirect:/nosession.do";
-		}
-		return "/biz_event"; // bizEvent.jsp
-	}
 	
 	// 우리 동네 이벤트
-	@RequestMapping("/food114-town-event.do")
+	@RequestMapping("/food114-biz-event.do")
 	public String bizEvent_info(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
 		if(session.getAttribute("sessionBizId")==null) {
 			return "redirect:/nosession.do";
 		}
 		request.setAttribute("map", map);
-		return "/user_town_event"; // bizEvent_info.jsp
+		return "/bizEvent_info"; // bizEvent_info.jsp
 	}
 	
 	
@@ -67,7 +59,7 @@ public class BoardController {
 	}
 
 	// 웹 주관 이벤트 페이지
-	@RequestMapping("/event-biz-list.do")
+	@RequestMapping("/food114-town-event.do")
 	public String eventBizList(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
 		if(!map.containsKey("order") || map.get("order")=="") {
@@ -80,7 +72,7 @@ public class BoardController {
 			map.put("nowPage", 1);
 		}
 		request.setAttribute("map", map);
-		return "/event-biz02";
+		return "/user-town-event";
 	}
 
 	// 웹 주관 이벤트 페이지 상세보기
