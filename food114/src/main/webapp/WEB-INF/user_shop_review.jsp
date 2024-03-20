@@ -19,7 +19,7 @@
 	<header>
 		<%@include file="food114_header.jsp"%>
 	</header>
-	<%@include file="shopInfo_header.jsp"%>
+	<%@include file="user_shop_header.jsp"%>
 	<div id="app" v-cloak style="width: 1920px; margin: 0px auto;">
 		<section style="height: fit-content;">
 		<!-- 리뷰 -->
@@ -101,7 +101,6 @@
 		methods : {
 			fnView : function() {
 				var self = this;
-				console.log(self.bizId);
 				var nparmap = {
 					bizId : self.bizId
 				};
@@ -113,7 +112,6 @@
 					success : function(data) {
 						self.reviewList = data.reviewList;
 						self.review = data.review;
-						console.log(data.review);
 					}
 				});
 			},
