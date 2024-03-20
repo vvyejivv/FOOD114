@@ -48,4 +48,14 @@ public class Board {
 		private String beginMinute;
 		private String endHour;
 		private String endMinute;
+		
+		private String beginYear;
+		private String beginMonth;
+		private String beginDay;
+		private String endYear;
+		private String endMonth;
+		private String endDay;
+		
+		
+		
 }

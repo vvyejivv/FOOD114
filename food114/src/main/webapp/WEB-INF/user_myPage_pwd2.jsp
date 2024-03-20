@@ -136,7 +136,7 @@
 							success : function(data) {
 								if (data.result == "success") {
 									alert("변경되었습니다.");
-									return location.href = "/myInfo.do";
+									return location.href = "/food114-myPage.do";
 								} else {
 									alert("오류가 발생하였습니다.");
 								}
@@ -146,21 +146,8 @@
 						});
 					},
 					pwdRemove : function() {
-						location.href = "/myInfo.do";
-					},
-					fnMyInfo : function() {
-						location.href = "/myInfo.do";
-					},
-					fnMyInfoPwd : function() {
-						location.href = "/myInfoPwd.do";
-					},
-					myInfoAddr : function() {
-						location.href = "/myInfoAddr.do";
-					},
-					fnMyInfoGrade : function() {
-						location.href = "/myInfoGrade.do";
-					},
-
+						location.href = "/food114-myPage.do";
+					}
 				},
 				created : function() {
 					var self = this;

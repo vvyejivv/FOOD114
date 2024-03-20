@@ -32,5 +32,9 @@ public interface MenuMapper {
 	void updateMenu(HashMap<String, Object> map);
 	
 	void updateMenuNoFile(HashMap<String, Object> map);
+	
+	void updateSalePrice(HashMap<String, Object> map);
+	void insertSalePrice(HashMap<String, Object> map);
+	void deleteSalePrice(HashMap<String, Object> map);
 
 }

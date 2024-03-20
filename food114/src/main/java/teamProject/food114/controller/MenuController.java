@@ -103,6 +103,30 @@ public class MenuController {
 		resultMap = menuService.editMenuNoFile(map);
 		return new Gson().toJson(resultMap);
 	}
+	
+	@RequestMapping(value = "/editSalePrice.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String editSalePrice(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = menuService.editSalePrice(map);
+		return new Gson().toJson(resultMap);
+	}
+	
+	@RequestMapping(value = "/addSalePrice.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String addSalePrice(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = menuService.addSalePrice(map);
+		return new Gson().toJson(resultMap);
+	}
+	
+	@RequestMapping(value = "/removeSalePrice.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String removeSalePrice(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = menuService.removeSalePrice(map);
+		return new Gson().toJson(resultMap);
+	}
 
 	// file upload
 	@RequestMapping("/menuUpload.dox")

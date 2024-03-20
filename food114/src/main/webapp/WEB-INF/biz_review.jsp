@@ -107,7 +107,7 @@
 				});
 			},
 			fnInfo : function(review) {
-					$.pageChange("/bizReview_info.do", {reviewNo : review.reviewNo});
+					$.pageChange("/food114-biz-review-view.do", {reviewNo : review.reviewNo});
 			}
 		},
 		created : function() {

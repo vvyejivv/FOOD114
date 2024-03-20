@@ -20,7 +20,7 @@
 
 <body>
 	<div id="Container">
-	<%@include file="food114_header.jsp"%>
+	<%@include file="food114_header(biz).jsp"%>
 	<!-- 주문하기(영수증창) -->
 	<!-- <div class="receipt" style="border-radius: 10px;">
         영수증
@@ -350,7 +350,7 @@ select {
 			</div>
 		</div>
 	</section>
-	<%@include file="food114_footer.jsp"%>
+	<%@include file="food114_footer(biz).jsp"%>
 	</div>
 </body>
 
@@ -703,7 +703,7 @@ select {
 							success : function(data) {
 								if (data.result == "success") {
 									alert("가입되었습니다.");
-									location.assign("/bizLogin.do");
+									location.assign("/food114-biz-login.do");
 								} else {
 									alert("다시 시도해주세요.");
 									location.reload(true);

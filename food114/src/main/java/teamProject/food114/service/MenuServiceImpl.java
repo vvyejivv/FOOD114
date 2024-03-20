@@ -139,4 +139,49 @@ public class MenuServiceImpl implements MenuService {
 		}
 		return resultMap;
 	}
+
+	@Override
+	public HashMap<String, Object> editSalePrice(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		HashMap<String,Object> resultMap = new HashMap<>();
+		try {
+			menuMapper.updateSalePrice(map);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			resultMap.put("result", "fail");
+		}
+		return resultMap;
+	}
+
+	@Override
+	public HashMap<String, Object> addSalePrice(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		HashMap<String,Object> resultMap = new HashMap<>();
+		try {
+			menuMapper.insertSalePrice(map);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			resultMap.put("result", "fail");
+		}
+		return resultMap;
+	}
+
+	@Override
+	public HashMap<String, Object> removeSalePrice(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		HashMap<String,Object> resultMap = new HashMap<>();
+		try {
+			menuMapper.deleteSalePrice(map);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			resultMap.put("result", "fail");
+		}
+		return resultMap;
+	}
 }

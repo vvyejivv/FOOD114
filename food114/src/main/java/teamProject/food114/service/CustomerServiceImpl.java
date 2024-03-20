@@ -207,6 +207,7 @@ public class CustomerServiceImpl implements CustomerService {
 	public HashMap<String, Object> searchMyOrderList(HashMap<String, Object> map) {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		try {
+			System.out.println(map);
 			List<Order> orderList = customerMapper.selectMyOrderList(map);
 			resultMap.put("cnt", customerMapper.selectMyOrderListCnt(map));
 			resultMap.put("orderList", orderList);

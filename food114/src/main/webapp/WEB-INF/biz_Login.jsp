@@ -99,7 +99,7 @@
 					data : nparmap,
 					success : function(data) {
 						if (data.pwd == "pwdSuccess") {
-							location.href="/biz_main.do";							
+							location.href="/food114-biz.do";							
 						}else{
 							self.errormsg = data.message;						
 						}
@@ -114,7 +114,7 @@
 				self.pwdFlg = false;
 			},
 			fnJoin : function() {
-				location.href="consumer-join.do";
+				location.href="food114-biz-join.do";
 			}
 		},
 		created : function() {

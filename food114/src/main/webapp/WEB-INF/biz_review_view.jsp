@@ -107,7 +107,7 @@
 			},
 			goBack : function() {
 				// 이전으로 버튼을 눌렀을 때의 동작을 정의합니다.
-				$.pageChange("/bizReview.do", {});
+				$.pageChange("/food114-biz-review.do", {});
 			},
 			fnBizAdd : function() {
 				var self = this;

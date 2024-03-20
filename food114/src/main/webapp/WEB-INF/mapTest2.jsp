@@ -204,6 +204,7 @@ ul, ol {
 	height: 80px;
 	float: left;
 	margin: 10px;
+	object-fit:contain;
 }
 /* 장소 리스트 스타일 */
 #placesList1 {
@@ -338,7 +339,7 @@ ul, ol {
 						<div class="detailView" v-for="item in menuSampleList" style="float:left;">
 							<img class="sampleImg" :src="item.path">
 							<div style="font-size:15px; margin-left:50px;">{{item.menu}}</div>
-							<div style="font-size:15px; margin-left:50px; margin-top:10px; font-weight:bold;">{{item.price}}<span style="font-size:15px; font-weight:100;">원</span></div>
+							<div style="font-size:15px; margin-left:50px; margin-top:10px; font-weight:bold;">{{parseInt(item.price).toLocaleString()}}<span style="font-size:15px; font-weight:100;">원</span></div>
 						</div>
 						<div style="width:100%; text-align:center; clear:both;">
 							<button @click="fnShopInfo(restView.bizId)" class="plusBtn">메뉴 더보기 ❯</button>

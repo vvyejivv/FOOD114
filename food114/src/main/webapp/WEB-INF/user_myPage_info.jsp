@@ -451,7 +451,7 @@ input[type='text']:focus {
 						});
 					},
 					fnClick : function() {
-						location.href = "/myInfo.do";
+						location.href = "/food114-myPage.do";
 					},
 					// 변경 클릭시 오픈 모달창
 					openNameModal : function(type) {

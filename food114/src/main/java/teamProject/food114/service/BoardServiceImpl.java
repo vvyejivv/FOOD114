@@ -142,7 +142,11 @@ public class BoardServiceImpl implements BoardService {
 	public HashMap<String, Object> editBizEventBoard(HashMap<String, Object> map) {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		try {
-			boardMapper.updateBizEventBoard(map);
+			if(boardMapper.selectBizEventBoard(map) != null) {
+				boardMapper.updateBizEventBoard(map);
+			} else {
+				boardMapper.insertBizEventBoard(map);
+			}
 			resultMap.put("result", "success");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -173,7 +177,23 @@ public class BoardServiceImpl implements BoardService {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		try {
 			boardMapper.insertNotictBoard(map);
-			resultMap.put("board", "board");
+			/* resultMap.put("board", board); */
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			// TODO: handle exception
+			resultMap.put("result", "fail");
+			System.out.println(e.getMessage());
+		}
+		return resultMap;
+	}
+
+	// 공지사항 게시글 삭제
+	@Override
+	public HashMap<String, Object> deleteNoticeList(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			boardMapper.insertNotictBoard(map);
 			resultMap.put("result", "success");
 		} catch (Exception e) {
 			// TODO: handle exception

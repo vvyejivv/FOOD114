@@ -25,6 +25,9 @@ public interface BoardMapper {
 	
 	// 공지사항 게시글 작성
 	void insertNotictBoard(HashMap<String, Object> map);
+	
+	// 공지사항 게시글 삭제
+	void deleteNotice(HashMap<String, Object> map);
 
 	// 이벤트 기간 종료시 update endYn=Y
 	void updateEndYn();
@@ -43,11 +46,15 @@ public interface BoardMapper {
 	
 	Board selectBizEventView(HashMap<String, Object> map);
 	
+	Board selectBizEventBoard(HashMap<String, Object> map);
+	
 	void insertBizEventFile(HashMap<String, Object> map);
 	
 	void updateBizEventFile(HashMap<String, Object> map);
 	
 	void updateBizEventBoard(HashMap<String, Object> map);
+	
+	void insertBizEventBoard(HashMap<String, Object> map);
 	
 	Board selectBizEventFileYn(HashMap<String, Object> map);
 	
