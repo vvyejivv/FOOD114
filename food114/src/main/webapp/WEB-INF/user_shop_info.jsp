@@ -37,27 +37,36 @@
 				</div>
 				<!-- 메뉴 테이블 -->
 				<template v-for="(item,index) in menuList" v-if="item.sta != '판매종료'">
-					<div class="menuInfo" @click="fnMenuClick('open',index)">
-						<div class="menuImgBox">
-							<img :src="item.path">
-						</div>
-						<div class="menuName">
-							<table>
-								<tr>
-									<th>{{item.menu}}</th>
-								</tr>
-								<tr>
-									<td>{{item.menuInfo}}</td>
-								</tr>
+					<div class="menuInfo" 
+						style="position: relative;">
+						
+						<!-- 품절시 클릭막기 -->
+						<div
+							style="position: absolute; background-color: rgba(0, 0, 0, 0.1); width: 100%; height: 100%; z-index: 999; border-radius: 8px; text-align: center; color:red;" v-if="item.sta=='품절'">
+							해당 메뉴는 품절되었습니다.</div>
+
+						<div class="clickBox" style="overflow: hidden;" @click="fnMenuClick('open',index)">
+							<div class="menuImgBox">
+								<img :src="item.path">
+							</div>
+							<div class="menuName">
+								<table>
+									<tr>
+										<th>{{item.menu}}</th>
+									</tr>
+									<tr>
+										<td>{{item.menuInfo}}</td>
+									</tr>
 
 
-								<tr>
-									<td style="border-bottom: none;"><span
-										:class="{noPrice : item.salePrice&&eventStatus==1}">{{parseInt(item.price).toLocaleString()}}원</span>
-										<span v-if="item.salePrice&&eventStatus==1">→
-											{{parseInt(item.salePrice).toLocaleString()}}원</span></td>
-								</tr>
-							</table>
+									<tr>
+										<td style="border-bottom: none;"><span
+											:class="{noPrice : item.salePrice&&eventStatus==1}">{{parseInt(item.price).toLocaleString()}}원</span>
+											<span v-if="item.salePrice&&eventStatus==1">→
+												{{parseInt(item.salePrice).toLocaleString()}}원</span></td>
+									</tr>
+								</table>
+							</div>
 						</div>
 					</div>
 				</template>

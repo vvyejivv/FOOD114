@@ -110,11 +110,11 @@ public class BoardController {
 	}
 
 	// 1:1 문의 게시판 글 작성
-	@RequestMapping("/boardQnaInsert.do")
+	@RequestMapping("/food114-biz-ask.do")
 	public String insert(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
 		request.setAttribute("map", map);
-		return "/boardQnaInsert";
+		return "/biz_notice_ask";
 	}
 
 	// 웹 주관 이벤트 페이지 상세보기

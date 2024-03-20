@@ -109,6 +109,7 @@ public class BizController {
 	@RequestMapping("/food114-shop-event.do")
 	public String shopEvent(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
+		
 		request.setAttribute("map", map);
 		return "/user_shop_event";
 	}

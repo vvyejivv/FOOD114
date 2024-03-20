@@ -166,12 +166,10 @@ cursor: pointer;
 				fnClickQnaAsk : function(userId) {
 					alert("준비중입니다.");
 					return;
-					location.href = "/boardNoticeQnaAsk.do";
 				},
 				fnClick : function(userId) {
-					alert("준비중입니다.");
-					return;
-					location.href = "/boardQnaInsert.do";
+					
+					location.href = "/food114-biz-ask.do";
 				},
 				fnClickNoticeList : function(userId) {
 					location.href = "/food114-biz-notice.do";

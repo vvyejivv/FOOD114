@@ -79,7 +79,7 @@
 					type : "POST",
 					data : nparmap,
 					success : function(data) {
-						location.reload();
+						location.href="food114.do"
 					}
 				});
 			},

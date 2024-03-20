@@ -388,6 +388,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 				self.map.phone=item.phone;
 				self.map.request=item.request;
 				self.map.inputAddr=item.newAddr;
+				$("#modal-back").prop("hidden",true);
 				
 			},
 			
