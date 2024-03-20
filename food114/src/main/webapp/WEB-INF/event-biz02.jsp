@@ -207,7 +207,7 @@
 									<div>주소 : {{item.newAddr}}</div>
 									<div>상세주소 : {{item.detail}}</div>
 									<button class="main2-text-btn"
-										@click="fnAddrSelect({newAddr : item.newAddr, detail : item.detail})">선택</button>
+										@click="fnAddrSelect(item)">선택</button>
 								</div>
 							</template>
 						</div>
@@ -340,7 +340,9 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 				longitude : "${map.longitude}",
 				nowPage : ${map.nowPage},
 				detail : "${map.detail}",
-				addrNo : "${map.addrNo}"
+				addrNo : "${map.addrNo}",
+				phone : "${map.phone}",
+				request : "${map.request}"
 			},
 			list : {
 				bizBaedalOkList : [] ,
@@ -358,11 +360,13 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 		
 		methods : {
 			// 주소 선택시
-			fnAddrSelect : function(map){
+			fnAddrSelect : function(item){
 				var self=this;
-				console.log(map);
-				self.map.inputAddr=map.newAddr;	
-				self.map.detail=map.detail;
+				self.map.addrNo=item.addrNo;
+				self.map.detail=item.detail;				
+				self.map.phone=item.phone;
+				self.map.request=item.request;
+				self.map.inputAddr=item.newAddr;
 			},
 			
 			fnCloseModal:function(){
@@ -453,7 +457,6 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 						if(self.map.latitude!="" && self.map.longitude!=""){
 							self.fnBaedalOk();
 						}
-						console.log(self.map);
 					}
 				});
 			},
@@ -476,7 +479,6 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 	                })
 	                self.totalCnt=self.list.bizBaedalOkList.length;	// 총 개수 초기화     
 	                self.totalPage=Math.ceil(self.totalCnt/9); // 총 페이지 초기화
-	                console.log(self.list.bizBaedalOkList);
 	                
 			},
 			//주소조회 api
@@ -496,7 +498,6 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 			  self.map.nowPage=1;
 			  self.convertAddressToCoordinates(self.map.inputAddr);
 			  setTimeout(function(){
-				  console.log(self.map.inputAddr);
 			  $.pageChange("/event-biz-list.do", self.map);
 			}, 50)	
 		  },
