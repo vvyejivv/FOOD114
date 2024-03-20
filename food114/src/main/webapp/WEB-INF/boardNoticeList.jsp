@@ -23,13 +23,13 @@
 
 				<div style="float: left;">
 					<ul class="sidebar">
-						<li><a href="javascript:;" @click="fnClickNoticeList">공지사항</a> <a href="javascript:;"
+						<li @click="fnClickNoticeList"><a href="javascript:;" >공지사항</a> <a href="javascript:;"
 							style="font-size: 17px; color: #a3a2a2;"><span
 								style="margin-left: 100px;">❯</span></a></li>
-						<li><a href="javascript:;" @click="fnClickQnaAsk">자주하는 질문</a> <a href="javascript:;"
+						<li @click="fnClickQnaAsk"><a href="javascript:;">자주하는 질문</a> <a href="javascript:;"
 							style="font-size: 17px; color: #a3a2a2;"><span
 								style="margin-left: 70px;">❯</span></a></li>
-						<li><a href="javascript:;" @click="fnClick">1:1 문의</a> <a href="javascript:;"
+						<li  @click="fnClick"><a href="javascript:;">1:1 문의</a> <a href="javascript:;"
 							style="font-size: 17px; color: #a3a2a2;"><span
 								style="margin-left: 100px;">❯</span></a></li>
 					</ul>
