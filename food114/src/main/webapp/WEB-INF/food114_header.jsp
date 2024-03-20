@@ -30,8 +30,8 @@
 							주문하기
 						</div>
 						<div id="header-menu" @click="fnPageChange('food114-map.do',map)">지도로 찾기</div>
-						<div id="header-menu" @click="fnPageChange('event-biz-list.do',map)">우리동네</div>
-						<div id="header-menu" @click="fnPageChange('event-web-list.do',map)">이벤트</div>
+						<div id="header-menu" @click="fnPageChange('food114-town-event.do',map)">우리동네</div>
+						<div id="header-menu" @click="fnPageChange('food114-event.do',map)">이벤트</div>
 						<div id="header-menu" @click="fnPageChange('food114-biz.do',{})">사장님페이지</div>
 					</div>
 				</div>

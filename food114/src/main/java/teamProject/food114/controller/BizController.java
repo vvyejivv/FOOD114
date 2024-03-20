@@ -30,16 +30,6 @@ public class BizController {
 	@Autowired
 	HttpSession session;
 
-	@RequestMapping("/orderTest.do")
-	public String orderTest(Model model) throws Exception {
-		return "/orderTest"; // orderTest.jsp
-	}
-
-	@RequestMapping("/mapSearch.do")
-	public String mapSearch(Model model) throws Exception {
-		return "/mapSearch"; // mapSearch.jsp
-	}
-
 	// 사업자 메인
 	@RequestMapping("/food114-biz.do")
 	public String bizMain(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
@@ -100,7 +90,6 @@ public class BizController {
 		return "/biz_menu_update"; // biz_menu_update_view.jsp
 	}
 	
-	
 	// 세션없을때
 	@RequestMapping("/nosession.do")
 	public String nosession(Model model) throws Exception {
@@ -115,12 +104,21 @@ public class BizController {
 		return "/shopInfo";
 	}
 
-	// 가게 이벤트
+	// 사업자 이벤트 등록/수정
 	@RequestMapping("/shopEvent.do")
 	public String shopEvent(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
 		request.setAttribute("map", map);
 		return "/shopEvent";
+	}
+	
+	// 사업자 판매 통계
+	@RequestMapping("/food114-biz-data.do")
+	public String bizSales(Model model) throws Exception {
+		if (session.getAttribute("sessionBizId") == null) {
+			return "redirect:/nosession.do";
+		}
+		return "/biz_sales_data"; // biz_sales_data.jsp
 	}
 
 //	@RequestMapping(value = "/bizSignup.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
@@ -139,40 +137,7 @@ public class BizController {
 		return new Gson().toJson(resultMap);
 	}
 
-	@RequestMapping("/mapTest.do")
-	public String mapTest(Model model) throws Exception {
-		return "/mapTest"; // mapTest.jsp
-	}
 
-
-
-	@RequestMapping("/mapTest3.do")
-	public String mapTest3(Model model) throws Exception {
-		return "/mapTest3"; // mapTest3.jsp
-	}
-
-	@RequestMapping("/bizView.do")
-	public String bizView(Model model) throws Exception {
-		return "/bizView"; // bizView.jsp
-	}
-
-
-
-	@RequestMapping("/food114-biz-data.do")
-	public String bizSales(Model model) throws Exception {
-		if (session.getAttribute("sessionBizId") == null) {
-			return "redirect:/nosession.do";
-		}
-		return "/biz_sales_data"; // biz_sales_data.jsp
-	}
-
-	@RequestMapping("/bizOrder.do")
-	public String bizOrder(Model model) throws Exception {
-		if (session.getAttribute("sessionBizId") == null) {
-			return "redirect:/nosession.do";
-		}
-		return "/bizOrder"; // bizOrder.jsp
-	}
 
 	// 은행,카테고리,이메일 불러오기
 	@RequestMapping(value = "/selectAll.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")

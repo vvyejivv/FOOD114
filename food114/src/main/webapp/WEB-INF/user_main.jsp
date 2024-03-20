@@ -48,7 +48,7 @@
 			</div>
 
 			<div id="main1-btn-container">
-				<div class="main1-btn-box" @click="fnPageChange('mapTest2.do',map)">
+				<div class="main1-btn-box" @click="fnPageChange('food114-map.do',map)">
 					<div class="main1-btn-title">
 						<div class="main1-btn-title-text">
 							<img src="../img/mapicon.png">
@@ -68,7 +68,7 @@
 					</div>
 					<div class="main1-btn-title-subText">내 주변 이벤트를 한눈에</div>
 				</div>
-				<div class="main1-btn-box" @click="fnPageChange('event-biz-list.do',map)">
+				<div class="main1-btn-box" @click="fnPageChange('food114-town-event.do',map)">
 					<div class="main1-btn-title">
 						<div class="main1-btn-title-text">
 							<img src="../img/gift.png">

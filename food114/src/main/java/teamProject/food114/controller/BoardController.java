@@ -40,21 +40,21 @@ public class BoardController {
 		return "/biz_event"; // bizEvent.jsp
 	}
 	
-	// 사업자 이벤트 조회/수정
-	@RequestMapping("/food114-biz-event-view.do")
+	// 우리 동네 이벤트
+	@RequestMapping("/food114-town-event.do")
 	public String bizEvent_info(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
 		if(session.getAttribute("sessionBizId")==null) {
 			return "redirect:/nosession.do";
 		}
 		request.setAttribute("map", map);
-		return "/bizEvent_info"; // bizEvent_info.jsp
+		return "/user_town_event"; // bizEvent_info.jsp
 	}
 	
 	
 	
 	// 웹 주관 이벤트 페이지
-	@RequestMapping("/event-web-list.do")
+	@RequestMapping("/food114-event.do")
 	public String eventWeb(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
 		if (!map.containsKey("endYn")) {
@@ -63,7 +63,7 @@ public class BoardController {
 			request.setAttribute("endYn", map.get("endYn"));
 		}
 		request.setAttribute("map", map);
-		return "/eventList";
+		return "/user_web_event";
 	}
 
 	// 웹 주관 이벤트 페이지

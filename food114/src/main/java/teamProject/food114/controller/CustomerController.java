@@ -35,29 +35,31 @@ public class CustomerController {
 	public String food114Main(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
 		request.setAttribute("map", map);
-		return "/food114";
+		return "/user_main";
 	}
 
 	// 고객 회원가입 페이지
 	@RequestMapping("/food114-join.do")
 	public String consumerJoin(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
-		return "/consumerJoin";
+		return "/user_join";
 	}
 
-	// 고객 로그인 페이지
-	@RequestMapping("/food114-login.do")
-	public String consumerLogin(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
-			throws Exception {
-		return "/consumerLogin";
-	}
 
 	// 고객 회원가입 성공 페이지
 	@RequestMapping("/food114-welcome.do")
 	public String consumerJoinSuccess(HttpServletRequest request, Model model,
 			@RequestParam HashMap<String, Object> map) throws Exception {
-		return "/consumerJoinAfter";
+		return "/user_join_after";
 	}
+	
+	// 고객 로그인 페이지
+	@RequestMapping("/food114-login.do")
+	public String consumerLogin(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
+			throws Exception {
+		return "/user_login";
+	}
+
 
 	// 지도로보기
 	@RequestMapping("/food114-map.do")
@@ -142,6 +144,14 @@ public class CustomerController {
 		}
 		request.setAttribute("map", map);
 		return "/user_myPage_order";
+	}	
+
+	// 결제완료창
+	@RequestMapping("/paymentCompleted.do")
+	public String paymentCompleted(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
+			throws Exception {
+		request.setAttribute("map", map);
+		return "/paymentCompleted";
 	}
 
 	// 마이페이지 - 나의 정보 수정 (myInfo 변경 : 이름, 별명, 연락처, 이메일)
@@ -244,13 +254,6 @@ public class CustomerController {
 		return new Gson().toJson(resultMap);
 	}
 
-	// 결제완료창
-	@RequestMapping("/paymentCompleted.do")
-	public String paymentCompleted(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
-			throws Exception {
-		request.setAttribute("map", map);
-		return "/paymentCompleted";
-	}
 
 	// 고객 주소 목록 불러오기
 	@RequestMapping(value = "/consumerAddrList.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
