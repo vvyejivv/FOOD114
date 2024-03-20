@@ -16,6 +16,22 @@
 [v-cloak] {
 	display: none;
 }
+
+.modalOneLine {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 20px;
+	margin-top: 15px;
+}
+
+.modalOneLine>.modalInput {
+	margin: 0px;
+}
+
+.modalOneLine>span {
+	width: 100px;
+}
 </style>
 </head>
 <link rel="stylesheet" href="../css/myPage_myInfo(updatePwd).css">
@@ -39,27 +55,32 @@
 
 						<!-- 모달창 -->
 						<div class="modal-backdrop" id="Modal" v-if="modalFlg">
-							<div class="modal-content"
-								:style="{height: modalType=='phone'&&!phoneCheckFlg&&phoneCheckShow ?'270px':'250px'}">
-								<h2 v-html="modalTitle">이름 변경</h2>
-								<p style="color: #888; margin-top: none;" v-html="modalText">변경할
-									주소를 입력해주세요.</p>
-								<input class="modalInput" v-model="changeNewAddr"
-									type="text" placeholder="주소" style="margin-left: 90px;"
-									disabled>
-								<button @click="changeAddressSearch()" class="btn-modify"
-									style="margin: 0px; width: auto;">주소조회</button>
-								<input class="modalInput" v-model="changeDetail" type="text"
-									placeholder="상세 주소를 입력해주세요" style="margin-left: 10px;">
+							<div class="modal-content" style="height: fit-content; top:40%;">
+								<div class="modalOneLine">
+									<span>주소</span>
+									<input class="modalInput" v-model="changeNewAddr" type="text"
+										placeholder="주소" style="margin: 0px;" disabled>
 
-
-								<input style="text-align: left;" class="modalInput"
-									v-model="changePhone" type="text" placeholder="연락처"
-									style="width: 200px"> <input class="modalInput"
-									v-model="changeRequest" type="text" placeholder="배송 요청 사항">
+									<button @click="changeAddressSearch()" class="btn-modify"
+										style="margin: 0px; width: auto;">주소조회</button>
+								</div>
+								<div class="modalOneLine">
+									<span>상세주소</span>
+									<input class="modalInput" v-model="changeDetail" type="text"
+										placeholder="상세 주소를 입력해주세요">
+								</div>
+								<div class="modalOneLine">
+									<span>연락처</span>
+									<input style="text-align: left;" class="modalInput"
+										v-model="changePhone" type="text" placeholder="연락처">
+								</div>
+								<div class="modalOneLine">
+									<span>요청사항</span>
+									<input class="modalInput" v-model="changeRequest" type="text"
+										placeholder="배송 요청 사항">
+								</div>
 								<div>
-									<button class="modalButton"
-										@click="fnUpdate()">저장</button>
+									<button class="modalButton" @click="fnUpdate()">저장</button>
 									<button class="modalCancel" @click="cancelModal">닫기</button>
 								</div>
 							</div>
@@ -67,8 +88,8 @@
 
 						<div>
 							<div class="table" v-for="(info,index) in list"
-								style="margin-bottom: 10px;">
-								<div style="border: 1px solid #c2bfbf; padding: 10px;">
+								style="margin-bottom: 10px; ">
+								<div style="border: 1px solid #c2bfbf; padding: 10px;border-radius: 8px;">
 									<div
 										style="color: #555454; font-weight: bold; font-size: 17px; margin-bottom: 5px;">
 										| {{info.addrAs}} <span v-if="info.defaultYn=='Y'">(기본
@@ -87,13 +108,13 @@
 										<div class="cell2">{{info.request}}</div>
 									</div>
 
-									<div class="addrSelectDiv">
+									<div class="addrSelectDiv" style="display: flex; height: 40px; align-items: center; gap:10px; margin-top: 10px;">
 										<button @click="setDefaultAddr(info.addrNo)"
-											class="addrSelect" style="display: inline;">기본주소지 설정</button>
+											class="addrSelect" style="margin:0px;">기본주소지 설정</button>
 										<button @click="openModal(index)" class="addrUpdate"
-											style="display: inline;">수정</button>
+											style="margin:0px;">수정</button>
 										<button @click="selectDelAddr(info.addrNo)" class="addrRemove"
-											style="display: inline;">삭제</button>
+											style="margin:0px;">삭제</button>
 									</div>
 								</div>
 							</div>
@@ -110,7 +131,8 @@
 									<div style="border: 1px solid #c2bfbf; padding: 10px;">
 										<div
 											style="color: #555454; font-weight: bold; font-size: 17px; margin-bottom: 5px;">
-											| <input v-model="inputAddrAs" type="text"
+											|
+											<input v-model="inputAddrAs" type="text"
 												placeholder="별칭을 입력해주세요">
 										</div>
 										<!-- <div class="row" style="border-top: none;">
@@ -120,10 +142,9 @@
 										<div class="row">
 											<div class="cell1">주소</div>
 											<div class="cell2">
-												<input type="text" v-model="inputAddr"
-													size="30px;" style="background-color: white;"
-													placeholder="주소" disabled> <input
-													v-model="inputDetail " type="text" size="20px;"
+												<input type="text" v-model="inputAddr" size="30px;"
+													style="background-color: white;" placeholder="주소" disabled>
+												<input v-model="inputDetail " type="text" size="20px;"
 													placeholder="상세 주소를 입력해주세요" style="margin-right: 140px;">
 												<button @click="inputAddressSearch()" class="btn-modify"
 													style="margin: 0px; width: auto;">주소조회</button>
