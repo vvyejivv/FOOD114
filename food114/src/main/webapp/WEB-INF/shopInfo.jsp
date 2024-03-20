@@ -205,7 +205,7 @@
 			orderNo : "", /* 주문번호  */
 			eventStatus : "",
 			orderAddr :"${map.inputAddr}", /* 주문하기에서 설정한 주소  */
-			/* orderAddrDetail ="${map.detail}", */ /* 주문하기에서 설정한 상세 주소  */
+			orderAddrDetail :"${map.detail}", /* 주문하기에서 설정한 상세 주소  */
 
 		},
 		methods : {
