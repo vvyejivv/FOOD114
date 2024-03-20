@@ -204,6 +204,7 @@ ul, ol {
 	height: 80px;
 	float: left;
 	margin: 10px;
+	object-fit: contain;
 }
 /* 장소 리스트 스타일 */
 #placesList1 {
@@ -284,6 +285,7 @@ ul, ol {
 	height: 200px;
 	margin-left:5px;
 	margin-top:10px;
+	object-fit: contain;
 }
 </style>
 <link rel="stylesheet" href="../css/food114.css">
