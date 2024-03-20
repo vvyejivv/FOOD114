@@ -211,7 +211,7 @@
 
 <body>
 	<header>
-		<%@include file="main(header).html"%>
+		<%@include file="food114_header(biz).jsp"%>
 	</header> 
   
     <!-- 광고창 -->
@@ -350,7 +350,7 @@
         </div>
     </section>
 
-    <%@include file="main(footer).html"%>
+    <%@include file="food114_footer(biz).jsp"%>
 
     <script type="text/javascript">
         var app = new Vue({

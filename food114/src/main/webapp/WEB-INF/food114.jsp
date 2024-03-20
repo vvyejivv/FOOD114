@@ -58,7 +58,7 @@
 					</div>
 					<div class="main1-btn-title-subText">내 주변 이벤트를 한눈에</div>
 				</div>
-				<div class="main1-btn-box" @click="fnPageChange('food114_foodfind.do',map)">
+				<div class="main1-btn-box" @click="fnPageChange('food114-foodfind.do',map)">
 					<div class="main1-btn-title">
 						<div class="main1-btn-title-text">
 							<img src="../img/truck.png">

@@ -126,9 +126,6 @@ a {
 									주문 시간</th>
 								<th
 									style="width: 100px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
-									리뷰 상태</th>
-								<th
-									style="width: 100px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
 									리뷰</th>
 							</tr>
 							<tr v-for="(item, index) in reviewList">
@@ -136,33 +133,11 @@ a {
 								<td class="reviewFont">{{item.bizName}}</td>
 								<td class="reviewFont">{{item.menuList}}</td>
 								<td class="reviewFont">{{item.orderDate}}</td>
-								<td class="reviewFont"><img v-if="item.reviewNo" width="22"
-									height="20"
-									src="https://img.icons8.com/sf-black/64/ff7f00/circled.png"
-									alt="circled" /> <img v-else width="23" height="20"
-									src="https://img.icons8.com/sf-black-filled/64/ff7f00/x.png"
-									alt="x" /></td>
 								<td class="reviewFont"><button class="reviewAdd"
 										@click="fnHellow(item)">작성</button></td>
 							</tr>
 						</table>
 						<button class="review_button2" @click="goBack">이전으로</button>
-					</div>
-					<div class="pageBox">
-						<span><a href="javascript:;" @click="fnfirstPage"
-							style="text-decoration: none; color: black;">≤</a></span> <span><a
-							href="javascript:;" @click="fnPre"
-							style="text-decoration: none; color: black;">&lt;</a></span>
-						<template v-for="n in pageCount">
-							<a href="javascript:;" @click="fnPageList(n)" v-if="nowPage!=n"
-								:class="[nowPage!=n ? 'text' : 'selectText']">{{n}} </a> <span
-								v-else :class="[nowPage!=n ? 'text' : 'selectText']">{{n}}
-							</span>
-						</template>
-						<span><a href="javascript:;" @click="fnNext"
-							style="text-decoration: none; color: black;">></a></span> <span><a
-							href="javascript:;" @click="fnLastPage"
-							style="text-decoration: none; color: black;">≥</a></span>
 					</div>
 				</div>
 			</div>
@@ -179,19 +154,12 @@ a {
 		data : {
 			reviewList : [],
 			sessionId : "${sessionId}",
-			pageCount : 1,
-			cnt : 10,
-			nowPage : "${map.nowPage}",
-			startOrder : 0,
 		},
 		methods : {
 			list : function() {
 				var self = this;
-				self.startOrder = (self.nowPage * 10)-10;
 				var nparmap = {
 					userId : this.sessionId,
-					startOrder : self.startOrder,
-					endOrder : self.cnt,
 				};
 				$.ajax({
 					url : "myPageReViewList.dox",
@@ -200,7 +168,6 @@ a {
 					data : nparmap,
 					success : function(data) {
 						self.reviewList = data.listView;
-						self.pageCount = Math.ceil(data.cnt.listCnt/self.cnt);
 					}
 				});
 			},
@@ -211,43 +178,8 @@ a {
 			},
 			goBack : function() {
 				// 이전으로 버튼을 눌렀을 때의 동작을 정의합니다.
-				$.pageChange("/myInfoReview.do", {});
+				$.pageChange("/food114-myPage-review.do", {});
 			},
-			fnPageList : function(num) {
-				var self = this;
-				$.pageChange("myPage_reviewAdd.do", {
-					nowPage : num
-				});
-			},
-			fnfirstPage : function() {
-				var self = this;
-				self.nowPage = 1;
-				self.fnPageList(self.nowPage);
-			},
-			fnPre : function() {
-				var self = this;
-				if (self.nowPage != 1) {
-					self.nowPage = self.nowPage - 1;
-				}
-				self.fnPageList(self.nowPage);
-			},
-			fnNext : function() {
-				var self = this;
-				if (self.nowPage < self.pageCount) {
-					self.nowPage = self.nowPage + 1;
-				}
-				self.fnPageList(self.nowPage);
-			},
-			fnLastPage : function() {
-				var self = this;
-				self.nowPage = self.pageCount;
-				self.fnPageList(self.nowPage);
-
-			},
-			fnReviewAdd : function() {
-				var self = this;
-				$.pageChange("myPage_reviewAdd.do", {});
-			}
 		},
 		created : function() {
 			var self = this;
