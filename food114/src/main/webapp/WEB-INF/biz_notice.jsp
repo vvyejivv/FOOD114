@@ -15,6 +15,11 @@
 	width: 300px;
 	margin-left: 700px; 
 	display:flex;
+	
+}
+
+.sidebar > li{
+cursor: pointer;
 }
 </style>
 </head>
@@ -44,7 +49,7 @@
 						<div style="float: left;">
 							<br>
 							<h2>
-								<span style="color: #ff7f00; font-weight: bold;">| </span><span
+								<span style="color: #5F5F5F; font-weight: bold;">| </span><span
 									style="text-align: left; color: rgba(72, 72, 72);">공지사항&nbsp;</span>
 								<span class="span">새로운 소식과 유용한 정보를 한 곳에서 확인하세요.</span>
 							</h2>
@@ -159,13 +164,17 @@
 					});
 				},
 				fnClickQnaAsk : function(userId) {
+					alert("준비중입니다.");
+					return;
 					location.href = "/boardNoticeQnaAsk.do";
 				},
 				fnClick : function(userId) {
+					alert("준비중입니다.");
+					return;
 					location.href = "/boardQnaInsert.do";
 				},
 				fnClickNoticeList : function(userId) {
-					location.href = "/boardNoticeList.do";
+					location.href = "/food114-biz-notice.do";
 				},
 				fnClickBoardNoticeView : function(boardNo) {
 					$.pageChange("/boardNoticeVeiw.do", {

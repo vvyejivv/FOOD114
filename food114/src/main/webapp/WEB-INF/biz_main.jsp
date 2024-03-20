@@ -20,7 +20,7 @@ button {
 <div style="width: 1920px; margin:0px auto;">
       <%@include file="food114_header(biz).jsp"%>
    <section>
-      <div id="app" style="width: 1920px; margin: 0px auto;">
+      <div id="app" style="width: 1920px; margin: 0px auto;" v-cloak>
          <div style="width: 1420px; margin: 0px auto; overflow: hidden">
             <!-- 배너 -->
             
@@ -237,7 +237,7 @@ button {
             });
          },
          fnBizLogin : function() {
-            location.assign("/bizLogin.do");
+            location.assign("/food114-biz-login.do");
          },
          fnBizLogout : function() {
             var self = this;
@@ -251,18 +251,18 @@ button {
                type : "POST",
                data : nparmap,
                success : function(data) {
-                  $.pageChange("/biz_main.do", {});
+                  $.pageChange("/food114-biz.do", {});
                }
             });
          },
          fnBizSignup : function() {
-            location.assign("/business-signup.do");
+            location.assign("/food114-biz-join.do");
          },
          fnSelectMenu : function(addr) {
             location.assign(addr);
          },
          fnBoardView : function(boardNo) {
-            $.pageChange("/boardNoticeVeiw.do", {
+            $.pageChange("/food114-biz-notice.do", {
                boardNo : boardNo
             });
          }

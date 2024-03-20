@@ -31,6 +31,28 @@ public class BoardController {
 	@Autowired
 	HttpSession session;
 	
+	// 사업자 이벤트 목록
+	@RequestMapping("/food114-biz-event.do")
+	public String bizEvent(Model model) throws Exception {
+		if(session.getAttribute("sessionBizId")==null) {
+			return "redirect:/nosession.do";
+		}
+		return "/biz_event"; // bizEvent.jsp
+	}
+	
+	// 사업자 이벤트 조회/수정
+	@RequestMapping("/food114-biz-event-view.do")
+	public String bizEvent_info(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
+			throws Exception {
+		if(session.getAttribute("sessionBizId")==null) {
+			return "redirect:/nosession.do";
+		}
+		request.setAttribute("map", map);
+		return "/bizEvent_info"; // bizEvent_info.jsp
+	}
+	
+	
+	
 	// 웹 주관 이벤트 페이지
 	@RequestMapping("/event-web-list.do")
 	public String eventWeb(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
@@ -89,9 +111,9 @@ public class BoardController {
 	}
 
 	// 공지사항 리스트
-	@RequestMapping("/boardNoticeList.do")
+	@RequestMapping("/food114-biz-notice.do")
 	public String userList(Model model) throws Exception {
-		return "/boardNoticeList";
+		return "/biz_notice";
 	}
 
 	// 공지사항 상세보기
@@ -163,13 +185,7 @@ public class BoardController {
 		return "/boardNoticeQnaAsk";
 	}
 
-	@RequestMapping("/bizEvent.do")
-	public String bizEvent(Model model) throws Exception {
-		if(session.getAttribute("sessionBizId")==null) {
-			return "redirect:/nosession.do";
-		}
-		return "/bizEvent"; // bizEvent.jsp
-	}
+
 
 	@RequestMapping(value = "/listBizEvent.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
@@ -179,15 +195,7 @@ public class BoardController {
 		return new Gson().toJson(resultMap);
 	}
 
-	@RequestMapping("/bizEvent_info.do")
-	public String bizEvent_info(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
-			throws Exception {
-		if(session.getAttribute("sessionBizId")==null) {
-			return "redirect:/nosession.do";
-		}
-		request.setAttribute("map", map);
-		return "/bizEvent_info"; // bizEvent_info.jsp
-	}
+
 
 	@RequestMapping(value = "/listBizEventView.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
