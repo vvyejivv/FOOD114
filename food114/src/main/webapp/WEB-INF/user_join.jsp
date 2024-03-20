@@ -277,27 +277,27 @@ select {
 				<div style="border-bottom: 1px solid #ccc; padding-top: 25px;"></div>
 				<table>
 					<tr>
-						<th rowspan="6">이용약관동의<span class="star">*</span></th>
+						<th rowspan="4">이용약관동의<span class="star">*</span></th>
 						<td style="font-size: 20px; font-weight: 500;"><label>
-								<input type="checkbox">
+								<input v-model="allChecked" @change="checkAll" type="checkbox">
 								전체 동의합니다.
 							</label></td>
 					</tr>
 					<tr>
 						<td><label>
-								<input type="checkbox">
+								<input type="checkbox" v-model="termsChecked">
 								이용약관 동의(필수)
 							</label></td>
 					</tr>
 					<tr>
 						<td><label>
-								<input type="checkbox">
+								<input type="checkbox" v-model="privacyChecked">
 								개인정보 수집·이용 동의(필수)
 							</label></td>
 					</tr>
 					<tr>
 						<td><label>
-								<input type="checkbox">
+								<input type="checkbox" v-model="offerChecked">
 								할인쿠폰 등 혜택/정보 수신 동의(선택)
 							</label></td>
 					</tr>
@@ -349,8 +349,11 @@ select {
 					phoneCertificateInput : false,
 					emailList : [],
 					certificateNumber : "", //인증번호 정답
-					certificateInput : "" // 입력한 인증번호값
-
+					certificateInput : "", // 입력한 인증번호값
+					termsChecked : false,
+					privacyChecked : false,
+					offerChecked : false,
+					allChecked : false
 				},
 				methods : {
 					// 가입하기 버튼 클릭시
@@ -526,8 +529,30 @@ select {
 							self.phoneCheckMessage = "인증 실패"
 						}
 
-					}
+					},
+					checkAll() {
+			            if (this.allChecked) {
+			                this.termsChecked = true;
+			                this.privacyChecked = true;
+			                this.offerChecked = true;
+			            } else {
+			                this.termsChecked = false;
+			                this.privacyChecked = false;
+			                this.offerChecked = false;
+			            }
+			        }
 				},
+				watch: {
+			        termsChecked(val) {
+			            if (!val) this.allChecked = false;
+			        },
+			        privacyChecked(val) {
+			            if (!val) this.allChecked = false;
+			        },
+			        offerChecked(val) {
+			            if (!val) this.allChecked = false;
+			        }
+			    },
 				created : function() {
 					var self = this;
 					self.fnEmailList();
