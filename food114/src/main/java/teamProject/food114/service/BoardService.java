@@ -29,4 +29,5 @@ public interface BoardService {
 	HashMap<String, Object> editBizEventBoard(HashMap<String, Object> map);
 	
 	HashMap<String, Object> searchBoardListLimit(HashMap<String, Object> map);
+	
 }

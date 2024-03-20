@@ -204,6 +204,7 @@ ul, ol {
 	height: 80px;
 	float: left;
 	margin: 10px;
+	object-fit:contain;
 }
 /* 장소 리스트 스타일 */
 #placesList1 {

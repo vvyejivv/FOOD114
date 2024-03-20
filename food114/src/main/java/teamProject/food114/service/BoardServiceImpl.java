@@ -141,7 +141,11 @@ public class BoardServiceImpl implements BoardService {
 	public HashMap<String, Object> editBizEventBoard(HashMap<String, Object> map) {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		try {
-			boardMapper.updateBizEventBoard(map);
+			if(boardMapper.selectBizEventBoard(map) != null) {
+				boardMapper.updateBizEventBoard(map);
+			} else {
+				boardMapper.insertBizEventBoard(map);
+			}
 			resultMap.put("result", "success");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -164,6 +168,5 @@ public class BoardServiceImpl implements BoardService {
 		}
 		return resultMap;
 	}
-
 
 }

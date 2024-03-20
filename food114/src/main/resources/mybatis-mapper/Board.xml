@@ -156,6 +156,13 @@
 		BEGINTIME = #{beginDay}, ENDTIME = #{endDay}
 		WHERE BOARDNO = #{boardNo}
 	</update>
+	<insert id="insertBizEventBoard" parameterType="hashmap">
+		INSERT INTO FOOD114_BOARD
+		VALUES(null, #{title}, #{contents}, #{beginDay}, #{endDay}, #{beginTime}, #{endTime}, #{bizId}, '0', null, 'SHORT', 'N', NOW(), NOW(), null, '4')
+	</insert>
+	<select id="selectBizEventBoard" parameterType="hashmap" resultType="teamProject.food114.model.Board">
+		SELECT * FROM FOOD114_BOARD WHERE USERID = #{bizId}
+	</select>
 	<!-- 가게 이벤트 검색  -->
 	<select id="selectShopEvent" parameterType="hashmap" resultType="teamProject.food114.model.Board">
 				SELECT *

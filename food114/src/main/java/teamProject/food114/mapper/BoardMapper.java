@@ -40,11 +40,15 @@ public interface BoardMapper {
 	
 	Board selectBizEventView(HashMap<String, Object> map);
 	
+	Board selectBizEventBoard(HashMap<String, Object> map);
+	
 	void insertBizEventFile(HashMap<String, Object> map);
 	
 	void updateBizEventFile(HashMap<String, Object> map);
 	
 	void updateBizEventBoard(HashMap<String, Object> map);
+	
+	void insertBizEventBoard(HashMap<String, Object> map);
 	
 	Board selectBizEventFileYn(HashMap<String, Object> map);
 	
