@@ -18,9 +18,8 @@ button {
 </style>
 </head>
 <body style="margin: 0px auto;">
-	<header>
+<div style="width: 1920px; margin:0px auto;">
 		<%@include file="food114_header(biz).jsp"%>
-	</header>
 	<section>
 		<div id="app" style="width: 1920px; margin: 0px auto;">
 			<div style="width: 1420px; margin: 0px auto; overflow: hidden">
@@ -221,9 +220,8 @@ button {
 			</div>
 		</div>
 	</section>
-	<footer>
 		<%@include file="food114_footer(biz).jsp"%>
-	</footer>
+	</div>
 </body>
 </html>
 <script type="text/javascript">

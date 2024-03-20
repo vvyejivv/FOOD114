@@ -30,10 +30,10 @@
 							@click="fnPageChange('event-web-list.do',map)">
 							<img src="../img/event1.png">
 						</div>
-						<div class="swiper-slide" style="border-radius: 10px;">
+						<div class="swiper-slide" style="border-radius: 10px;" @click="fnPageChange('event-web-list.do',map)">
 							<img src="../img/event2.png">
 						</div>
-						<div class="swiper-slide" style="border-radius: 10px;">
+						<div class="swiper-slide" style="border-radius: 10px;" @click="fnPageChange('event-web-list.do',map)">
 							<img src="../img/event3.png">
 						</div>
 					</div>
