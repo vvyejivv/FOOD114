@@ -88,7 +88,7 @@
 		R.P_REVIEWNO, O.USERID, R.RAITING, P.FILENAME,
 		R.CONTENTS, R.ORDERNO,
 		O.ORDERDATE, O.BIZID, R2.CONTENTS, R2.REVIEWNO
-		ORDER BY R.CDATETIME
+		ORDER BY R.CDATETIME DESC
 
 	</select>
 	<!-- 리뷰 정보 자세히 -->
@@ -165,6 +165,7 @@
 		WHERE O.USERID = #{userId} AND
 		R.REVIEWNO IS NULL
 		GROUP BY O.ORDERNO
+		ORDER BY ORDERDATE DESC
 	</select>
 	
 	<select id="selectOrederListEdit" parameterType="hashmap"

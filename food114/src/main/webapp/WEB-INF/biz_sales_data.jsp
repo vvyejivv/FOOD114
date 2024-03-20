@@ -119,7 +119,7 @@ table th, td {
 						<tr v-for="(item,index) in orderList"  style="font-size : 14px;">
 							<td>{{item.orderNo}}</td>
 							<td>{{item.menuList}}</td>
-							<td>{{item.totalAmount}}원</td>
+							<td>{{parseInt(item.totalAmount).toLocaleString()}}원</td>
 							<td>{{item.userId}}</td>
 							<td>{{item.orderDate}}</td>
 						</tr>

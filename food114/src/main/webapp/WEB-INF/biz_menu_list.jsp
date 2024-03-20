@@ -148,7 +148,7 @@ input[type="checkbox"], .btn-modify {
 						<td>{{item.menuNo}}</td>
 						<td>{{item.menu}}</td>
 						<td>{{item.sta}}</td>
-						<td>{{item.price}}</td>
+						<td>{{parseInt(item.price).toLocaleString()}}원</td>
 						<td><button class="btn-modify"
 								@click="fnUpdateView(item.menuNo)">수정</button></td>
 					</tr>
