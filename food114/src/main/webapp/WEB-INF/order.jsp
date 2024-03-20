@@ -41,7 +41,7 @@
 						<input type="text" :value="!userNewAddr ? orderAddr : userNewAddr" disabled>
 						<!-- 상세주소 -->
 						<div>
-							<input type="text" :value="userDetail ? '' : userDetail">
+							<input type="text" :value="userDetail ? orderAddrDetail : userDetail">
 						</div>
 					</div>
 					<div class="infoBox" id="phone">
@@ -209,7 +209,7 @@
 			phone1 : "",
 			phone2 : "",
 			phone3 : "",
-			phone : "", /* 전화번호  */
+			phone : "${map.phone}", /* 전화번호  */
 			ecoYNChecked : false, /* 일회용 수저,포크 체크여부 전달  */
 			orderRequest : "", /* 주문 요청사항  */
 			deliveryRequest : "", /* 배달 요청사항  */
@@ -235,27 +235,19 @@
 		methods : {
 			fnView : function() {
 				var self = this;
-				/* var nparmap = {
-					userId : self.sessionId
-				};
-				console.log("주문번호 : " + self.orderNo);
-				$.ajax({
-					url : "consumer-addr.dox",
-					dataType : "json",
-					type : "POST",
-					data : nparmap,
-					success : function(data) {
-						self.userAddrList = data.customerAddr;
-					}
-				}); */
-				console.log(self.orderAddr);
-				console.log(self.orderAddrDetail);
 				/* 총 금액  */
 				self.selectTotalPrice = self.fnTotalPrice(self.selectMenuList);
 				self.couponAmount = self.selectTotalPrice;
 				/* 주소 입력 */
 				self.userNewAddr = self.orderAddr;
 				self.userDetail = self.orderAddrDetail;
+			},
+			/* 핸드폰 번호 입력  */
+			fnPhone : function(){
+				var self = this;
+				self.phone1 = self.phone.slice(0, 3);
+				self.phone2 = self.phone.slice(3, 7);
+				self.phone3 = self.phone.slice(7);				
 			},
 			/* 요청사항 60자 이하 제한  */
 			fnRequestLength : function() {
@@ -604,6 +596,7 @@
 		created : function() {
 			var self = this;
 			self.fnView();
+			self.fnPhone();
 		}
 	});
 	function onApplyCoupon(couponNo, title, saleAmount, salePercent,couponId){

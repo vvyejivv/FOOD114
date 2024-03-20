@@ -76,7 +76,6 @@ public class BizController {
 	public String shopInfo(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
 		request.setAttribute("map", map);
-		System.out.println(map);
 		return "/shopInfo";
 	}
 

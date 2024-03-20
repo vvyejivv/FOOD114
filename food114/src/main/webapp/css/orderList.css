@@ -22,16 +22,16 @@
 
 .orderList {
 	background-color: white;
-	font-size: 17px;
+	font-size: 15px;
 	text-align: center;
-	color: #000000;
+	color: #222222;
 	padding: 10px;
 	font-weight: bold;
 }
 
 .orderListTable {
 	text-align: center;
-	width: 280px;
+	width: 380px;
 	font-size: 14px;
 	color: #5F5F5F;
 }
@@ -54,12 +54,12 @@
 	max-width: 90px;
 	overflow: hidden;
 	word-break: break-all;
-	font-size: 14px;
+	font-size: 13px;
 	color: #5F5F5F;
 }
 
 .tdSecond {
-	width: 60px;
+	width: 80px;
 	max-width: 60px;
 	min-width: 60px;
 	word-break: break-all;
@@ -79,22 +79,24 @@
 	margin-top: 10px;
 }
 .totalPriceTxt{
-	color: rgb(72,72,72);
+	color: #222222;
 	font-weight : bold;
 	float: left;
 	margin-left : 10px;
-	font-size: 16px;
+	font-size: 14px;
 }
 .totalPrice {
 	position: absolute;
 	right: 49px;
 	top: 0px;
+	font-size: 14px;
+	color: #222222;
 }
 
 .orderBtn {
 	font-size: 15px;
 	text-align: center;
-	border-radius: 8px;
+	border-radius: 5px;
 	border :none;
 	margin-top: 25px;
 	padding: 10px 20px;
@@ -130,7 +132,7 @@ table, td, th {
 
 .th {
 	padding: 10px 0px;
-	font-size: 15px;
+	font-size: 13px;
 }
 
 .tdremove {
