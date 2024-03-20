@@ -95,9 +95,9 @@ a{
 								<th
 									style="width: 450px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
 									리뷰 내용</th>
-								<th
+								<!-- <th
 									style="width: 100px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
-									금액</th>
+									금액</th> -->
 								<th
 									style="width: 150px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
 									리뷰 작성일</th>	
@@ -107,7 +107,7 @@ a{
 								<td class="reviewFont">{{item.bizName}}</td>
 								<td class="reviewFont">{{item.menuList}}</td>
 								<td class="reviewFont">{{item.contents}}</td>
-								<td class="reviewFont">{{item.totalPrice.toLocaleString()}}원</td>
+								<!-- <td class="reviewFont">{{item.totalPrice.toLocaleString()}}원</td> -->
 								<td class="reviewFont">{{item.reviewDate}}</td>
 							</tr>
 						</table>
@@ -201,7 +201,7 @@ a{
 			},
 			fnReviewAdd : function() {
 				var self = this;
-				$.pageChange("myPage_reviewAdd.do", {});
+				$.pageChange("food114-myPage-review-insert.do", {});
 			}
 		},
 		created : function() {
