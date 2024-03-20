@@ -150,10 +150,6 @@
 					<div id="menuListPrice">
 						<div class="menuPriceBox">가격</div>
 						
-						
-						
-						
-						
 						<div class="menuPriceTxt"><span
 										:class="{noPrice : clickMenu.salePrice&&eventStatus==1}">{{parseInt(clickMenu.price).toLocaleString()}}원</span>
 										<span v-if="clickMenu.salePrice&&eventStatus==1">→ {{parseInt(clickMenu.salePrice).toLocaleString()}}원</span>
@@ -203,8 +199,11 @@
 			selectTotalPrice : 0, /* 장바구니 총 금액  */
 			status : "결제전", /* 주문상태  */
 			orderNo : "", /* 주문번호  */
-			eventStatus : ""
-
+			eventStatus : "",
+			orderAddr :"${map.inputAddr}", /* 주문하기에서 설정한 주소  */
+			orderAddrDetail :"${map.detail}", /* 주문하기에서 설정한 상세 주소  */
+			phone : "${map.phone}",
+			orderRequest :"${map.request}",
 		},
 		methods : {
 			fnView : function() {
@@ -321,13 +320,22 @@
 			},
 			/* 주문하기 */
 			fnOrder : function(){
-				var self = this;	
+				var self = this;
+ 				if(self.selectMenuList.length == 0){
+					alert("장바구니에 메뉴를 담아주세요.");
+					return;
+				} 
 				/* 주문하기 DB 생성  */
 				 var nparmap = {
 						userId : self.sessionId, 
 						bizId : self.bizId, 
 						selectMenuList: JSON.stringify(self.selectMenuList),
 						status : self.status, /* 결제전  */
+						addr : self.orderAddr,
+						detail : self.orderAddrDetail,
+						phone : self.phone,
+						orderRequest : self.orderRequest,
+						
 					};
 					$.ajax({
 						url : "orderAdd.dox",
@@ -336,7 +344,7 @@
 						data : nparmap,
 						success : function(data) {
 							self.orderNo = data.orderNo;
-							$.pageChange("/order.do", {userId : self.sessionId, selectMenuList: self.selectMenuList, orderNo : self.orderNo});
+							$.pageChange("/order.do", {userId : self.sessionId, selectMenuList: self.selectMenuList, orderNo : self.orderNo, orderAddr : self.orderAddr, orderAddrDetail : self.orderAddrDetail, phone : self.phone});
 						}
 					});  
 			}

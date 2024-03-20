@@ -10,62 +10,100 @@ pageEncoding="UTF-8"%>
 <title>sideBar-biz</title>
 <link rel="stylesheet" href="../css/sideBar_biz.css">
 <style>
+.selectList>div {
+	display: flex;
+	width: 150px;
+	align-items: center;
+}
+
+.selectList {
+	display: flex;
+	justify-content: space-between;
+}
 </style>
 </head>
 
 <body>
 	<div id="menu_list">
-			<div class="selectList" onclick="fnMenuInsert()">
-				<img src="../img/icons8-store.png">상품등록<a href="javascript:;">❯</a>
+		<div class="selectList" onclick="fnMenuInsert()">
+			<div>
+				<img src="../img/icons8-store.png">
+				상품등록
 			</div>
-			<div class="selectList" onclick="fnMenuUpdate()">
-				<img src="../img/icons8-update.png">상품조회/수정<a
-					href="javascript:;">❯</a>
+			<a href="javascript:;">❯</a>
+		</div>
+		<div class="selectList" onclick="fnMenuUpdate()">
+			<div>
+				<img src="../img/icons8-update.png">
+				<span>상품조회/수정</span>
 			</div>
-			<div class="selectList" onclick="fnSearchReview()">
-				<img src="../img/icons8-review.png">리뷰관리<a href="javascript:;">❯</a>
+			<a href="javascript:;">❯</a>
+		</div>
+		<div class="selectList" onclick="fnSearchReview()">
+			<div>
+				<img src="../img/icons8-review.png">
+				리뷰관리
 			</div>
-			<div class="selectList" onclick="fnSearchEvent()">
-				<img src="../img/icons8-event.png">이벤트 관리<a href="javascript:;">❯</a>
+			<a href="javascript:;">❯</a>
+		</div>
+		<div class="selectList" onclick="fnSearchEvent()">
+			<div>
+				<img src="../img/icons8-event.png">
+				이벤트 관리
 			</div>
-			<div class="selectList" onclick="fnSalesData()">
-				<img src="../img/icons8-chart.png">판매 통계<a href="javascript:;">❯</a>
+			<a href="javascript:;">❯</a>
+		</div>
+		<div class="selectList" onclick="fnSalesData()">
+			<div>
+				<img src="../img/icons8-chart.png">
+				판매 통계
 			</div>
-			<div class="selectList" onclick="fnStoreInfo()">
-				<img src="../img/icons8-profile.png">판매자정보<a
-					href="javascript:;">❯</a>
+			<a href="javascript:;">❯</a>
+		</div>
+		<div class="selectList" onclick="fnStoreInfo()">
+			<div>
+				<img src="../img/icons8-profile.png">
+				판매자정보
 			</div>
+			<a href="javascript:;">❯</a>
+		</div>
 		<div class="menu_f">
 			<div style="margin-bottom: 20px;">관련사이트</div>
 			<div>
-				FOOD114 마켓플레이스<a href="https://github.com/dlehdwo01/TeamProject1-FOOD114" style="pointer:cursor;"><img src="../img/icons-link.png" style="margin-left:71px;"></a>
+				FOOD114 마켓플레이스<a
+					href="https://github.com/dlehdwo01/TeamProject1-FOOD114"
+					style="pointer: cursor;"><img src="../img/icons-link.png"
+						style="margin-left: 71px;"></a>
 			</div>
 			<div>
-				FOOD114 광고<a href="https://github.com/dlehdwo01/TeamProject1-FOOD114" style="pointer:cursor;"><img src="../img/icons-link.png" style="margin-left:120px;"></a>
+				FOOD114 광고<a
+					href="https://github.com/dlehdwo01/TeamProject1-FOOD114"
+					style="pointer: cursor;"><img src="../img/icons-link.png"
+						style="margin-left: 120px;"></a>
 			</div>
 		</div>
 	</div>
 	<script>
 		function fnMenuInsert() {
-			location.assign("/biz-menu-insert.do");
+			location.assign("/food114-biz-menu-insert.do");
 		}
 		function fnMenuUpdate() {
-			location.assign("/biz-menu-update.do");
+			location.assign("/food114-biz-menu-list.do");
 		}
 		function fnSearchOrder() {
-			location.assign("/bizOrder.do");
+			location.assign("/food114-biz-order.do");
 		}
 		function fnSearchReview() {
-			location.assign("/bizReview.do");
+			location.assign("/food114-biz-review.do");
 		}
 		function fnSearchEvent() {
-			location.assign("/bizEvent_info.do");
+			location.assign("/food114-biz-event.do");
 		}
 		function fnSalesData() {
-			location.assign("/biz-sales.do");
+			location.assign("/food114-biz-data.do");
 		}
 		function fnStoreInfo() {
-			location.assign("/biz-info.do");
+			location.assign("/food114-biz-info.do");
 		}
 	</script>
 </body>

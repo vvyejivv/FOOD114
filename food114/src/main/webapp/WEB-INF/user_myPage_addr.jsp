@@ -16,6 +16,22 @@
 [v-cloak] {
 	display: none;
 }
+
+.modalOneLine {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 20px;
+	margin-top: 15px;
+}
+
+.modalOneLine>.modalInput {
+	margin: 0px;
+}
+
+.modalOneLine>span {
+	width: 100px;
+}
 </style>
 </head>
 <link rel="stylesheet" href="../css/myPage_myInfo(updatePwd).css">
@@ -38,28 +54,33 @@
 						</h2>
 
 						<!-- 모달창 -->
-						<div class="modal-backdrop" id="Modal" v-if="modalFlg" v-for="(info, idx) in list">
-							<div class="modal-content"
-								:style="{height: modalType=='phone'&&!phoneCheckFlg&&phoneCheckShow ?'270px':'250px'}">
-								<h2 v-html="modalTitle">이름 변경</h2>
-								<p style="color: #888; margin-top: none;" v-html="modalText">변경할
-									주소를 입력해주세요.</p>
-								<input class="modalInput" v-model="changeAddr"
-									type="text" placeholder="주소" style="margin-left: 90px;"
-									disabled>
-								<button @click="changeAddressSearch()" class="btn-modify"
-									style="margin: 0px; width: auto;">주소조회</button>
-								<input class="modalInput" v-model="changeDetail" type="text"
-									placeholder="상세 주소를 입력해주세요" style="margin-left: 10px;">
+						<div class="modal-backdrop" id="Modal" v-if="modalFlg">
+							<div class="modal-content" style="height: fit-content; top:40%;">
+								<div class="modalOneLine">
+									<span>주소</span>
+									<input class="modalInput" v-model="changeNewAddr" type="text"
+										placeholder="주소" style="margin: 0px;" disabled>
 
-
-								<input style="text-align: left;" class="modalInput"
-									v-model="changePhone" type="text" placeholder="연락처"
-									style="width: 200px"> <input class="modalInput"
-									v-model="changeRequest" type="text" placeholder="배송 요청 사항">
+									<button @click="changeAddressSearch()" class="btn-modify"
+										style="margin: 0px; width: auto;">주소조회</button>
+								</div>
+								<div class="modalOneLine">
+									<span>상세주소</span>
+									<input class="modalInput" v-model="changeDetail" type="text"
+										placeholder="상세 주소를 입력해주세요">
+								</div>
+								<div class="modalOneLine">
+									<span>연락처</span>
+									<input style="text-align: left;" class="modalInput"
+										v-model="changePhone" type="text" placeholder="연락처">
+								</div>
+								<div class="modalOneLine">
+									<span>요청사항</span>
+									<input class="modalInput" v-model="changeRequest" type="text"
+										placeholder="배송 요청 사항">
+								</div>
 								<div>
-									<button class="modalButton"
-										@click="fnUpdate({oldAddr:changeAddr.oldAddr, detail:changeDetail, phone:changePhone, request:changeRequest})">저장</button>
+									<button class="modalButton" @click="fnUpdate()">저장</button>
 									<button class="modalCancel" @click="cancelModal">닫기</button>
 								</div>
 							</div>
@@ -67,8 +88,8 @@
 
 						<div>
 							<div class="table" v-for="(info,index) in list"
-								style="margin-bottom: 10px;">
-								<div style="border: 1px solid #c2bfbf; padding: 10px;">
+								style="margin-bottom: 10px; ">
+								<div style="border: 1px solid #c2bfbf; padding: 10px;border-radius: 8px;">
 									<div
 										style="color: #555454; font-weight: bold; font-size: 17px; margin-bottom: 5px;">
 										| {{info.addrAs}} <span v-if="info.defaultYn=='Y'">(기본
@@ -76,7 +97,7 @@
 									</div>
 									<div class="row">
 										<div class="cell1">주소</div>
-										<div class="cell2">{{info.oldAddr}}{{info.detail}}</div>
+										<div class="cell2">{{info.newAddr}}, {{info.detail}}</div>
 									</div>
 									<div class="row">
 										<div class="cell1">휴대폰번호</div>
@@ -87,13 +108,13 @@
 										<div class="cell2">{{info.request}}</div>
 									</div>
 
-									<div class="addrSelectDiv">
+									<div class="addrSelectDiv" style="display: flex; height: 40px; align-items: center; gap:10px; margin-top: 10px;">
 										<button @click="setDefaultAddr(info.addrNo)"
-											class="addrSelect" style="display: inline;">기본주소지 설정</button>
+											class="addrSelect" style="margin:0px;">기본주소지 설정</button>
 										<button @click="openModal(index)" class="addrUpdate"
-											style="display: inline;">수정</button>
+											style="margin:0px;">수정</button>
 										<button @click="selectDelAddr(info.addrNo)" class="addrRemove"
-											style="display: inline;">삭제</button>
+											style="margin:0px;">삭제</button>
 									</div>
 								</div>
 							</div>
@@ -110,7 +131,8 @@
 									<div style="border: 1px solid #c2bfbf; padding: 10px;">
 										<div
 											style="color: #555454; font-weight: bold; font-size: 17px; margin-bottom: 5px;">
-											| <input v-model="inputAddrAs" type="text"
+											|
+											<input v-model="inputAddrAs" type="text"
 												placeholder="별칭을 입력해주세요">
 										</div>
 										<!-- <div class="row" style="border-top: none;">
@@ -120,10 +142,9 @@
 										<div class="row">
 											<div class="cell1">주소</div>
 											<div class="cell2">
-												<input type="text" v-model="inputAddr"
-													size="30px;" style="background-color: white;"
-													placeholder="주소" disabled> <input
-													v-model="inputDetail " type="text" size="20px;"
+												<input type="text" v-model="inputAddr" size="30px;"
+													style="background-color: white;" placeholder="주소" disabled>
+												<input v-model="inputDetail " type="text" size="20px;"
 													placeholder="상세 주소를 입력해주세요" style="margin-right: 140px;">
 												<button @click="inputAddressSearch()" class="btn-modify"
 													style="margin: 0px; width: auto;">주소조회</button>
@@ -182,11 +203,12 @@
 			modalText : "",
 			modalType : "",
 			changeValue : "",
-			changeAddr : "",
+			changeNewAddr : "",
+			changeOldAddr : "",
 			changeDetail : "",
 			changePhone : "",
 			changeRequest : "",
-			selectedAddr : "",
+			changeAddrNo : "",
 			modalFlg : false,
 			addrNo : '',
 			updateFlg : false,
@@ -249,7 +271,9 @@
 				console.log(self.list[idx].request);
 				console.log(self.selectedAddr);
 				
-				self.changeAddr = self.list[idx].newAddr;
+				self.changeNewAddr = self.list[idx].newAddr;
+				self.changeOldAddr = self.list[idx].oldAddr;
+				self.changeAddrNo = self.list[idx].addrNo;
 				self.changeDetail = self.list[idx].detail;
 				self.changePhone = self.list[idx].phone;
 				self.changeRequest = self.list[idx].request;
@@ -277,11 +301,8 @@
 				var self = this;
 				new daum.Postcode({
 					oncomplete : function(data) {
-						console.log(data);
-						self.changeAddr = data.address;
-						
-						self.selectedAddr.oldAddr = data.jibunAddress;
-						self.selectedAddr.newAddr = data.roadAddress;
+						self.changeOldAddr = data.jibunAddress;
+						self.changeNewAddr = data.roadAddress;
 						self.convertAddressToCoordinates(data.address);
 					}
 				}).open(()=>{});
@@ -349,7 +370,7 @@
 					success : function(data) {
 						if (data.result == "success") {
 							alert("주소가 추가 되었습니다.");
-							return location.href = "/myInfoAddr.do";
+							return location.href = "/food114-myPage-addr.do";
 						} else {
 							alert("오류가 발생하였습니다.");
 						}
@@ -358,13 +379,25 @@
 					}
 				});
 			},
-			fnUpdate : function(map) {
+			fnUpdate : function() {
 				var self = this;
-				/* map["userId"] = self.info.userId; */
-				/* map["userId"] = self.sessionId;
+				/* map["userId"] = self.info.userId;
+				map["userId"] = self.sessionId;
 				map["addrNo"] = self.addrNo; */
 				
-				if(!self.selectedAddr.newAddr){
+
+				var nparmap = {
+						userId : self.sessionId,
+						addrAs : self.changeAddrAs,
+						oldAddr : self.changeOldAddr,
+						newAddr : self.changeNewAddr,
+						detail : self.changeDetail,
+						phone : self.changePhone,
+						request : self.changeRequest,
+						addrNo : self.changeAddrNo
+					};
+				
+				if(!self.changeNewAddr){
 					alert("주소를 입력해주세요");
 					return;
 				}
@@ -373,21 +406,11 @@
 					return;
 				}
 				
-				var nparmap = {
-						userId : self.sessionId,
-						addrAs : self.changeAddrAs,
-						oldAddr : self.selectedAddr.oldAddr,
-						newAddr : self.selectedAddr.newAddr,
-						detail : self.changeDetail,
-						phone : self.changePhone,
-						request : self.changeRequest
-					};
-				
 				$.ajax({
 					url : "updateAddr.dox",
 					dataType : "json",
 					type : "POST",
-					data : map,
+					data : nparmap,
 					success : function(data) {
 						if (data.result == "success") {
 							alert("정보가 수정되었습니다");
@@ -414,7 +437,7 @@
 					success : function(data) {
 						if (data.result == "success") {
 							alert("주소가 삭제 되었습니다.");
-							return location.href = "/myInfoAddr.do";
+							return location.href = "/food114-myPage-addr.do";
 						} else {
 							alert("오류가 발생하였습니다.");
 						}

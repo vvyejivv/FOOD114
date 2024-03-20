@@ -14,5 +14,5 @@
 </html>
 <script type="text/javascript">
 alert("로그인 후 이용가능합니다.");
-location.href="bizLogin.do"
+location.href="food114-biz-login.do"
 </script>

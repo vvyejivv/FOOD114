@@ -207,6 +207,7 @@ public class CustomerServiceImpl implements CustomerService {
 	public HashMap<String, Object> searchMyOrderList(HashMap<String, Object> map) {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		try {
+			System.out.println(map);
 			List<Order> orderList = customerMapper.selectMyOrderList(map);
 			resultMap.put("cnt", customerMapper.selectMyOrderListCnt(map));
 			resultMap.put("orderList", orderList);
@@ -284,7 +285,7 @@ public class CustomerServiceImpl implements CustomerService {
 		return resultMap;
 	}
 
-	// myInfo - my주소지 관리 - 수정  : 주소, 휴대폰번호, 배송요청사항
+	// myInfo - my주소지 관리 - 수정  : 주소, 상세주소, 휴대폰번호, 배송요청사항
 	@Override
 	public HashMap<String, Object> editAddr(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub

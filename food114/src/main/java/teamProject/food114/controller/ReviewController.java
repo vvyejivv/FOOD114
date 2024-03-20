@@ -35,23 +35,23 @@ public class ReviewController {
 		return "/shopReview"; 
 	}
 	
-	//리뷰 보기 사업자
-	@RequestMapping("/bizReview.do")
+	// 사업자 고객 리뷰 목록
+	@RequestMapping("/food114-biz-review.do")
 	public String bizReview(Model model) throws Exception {
 		if(session.getAttribute("sessionBizId")==null) {
 			return "redirect:/nosession.do";
 		}
-		return "/bizReview"; // bizReview.jsp
+		return "/biz_review"; // bizReview.jsp
 	}
 	
-	//리뷰 상세보기 사업자
-	@RequestMapping("/bizReview_info.do")
+	// 사업자 고객 리뷰 상세보기
+	@RequestMapping("/food114-biz-review-view.do")
 	public String bizReview_info(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		request.setAttribute("map", map);
 		if(session.getAttribute("sessionBizId")==null) {
 			return "redirect:/nosession.do";
 		}
-		return "/bizReview_info"; // bizReview_info.jsp
+		return "/biz_review_view"; // bizReview_info.jsp
 	}
 	
 	//리뷰 보기 고객 내정보
@@ -90,6 +90,14 @@ public class ReviewController {
 	public String myPageReViewList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap = reviewService.searchOrederListView(map);
+		return new Gson().toJson(resultMap);
+	}
+	
+	@RequestMapping(value = "/myPageReViewListEdit.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String myPageReViewListEdit(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = reviewService.searchOrederListEdit(map);
 		return new Gson().toJson(resultMap);
 	}
 	

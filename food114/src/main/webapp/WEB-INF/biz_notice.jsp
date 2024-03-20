@@ -11,26 +11,36 @@
 <title></title>
 <style>
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+.insertRemoveButton{
+	width: 300px;
+	margin-left: 700px; 
+	display:flex;
+	
+}
+
+.sidebar > li{
+cursor: pointer;
+}
 </style>
 </head>
 <link rel="stylesheet" href="../css/boardNoticeList.css">
 <body>
-		<%@include file="food114_header(biz).jsp"%>
+	<%@include file="food114_header(biz).jsp"%>
 
 	<section>
-		<div id="app">
+		<div id="app" v-cloak>
 			<div class="container">
 
 				<div style="float: left;">
 					<ul class="sidebar">
-						<li @click="fnClickNoticeList"><a href="javascript:;" >공지사항</a> <a href="javascript:;"
-							style="font-size: 17px; color: #a3a2a2;"><span
+						<li @click="fnClickNoticeList"><a href="javascript:;">공지사항</a>
+							<a href="javascript:;" style="font-size: 17px; color: #a3a2a2;"><span
 								style="margin-left: 100px;">❯</span></a></li>
-						<li @click="fnClickQnaAsk"><a href="javascript:;">자주하는 질문</a> <a href="javascript:;"
-							style="font-size: 17px; color: #a3a2a2;"><span
+						<li @click="fnClickQnaAsk"><a href="javascript:;">자주하는 질문</a>
+							<a href="javascript:;" style="font-size: 17px; color: #a3a2a2;"><span
 								style="margin-left: 70px;">❯</span></a></li>
-						<li  @click="fnClick"><a href="javascript:;">1:1 문의</a> <a href="javascript:;"
-							style="font-size: 17px; color: #a3a2a2;"><span
+						<li @click="fnClick"><a href="javascript:;">1:1 문의</a> <a
+							href="javascript:;" style="font-size: 17px; color: #a3a2a2;"><span
 								style="margin-left: 100px;">❯</span></a></li>
 					</ul>
 				</div>
@@ -39,12 +49,12 @@
 						<div style="float: left;">
 							<br>
 							<h2>
-								<span style="color: #ff7f00; font-weight: bold;">| </span><span
+								<span style="color: #5F5F5F; font-weight: bold;">| </span><span
 									style="text-align: left; color: rgba(72, 72, 72);">공지사항&nbsp;</span>
 								<span class="span">새로운 소식과 유용한 정보를 한 곳에서 확인하세요.</span>
 							</h2>
 						</div>
-						<table style="width:920px">
+						<table style="width: 920px">
 							<tr>
 								<th
 									style="width: 10px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
@@ -61,11 +71,20 @@
 							</tr>
 							<tr v-for="(item, index) in paginatedList">
 								<td style="text-align: center;">{{item.boardNo}}</td>
-								<td><a href="javascript:;" style="font-size: 15px;" @click="fnClickBoardNoticeView(item.boardNo)">{{item.title}}</a></td>
+								<td><a href="javascript:;" style="font-size: 15px;"
+									@click="fnClickBoardNoticeView(item.boardNo)">{{item.title}}</a></td>
 								<td style="text-align: center; font-size: 14px;">{{item.userId}}</td>
 								<td style="text-align: center; font-size: 15px; color: #a3a2a2;">{{formatDate(item.cdateTime)}}</td>
 							</tr>
 						</table>
+						<div class="insertRemoveButton">
+							<button @click="fnInsertNotice">글쓰기</button>
+							<button @click="fnNoticeRemove">삭제</button>
+						</div>
+						<!-- <div style="margin-left: 820px; display:left;">
+							<button @click="fnNoticeRemove">삭제</button>
+						</div> -->
+
 						<br>
 						<div style="text-align: center;">
 							<button @click="fnPageList(nowPage-1)" v-if="nowPage > 1">
@@ -82,7 +101,7 @@
 								<span style="color: #ff7f00; font-size: 20px;">{{nextIcon}}</span>
 							</button>
 							<button @click="fnPageList(nowPage-1)"
-								v-if="nowPage == pageCount"boardNoticeList.jsp
+								v-if="nowPage == pageCount" 
 								style="border: 1px solid #f5f3f3; cursor: default;" disabled>
 								<span style="color: #f5f3f3; font-size: 20px;">{{nextIcon}}</span>
 							</button>
@@ -94,9 +113,9 @@
 		</div>
 	</section>
 
-	
-		<%@include file="food114_footer(biz).jsp"%>
-	
+
+	<%@include file="food114_footer(biz).jsp"%>
+
 
 	<script type="text/javascript">
 		var app = new Vue({
@@ -144,26 +163,59 @@
 						}
 					});
 				},
-				fnClickQnaAsk : function(userId){
-					location.href="/boardNoticeQnaAsk.do";
-		        },
-				fnClick : function(userId){
-						location.href="/boardQnaInsert.do";
-			        },
-			        fnClickNoticeList : function(userId){
-						location.href="/boardNoticeList.do";
-			        },
-			        fnClickBoardNoticeView : function(boardNo){
-			        	$.pageChange("/boardNoticeVeiw.do",{
-			        		boardNo : boardNo
-			        	});
-						/* location.href="/boardNoticeVeiw.do"; */
-			        },
+				fnClickQnaAsk : function(userId) {
+					alert("준비중입니다.");
+					return;
+					location.href = "/boardNoticeQnaAsk.do";
+				},
+				fnClick : function(userId) {
+					alert("준비중입니다.");
+					return;
+					location.href = "/boardQnaInsert.do";
+				},
+				fnClickNoticeList : function(userId) {
+					location.href = "/food114-biz-notice.do";
+				},
+				fnClickBoardNoticeView : function(boardNo) {
+					$.pageChange("/food114-biz-notice-view.do", {
+						boardNo : boardNo
+					});
+					/* location.href="/boardNoticeVeiw.do"; */
+				},
 				formatDate : function(dateString) {
 					if (dateString) {
 						return dateString.split(' ')[0];
 					}
-				}
+				},
+				fnInsertNotice : function(){
+					location.href = "/boardNoticeInsert.do";
+				},
+				// 공지사항 삭제하기(수정 중)
+				fnNoticeRemove : function(userId) {
+					location.href = "/food114-biz-notice.do";
+					
+					var self = this;
+					var nparmap = {
+						userId : self.sessionId,
+						addrNo : addrNo
+					};
+					$.ajax({
+						url : "/boardNoticeRemove.dox",
+						dataType : "json",
+						type : "POST",
+						data : nparmap,
+						success : function(data) {
+							if (data.result == "success") {
+								alert("주소가 삭제 되었습니다.");
+								return location.href = "/food114-biz-notice.do";
+							} else {
+								alert("오류가 발생하였습니다.");
+							}
+							self.info = data.info;
+							console.log(data.info);
+						}
+					});
+				},
 			},
 			computed : {
 				paginatedList : function() {

@@ -137,4 +137,18 @@ public class ReviewServiceImpl implements ReviewService {
 		return resultMap;
 	}
 
+	@Override
+	public HashMap<String, Object> searchOrederListEdit(HashMap<String, Object> map) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			List<Review> listViewEdit = reviewMapper.selectOrederListEdit(map);
+			resultMap.put("listViewEdit", listViewEdit);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			resultMap.put("result", "fail");
+		}
+		return resultMap;
+	}
+
 }

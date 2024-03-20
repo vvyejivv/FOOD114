@@ -80,8 +80,23 @@
 		WHERE BOARDNO = #{boardNo} AND
 		CODE = 1
 	</select>
+	
+	<!-- 공지사항 게시글 작성 -->
+	<insert id="insertNotictBoard" parameterType="hashmap"
+		useGeneratedKeys="true" keyProperty="BOARDNO" keyColumn="BOARDNO">
+		INSERT INTO
+		FOOD114_BOARD
+		VALUES(null, #{title}, #{contents}, null, null, null, null, #{userId}, 1, null, null, 'N', NOW(), NOW(), null, 1)
+	</insert>
+	
+	<!-- 공지사항 게시글 삭제 -->
+	<delete id="deleteNotice" parameterType="hashmap">
+		DELETE FROM 
+			FOOD114_BOARD
+		WHERE BOARDNO = #{boardNo}
+	</delete>
 
-	<!-- 게시글 작성 -->
+	<!-- 1:1 문의 게시글 작성 -->
 	<insert id="insertQnaBoard" parameterType="hashmap"
 		useGeneratedKeys="true" keyProperty="BOARDNO" keyColumn="BOARDNO">
 		INSERT INTO

@@ -102,7 +102,7 @@ a {
 							</table>
 						</div>
 						<!-- 페이지  -->
-						<div class="pageBox">
+						<div class="pageBox" style="margin-top: 10px; display: flex; margin-left: 0px; justify-content: center; align-items: center; gap:10px;">
 							<span><a href="javascript:;" @click="fnfirstPage"
 								style="text-decoration: none; color: black;">≤</a></span> <span><a
 								href="javascript:;" @click="fnPre"
@@ -159,16 +159,16 @@ a {
 								/* 페이지당 10개 올림  */
 								self.pageCount = Math.ceil(data.cnt.listCnt
 										/ self.cnt);
-								console.log(self.pageCount);
+								console.log(self.sessionId);
 							}
 						});
 			},
 			/* 페이지 기능  */
 			fnPageList : function(num) {
 				var self = this;
-				$.pageChange("myOrderList.do", {
+				$.pageChange("food114-myPage-order.do", {
 					nowPage : num
-				});
+				});				
 			},
 			fnfirstPage : function() {
 				var self = this;
@@ -185,7 +185,7 @@ a {
 			fnNext : function() {
 				var self = this;
 				if (self.nowPage < self.pageCount) {
-					self.nowPage = self.nowPage + 1;
+					self.nowPage = parseInt(self.nowPage) + 1;
 				}
 				self.fnPageList(self.nowPage);
 			},

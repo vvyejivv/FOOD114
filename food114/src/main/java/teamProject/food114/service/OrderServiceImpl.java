@@ -59,6 +59,9 @@ public class OrderServiceImpl implements OrderService {
 			dataMap.put("userId", map.get("userId"));
 			dataMap.put("bizId", map.get("bizId"));
 			dataMap.put("status", map.get("status"));
+			dataMap.put("addr", map.get("addr"));
+			dataMap.put("detail", map.get("detail"));
+			dataMap.put("phone", map.get("phone"));
 			orderMapper.insertOrderAdd(dataMap);
 	        for (Map<String, Object> menu : list) {
 	        	dataMap.put("menuNo", menu.get("menuNo"));

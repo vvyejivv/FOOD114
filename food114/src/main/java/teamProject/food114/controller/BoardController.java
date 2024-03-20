@@ -31,8 +31,30 @@ public class BoardController {
 	@Autowired
 	HttpSession session;
 	
+	// 사업자 이벤트 목록
+	@RequestMapping("/food114-biz-event.do")
+	public String bizEvent(Model model) throws Exception {
+		if(session.getAttribute("sessionBizId")==null) {
+			return "redirect:/nosession.do";
+		}
+		return "/biz_event"; // bizEvent.jsp
+	}
+	
+	// 우리 동네 이벤트
+	@RequestMapping("/food114-town-event.do")
+	public String bizEvent_info(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
+			throws Exception {
+		if(session.getAttribute("sessionBizId")==null) {
+			return "redirect:/nosession.do";
+		}
+		request.setAttribute("map", map);
+		return "/user_town_event"; // bizEvent_info.jsp
+	}
+	
+	
+	
 	// 웹 주관 이벤트 페이지
-	@RequestMapping("/event-web-list.do")
+	@RequestMapping("/food114-event.do")
 	public String eventWeb(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
 		if (!map.containsKey("endYn")) {
@@ -41,7 +63,7 @@ public class BoardController {
 			request.setAttribute("endYn", map.get("endYn"));
 		}
 		request.setAttribute("map", map);
-		return "/eventList";
+		return "/user_web_event";
 	}
 
 	// 웹 주관 이벤트 페이지
@@ -89,20 +111,46 @@ public class BoardController {
 	}
 
 	// 공지사항 리스트
-	@RequestMapping("/boardNoticeList.do")
+	@RequestMapping("/food114-biz-notice.do")
 	public String userList(Model model) throws Exception {
-		return "/boardNoticeList";
+		return "/biz_notice";
 	}
 
 	// 공지사항 상세보기
-	@RequestMapping("/boardNoticeVeiw.do")
+	@RequestMapping("/food114-biz-notice-view.do")
 	public String boardNotice(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
-		System.out.println(map.get("boardNo"));
 		request.setAttribute("boardNo", map.get("boardNo"));
-		return "/boardNoticeVeiw";
+		return "/biz_notice_view";
 	}
 
+	// 공지사항 게시판 글 작성
+	@RequestMapping("/boardNoticeInsert.do")
+	public String insertNotice(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
+			throws Exception {
+		request.setAttribute("map", map);
+		return "/boardNoticeInsert";
+		}
+	
+	// 공지사항 게시판 글 작성
+	@RequestMapping(value = "/boardNoticeInsert.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String insertNotice(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = boardService.insertNotice(map);
+		return new Gson().toJson(resultMap);
+	}
+	
+	// 공지사항 게시판 글 삭제
+	@RequestMapping(value = "/boardNoticeRemove.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String removeNotice(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = boardService.insertNotice(map);
+		return new Gson().toJson(resultMap);
+	}
+	
+	
 	// 1:1 문의 게시판 글 작성
 	@RequestMapping("/boardQnaInsert.do")
 	public String insert(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
@@ -136,13 +184,7 @@ public class BoardController {
 		return "/boardNoticeQnaAsk";
 	}
 
-	@RequestMapping("/bizEvent.do")
-	public String bizEvent(Model model) throws Exception {
-		if(session.getAttribute("sessionBizId")==null) {
-			return "redirect:/nosession.do";
-		}
-		return "/bizEvent"; // bizEvent.jsp
-	}
+
 
 	@RequestMapping(value = "/listBizEvent.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
@@ -152,15 +194,7 @@ public class BoardController {
 		return new Gson().toJson(resultMap);
 	}
 
-	@RequestMapping("/bizEvent_info.do")
-	public String bizEvent_info(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
-			throws Exception {
-		if(session.getAttribute("sessionBizId")==null) {
-			return "redirect:/nosession.do";
-		}
-		request.setAttribute("map", map);
-		return "/bizEvent_info"; // bizEvent_info.jsp
-	}
+
 
 	@RequestMapping(value = "/listBizEventView.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody

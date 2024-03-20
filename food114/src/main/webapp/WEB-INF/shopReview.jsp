@@ -27,8 +27,8 @@
             <!-- 고객 리뷰  -->
             <div style="width: 1420px; display: flex;" v-for="item in review">
                 <!-- 고객프로필 사진 -->
-                <div style="width: 92px; height: 92px; border-radius: 999px; margin : 20px 20px;">
-                    <img src="../img/기본_프로필.jpg" style="width: 92px; height: 92px; border-radius: 999px;">
+                <div style="width: 50px; height: 50px; border-radius: 999px; margin : 20px 20px;">
+                    <img src="../img/기본_프로필.jpg" style="width: 50px; height: 50px; border-radius: 999px;">
                 </div>
                 <!-- 고객 리뷰 내용 -->
                 <div style="width: 1268px; margin : 20px 0px 20px 0px;" >
@@ -39,11 +39,16 @@
                             <!-- 고객이름 / 별점-->
                             <div style="width: fit-content; height: 17px; display: flex; margin-bottom: 15px;">
                                 <div style="width: fit-content; margin-right: 15px; line-height: 17px; color: #000000; font-size: 17px;">{{item.userId}}님</div>
-                                <div style="width: 78.83; height: 13.47px; margin-right: 2px;"><img src="../img/star.png"></div>
-                                <div style="width: 78.83; height: 13.47px; margin-right: 2px;"><img src="../img/star.png"></div>
-                                <div style="width: 78.83; height: 13.47px; margin-right: 2px;"><img src="../img/star.png"></div>
-                                <div style="width: 78.83; height: 13.47px; margin-right: 2px;"><img src="../img/star.png"></div>
-                                <div style="width: 78.83; height: 13.47px; margin-right: 2px;"><img src="../img/star_gray.png"></div>
+                              
+                                 <div style="width: 78.83; height: 13.47px; margin-right: 2px; display: flex">
+                                 <template v-for="i in item.raiting">
+							        <img src="../img/star.png" >
+                                 </template>
+                                 <template v-for="i in 5-item.raiting">
+							        <img src="../img/star_gray.png">
+                                 </template>
+                                 </div>
+							   
                             </div>
                             <!-- 메뉴 -->
                             <div style="width: fit-content;; height:14px; line-height: 14px; font-size: 14px; color: #9E9E9E;">{{item.menuList}}</div>
@@ -51,7 +56,7 @@
                         <!-- 리뷰 내용 -->
                         <div style="width: 1268px; border: 1px solid #EDEDED; border-radius: 10px; margin-bottom: 20px;">
                             <!-- 리뷰사진 -->
-                            <div style="width: 300px; height: 300px; margin: 20px 20px;"><img src="../img/메가커피_리뷰사진.jpg" style="width: 300px; height: 300px;"></div>
+                            <div style="width: 300px; height: fit-content; margin: 20px 20px;"></div>
                             <!-- 리뷰 글 -->
                             <div style="width: fit-content; line-height: 14px; font-size: 14px; color: #5F5F5F; margin: 0px 0px 20px 20px;">{{item.userReview}}</div>
                         </div>
@@ -60,13 +65,13 @@
                             <div style="width: 1228px; height: 24px; display: flex; margin-bottom: 15px; justify-content: space-between;">
                                 <div style="width: fit-content; display: flex;">
                                     <div style="width: 24px; height: 24px;"><img src="../img/리뷰답글아이콘.png" style="width: 24px; height: 24px;"></div>
-                                    <div style="width: fit-content; line-height: 17px; color: #000000; font-size: 17px; margin: 3.5px 0px 3.5px 10px;">{{item.bizId}}</div>
+                                    <div style="width: fit-content; line-height: 17px; color: #000000; font-size: 14px; margin: 3.5px 0px 3.5px 10px;">{{item.bizName}}</div>
                                 </div>
                                 <!-- 날짜 -->
                                 <div style="font-size: 14px; line-height: 14px; color: #9E9E9E;">{{item.shopCmtDate}}</div>
                             </div>
                             <div style="width: 893px; padding-left: 34px;">
-                                <div style="color:#5F5F5F; width: fit-content; line-height: 20px;">{{item.shopCmt}}</div>
+                                <div style="color:#5F5F5F; width: fit-content; line-height: 20px; font-size : 14px;">{{item.shopCmt}}</div>
                             </div>
                         </div>
                     </div>

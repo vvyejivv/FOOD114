@@ -170,7 +170,7 @@ a{
 			/* 페이지 기능  */
 			fnPageList : function(num){
 				var self = this;
-				$.pageChange("myInfoReview.do",{
+				$.pageChange("food114-myPage-review.do",{
 					nowPage : num
 				});
 			},

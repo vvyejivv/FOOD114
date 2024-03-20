@@ -29,10 +29,10 @@
 							<div class="header-point"></div>
 							주문하기
 						</div>
-						<div id="header-menu" @click="fnPageChange('mapTest2.do',map)">지도로 찾기</div>
-						<div id="header-menu" @click="fnPageChange('event-biz-list.do',map)">우리동네</div>
-						<div id="header-menu" @click="fnPageChange('event-web-list.do',map)">이벤트</div>
-						<div id="header-menu" @click="fnPageChange('biz_main.do',{})">사장님페이지</div>
+						<div id="header-menu" @click="fnPageChange('food114-map.do',map)">지도로 찾기</div>
+						<div id="header-menu" @click="fnPageChange('food114-town-event.do',map)">우리동네</div>
+						<div id="header-menu" @click="fnPageChange('food114-event.do',map)">이벤트</div>
+						<div id="header-menu" @click="fnPageChange('food114-biz.do',{})">사장님페이지</div>
 					</div>
 				</div>
 				<!-- 로그인 했을때 -->
@@ -59,7 +59,11 @@
 				inputAddr : "${map.inputAddr}", // 현재 입력된 주소
 				latitude : "${map.latitude}", // 현재 입력된 주소의 위도
 				longitude : "${map.longitude}",	 // 현재 입력된 주소의 경도	
-				nowPage:1
+				nowPage:1,
+				detail : "${map.detail}",
+				addrNo : "${map.addrNo}",
+				phone : "${map.phone}",
+				request : "${map.request}"
 			}
 		},
 		methods : {
@@ -81,7 +85,6 @@
 			},
 			fnPageChange : function(link, map) {
 				var self = this;
-				console.log("클릭");
 				$.pageChange(link, self.map);
 			}
 		},

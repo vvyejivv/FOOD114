@@ -280,19 +280,12 @@ input[type='password']:focus {
 	border: none;
 	background-color: white;
 	font-size: 14px;
-	color: rgb(161, 1, 161);
+	color: #ff7f00;
 	font-weight: bold;
 	float: none;
 	cursor: pointer;
 	margin: 10px;
 	margin-top: 15px;
-}
-
-.modalButton:hover {
-	/* color: white; */
-	color: #ff7f00;
-	font-size: 14px;
-	font-weight: bold;
 }
 
 .modalCancel {

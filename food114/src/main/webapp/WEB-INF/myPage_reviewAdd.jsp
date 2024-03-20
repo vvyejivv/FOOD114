@@ -58,15 +58,36 @@ a {
 [v-cloak] {
 	display: none;
 }
+
 .reviewAdd {
-	background-color: #ffffff; 
-	border: 1px solid #ff7f00; 
-	color: #ff7f00; 
+	background-color: #ffffff;
+	border: 1px solid #ff7f00;
+	color: #ff7f00;
 	transition-duration: 0.4s; /* 트랜지션 효과 지속 시간 */
 	cursor: pointer;
 	border-radius: 4px; /* 버튼에 border-radius 적용 */
 }
+
 .reviewAdd:hover {
+	background-color: #ff7f00;
+	border: 1px solid #FBCEB1;
+	color: #ffffff;
+}
+
+.review_button2 {
+	width: 70px;
+	height: 35px;
+	background-color: #ffffff;
+	border: 1px solid #ff7f00;
+	color: #ff7f00;
+	transition-duration: 0.4s; /* 트랜지션 효과 지속 시간 */
+	cursor: pointer;
+	border-radius: 4px; /* 버튼에 border-radius 적용 */
+	margin-left: 930px;
+	margin-top: 5px;
+}
+
+.review_button2:hover {
 	background-color: #ff7f00;
 	border: 1px solid #FBCEB1;
 	color: #ffffff;
@@ -105,27 +126,19 @@ a {
 									주문 시간</th>
 								<th
 									style="width: 100px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
-									리뷰 상태</th>
-								<th
-									style="width: 100px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
 									리뷰</th>
 							</tr>
 							<tr v-for="(item, index) in reviewList">
-								<td style="font-size: 13px">{{index + 1}}</td>
+								<td style="font-size: 13px">{{index + 1 }}</td>
 								<td class="reviewFont">{{item.bizName}}</td>
 								<td class="reviewFont">{{item.menuList}}</td>
 								<td class="reviewFont">{{item.orderDate}}</td>
-								<td class="reviewFont"><img v-if="item.reviewNo"
-									width="22" height="20"
-									src="https://img.icons8.com/sf-black/64/ff7f00/circled.png"
-									alt="circled" /> <img v-else width="23" height="20"
-									src="https://img.icons8.com/sf-black-filled/64/ff7f00/x.png"
-									alt="x" /></td>
-								<td class="reviewFont"><button class="reviewAdd" @click="fnHellow(item)">작성</button></td>
+								<td class="reviewFont"><button class="reviewAdd"
+										@click="fnHellow(item)">작성</button></td>
 							</tr>
 						</table>
+						<button class="review_button2" @click="goBack">이전으로</button>
 					</div>
-					<button>이전으로</button>
 				</div>
 			</div>
 		</div>
@@ -140,13 +153,13 @@ a {
 		el : '#app',
 		data : {
 			reviewList : [],
-			sessionId : "${sessionId}"
+			sessionId : "${sessionId}",
 		},
 		methods : {
 			list : function() {
 				var self = this;
 				var nparmap = {
-					userId : this.sessionId
+					userId : this.sessionId,
 				};
 				$.ajax({
 					url : "myPageReViewList.dox",
@@ -159,8 +172,14 @@ a {
 				});
 			},
 			fnHellow : function(item) {
-				$.pageChange("/myPage_review_Insert.do", {orderNo : item.orderNo});
-		}
+				$.pageChange("/myPage_review_Insert.do", {
+					orderNo : item.orderNo
+				});
+			},
+			goBack : function() {
+				// 이전으로 버튼을 눌렀을 때의 동작을 정의합니다.
+				$.pageChange("/food114-myPage-review.do", {});
+			},
 		},
 		created : function() {
 			var self = this;

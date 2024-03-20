@@ -87,6 +87,13 @@
 	border: 1px solid #FBCEB1;
 	color: #ffffff;
 }
+
+.optionAdd {
+	font-size: 17px;
+	color: #ffcc00;
+	width: 150px;
+	height: 25px;
+}
 </style>
 </head>
 <body>
@@ -102,39 +109,34 @@
 						<span style="color: #ff7f00; font-weight: bold;">| </span> 리뷰 작성
 					</a>
 				</h2>
-				<table class="review_insert_table">
+				<table class="review_insert_table"
+					v-for="(review, index) in reviewList">
 					<tr>
 						<td style="border-top: 2px solid rgba(72, 72, 72);"
 							class="review_insert">가게명</td>
 						<td
 							style="border-top: 2px solid rgba(72, 72, 72); overflow: hidden;">
-						<td
-							style="border-top: 2px solid rgba(72, 72, 72); overflow: hidden;">
-							{{review.bizId}}</td>
-
-						</td>
-
+							{{review.bizName}}</td>
 					</tr>
 					<tr>
 						<td class="review_insert">별점</td>
-						<td>{{review.raiting}}</td>
+						<td><select class="optionAdd" v-model="selectedRaiting">
+								<option value="5">★★★★★</option>
+								<option value="4">★★★★☆</option>
+								<option value="3">★★★☆☆</option>
+								<option value="2">★★☆☆☆</option>
+								<option value="1">★☆☆☆☆</option>
+						</select></td>
 					</tr>
 					<tr>
 						<td class="review_insert">메뉴</td>
 						<td>{{review.menuList}}</td>
 					</tr>
 					<tr>
-						<td class="review_insert">리뷰 사진</td>
-						<td></td>
-					</tr>
-					<tr>
 						<td class="review_insert">리뷰 내용</td>
-						<!-- <td>
-							<textarea class="reviewText" placeholder="리뷰 작성을 해주세요!"></textarea>
-							<button class="addReview">수정</button>
-						</td> -->
-						<td><textarea class="reviewText" placeholder="리뷰 작성을 해주세요!"></textarea>
-							<button class="addReview">저장</button></td>
+						<td><textarea class="reviewText" placeholder="리뷰 작성을 해주세요!"
+								v-model="contents"></textarea>
+							<button class="addReview" @click="addReview">저장</button></td>
 					</tr>
 				</table>
 				<button class="review_button2" @click="goBack">이전으로</button>
@@ -150,28 +152,84 @@
 		data : {
 			sessionId : "${sessionId}",
 			orderNo : '${map.orderNo}',
-			review : {},
+			reviewList : [],
+			selectedRaiting : '5',
+			contents : "",
+			savedSuccessfully : false
 		},
 		methods : {
 			list : function() {
 				var self = this;
 				var nparmap = {
-					orderNo : self.orderNo
+					orderNo : self.orderNo,
+					userId : this.sessionId
 				};
 				$.ajax({
-					url : "myPageReViewList.dox",
+					url : "myPageReViewListEdit.dox",
 					dataType : "json",
 					type : "POST",
 					data : nparmap,
 					success : function(data) {
-						self.review = data.listView;
+						self.reviewList = data.listViewEdit;
 					}
 				});
 			},
 			goBack : function() {
 				// 이전으로 버튼을 눌렀을 때의 동작을 정의합니다.
 				$.pageChange("/myPage_reviewAdd.do", {});
-			}
+			},
+			addReview: function() {
+			    var self = this;
+			    if (!self.contents.trim()) {
+			        if (alert("리뷰를 작성해주세요.")) {
+			            // 사용자가 확인을 눌렀을 때만 저장 시도
+			            var nparmap = {
+			                orderNo: self.orderNo,
+			                userId: self.sessionId,
+			                raiting: self.selectedRaiting,
+			                contents: self.contents
+			            };
+			            console.log("전송할 데이터:", nparmap);
+			            $.ajax({
+			                url: "myPageReviewAdd.dox",
+			                dataType: "json",
+			                type: "POST",
+			                data: nparmap,
+			                success: function(data) {
+			                    self.savedSuccessfully = true; // 저장 성공 여부 표시
+			                    // 저장이 완료된 후에 컨펌 창 표시
+			                    alert("저장되었습니다.");
+			                    // 2초 뒤에 목록으로 이동하는 것이 아니라, 사용자가 확인을 누르면 목록으로 이동하도록 함
+			                    window.location.href = "food114-myPage-review.do";
+			                }
+			            });
+			        }
+			    } else {
+			        // 리뷰 내용이 있을 경우에만 저장 시도
+			        var nparmap = {
+			            orderNo: self.orderNo,
+			            userId: self.sessionId,
+			            raiting: self.selectedRaiting,
+			            contents: self.contents
+			        };
+			        console.log("전송할 데이터:", nparmap);
+			        $.ajax({
+			            url: "myPageReviewAdd.dox",
+			            dataType: "json",
+			            type: "POST",
+			            data: nparmap,
+			            success: function(data) {
+			                self.savedSuccessfully = true; // 저장 성공 여부 표시
+			                // 저장이 완료된 후에 컨펌 창 표시
+			                alert("저장되었습니다.");
+			                // 2초 뒤에 목록으로 이동하는 것이 아니라, 사용자가 확인을 누르면 목록으로 이동하도록 함
+			                window.location.href = "food114-myPage-review.do";
+			            }
+			        });
+			    }
+			},
+
+
 		},
 		created : function() {
 			var self = this;
