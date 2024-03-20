@@ -120,6 +120,15 @@ public class BoardController {
 		return new Gson().toJson(resultMap);
 	}
 	
+	// 공지사항 게시판 글 삭제
+	@RequestMapping(value = "/boardNoticeRemove.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String removeNotice(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = boardService.insertNotice(map);
+		return new Gson().toJson(resultMap);
+	}
+	
 	
 	// 1:1 문의 게시판 글 작성
 	@RequestMapping("/boardQnaInsert.do")
