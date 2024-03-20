@@ -109,7 +109,7 @@
 	height: 136px;
 	border-radius: 8px;
 	box-sizing: border-box;
-	object-fit:scale-down;
+	object-fit: scale-down;
 }
 
 .bizInfo {
