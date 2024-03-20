@@ -45,17 +45,10 @@ button {
 						</div>
 
 					</div>
-
-
-
-
-
-
-
 				</div>
 				<!-- 메뉴바 / 로그인창 -->
 				<div
-					style="width: 1420px; height: 200px; margin-top: 40px; display: flex; justify-content: space-between;">
+					style="width: 1420px; height: 200px; margin-top: 30px; display: flex; justify-content: space-between;">
 					<div
 						style="width: 900px; height: 200px; border: 1px solid #EDEDED; border-radius: 10px; display: flex; justify-content: center; align-items: center;">
 						<!-- 메뉴 -->
@@ -141,7 +134,7 @@ button {
 						</div>
 						<div v-else style="display: flex; justify-content: center;">
 							<button
-								style="border-radius: 5px; border: 1px solid #EDEDED; padding: 10px 150px; color: #222222; font-size: 14px;"
+								style="border-radius: 5px; border: 1px solid #EDEDED; padding: 10px 144px; color: #222222; font-size: 14px;"
 								@click="fnBizLogout()">로그아웃</button>
 						</div>
 						<div
@@ -154,9 +147,9 @@ button {
 				</div>
 				<!-- 공지사항 / 고객센터 -->
 				<div
-					style="width: 1420px; height: 300px; margin-top: 40px; display: flex; justify-content: space-between;">
+					style="width: 1420px; margin-top: 30px; display: flex; justify-content: space-between;">
 					<!-- 공지사항 -->
-					<div style="width: 900px; height: 300px;">
+					<div style="width: 900px;">
 						<div style="padding: 10px 0px;">
 							<span style="color: #ff7f00; font-weight: bold; font-size: 16px;">|
 							</span> <span style="text-align: left; color: #222222; font-size: 16px;">공지사항&nbsp;</span>
@@ -192,7 +185,7 @@ button {
 					</div>
 					<!-- 고객센터 -->
 					<div
-						style="width: 450px; height: 300px; border: 1px solid #EDEDED; border-radius: 10px;">
+						style="width: 450px; border: 1px solid #EDEDED; border-radius: 10px;">
 						<div
 							style="padding: 25px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #EDEDED;">
 							<div style="color: #5F5F5F; font-size: 14px;">고객센터</div>

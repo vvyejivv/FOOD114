@@ -102,7 +102,7 @@
 					<div style="position: absolute; left: 250px; top: 133px;">
 						<div class="main3-title">가맹점 문의</div>
 						<div class="main3-contents">
-							연매출 상승 어쩌구 저쩌구 텍스트 두 줄<br> 연매출 상승 어쩌구 저쩌구 텍스트 두 줄
+							FOOD114에 가게 등록하고 아낌없는 지원 받아보세요.<br> 1500-2024
 						</div>
 						<button class="main3-btn">문의하기</button>
 					</div>
@@ -111,11 +111,11 @@
 					<div style="float: left; position: relative;">
 						<img src="../img/Group 1.png" style="width: 960px; height: 350px;">
 						<div style="position: absolute; left: 250px; top: 99px;">
-							<div class="main3-title">환경성적표지</div>
+							<div class="main3-title">생활 속 환경 살리기</div>
 							<div class="main3-contents">
-								연매출 상승 어쩌구 저쩌구 텍스트 두 줄<br> 연매출 상승 어쩌구 저쩌구 텍스트 두 줄
+								고객과 가맹점 모두에게 만족할 수 있는 서비스<br> 고객은 지갑 지키고 가맹점은 오늘 우리 가게 매진이요!
 							</div>
-							<button class="main3-btn">문의하기</button>
+							<button class="main3-btn">주문하기</button>
 						</div>
 					</div>
 					<div style="float: left; position: relative;">
@@ -123,7 +123,7 @@
 						<div style="position: absolute; left: 110px; top: 99px;">
 							<div class="main3-title">인재채용</div>
 							<div class="main3-contents">
-								연매출 상승 어쩌구 저쩌구 텍스트 두 줄<br> 연매출 상승 어쩌구 저쩌구 텍스트 두 줄
+								FOOD114에서 함께 나아갈 인재를 구합니다.<br> 1500-2024
 							</div>
 							<button class="main3-btn" >문의하기</button>
 						</div>
