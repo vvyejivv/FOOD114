@@ -116,7 +116,9 @@
 
 	<select id="selectBizEventView" parameterType="hashmap"
 		resultType="teamProject.food114.model.Board">
-		SELECT B.*, CONCAT(F.FILEPATH, F.FILENAME) AS PATH
+		SELECT B.*, CONCAT(F.FILEPATH, F.FILENAME) AS PATH, 
+		CONCAT(SUBSTRING(SETBEGINTIME,1,2),'시 ',SUBSTRING(SETBEGINTIME,3),'분') AS SEPASETBEGINTIME, CONCAT(SUBSTRING(SETENDTIME,1,2),'시 ',SUBSTRING(SETENDTIME,3),'분') AS SEPASETENDTIME,
+		SUBSTRING(SETBEGINTIME,1,2) AS BEGINHOUR,SUBSTRING(SETBEGINTIME,3) AS BEGINMINUTE,SUBSTRING(SETENDTIME,1,2) AS ENDHOUR,SUBSTRING(SETENDTIME,3) AS ENDMINUTE
 		FROM
 		FOOD114_BOARD B
 		LEFT JOIN FOOD114_BOARD_FILE F ON B.BOARDNO = F.BOARDNO
@@ -147,14 +149,19 @@
 	<update id="updateBizEventBoard" parameterType="hashmap">
 		UPDATE FOOD114_BOARD
 		SET TITLE = #{title}, CONTENTS = #{contents},
-		ENDYN = #{endYn}, TYPE = #{type}
+		ENDYN = #{endYn}, TYPE = #{type},
+		SETBEGINTIME = #{beginTime}, SETENDTIME = #{endTime}
 		WHERE BOARDNO = #{boardNo}
 	</update>
 	<!-- 가게 이벤트 검색  -->
 	<select id="selectShopEvent" parameterType="hashmap" resultType="teamProject.food114.model.Board">
-		SELECT *
-		FROM FOOD114_BOARD E
-		INNER JOIN FOOD114_BIZ_INFO B ON E.USERID = B.BIZID
-		WHERE B.BIZID = #{bizId}
+				SELECT *
+		FROM FOOD114_BIZ_INFO B
+		left JOIN 	FOOD114_BOARD E ON E.USERID = B.BIZID AND E.ENDYN='N' AND CODE=4
+		WHERE B.BIZID = #{bizId};
+	</select>
+	
+	<select id="selectBoardListLimit" parameterType="hashmap" resultType="teamProject.food114.model.Board">
+		SELECT BOARDNO, TITLE, CONTENTS, DATE_FORMAT(CDATETIME,'%Y-%m-%d') AS CDATETIME FROM FOOD114_BOARD WHERE USERID = 'ADMIN' AND CODE = 1 LIMIT 6
 	</select>
 </mapper>

@@ -116,7 +116,7 @@
 						console.log(data);
 						if (data.pwd == "pwdSuccess"
 								&& data.status == "success") {
-							location.href = "/food114-2.do";
+							location.href = "/food114.do";
 						} else {
 							self.errormsg = data.message;
 						}
@@ -131,7 +131,7 @@
 				self.pwdFlg = false;
 			},
 			fnJoin : function() {
-				location.href = "consumer-join.do";
+				location.href = "food114-join.do";
 			}
 		},
 		created : function() {

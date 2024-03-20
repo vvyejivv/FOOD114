@@ -29,6 +29,7 @@
 	padding: 10px;
 	margin: 10px;
 	cursor: pointer;
+	border-radius: 8px;
 }
 
 .previewBox {
@@ -44,6 +45,7 @@
 	width: 100%;
 	height: 225px;
 	border: 1px solid #ededed;
+	border-radius:8px;
 	overflow: hidden;
 }
 
@@ -80,7 +82,7 @@
 			<%@include file="event_header.jsp"%>
 			<div id="app" v-cloak style="width:fit-content; margin:0px auto; margin-top:-5px;">
 				<div
-					style="width: fit-content; color: rgb(72, 72, 72); margin-top: 0px; padding: 0px; border: 1px solid #ccc">
+					style="width: fit-content; color: rgb(72, 72, 72); margin-top: 0px; padding: 0px; border: 1px solid #ccc; border-radius: 8px;">
 					<div v-if="list.length==0"
 						style="margin-top: 50px; width: 1000px; margin-bottom: 50px; text-align: center; height: 230px">현재
 						진행중인 이벤트가 없습니다.</div>

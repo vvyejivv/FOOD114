@@ -82,16 +82,27 @@
 
 	<!-- myInfo - my주소지 관리 - 주소지 상세보기 -->
 	<select id="selectMyInfoAddr" parameterType="hashmap"
-		resultType="teamProject.food114.model.Addr">
+		resultType="teamProject.food114.model.CustomerAddr">
 		SELECT *
-		FROM FOOD114_CONSUMER C
+		FROM FOOD114_CONSUMER_ADDR A
 		INNER JOIN
-		FOOD114_CONSUMER_ADDR A ON C.USERID =
+		FOOD114_CONSUMER C ON C.USERID =
 		A.USERID
-		WHERE C.USERID =
+		WHERE A.USERID =
 		#{userId}
 		ORDER BY DEFAULTYN DESC
 	</select>
+	
+	<!-- myInfo - my주소지 관리 - 수정  : 주소, 휴대폰번호, 배송요청사항 -->
+	<update id="updateAddr" parameterType="hashmap">
+		UPDATE FOOD114_CONSUMER_ADDR
+		SET
+			OLDADDR = #{oldAddr},
+			PHONE = #{phone},
+			REQUEST = #{request}
+		WHERE USERID = #{userId} AND ADDRNO = #{addrNo}
+	</update>
+	
 	<!-- 마이페이지 - 결제/주문/리뷰 - 주문내역 -->
 	<select id="selectMyOrderList" parameterType="hashmap" resultType="teamProject.food114.model.Order">
 		SELECT O.ORDERNO, COUNT(*) AS ORDERCNT, O.STATUS, B.BIZNAME, GROUP_CONCAT(CONCAT(M.MENU, '(', D.COUNT, ')') SEPARATOR ', ') AS MENUS, P.PRICE, 
@@ -104,7 +115,9 @@
 		WHERE O.USERID = #{userId}
 		GROUP BY O.ORDERNO
 		ORDER BY O.ORDERDATE DESC
+		<if test="startOrder!=''">
 		LIMIT ${startOrder}, ${endOrder}
+		</if>
 	</select>
 	<!-- 마이페이지 - 주문내역 갯수  -->
 	<select id="selectMyOrderListCnt" parameterType="hashmap" resultType="teamProject.food114.model.Order">

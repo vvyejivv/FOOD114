@@ -198,7 +198,7 @@ select {
 					<tr>
 						<th>대표자 이름<span class="star">*</span></th>
 						<td><input type="text" placeholder="대표자 이름을 입력해주세요."
-								v-model="businessRename">
+								v-model="businessRename" @keyup="validateName">
 							<div class="errorMessage"></div></td>
 					</tr>
 					<tr>
@@ -396,7 +396,8 @@ select {
 					allChecked : false,
 					termsChecked : false,
 					privacyChecked : false,
-					offerChecked : false
+					offerChecked : false,
+					validName : true
 				},
 				methods : {
 					fnEmailList : function() {
@@ -627,6 +628,16 @@ select {
 			                this.offerChecked = false;
 			            }
 			        },
+			        validateName : function() {
+						// 영어, 숫자만 입력가능 정규식
+						var pattern = /^[a-zA-Z\u3131-\uD79D]*$/;
+
+						if (pattern.test(this.businessRename)) {
+							this.validName = true; // 유효한 이름
+						} else {
+							this.validName = false; // 유효하지 않은 이름
+						}
+					},
 					signUp : function() {
 						var self = this;
 						let domain = self.businessDomain == "" ? self.businessTempDomain
@@ -664,6 +675,10 @@ select {
 							alert("아이디를 확인해주세요.");
 							return;
 						}
+						if (!self.validName) {
+							alert("이름을 확인해주세요.");
+							return;
+						}
 						var nparmap = {
 							bizId : self.businessId,
 							bizPwd : self.businessPwd,
@@ -688,7 +703,7 @@ select {
 							success : function(data) {
 								if (data.result == "success") {
 									alert("가입되었습니다.");
-									location.reload(true);
+									location.assign("/bizLogin.do");
 								} else {
 									alert("다시 시도해주세요.");
 									location.reload(true);

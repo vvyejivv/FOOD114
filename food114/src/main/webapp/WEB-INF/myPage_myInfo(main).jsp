@@ -392,12 +392,27 @@ input[type='text']:focus {
 						var regex = /^[^\d\s가-힣]*\..*$/; // 이메일 정규식
 
 						map["userId"] = self.info.userId;
+						
+						let name = /^[^\d\W]+$/
+						if (!name.test(self.changeValue)) {
+							alert("이름을 제대로 입력해주세요.");
+							return;
+						}
+						
 
+						
 						if (self.modalType == "email"
 								&& (self.email == "" || self.emailAddr == "")) {
 							alert("최소 한글자 이상 입력해주세요");
 							return;
 						}
+						
+						let email = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/
+						if (!email.test(self.changeValue)) {
+							alert("메일 주소를 제대로 입력해주세요.");
+							return;
+						}
+						
 						if (self.modalType == "email"
 								&& !regex.test(self.emailAddr)) {
 							alert("올바른 이메일 형식이 아닙니다.");

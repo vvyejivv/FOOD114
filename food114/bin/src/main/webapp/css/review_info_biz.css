@@ -26,9 +26,9 @@
 .review_button {
 	width: 70px;
 	height: 35px;
-	background-color: #ffffff; 
-	border: 1px solid #ff7f00; 
-	color: #ff7f00; 
+	background-color: #ffffff;
+	border: 1px solid #ff7f00;
+	color: #ff7f00;
 	transition-duration: 0.4s; /* 트랜지션 효과 지속 시간 */
 	cursor: pointer;
 	border-radius: 4px; /* 버튼에 border-radius 적용 */
@@ -44,13 +44,13 @@
 .review_button2 {
 	width: 70px;
 	height: 35px;
-	background-color: #ffffff; 
-	border: 1px solid #ff7f00; 
-	color: #ff7f00; 
+	background-color: #ffffff;
+	border: 1px solid #ff7f00;
+	color: #ff7f00;
 	transition-duration: 0.4s; /* 트랜지션 효과 지속 시간 */
 	cursor: pointer;
 	border-radius: 4px; /* 버튼에 border-radius 적용 */
-	margin-left: 955px;
+	margin-left: 1030px;
 	margin-top: 5px;
 }
 
@@ -59,16 +59,35 @@
 	border: 1px solid #FBCEB1;
 	color: #ffffff;
 }
+
 .addReview {
-	background-color: #ffffff; 
-	border: 1px solid #ff7f00; 
-	color: #ff7f00; 
+	background-color: #ffffff;
+	border: 1px solid #ff7f00;
+	color: #ff7f00;
 	transition-duration: 0.4s; /* 트랜지션 효과 지속 시간 */
 	cursor: pointer;
 	border-radius: 4px; /* 버튼에 border-radius 적용 */
+	width: 70px;
+	height: 35px;
 }
+
 .addReview:hover {
 	background-color: #ff7f00;
 	border: 1px solid #FBCEB1;
 	color: #ffffff;
+}
+
+.reviewText {
+	width: 500px;
+	height: 150px;
+	padding: 10px;
+	font-size: 15px;
+	border: 2px solid #ccc;
+	border-radius: 5px;
+	resize: none; /* 사용자가 크기를 조정할 수 없도록 함 */
+	margin-bottom: -13px;
+}
+
+.reviewText::placeholder {
+  color: #999;
 }

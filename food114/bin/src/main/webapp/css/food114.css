@@ -1,0 +1,295 @@
+[v-cloak] {
+	display: none;
+}
+
+@font-face {
+	font-family: 'Pretendard-Regular';
+	src:
+		url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
+		format('woff');
+	font-weight: 400;
+	font-style: normal;
+}
+
+* {
+	font-family: 'Pretendard-Regular';
+}
+
+
+::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	/* 스크롤바 둥근 테두리 */
+	background: #ccc;
+	/* 스크롤바 색상 */
+	;
+}
+
+::-webkit-scrollbar- track {
+	background: rgba(0, 0, 0, 0);
+	/*스크롤바 뒷 배경 색상*/
+}
+
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+.swiper-slide {
+	width: 1420px;
+	height: 700px;
+}
+
+.swiper-slide>img {
+	cursor: pointer;
+}
+
+body {
+	margin: 0px;
+	overflow: hidden;
+	overflow-y: scroll;
+	color: #222222;
+
+}
+
+#Container {
+	width: 1920px;
+	position: relative;
+	margin: 0px auto;
+}
+
+#header-container {
+	padding: 25px 0px;
+	height: 24px;
+	margin: 0px auto;
+	display: flex;
+	align-items: center;
+}
+
+#header-contents {
+	width: 1420px;
+	height: 24px;
+	margin: 0px auto;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+#header-contents-left {
+	display: flex;
+	justify-content: space-between;
+	gap: 50px;
+}
+
+#header-contents-right {
+	gap: 10px;
+	display: flex;
+}
+
+#header-contents-right>img {
+	cursor: pointer;
+}
+
+#header-logo {
+	width: 90px;
+	height: 16px;
+	color: #FF8002;
+	font-weight: 900;
+	font-size: 20px;
+	line-height: 16px;
+	cursor: pointer;
+}
+
+#header-menu-container {
+	display: flex;
+	gap: 40px;
+}
+
+#header-menu {
+	font-weight: 500;
+	font-size: 16px;
+	line-height: 16px;
+	cursor: pointer;
+}
+
+.header-menu-order {
+	display: flex;
+	gap: 3px;
+}
+
+.header-point {
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background-color: #FF8002;
+}
+
+#footer-container {
+	width: 1420px;
+	height: 109px;
+	padding: 70px 250px;
+	display: flex;
+	justify-content: space-between;
+}
+
+#footer-contents-left {
+	width: fit-content;
+	height: 109px;
+	color: #5f5f5f;
+}
+
+#footer-contents-right {
+	height: 109px;
+	width: fit-content;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+#footer-logo {
+	color: #FF8002;
+	margin-bottom: 50px;
+}
+
+#footer-text {
+	display: flex;
+	font-size: 14px;
+	gap: 20px;
+}
+
+#footer-sns {
+	float: right;
+	display: flex;
+	gap: 20px;
+	width: fit-content;
+}
+
+#footer-link {
+	display: flex;
+	gap: 10px;
+}
+
+#main1-container {
+	margin: 0px auto;
+	overflow: hidden;
+}
+
+#slide-btn-container {
+	width: 1300px;
+	height: 60px;
+	position: absolute;
+	left: 65px;
+	top: 320px;
+}
+
+#main1-btn-container {
+	width: fit-content;
+	height: 161px;
+	position: absolute;
+	left: 405px;
+	top: 683px;
+	z-index: 999;
+	transform: translateY(10%);
+	display: flex;
+	gap: 50px;
+	color: #222222;
+}
+
+.main1-btn-box {
+	width: 250px;
+	height: 61px;
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: 1px 1px 20px 1px rgba(0, 0, 0, 0.1);
+	padding: 50px;
+	cursor: pointer;
+}
+
+.main1-btn-title {
+	display: flex;
+	justify-content: space-between;
+}
+
+.main1-btn-title-text {
+	line-height: 20px;
+	font-size: 20px;
+	display: flex;
+	gap: 5px;
+	align-items: center;
+}
+
+.main1-btn-title-subText {
+	margin-top: 20px;
+	color: #5f5f5f;
+}
+
+#main2-container {
+	width: 1420px;
+	margin: 275px auto;
+	position: relative;
+	margin-bottom: 275px;
+}
+
+#main2-container>img {
+	width: 1200px;
+	height: 600px;
+}
+
+#main2-text-container {
+	width: 359px;
+	height: 174px;
+	border-radius: 20px;
+	box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.1);
+	padding: 40px;
+	position: absolute;
+	right: 00px;
+	bottom: 130px;
+	background-color: white;
+}
+
+#main2-text-title {
+	color: #222222;
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 20px;
+}
+
+#main2-text-contents {
+	margin-top: 20px;
+	font-size: 14px;
+	line-height: 160%;
+	color: #5f5f5f;
+}
+
+.main2-text-btn {
+	padding: 8px 20px;
+	border: 1px solid #ededed;
+	border-radius: 5px;
+	color: #5f5f5f;
+	background-color: white;
+	font-size: 15px;
+	cursor: pointer;
+}
+
+#main3-container {
+	width: 1920px;
+	height: 400px;
+	position: relative;
+}
+
+.main3-title {
+	font-size: 25px;
+	line-height: 25px;
+	font-weight: 500;
+}
+
+.main3-contents {
+	font-size: 14px;
+	line-height: 160%;
+	margin: 20px 0px;
+}
+
+.main3-btn {
+	padding: 10px 15px;
+	background-color: rgba(255, 255, 255, 0);
+	border: 1px solid #ffffff;
+	color: #ffffff
+}
