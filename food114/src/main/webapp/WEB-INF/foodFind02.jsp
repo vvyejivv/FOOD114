@@ -433,6 +433,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 			// 페이지 체인지
 			fnPageChange : function(link,map){
 				var self=this;
+				console.log(map);
 				$.pageChange(link, map);
 			},
 			// 해당 주소의 위도 경도 구하기
