@@ -64,9 +64,10 @@ public class OrderServiceImpl implements OrderService {
 			dataMap.put("phone", map.get("phone"));
 			orderMapper.insertOrderAdd(dataMap);
 	        for (Map<String, Object> menu : list) {
+	        	System.out.println(menu);
 	        	dataMap.put("menuNo", menu.get("menuNo"));
 	        	dataMap.put("count", menu.get("cnt"));
-	        	dataMap.put("unitPrice", menu.get("price"));
+	        	dataMap.put("unitPrice", menu.get("unitPrice"));
 	            orderMapper.insertOrderDetailAdd(dataMap);
 	        }
 			resultMap.put("result", "success");

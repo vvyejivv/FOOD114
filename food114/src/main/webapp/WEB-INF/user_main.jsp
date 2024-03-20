@@ -27,13 +27,13 @@
 					<div class="swiper-wrapper"
 						style="width: 1420px; overflow: visible;">
 						<div class="swiper-slide" style="border-radius: 10px;"
-							@click="fnPageChange('event-web-list.do',map)">
+							@click="fnPageChange('food114-event-view.do',{boardNo:18,endYn : 'N'})">
 							<img src="../img/event1.png">
 						</div>
-						<div class="swiper-slide" style="border-radius: 10px;" @click="fnPageChange('food114-event.do',map)">
+						<div class="swiper-slide" style="border-radius: 10px;" @click="fnPageChange('food114-event-view.do',{boardNo:19,endYn:'N'})">
 							<img src="../img/event2.png">
 						</div>
-						<div class="swiper-slide" style="border-radius: 10px;" @click="fnPageChange('food114-event.do',map)">
+						<div class="swiper-slide" style="border-radius: 10px;" @click="fnPageChange('food114-event-view.do',{boardNo:20,endYn:'N'})">
 							<img src="../img/event3.png">
 						</div>
 					</div>

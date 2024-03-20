@@ -159,16 +159,16 @@
 								<th class="thFirst">제품명</th>
 								<th>수량</th>
 								<th class="thSecond">금액</th>
-								<th>삭제</th>
+								<!-- <th>삭제</th> -->
 							</tr>
 							<template>
 								<tr v-for="(item,index) in selectMenuList">
 									<td class="tdFirst">{{item.menuName}}</td>
 									<td>{{item.cnt}}</td>
 									<td class="tdSecond">{{item.price.toLocaleString()}}원</td>
-									<td>
+									<!-- <td>
 										<div class="removeBtn" @click="fnRemoveMenu(index)">x</div>
-									</td>
+									</td> -->
 								</tr>
 							</template>
 						</table>

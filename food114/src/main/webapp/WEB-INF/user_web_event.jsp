@@ -61,6 +61,9 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	text-overflow: ellipsis;
+	text-wrap : nowrap;
+	overflow: hidden;
 	/* border: 1px solid #ccc; */
 }
 
@@ -94,7 +97,7 @@
 										<img :src=item.filePath+item.fileName
 											style="object-fit: cover; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width:380px;">
 									</div>
-									<div class="titleBox">{{item.title}}</div>
+									<div class="titleBox"><span style="text-align: left; max-width: 350px; text-overflow: ellipsis; overflow: hidden;">{{item.title}}</span></div>
 								</div>
 								<div class="periodBox">{{item.beginTime2}} ~
 									{{item.endTime2}}</div>

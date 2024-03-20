@@ -73,8 +73,8 @@ td {
 	cursor: pointer;
 }
 </style>
-<div id="Container">
-	<%@include file="food114_header.jsp"%>
+	<div id="Container">
+		<%@include file="food114_header.jsp"%>
 		<div style="width: 1420px; margin: 0px auto;">
 			<%@include file="user_web_event_header.jsp"%>
 			<div id="app">
@@ -83,10 +83,8 @@ td {
 					<div style="width: 1420px; margin: 0px auto;">
 						<table style="width: 1420px;">
 							<tr>
-								<td style="border-top: 2px solid #ccc"
-									class="borderTitle">제목</td>
-								<td
-									style="border-top: 2px solid #ccc; overflow: hidden;"><div
+								<td style="border-top: 2px solid #ccc" class="borderTitle">제목</td>
+								<td style="border-top: 2px solid #ccc; overflow: hidden;"><div
 										style="white-space: nowrap; text-overflow: ellipsis; max-width: 900px; overflow: hidden">{{board.title}}</div></td>
 							</tr>
 							<tr>
@@ -98,22 +96,27 @@ td {
 								<td colspan="3">{{board.cdateTime}}</td>
 							</tr>
 							<tr>
-								<td colspan="4" style="border-bottom: 1px solid #ccc; padding: 35px 0px;"
-									v-html="board.contents"></td>
+								<td colspan="4"
+									style="border-bottom: 1px solid #ccc; padding: 35px 0px; text-align: center;">
+									<img src="../img/eventContents1.png" style="width: 1080px;" v-if="board.boardNo==18">
+									<img src="../img/eventContents2.png.gif" style="width: 1080px;" v-if="board.boardNo==19">
+									<img src="../img/eventContents3.png.gif" style="width: 1080px; 	" v-if="board.boardNo==20">
+									<img src="../img/eventContents4.jpg" style="width: 1080px; 	" v-if="board.boardNo==22">
+									
+									</td>
 							</tr>
 						</table>
 						<div style="text-align: right">
-							<button
-								style="margin: 10px; margin-bottom: 35px;" class="listButton"
-								@click="fnGoList(endYn)">목록</button>
+							<button style="margin: 10px; margin-bottom: 35px;"
+								class="listButton" @click="fnGoList(endYn)">목록</button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 
-	<%@include file="food114_footer.jsp"%>
-</div>
+		<%@include file="food114_footer.jsp"%>
+	</div>
 	<script>
 		var app = new Vue({
 			el : '#app',

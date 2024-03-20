@@ -32,7 +32,7 @@
 			<div style="overflow: hidden;">
 				<div id="footer-sns">
 					<img src="../img/instagram.png">
-					<img src="../img/github.png"
+					<img src="../img/github.png" style="cursor: pointer;"
 						@click="fnLink('https://github.com/dlehdwo01/TeamProject1-FOOD114')">
 				</div>
 			</div>
