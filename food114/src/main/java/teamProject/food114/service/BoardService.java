@@ -15,6 +15,12 @@ public interface BoardService {
 
 	// 공지사항 게시글 상세보기
 	HashMap<String, Object> searchBoardInfo(HashMap<String, Object> map);
+	
+	// 공지사항 게시글 작성
+	HashMap<String, Object> insertNotice(HashMap<String, Object> map);
+	
+	// 공지사항 게시글 삭제
+	HashMap<String, Object> deleteNoticeList(HashMap<String, Object> map);
 
 	// Biz 이벤트 목록 출력
 	HashMap<String, Object> searchBizEventList(HashMap<String, Object> map);
@@ -29,4 +35,5 @@ public interface BoardService {
 	HashMap<String, Object> editBizEventBoard(HashMap<String, Object> map);
 	
 	HashMap<String, Object> searchBoardListLimit(HashMap<String, Object> map);
+	
 }

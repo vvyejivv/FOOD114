@@ -33,8 +33,8 @@
 	
 	<!-- 주문하기  -->	
 	<insert id="insertOrderAdd" parameterType="hashmap" useGeneratedKeys="true" keyProperty="ORDERNO" keyColumn="ORDERNO">
-		INSERT INTO FOOD114_ORDERS (USERID, BIZID, ORDERDATE,STATUS)
-		VALUES(#{userId}, #{bizId}, NOW(),#{status})
+		INSERT INTO FOOD114_ORDERS (USERID, BIZID, ADDR, DETAIL, PHONE, ORDERDATE,STATUS)
+		VALUES(#{userId}, #{bizId}, #{addr},#{detail},#{phone},NOW(),#{status})
 	</insert>
 	<insert id="insertOrderDetailAdd" parameterType="hashmap" >
 		INSERT INTO FOOD114_ORDER_DETAIL
@@ -50,7 +50,6 @@
 	<update id="updateOrder" parameterType="hashmap">
 		UPDATE FOOD114_ORDERS
 		SET 
-			ADDR = #{addr},
 			DETAIL = #{detail},
 			PHONE = #{phone},
 			ORDERREQUEST = #{orderRequest},

@@ -30,26 +30,64 @@ public class BizController {
 	@Autowired
 	HttpSession session;
 
-	@RequestMapping("/business-signup.do")
-	public String businessSignup(Model model) throws Exception {
-		
-		return "/business_signup"; // business_signup.jsp
-	}
-
-	@RequestMapping("/orderTest.do")
-	public String orderTest(Model model) throws Exception {
-		return "/orderTest"; // orderTest.jsp
-	}
-
-	@RequestMapping("/mapSearch.do")
-	public String mapSearch(Model model) throws Exception {
-		return "/mapSearch"; // mapSearch.jsp
+	// 사업자 메인
+	@RequestMapping("/food114-biz.do")
+	public String bizMain(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
+			throws Exception {
+		request.setAttribute("map", map);
+		return "/biz_main";
 	}
 
 	// 사업자 로그인
-	@RequestMapping("/bizLogin.do")
+	@RequestMapping("/food114-biz-login.do")
 	public String bizLogin(Model model) throws Exception {
-		return "/bizLogin";
+		return "/biz_Login";
+	}
+
+	// 사업자 회원가입 페이지
+	@RequestMapping("/food114-biz-join.do")
+	public String businessSignup(Model model) throws Exception {
+
+		return "/biz_join"; // business_signup.jsp
+	}
+
+	// 사업자 메뉴 추가
+	@RequestMapping("/food114-biz-menu-insert.do")
+	public String bizMenuInsert(Model model) throws Exception {
+		if (session.getAttribute("sessionBizId") == null) {
+			return "redirect:/nosession.do";
+		}
+		return "/biz_menu_insert"; // biz_menu_insert.jsp
+	}
+
+	// 사업자 가게 정보
+	@RequestMapping("/food114-biz-info.do")
+	public String bizInfo(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
+			throws Exception {
+		if (session.getAttribute("sessionBizId") == null) {
+			return "redirect:/nosession.do";
+		}
+		return "/biz_info"; // biz_info.jsp
+	}
+
+	// 사업자 메뉴 목록
+	@RequestMapping("/food114-biz-menu-list.do")
+	public String bizMenuUpdate(Model model) throws Exception {
+		if (session.getAttribute("sessionBizId") == null) {
+			return "redirect:/nosession.do";
+		}
+		return "/biz_menu_list"; // biz_menu_update.jsp
+	}
+
+	// 사업자 메뉴 수정
+	@RequestMapping("/food114-biz-menu-update.do")
+	public String bizMenuUpdateView(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
+			throws Exception {
+		if (session.getAttribute("sessionBizId") == null) {
+			return "redirect:/nosession.do";
+		}
+		request.setAttribute("map", map);
+		return "/biz_menu_update"; // biz_menu_update_view.jsp
 	}
 	
 	// 세션없을때
@@ -58,36 +96,29 @@ public class BizController {
 		return "/nosession";
 	}
 
-	// 사업자 메인
-	@RequestMapping("/business-main.do")
-	public String businessMain(Model model) throws Exception {
-		
-		return "/business_main"; // business_main.jsp
-	}
-	//20240319 메인
-	@RequestMapping("/biz_main.do")
-	public String bizMain(Model model) throws Exception {
-		
-		return "/biz_main";
-	}
-
-	// 가게 정보
-	@RequestMapping("/shopInfo.do")
+	// 가게 자세히보기 클릭시 메뉴 및 가게 정보
+	@RequestMapping("/food114-shop-info.do")
 	public String shopInfo(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
 		request.setAttribute("map", map);
-		return "/shopInfo";
+		return "/user_shop_info";
 	}
 
-	
-	
-	
-	// 가게 이벤트
-	@RequestMapping("/shopEvent.do")
+	// 사업자 이벤트 등록/수정
+	@RequestMapping("/food114-shop-event.do")
 	public String shopEvent(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
 		request.setAttribute("map", map);
-		return "/shopEvent";
+		return "/user_shop_event";
+	}
+	
+	// 사업자 판매 통계
+	@RequestMapping("/food114-biz-data.do")
+	public String bizSales(Model model) throws Exception {
+		if (session.getAttribute("sessionBizId") == null) {
+			return "redirect:/nosession.do";
+		}
+		return "/biz_sales_data"; // biz_sales_data.jsp
 	}
 
 //	@RequestMapping(value = "/bizSignup.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
@@ -97,8 +128,7 @@ public class BizController {
 //		resultMap = bizService.addBiz(map);
 //		return new Gson().toJson(resultMap);
 //	}
-	
-	// 사업자 로그인
+
 	@RequestMapping(value = "/biz-login.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String consumerLogin(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
@@ -107,76 +137,7 @@ public class BizController {
 		return new Gson().toJson(resultMap);
 	}
 
-	@RequestMapping("/mapTest.do")
-	public String mapTest(Model model) throws Exception {
-		return "/mapTest"; // mapTest.jsp
-	}
 
-	@RequestMapping("/mapTest2.do")
-	public String mapTest2(Model model) throws Exception {
-		return "/mapTest2"; // mapTest2.jsp
-	}
-
-	@RequestMapping("/mapTest3.do")
-	public String mapTest3(Model model) throws Exception {
-		return "/mapTest3"; // mapTest3.jsp
-	}
-
-	@RequestMapping("/bizView.do")
-	public String bizView(Model model) throws Exception {
-		return "/bizView"; // bizView.jsp
-	}
-
-	@RequestMapping("/biz-menu-update.do")
-	public String bizMenuUpdate(Model model) throws Exception {
-		if(session.getAttribute("sessionBizId")==null) {
-			return "redirect:/nosession.do";
-		}
-		return "/biz_menu_update"; // biz_menu_update.jsp
-	}
-
-	@RequestMapping("/biz-menu-insert.do")
-	public String bizMenuInsert(Model model) throws Exception {
-		if(session.getAttribute("sessionBizId")==null) {
-			return "redirect:/nosession.do";
-		}
-		return "/biz_menu_insert"; // biz_menu_insert.jsp
-	}
-
-	@RequestMapping("/biz-menu-update-view.do")
-	public String bizMenuUpdateView(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
-			throws Exception {
-		if(session.getAttribute("sessionBizId")==null) {
-			return "redirect:/nosession.do";
-		}
-		request.setAttribute("map", map);
-		return "/biz_menu_update_view"; // biz_menu_update_view.jsp
-	}
-
-	@RequestMapping("/biz-info.do")
-	public String bizInfo(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
-			throws Exception {
-		if(session.getAttribute("sessionBizId")==null) {
-			return "redirect:/nosession.do";
-		}
-		return "/biz_info"; // biz_info.jsp
-	}
-
-	@RequestMapping("/biz-sales.do")
-	public String bizSales(Model model) throws Exception {
-		if(session.getAttribute("sessionBizId")==null) {
-			return "redirect:/nosession.do";
-		}
-		return "/biz_sales_data"; // biz_sales_data.jsp
-	}	
-
-	@RequestMapping("/bizOrder.do")
-	public String bizOrder(Model model) throws Exception {
-		if(session.getAttribute("sessionBizId")==null) {
-			return "redirect:/nosession.do";
-		}
-		return "/bizOrder"; // bizOrder.jsp
-	}
 
 	// 은행,카테고리,이메일 불러오기
 	@RequestMapping(value = "/selectAll.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
@@ -283,7 +244,7 @@ public class BizController {
 		resultMap = bizService.searchAreaList(map);
 		return new Gson().toJson(resultMap);
 	}
-	
+
 	@RequestMapping(value = "/restView.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String restView(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
@@ -291,7 +252,7 @@ public class BizController {
 		resultMap = bizService.searchBizView(map);
 		return new Gson().toJson(resultMap);
 	}
-	
+
 	@RequestMapping(value = "/nameRestList.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String nameRestList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
@@ -345,7 +306,7 @@ public class BizController {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		return "redirect:biz-info.do";
+		return "redirect:food114-biz-info.do";
 	}
 
 	// 현재 시간을 기준으로 파일 이름 생성
@@ -370,10 +331,10 @@ public class BizController {
 	@ResponseBody
 	public String eventBizList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		resultMap=bizService.searchBizEventList(map);
+		resultMap = bizService.searchBizEventList(map);
 		return new Gson().toJson(resultMap);
 	}
-	
+
 	// 배달 가능한 가게만 호출
 	@RequestMapping(value = "/baedalok.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody

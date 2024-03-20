@@ -22,25 +22,20 @@
 		<div id="header-container">
 			<div id="header-contents">
 				<div id="header-contents-left">
-					<div id="header-logo" @click="fnPageChange('biz_main.do',map)">FOOD114</div>
+					<div id="header-logo" @click="fnPageChange('food114-biz.do',map)">FOOD114</div>
 					<div id="header-menu-container">
-						<!-- <div id="header-menu" @click="fnPageChange('food114_foodfind.do',map)">메뉴</div> -->
-						<div id="header-menu" class="header-menu-order" @click="fnPageChange('biz-info.do',map)">
+						<div id="header-menu" class="header-menu-order" @click="fnPageChange('food114-biz-info.do',map)">
 							<div class="header-point"></div>
 							내 가게관리
 						</div>
-						<div id="header-menu" @click="fnPageChange('boardNoticeList.do',map)">공지사항</div>
-						<div id="header-menu" @click="fnPageChange('event-web-list.do',map)">이벤트</div>
+						<div id="header-menu" @click="fnPageChange('food114-biz-notice.do',map)">공지사항</div>
+						<!-- <div id="header-menu" @click="fnPageChange('food114-biz-event.do',map)">이벤트</div> -->
 						<div id="header-menu" @click="fnPageChange('food114.do',map)">고객사이트</div>
 					</div>
 				</div>
 				<!-- 로그인 했을때 -->
 				<div id="header-contents-right" v-if="map.sessionId!=''">
-					<img src="../img/myPage.png" @click="fnPageChange('biz-info.do',{})">
 					<img src="../img/log-out.png" @click="fnLogout">
-				</div>
-				<div id="header-contents-right" v-if="map.sessionId==''">
-				<img src="../img/myPage.png" @click="fnPageChange('bizLogin.do',{})">
 				</div>
 			</div>
 		</div>
@@ -53,7 +48,7 @@
 		el : '#header',
 		data : {
 			map : {
-				sessionId : "${sessionId}", // 현재 로그인된 아이디
+				sessionId : "${sessionBizId}", // 현재 로그인된 아이디
 				nowCategory : "${map.category}", // 현재 선택된 카테고리
 				inputAddr : "${map.inputAddr}", // 현재 입력된 주소
 				latitude : "${map.latitude}", // 현재 입력된 주소의 위도

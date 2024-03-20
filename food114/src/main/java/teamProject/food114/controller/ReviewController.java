@@ -27,31 +27,31 @@ public class ReviewController {
 	HttpSession session;
 
 	
-	//가게 리뷰
-	@RequestMapping("/shopReview.do")
+	// 고객 - 가게 클릭시 가게 리뷰
+	@RequestMapping("/food114-shop-review.do")
 	public String shopReview(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		request.setAttribute("map", map);
 		/* System.out.println(map); */
-		return "/shopReview"; 
+		return "/user_shop_review"; 
 	}
 	
-	//리뷰 보기 사업자
-	@RequestMapping("/bizReview.do")
+	// 사업자 고객 리뷰 목록
+	@RequestMapping("/food114-biz-review.do")
 	public String bizReview(Model model) throws Exception {
 		if(session.getAttribute("sessionBizId")==null) {
 			return "redirect:/nosession.do";
 		}
-		return "/bizReview"; // bizReview.jsp
+		return "/biz_review"; // bizReview.jsp
 	}
 	
-	//리뷰 상세보기 사업자
-	@RequestMapping("/bizReview_info.do")
+	// 사업자 고객 리뷰 상세보기
+	@RequestMapping("/food114-biz-review-view.do")
 	public String bizReview_info(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		request.setAttribute("map", map);
 		if(session.getAttribute("sessionBizId")==null) {
 			return "redirect:/nosession.do";
 		}
-		return "/bizReview_info"; // bizReview_info.jsp
+		return "/biz_review_view"; // bizReview_info.jsp
 	}
 	
 	//리뷰 보기 고객 내정보
@@ -61,7 +61,7 @@ public class ReviewController {
 			map.put("nowPage",1);
 		}
 		request.setAttribute("map", map);
-		return "/myPage_reviewList"; // bizReview.jsp
+		return "/user_myPage_review"; // bizReview.jsp
 	}
 	
 	//리뷰 정보(user)
@@ -73,16 +73,16 @@ public class ReviewController {
 		return new Gson().toJson(resultMap);
 	}
 	
-	@RequestMapping("/myPage_reviewAdd.do")
+	@RequestMapping("/food114-myPage-review-update.do")
 	public String myPage_reviewAdd(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		request.setAttribute("map", map);
-		return "/myPage_reviewAdd"; 
+		return "/user_myPage_review_update"; 
 	}
 	
-	@RequestMapping("/myPage_review_Insert.do")
+	@RequestMapping("/food114-myPage-review-insert.do")
 	public String myPage_review_Insert(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		request.setAttribute("map", map);
-		return "/myPage_review_Insert"; 
+		return "/user_myPage_review_insert"; 
 	}
 	
 	@RequestMapping(value = "/myPageReViewList.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")

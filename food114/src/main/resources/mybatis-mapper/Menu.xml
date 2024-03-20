@@ -123,5 +123,14 @@
 		#{status}
 		WHERE MENUNO = #{menuNo}
 	</update>
-
+	
+	<update id="updateSalePrice" parameterType="hashmap">
+		UPDATE FOOD114_EVENT_MENU SET SALEPRICE = #{salePrice} WHERE MENUNO = #{menuNo}
+	</update>
+	<insert id="insertSalePrice" parameterType="hashmap">
+		INSERT INTO FOOD114_EVENT_MENU VALUES(#{eventNo}, #{menuNo}, #{salePrice})
+	</insert>
+	<delete id="deleteSalePrice" parameterType="hashmap">
+		DELETE FROM FOOD114_EVENT_MENU WHERE MENUNO = #{menuNo}
+	</delete>
 </mapper>

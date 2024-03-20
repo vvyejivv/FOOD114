@@ -26,12 +26,12 @@ public class OrderController {
 	OrderService orderService;
 
 	// 주문하기 페이지
-	@RequestMapping("/order.do")
+	@RequestMapping("/food114-shop-order.do")
 	public String order(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
 		request.setAttribute("map", map);
 		System.out.println(map);
-		return "/order";
+		return "/user_shop_order";
 	}
 
 	// 주문할 고객 주소

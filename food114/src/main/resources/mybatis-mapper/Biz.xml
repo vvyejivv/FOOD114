@@ -7,7 +7,7 @@
 	<select id="selectEventStatus" parameterType="hashmap"
 		resultType="teamProject.food114.model.Biz">
 		SELECT
-		<![CDATA[ setbegintime<= DATE_FORMAT(NOW(), '%H%i')
+		<![CDATA[ date_format(NOW(),"%Y%m%d")>=date_format(begintime,"%Y%m%d") AND date_format(NOW(),"%Y%m%d")<=date_format(endtime,"%Y%m%d") and setbegintime<= DATE_FORMAT(NOW(), '%H%i')
 		AND DATE_FORMAT(NOW(), '%H%i')<= setendtime AS EVENTSTATUS ]]>
 		FROM
 		FOOD114_BOARD
@@ -62,7 +62,6 @@
 	</select>
 	<select id="selectBizList" parameterType="hashmap"
 		resultType="teamProject.food114.model.Biz">
-
 		SELECT
 		I.*,
 		REVIEWAVG,
@@ -96,7 +95,7 @@
 		FOOD114_BIZ_INFO I
 		LEFT JOIN FOOD114_ORDERS O ON I.BIZID =
 		O.BIZID
-		LEFT JOIN FOOD114_REVIEW R ON O.ORDERNO = R.ORDERNO
+		LEFT JOIN FOOD114_REVIEW R ON O.ORDERNO = R.ORDERNO AND R.P_REVIEWNO IS NULL
 		LEFT JOIN
 		FOOD114_BOARD B ON I.BIZID = B.USERID AND B.ENDYN = 'N'
 		GROUP BY
@@ -306,8 +305,8 @@
 		FOOD114_BIZ_INFO I
 		LEFT JOIN
 		FOOD114_ORDERS O ON I.BIZID = O.BIZID
-		LEFT JOIN FOOD114_REVIEW R ON
-		O.ORDERNO = R.ORDERNO
+		LEFT JOIN FOOD114_REVIEW R ON 
+		O.ORDERNO = R.ORDERNO AND R.P_REVIEWNO IS NULL
 		LEFT JOIN FOOD114_BOARD B ON I.BIZID = B.USERID
 		AND B.ENDYN = 'N'
 		GROUP BY
@@ -369,7 +368,7 @@
 		FOOD114_ORDERS O ON I.BIZID =
 		O.BIZID
 		LEFT JOIN FOOD114_REVIEW R ON
-		O.ORDERNO = R.ORDERNO
+		O.ORDERNO = R.ORDERNO AND R.P_REVIEWNO IS NULL
 		LEFT JOIN
 		FOOD114_BOARD B ON I.BIZID = B.USERID
 		AND B.ENDYN = 'N'
@@ -418,7 +417,7 @@
 		LEFT JOIN
 		FOOD114_ORDERS O ON I.BIZID = O.BIZID
 		LEFT JOIN FOOD114_REVIEW R ON
-		O.ORDERNO = R.ORDERNO
+		O.ORDERNO = R.ORDERNO AND R.P_REVIEWNO IS NULL
 		LEFT JOIN FOOD114_BOARD B ON I.BIZID = B.USERID
 		AND B.ENDYN = 'N'
 		GROUP BY
@@ -435,6 +434,8 @@
 	<select id="selectBizDelivery" parameterType="hashmap"
 		resultType="teamProject.food114.model.Biz">
 		SELECT
+DATE_FORMAT(RE.BEGINTIME,"%y/%m/%d") AS BEGINTIME,
+DATE_FORMAT(RE.ENDTIME,"%y/%m/%d") AS ENDTIME,
 		ENDYN,
 		I.*,
 		REVIEWAVG,
@@ -470,6 +471,8 @@
 		B.CONTENTS,
 		B.SETBEGINTIME,
 		B.SETENDTIME,
+		B.BEGINTIME,
+		B.ENDTIME,
 		COUNT(REVIEWNO) AS
 		REVIEWCNT,
 		B.ENDYN
@@ -480,7 +483,7 @@
 		I.BIZID =
 		O.BIZID
 		LEFT JOIN FOOD114_REVIEW R ON
-		O.ORDERNO = R.ORDERNO
+		O.ORDERNO = R.ORDERNO AND R.P_REVIEWNO IS NULL
 		LEFT JOIN
 		FOOD114_BOARD B ON I.BIZID = B.USERID
 		AND B.ENDYN = 'N'
@@ -502,14 +505,14 @@
 		OC ON
 		OC.BIZID=I.BIZID
 		WHERE BIZCATEGORY LIKE
-		(#{nowCategory})
+		(#{nowCategory}) ${keyword}
 		${order}
 	</select>
 
 	<select id="selectMenuSample" parameterType="hashmap"
 		resultType="teamProject.food114.model.Menu">
 		SELECT MENU,
-		CONCAT(SUBSTRING(PRICE,1,1),',',SUBSTRING(PRICE,2)) AS PRICE,
+		PRICE,
 		CONCAT(FILEPATH, FILENAME) AS PATH FROM FOOD114_MENU WHERE BIZID =
 		#{bizId} LIMIT 4
 	</select>
