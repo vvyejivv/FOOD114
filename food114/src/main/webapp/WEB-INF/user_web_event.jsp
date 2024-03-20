@@ -144,7 +144,7 @@
 			},
 			fnBoardView : function(boardNo) {
 				var self = this;
-				$.pageChange("/event-web-view.do", {
+				$.pageChange("/food114-event-view.do", {
 					boardNo : boardNo,
 					endYn : self.endYn
 				});

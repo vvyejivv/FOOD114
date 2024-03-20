@@ -95,12 +95,12 @@ public class BoardController {
 	}
 
 	// 웹 주관 이벤트 페이지 상세보기
-	@RequestMapping("/event-web-view.do")
+	@RequestMapping("/food114-event-view.do")
 	public String eventWebView(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
 		request.setAttribute("boardNo", map.get("boardNo"));
 		request.setAttribute("endYn", map.get("endYn"));
-		return "/eventView";
+		return "/user_web_event_view";
 	}
 
 	// 자주하는 질문 (목록/상세보기)

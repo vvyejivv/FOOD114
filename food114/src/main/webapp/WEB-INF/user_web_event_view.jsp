@@ -76,7 +76,7 @@ td {
 <div id="Container">
 	<%@include file="food114_header.jsp"%>
 		<div style="width: 1420px; margin: 0px auto;">
-			<%@include file="event_header.jsp"%>
+			<%@include file="user_web_event_header.jsp"%>
 			<div id="app">
 				<div
 					style="width: 1420px; color: rgb(72, 72, 72); margin-top: 35px; padding: 0px;">
@@ -141,7 +141,7 @@ td {
 				},
 				fnGoList : function(type) {
 					var self = this;
-					$.pageChange("/event-web-list.do", {
+					$.pageChange("/food114-event.do", {
 						endYn : type
 					});
 				}

@@ -105,7 +105,7 @@ a {
 
 			fnSelect : function(endYn) {
 				var self = this;
-				$.pageChange("/event-web-list.do", {
+				$.pageChange("/food114-event.do", {
 					endYn : endYn
 				});
 			}
