@@ -206,6 +206,10 @@
 			eventStatus : "",
 			orderAddr :"${map.inputAddr}", /* 주문하기에서 설정한 주소  */
 			orderAddrDetail :"${map.detail}", /* 주문하기에서 설정한 상세 주소  */
+			phone : "${map.phone}",
+			orderRequest :"${map.request}",
+			
+			
 
 		},
 		methods : {
@@ -332,6 +336,9 @@
 						status : self.status, /* 결제전  */
 						addr : self.orderAddr,
 						addrDetail : self.orderAddrDetail,
+						phone : self.phone,
+						orderRequest : self.orderRequest,
+						
 					};
 					$.ajax({
 						url : "orderAdd.dox",

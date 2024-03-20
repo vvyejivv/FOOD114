@@ -39,11 +39,11 @@
                             <!-- 고객이름 / 별점-->
                             <div style="width: fit-content; height: 17px; display: flex; margin-bottom: 15px;">
                                 <div style="width: fit-content; margin-right: 15px; line-height: 17px; color: #000000; font-size: 17px;">{{item.userId}}님</div>
-                                <div style="width: 78.83; height: 13.47px; margin-right: 2px;"><img src="../img/star.png"></div>
-                                <div style="width: 78.83; height: 13.47px; margin-right: 2px;"><img src="../img/star.png"></div>
-                                <div style="width: 78.83; height: 13.47px; margin-right: 2px;"><img src="../img/star.png"></div>
-                                <div style="width: 78.83; height: 13.47px; margin-right: 2px;"><img src="../img/star.png"></div>
-                                <div style="width: 78.83; height: 13.47px; margin-right: 2px;"><img src="../img/star_gray.png"></div>
+                                 <template v-for="i in 5">
+                                 <div style="width: 78.83; height: 13.47px; margin-right: 2px;">
+							        <img :src="i <= item.rating ? '../img/star.png' : '../img/star_gray.png'">
+                                 </div>
+							    </template>
                             </div>
                             <!-- 메뉴 -->
                             <div style="width: fit-content;; height:14px; line-height: 14px; font-size: 14px; color: #9E9E9E;">{{item.menuList}}</div>

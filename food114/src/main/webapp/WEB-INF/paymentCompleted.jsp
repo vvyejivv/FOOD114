@@ -98,9 +98,9 @@
 			fnPageChang : function(type){
 				var self = this;
 				if(type == "home"){
-					$.pageChange("/food114-2.do", {});
+					$.pageChange("/food114.do", {});
 				}else if(type == "myPage"){
-					$.pageChange("/myInfo.do", {});
+					$.pageChange("/food114-myPage.do", {});
 				}
 			}
 		    
