@@ -8,7 +8,6 @@
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue@2/vue.min.js"></script>
 <meta charset="UTF-8">
 <title>FOOD114 사장님 페이지</title>
 <style>

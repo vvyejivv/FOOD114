@@ -244,10 +244,10 @@
 
 							<!-- 가게 보여주기 -->
 							<div v-for="(item,index) in list.bizBaedalOkList" class="bizBox"
-								:style="{'background-color': !item.contents? '#ededed3c':'white'}"
+								
 								v-if="(map.nowPage*showCnt-showCnt)<= index && index<(map.nowPage*showCnt)">
 								<div class="bizBoxContent">
-									<img :src="item.path">
+									<img :src="item.path" style="border-radius: 0px;">
 
 									<div class="bizInfo">
 
@@ -370,9 +370,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 			fnAddrSelect : function(addr,detail){
 				var self=this;
 				self.map.detail=detail;
-				self.map.inputAddr=addr;
-				
-				
+				self.map.inputAddr=addr;				
 			},
 			
 			fnCloseModal:function(){

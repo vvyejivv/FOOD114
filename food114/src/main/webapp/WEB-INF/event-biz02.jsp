@@ -207,7 +207,7 @@
 									<div>주소 : {{item.newAddr}}</div>
 									<div>상세주소 : {{item.detail}}</div>
 									<button class="main2-text-btn"
-										@click="fnAddrSelect(item.newAddr)">선택</button>
+										@click="fnAddrSelect({newAddr : item.newAddr, detail : item.detail})">선택</button>
 								</div>
 							</template>
 						</div>
@@ -218,7 +218,16 @@
 
 				<div class="bottomSection">
 					<div style="width: 1420px; margin: 0 auto;">
-						<div style="height: 44px;">
+						<div
+							style="height: 44px; display: flex; justify-content: end; gap: 10px;">
+
+							<div style="display: inline-block;">
+								<input placeholder="검색어를 입력해주세요." v-model="keyword"
+									style="font-size: 14px; border: 1px solid #ededed; border-radius: 5px; padding: 12px 23.5px 12px 23.5px; color: #5f5f5f;">
+							</div>
+							<button @click="fnList()" style="border-radius: 5px; background-color: #ff8002; color:white; border:1px solid #ffffff;padding: 5px 10px; cursor:pointer;">검색</button>
+
+
 							<select class="orderSelect" v-model="map.order">
 								<option value="ORDER BY ENDYN DESC">기본 정렬순</option>
 								<option value="ORDER BY ENDYN DESC,REVIEWAVG DESC">별점
@@ -228,13 +237,11 @@
 								<option value="ORDER BY ENDYN DESC,SETBEGINTIME ASC">이벤트
 									시간순</option>
 							</select>
-							<div style="display: inline-block;">
-								<input
-									style="font-size: 14px; border: 1px solid #ededed; border-radius: 5px; padding: 12px 23.5px 12px 23.5px; color: #5f5f5f;">
-							</div>
+
 						</div>
 					</div>
 					<div id="bizListContainer">
+					<div style="margin-top: 20px; width: 1420px;" v-if="list.bizBaedalOkList.length==0">현재 조회되는 매장이 없습니다.</div>
 						<div id="bizListGrid">
 							<div v-for="(item,index) in list.bizBaedalOkList" class="bizBox"
 								:style="{'background-color': !item.contents? '#ededed3c':'white'}"
@@ -329,7 +336,8 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 				order : "${map.order}",
 				latitude : "${map.latitude}",
 				longitude : "${map.longitude}",
-				nowPage : ${map.nowPage}
+				nowPage : ${map.nowPage},
+				detail : "${map.detail}"
 			},
 			list : {
 				bizBaedalOkList : [] ,
@@ -339,16 +347,19 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 			},
 			totalPage : "", // 총 페이지 
 			showCnt : 9, //보여지는 개수
-			totalCnt : "" // 총 개수
+			totalCnt : "", // 총 개수
+			keyword : ""
 			
 		
 		},
 		
 		methods : {
 			// 주소 선택시
-			fnAddrSelect : function(addr){
+			fnAddrSelect : function(map){
 				var self=this;
-				self.map.inputAddr=addr;				
+				console.log(map);
+				self.map.inputAddr=map.newAddr;	
+				self.map.detail=map.detail;
 			},
 			
 			fnCloseModal:function(){
@@ -385,6 +396,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 						self.list.addrList=data.list;
 						if(self.map.inputAddr==""){
 						self.map.inputAddr=self.list.addrList[0].newAddr;
+						self.map.detail=self.list.addrList[0].detail;
 						}
 						
 					}
@@ -414,9 +426,11 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 			// 배달가능한 가게목록 전체
 			fnList : function() {
 				var self=this;
+				var keyword="AND (BIZNAME LIKE('%"+self.keyword+"%') OR CONTENTS LIKE('%"+self.keyword+"%'))"
 				var nparmap = {
 						nowCategory : self.map.nowCategory,
-						order : self.map.order
+						order : self.map.order,
+						keyword : keyword
 				};
 				$.ajax({
 					url : "baedalok.dox",
@@ -429,7 +443,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 						if(self.map.latitude!="" && self.map.longitude!=""){
 							self.fnBaedalOk();
 						}
-						
+						console.log(self.map);
 					}
 				});
 			},
