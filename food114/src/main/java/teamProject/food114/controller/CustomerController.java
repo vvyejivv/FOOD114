@@ -69,6 +69,13 @@ public class CustomerController {
 		return "/user_map"; // mapTest2.jsp
 	}
 
+	// 지도로보기
+	@RequestMapping("/food114-map2.do")
+	public String mapTest23(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
+			throws Exception {
+		request.setAttribute("map", map);
+		return "/mapTest2"; // mapTest2.jsp
+	}
 	// 마이페이지 - 나의정보 - 비밀번호변경
 	@RequestMapping("/food114-myPage-pwd.do")
 	public String myPagePwd(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)

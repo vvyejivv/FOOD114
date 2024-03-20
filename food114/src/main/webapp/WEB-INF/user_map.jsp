@@ -73,7 +73,7 @@
 	border-top-right-radius: 5px;
 	border-bottom-right-radius: 5px;
 	cursor: pointer;
-	padding: 10px;
+	padding: 8px 10px 10px 10px;
 	margin-left: -10px;
 }
 
@@ -204,6 +204,7 @@ ul, ol {
 	height: 80px;
 	float: left;
 	margin: 10px;
+	object-fit: contain;
 }
 /* 장소 리스트 스타일 */
 #placesList1 {
@@ -284,6 +285,7 @@ ul, ol {
 	height: 200px;
 	margin-left:5px;
 	margin-top:10px;
+	object-fit: contain;
 }
 </style>
 <link rel="stylesheet" href="../css/food114.css">
@@ -337,8 +339,8 @@ ul, ol {
 						</div>
 						<div class="detailView" v-for="item in menuSampleList" style="float:left;">
 							<img class="sampleImg" :src="item.path">
-							<div style="font-size:15px; margin-left:50px;">{{item.menu}}</div>
-							<div style="font-size:15px; margin-left:50px; margin-top:10px; font-weight:bold;">{{parseInt(item.price).toLocaleString()}}<span style="font-size:15px; font-weight:100;">원</span></div>
+							<div style="font-size:15px; margin-left:10px; width:195px; text-align:center;">{{item.menu}}</div>
+							<div style="font-size:15px; margin-left:10px; margin-top:10px; font-weight:bold; width:195px; text-align:center;">{{parseInt(item.price).toLocaleString()}}<span style="font-size:15px; font-weight:100;">원</span></div>
 						</div>
 						<div style="width:100%; text-align:center; clear:both;">
 							<button @click="fnShopInfo(restView.bizId)" class="plusBtn">메뉴 더보기 ❯</button>
