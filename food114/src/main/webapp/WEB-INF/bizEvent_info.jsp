@@ -41,7 +41,7 @@ tr:hover {
 		<%@include file="food114_header(biz).jsp"%>
 			<section style="height: 850px">
 				<%@include file="sideBar_biz.html"%>
-		<div id="app">
+		<div id="app" v-cloak>
 			<div class="mold">
 				<h2>
 					<span style="color: #ff7f00; font-weight: bold;">| </span><span
