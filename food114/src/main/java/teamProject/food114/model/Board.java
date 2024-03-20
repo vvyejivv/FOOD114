@@ -41,4 +41,11 @@ public class Board {
 		
 		private String eventTime;
 		private String path;
+		
+		private String sepaSetBeginTime;
+		private String sepaSetEndTime;
+		private String beginHour;
+		private String beginMinute;
+		private String endHour;
+		private String endMinute;
 }

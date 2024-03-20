@@ -71,7 +71,6 @@
 }
 
 .orderSelect {
-	float: right;
 	font-size: 14px;
 	border: 1px solid #ededed;
 	border-radius: 5px;
@@ -170,7 +169,7 @@
 	<div id="Container">
 		<%@include file="food114_header.jsp"%>
 
-		<div id="app">
+		<div id="app" v-cloak>
 			<div id="container">
 				<div class="topSection">
 					<div id="title">우리 동네 이벤트</div>
@@ -179,7 +178,7 @@
 							disabled="disabled" v-model="map.inputAddr">
 						<button class="addrSearchBtn addrSearch"
 							@click="openAddressSearch">주소 검색하기</button>
-						<button class="addrSearchBtn addrLoad" @click="fnLoadMyAddr">내
+						<button class="addrSearchBtn addrLoad" @click="fnAddrClick">내
 							주소지 불러오기</button>
 					</div>
 				</div>
@@ -194,7 +193,9 @@
 						<div
 							style="background-color: #f7f7f7; margin-bottom: 10px; padding: 10px; color: #222222; font-weight: 500; text-align: center;">내
 							주소지</div>
-						<span style="position: absolute; top: 7px; right: 10px; cursor: pointer;" @click="fnCloseModal">✖</span>
+						<span
+							style="position: absolute; top: 7px; right: 10px; cursor: pointer;"
+							@click="fnCloseModal">✖</span>
 						<div
 							style="display: flex; flex-direction: column; gap: 10px; padding: 10px;">
 							<template v-for="item in list.addrList">
@@ -205,7 +206,8 @@
 									<div>연락처 : {{item.phone}}</div>
 									<div>주소 : {{item.newAddr}}</div>
 									<div>상세주소 : {{item.detail}}</div>
-									<button class="main2-text-btn" @click="fnAddrSelect(item.newAddr)">선택</button>
+									<button class="main2-text-btn"
+										@click="fnAddrSelect(item.newAddr)">선택</button>
 								</div>
 							</template>
 						</div>
@@ -221,19 +223,29 @@
 								<option value="ORDER BY ENDYN DESC">기본 정렬순</option>
 								<option value="ORDER BY ENDYN DESC,REVIEWAVG DESC">별점
 									높은순</option>
+								<option value="ORDER BY ENDYN DESC,ORDERCNT DESC">주문
+									많은순</option>
+								<option value="ORDER BY ENDYN DESC,SETBEGINTIME ASC">이벤트
+									시간순</option>
 							</select>
+							<div style="display: inline-block;">
+								<input
+									style="font-size: 14px; border: 1px solid #ededed; border-radius: 5px; padding: 12px 23.5px 12px 23.5px; color: #5f5f5f;">
+							</div>
 						</div>
 					</div>
 					<div id="bizListContainer">
 						<div id="bizListGrid">
 							<div v-for="(item,index) in list.bizBaedalOkList" class="bizBox"
+								:style="{'background-color': !item.contents? '#ededed3c':'white'}"
 								v-if="(map.nowPage*showCnt-showCnt)<= index && index<(map.nowPage*showCnt)">
 								<div class="bizBoxContent">
-									<img :src="item.path">
+									<img :src="item.path" style="border-radius: 0px;">
 
 									<div class="bizInfo">
+
 										<div class="bizInfoName">
-											<div style="width: fit-content">{{item.bizName}}{{index}}</div>
+											<div style="width: fit-content">{{item.bizName}}</div>
 											<div style="display: flex; gap: 5px;">
 												<div class="takeOutStatus" v-if="item.takeOut!=2">배달</div>
 												<div class="takeOutStatus" v-if="item.takeOut!=1">포장</div>
@@ -243,14 +255,19 @@
 										<div class="bizInfoBottom">
 											<span class="bizInfoBottomText">⭐
 												{{item.reviewAvg}}({{item.reviewCnt}})</span> <span
-												class="bizInfoBottomText" style="color: #9e9e9e;">운영시간
+												class="bizInfoBottomText" style="color: #9e9e9e;">이벤트시간
 												<template
-													v-if="typeof item.openTime!='undefined'&&typeof item.closeTime!='undefined'">
-													{{item.openTime.slice(0,2)}}:{{item.openTime.slice(2)}}~{{item.closeTime.slice(0,2)}}:{{item.closeTime.slice(2)}}
+													v-if="typeof item.setBeginTime!='undefined'&&typeof item.setEndTime!='undefined'">
+													{{item.setBeginTime.slice(0,2)}}:{{item.setBeginTime.slice(2)}}~{{item.setEndTime.slice(0,2)}}:{{item.setEndTime.slice(2)}}
 												</template>
 											</span>
 										</div>
-										<div class="bizInfoEvent">{{item.contents}}</div>
+										<div class="bizInfoEvent">
+											<span>{{item.contents}}</span> <span
+												v-if="typeof item.contents=='undefined'"
+												style="font-size: 12px; color: #9e9e9e">현재 진행중인 이벤트가
+												없습니다.</span>
+										</div>
 									</div>
 
 								</div>
@@ -269,14 +286,14 @@
 					<div style="text-align: center;">
 						<div
 							style="display: flex; justify-content: center; align-items: center; width: fit-content; margin: 0px auto; gap: 10px;">
-							<span style="display: inline-block; color: #9e9e9e;">&lt;</span>
+							<!-- <span style="display: inline-block; color: #9e9e9e;">&lt;</span> -->
 
 							<template v-for="(item,index) in totalPage">
 								<span style="display: inline-block; cursor: pointer"
 									:style="{'color' : index + 1==map.nowPage ? '#ff7f00' : '#222222'}"
 									@click="map.nowPage=index+1">{{index+1}}</span>
 							</template>
-							<span style="display: inline-block;">&gt;</span>
+							<!-- <span style="display: inline-block;">&gt;</span> -->
 						</div>
 					</div>
 				</div>
@@ -308,7 +325,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 			sessionId : "${sessionId}",
 			map : {
 				inputAddr : "${map.inputAddr}",				
-				nowCategory : "${map.nowCategory}",
+				nowCategory : "%%",
 				order : "${map.order}",
 				latitude : "${map.latitude}",
 				longitude : "${map.longitude}",
@@ -341,13 +358,21 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 					"overflow-y" : "auto"
 				})
 			},
-			// 
-			fnLoadMyAddr : function(){
+			fnAddrClick : function(){
 				var self=this;
+				if(!self.sessionId){
+					alert("로그인 후 이용 가능합니다");
+					return;
+				}
 				$("#modal-back").prop("hidden",false);
 				$("body").css({
 					"overflow" : "hidden"
 				})
+			}
+			,
+			// 내 주소 불러오기
+			fnLoadMyAddr : function(){
+				var self=this;				
 				var nparmap = {
 					userId : self.sessionId
 				}
@@ -358,12 +383,12 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 					data : nparmap,
 					success : function(data) {
 						self.list.addrList=data.list;
-						console.log(self.list.addrList);		
-						
+						if(self.map.inputAddr==""){
+						self.map.inputAddr=self.list.addrList[0].newAddr;
+						}
 						
 					}
 				});
-				
 			},
 			// 페이지 체인지
 			fnPageChange : function(link,map){
@@ -411,7 +436,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 			/* 배달 가능한 가게 리스트 채우기 */
 			fnBaedalOk : function () {
 				var self=this;
-				console.log("fnBaedalOk");
+				
 				self.list.bizBaedalOkList=[];
 				
 	                self.list.bizInfo.forEach(function (item) {
@@ -421,11 +446,14 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 	                    
 	                 	// 반경 내에 있는지 확인 후 배달가능리스트 push
 	                    if (distance <= item.range) {
+	                    	item["distance"]=distance;
 	                    	self.list.bizBaedalOkList.push(item);
 	                    }
 	                })
 	                self.totalCnt=self.list.bizBaedalOkList.length;	// 총 개수 초기화     
 	                self.totalPage=Math.ceil(self.totalCnt/9); // 총 페이지 초기화
+	                console.log(self.list.bizBaedalOkList);
+	                
 			},
 			//주소조회 api
 			openAddressSearch : function() {
@@ -460,7 +488,8 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 		created : function() {
 			var self = this;
 			self.fnList();
-			console.log(self.sessionId);
+			self.fnLoadMyAddr();
+			
 				
 
 		}

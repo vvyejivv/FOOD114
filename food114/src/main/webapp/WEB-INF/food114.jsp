@@ -31,13 +31,10 @@
 							<img src="../img/event1.png">
 						</div>
 						<div class="swiper-slide" style="border-radius: 10px;">
-							<img src="../img/event1.png">
+							<img src="../img/event2.png">
 						</div>
 						<div class="swiper-slide" style="border-radius: 10px;">
-							<img src="../img/event1.png">
-						</div>
-						<div class="swiper-slide" style="border-radius: 10px;">
-							<img src="../img/event1.png">
+							<img src="../img/event3.png">
 						</div>
 					</div>
 					<div id="slide-btn-container">
@@ -51,7 +48,7 @@
 			</div>
 
 			<div id="main1-btn-container">
-				<div class="main1-btn-box">
+				<div class="main1-btn-box" @click="fnPageChange('mapTest2.do',map)">
 					<div class="main1-btn-title">
 						<div class="main1-btn-title-text">
 							<img src="../img/mapicon.png">
@@ -61,7 +58,7 @@
 					</div>
 					<div class="main1-btn-title-subText">내 주변 이벤트를 한눈에</div>
 				</div>
-				<div class="main1-btn-box">
+				<div class="main1-btn-box" @click="fnPageChange('food114_foodfind.do',map)">
 					<div class="main1-btn-title">
 						<div class="main1-btn-title-text">
 							<img src="../img/truck.png">
@@ -71,7 +68,7 @@
 					</div>
 					<div class="main1-btn-title-subText">내 주변 이벤트를 한눈에</div>
 				</div>
-				<div class="main1-btn-box">
+				<div class="main1-btn-box" @click="fnPageChange('event-biz-list.do',map)">
 					<div class="main1-btn-title">
 						<div class="main1-btn-title-text">
 							<img src="../img/gift.png">
@@ -93,7 +90,7 @@
 						푸드114 신규 회원 선착순 100명에게만 제공되는<br> 특별한 이벤트와 쿠폰을 확인해 보세요.
 					</div>
 					<div style="margin-top: 20px;">
-						<button class="main2-text-btn">자세히 보기</button>
+						<button class="main2-text-btn" @click="fnPageChange('event-web-list.do',map)">자세히 보기</button>
 					</div>
 				</div>
 			</div>
@@ -144,7 +141,13 @@
 	var app = new Vue({
 		el : '#app',
 		data : {
-			map : {}
+			map : {
+				nowCategory : "${map.category}", // 현재 선택된 카테고리
+				inputAddr : "${map.inputAddr}", // 현재 입력된 주소
+				latitude : "${map.latitude}", // 현재 입력된 주소의 위도
+				longitude : "${map.longitude}",	 // 현재 입력된 주소의 경도	
+				nowPage:1				
+			}
 		},
 		methods : {
 			fnPageChange : function(link,map){

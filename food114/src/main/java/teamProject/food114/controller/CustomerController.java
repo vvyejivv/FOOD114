@@ -27,37 +27,34 @@ public class CustomerController {
 	@Autowired
 	HttpSession session;
 
+
+
+	// 마이페이지 - 결제수단 관리
+	@RequestMapping("/food114-myPage-payment.do")
+	public String myInfoPayment(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		request.setAttribute("map", map);
+		return "/myPage_myInfo(payment)"; // bizReview.jsp
+	}
+	
+	// 마이페이지 - 쿠폰 관리
+	@RequestMapping("/food114-myPage-coupon.do")
+	public String myInfoCoupon(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		request.setAttribute("map", map);
+		return "/myPage_myInfo(coupon)"; // bizReview.jsp
+	}
+	
 	// 마이페이지 - 나의정보 - 메인화면 myPage_myInfo(main)
-	@RequestMapping("/myInfo.do")
+	@RequestMapping("/food114-myPage.do")
 	public String myPage(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
 		request.setAttribute("map", map);
 		return "/myPage_myInfo(main)";
 	}
-
-	// 마이페이지 - 나의정보 - 메인화면 myPage_myInfo(main)
-	@RequestMapping("/myInfo_header.do")
-	public String myPageHeader(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
-			throws Exception {
-		request.setAttribute("map", map);
-		return "/myPage_header";
-	}
-	
-	// 마이페이지 - 결제수단 관리
-	@RequestMapping("/myInfoPayment.do")
-	public String myInfoPayment(Model model) throws Exception {
-		return "/myPage_myInfo(payment)"; // bizReview.jsp
-	}
-	
-	// 마이페이지 - 쿠폰 관리
-	@RequestMapping("/myInfoCoupon.do")
-	public String myInfoCoupon(Model model) throws Exception {
-		return "/myPage_myInfo(coupon)"; // bizReview.jsp
-	}
 	
 	// 마이페이지 - 포인트 관리
-	@RequestMapping("/myInfoPoint.do")
-	public String myInfoPoint(Model model) throws Exception {
+	@RequestMapping("/food114-myPage-point.do")
+	public String myInfoPoint(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		request.setAttribute("map", map);
 		return "/myPage_myInfo(point)"; // bizReview.jsp
 	}
 
@@ -90,7 +87,7 @@ public class CustomerController {
 	}
 
 	// 마이페이지 - 나의정보 - 비밀번호변경
-	@RequestMapping("/myInfoPwd.do")
+	@RequestMapping("/food114-myPage-pwd.do")
 	public String myPagePwd(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
 		request.setAttribute("map", map);
@@ -125,13 +122,17 @@ public class CustomerController {
 		return new Gson().toJson(resultMap);
 	}
 
-	// 마이페이지 - 나의정보 - 주소지
-	@RequestMapping("/myInfoAddr.do")
+	// 마이페이지 - 나의정보 - 주소지	
+	@RequestMapping("/food114-myPage-addr.do")
 	public String myInfoAddr(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
 		request.setAttribute("map", map);
 		return "/myPage_myInfo(addr)";
 	}
+	
+	
+	
+	
 
 	// myInfo - my주소지 관리 - 주소지 상세보기
 	@RequestMapping(value = "/myInfoAddr.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
@@ -181,14 +182,14 @@ public class CustomerController {
 	
 	
 	// 마이페이지 - 나의정보 - 등급
-	@RequestMapping("/myInfoGrade.do")
+	@RequestMapping("/food114-myPage-grade.do")
 	public String myPageGrade(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
 		request.setAttribute("map", map);
 		return "/myPage_myInfo(grade)";
 	}
 	// 마이페이지 - 결제/수단/리뷰 - 주문내역
-	@RequestMapping("/myOrderList.do")
+	@RequestMapping("/food114-myPage-order.do")
 	public String myOrderList(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
 		if(!map.containsKey("nowPage")) {
@@ -211,38 +212,37 @@ public class CustomerController {
 	public String food114Main(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
 		request.setAttribute("map", map);
-		return "/mainPage";
-	}
-	
-	// 고객 메인 페이지 ver2
-	@RequestMapping("/food114-2.do")
-	public String food114Main2(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
-			throws Exception {
-		request.setAttribute("map", map);
 		return "/food114";
-	}
+	}	
 
 	// 고객 회원가입 페이지
-	@RequestMapping("/consumer-join.do")
+	@RequestMapping("/food114-join.do")
 	public String consumerJoin(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
 		return "/consumerJoin";
 	}
 
 	// 고객 로그인 페이지
-	@RequestMapping("/consumer-login.do")
+	@RequestMapping("/food114-login.do")
 	public String consumerLogin(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
 		return "/consumerLogin";
 	}
 
 	// 고객 회원가입 성공 페이지
-	@RequestMapping("/consumer-join-success.do")
+	@RequestMapping("/food114-welcome.do")
 	public String consumerJoinSuccess(HttpServletRequest request, Model model,
 			@RequestParam HashMap<String, Object> map) throws Exception {
 		return "/consumerJoinAfter";
 	}
 
+	// 결제완료창	
+	@RequestMapping("/paymentCompleted.do")
+	public String paymentCompleted(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		request.setAttribute("map", map);
+		return "/paymentCompleted"; 
+	}
+	
 	// 고객 주소 목록 불러오기
 	@RequestMapping(value = "/consumerAddrList.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
@@ -295,6 +295,15 @@ public class CustomerController {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		session.invalidate();
 
+		return new Gson().toJson(resultMap);
+	}
+
+	// 고객 회원가입 클릭시
+	@RequestMapping(value = "/paymentCompleted.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String paymentCompleted(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = customerService.searchMyOrder(map);
 		return new Gson().toJson(resultMap);
 	}
 	

@@ -6,7 +6,7 @@
 <script src="js/jquery.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <meta charset="UTF-8">
-<title>첫번째 페이지</title>
+<title>사장님 페이지</title>
 <link rel="stylesheet" href="../css/food114.css">
 <link rel="stylesheet" href="../css/review_biz.css">
 </head>
@@ -15,19 +15,19 @@
 </style>
 <body>
 	<div id="Container">
-	<%@include file="food114_header.jsp"%>
+		<%@include file="food114_header(biz).jsp"%>
 	<section>
 		<%@include file="sideBar_biz.html"%>
 		<div id="app" v-cloak>
 			<div class="mold">
 				<h2>
-					<span style="color: #ff7f00; font-weight: bold;">| </span><span
-						style="text-align: left; color: rgba(72, 72, 72);">리뷰&nbsp;</span>
-					<span style="font-size: 18px;">여기서 한번에 관리 하세요!</span>
+					<span style="color: #ff7f00; font-weight: bold; font-size : 16px;">| </span><span
+						style="text-align: left; color: #222222; font-size : 16px;">리뷰&nbsp;</span>
+					<span style="font-size: 13px; color:#5F5F5F">여기서 한번에 관리 하세요!</span>
 				</h2>
 				<div>
 					<table class="review">
-						<tr>
+						<tr style="color: #222222; font-size : 14px;">
 							<th
 								style="width: 30px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
 								번호</th>
@@ -53,7 +53,7 @@
 								style="width: 50px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
 								관리</th>
 						</tr>
-						<tr v-for="(review, index) in reviews" :key="index">
+						<tr v-for="(review, index) in reviews" :key="index" style="font-size : 14px;">
 							<td style="font-size: 13px">{{ index + 1 }}</td>
 							<td class="reviewFont">{{ review.menuList }}</td>
 							<td style="font-size: 12px"><span v-if="review.raiting >= 1">★</span>
@@ -77,7 +77,7 @@
 		</div>
 	</section>
 
-	<%@include file="food114_footer.jsp"%>
+		<%@include file="food114_footer(biz).jsp"%>
 	</div>
 
 </body>

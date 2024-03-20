@@ -15,44 +15,37 @@
 </head>
 <link rel="stylesheet" href="../css/myPage_myInfo(grade).css">
 <body>
-	<header>
-		<%@include file="main(header).html"%>
-	</header>
 
-	<!-- 광고창 -->
-	<!--
-        <div class="ad">
-            광고창
-            <button class="adClose">x</button>
-        </div>
-    -->
-	<section>
+	<div id="Container">
+		<%@include file="food114_header.jsp"%>
+		<section>
 
-		<div class="container">
-			<%@include file="myPage_header.jsp"%>
-			<div id="app">
-				<div class="content" style="width : 900px;">
-					<h2>
-						<a href="javascript:;" style="font-size: 25px; color: #747171;">
-							<span style="color: #ff7f00; font-weight: bold;">| </span>쿠폰
-						</a>
-					</h2>
-					<div>
-						<div class="row">
-							<div style="margin-top: 100px; color: #747171;">
-								<h1 style="margin-left: 300px; font-size: 30px;">아직 개발
-									중입니다.</h1>
-								<p style="margin-left: 200px; font-size: 15px;">이 페이지는 아직 개발
-									중에 있습니다. 곧 완성될 예정입니다. 양해 부탁드립니다.</p>
+			<div style="width: 1420px; display: flex; margin: 0px auto;">
+				<%@include file="myPage_header.jsp"%>
+				<div id="app">
+					<div class="content" style="width: 900px;">
+						<h2>
+							<a href="javascript:;" style="font-size: 25px; color: #747171;">
+								<span style="color: #ff7f00; font-weight: bold;">| </span>쿠폰
+							</a>
+						</h2>
+						<div>
+							<div class="row">
+								<div style="margin-top: 100px; color: #747171;">
+									<h1 style="margin-left: 300px; font-size: 30px;">아직 개발
+										중입니다.</h1>
+									<p style="margin-left: 200px; font-size: 15px;">이 페이지는 아직
+										개발 중에 있습니다. 곧 완성될 예정입니다. 양해 부탁드립니다.</p>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</section>
+		</section>
 
-	<%@include file="main(footer).html"%>
+		<%@include file="food114_footer.jsp"%>
+	</div>
 </body>
 <script type="text/javascript">
 	var app = new Vue({

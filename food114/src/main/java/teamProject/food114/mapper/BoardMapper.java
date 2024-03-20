@@ -47,4 +47,6 @@ public interface BoardMapper {
 	void updateBizEventBoard(HashMap<String, Object> map);
 	
 	Board selectBizEventFileYn(HashMap<String, Object> map);
+	
+	List<Board> selectBoardListLimit(HashMap<String, Object> map);
 } 

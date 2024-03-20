@@ -27,19 +27,20 @@ public class MenuController {
 	MenuService menuService;
 
 	// 배달 메뉴 찾기
-	@RequestMapping("/food114_foodfind.do")
-	public String food114FoodFind(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
+	@RequestMapping("/food114-foodfind.do")
+	public String food114FoodFind2(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
-		if(!map.containsKey("category")) {
-			map.put("category", "%%%%");			
+		if(!map.containsKey("order") || map.get("order")=="") {
+			map.put("order", "ORDER BY ENDYN DESC");
 		}
-		if(map.get("latitude")=="") {
-			map.put("flg", false);
-		} else {
-			map.put("flg", true);
+		if(!map.containsKey("nowCategory")||map.get("nowCategory")=="") {
+			map.put("nowCategory","%%");
+		}
+		if(!map.containsKey("nowPage")) {
+			map.put("nowPage", 1);
 		}
 		request.setAttribute("map", map);
-		return "/foodFind";
+		return "/foodFind02";
 	}
 
 	

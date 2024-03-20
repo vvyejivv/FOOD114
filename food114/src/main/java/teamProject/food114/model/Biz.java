@@ -27,6 +27,9 @@ public class Biz {
 	private String open;
 	private String close;
 	private String shopOpenYN;
+	
+	//event
+	private String eventStatus;
 
 	// 이벤트board 조인시
 	private String beginTime2;
@@ -403,5 +406,13 @@ public class Biz {
 
 	public void setDevType(String devType) {
 		this.devType = devType;
+	}
+
+	public String getEventStatus() {
+		return eventStatus;
+	}
+
+	public void setEventStatus(String eventStatus) {
+		this.eventStatus = eventStatus;
 	}
 }

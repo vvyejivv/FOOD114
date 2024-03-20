@@ -7,15 +7,15 @@
 <script src="js/jquery.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <link rel="stylesheet" href="../css/business-main.css">
-<link rel="stylesheet" href="../css/main.css">
+<link rel="stylesheet" href="../css/food114.css">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <title>FOOD114 BusinessPage</title>
 </head>
 <body>
-	<%@include file="main(header)_biz.html"%>
+	<div id="Container">
+	<%@include file="food114_header.jsp"%>
 	<div id="app">
-
 		<section>
 			<div id="container">
 				<div id="margin-top" id="margin-bottom">
@@ -168,7 +168,8 @@
 				</div>
 			</div>
 		</section>
-		<%@include file="main(footer)_biz.html"%>
+	</div>
+		<%@include file="food114_footer.jsp"%>
 	</div>
 </body>
 <script>
@@ -203,6 +204,7 @@ window.onload = function() {
 var app = new Vue({ 
     el: '#app',
     data: {
+    	sessionId : "${sessionBizId}"
     }   
     , methods: {
     	list : function(){    		

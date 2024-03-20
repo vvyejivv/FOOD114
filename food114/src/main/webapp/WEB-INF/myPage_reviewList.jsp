@@ -67,12 +67,11 @@ a{
 <link rel="stylesheet" href="../css/myPage_myInfo(main).css">
 <body>
 
-	<header>
+<div id="Container"></div>
 		<%@include file="food114_header.jsp"%>
-	</header>
 
 	<section>
-		<div class="container" >
+	<div style="width: 1420px; display: flex; margin: 0px auto;">
 			<%@include file="myPage_header.jsp"%>
 			<div class="orderListContainer">
 				<div id="app" v-cloak>

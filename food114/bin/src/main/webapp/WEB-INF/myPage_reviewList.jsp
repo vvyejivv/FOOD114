@@ -8,20 +8,9 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MAIN</title>
+<title>리뷰목록</title>
 <style>
-[v-cloak] {
-	display: none;
-}
-@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 
-.notosanskr * {
-	font-family: 'Noto Sans KR', sans-serif;
-}
-
-* {
-	font-family: 'Noto Sans KR';
-}
 
 .orderListContainer {
 	margin: 10px;
@@ -55,120 +44,137 @@ a{
 	text-decoration: none;
 	color: black;
 }
+[v-cloak] { display: none; }
+.reviewButton {
+	background-color: #ffffff;
+	border: 1px solid #ff7f00;
+	color: #ff7f00;
+	transition-duration: 0.4s; /* 트랜지션 효과 지속 시간 */
+	cursor: pointer;
+	border-radius: 4px; /* 버튼에 border-radius 적용 */
+	width: 70px;
+	height: 35px;
+	margin-left: 930px;
+	margin-top: 5px;
+}
+.reviewButton:hover {
+	background-color: #ff7f00;
+	border: 1px solid #FBCEB1;
+	color: #ffffff;
+}
 </style>
 </head>
 <link rel="stylesheet" href="../css/myPage_myInfo(main).css">
 <body>
 
 	<header>
-		<%@include file="main(header).html"%>
+		<%@include file="food114_header.jsp"%>
 	</header>
 
-	<!-- 광고창 -->
-	<!--
-        <div class="ad">
-            광고창
-            <button class="adClose">x</button>
-        </div>
-    -->
 	<section>
-		<div class="container">
+		<div class="container" >
 			<%@include file="myPage_header.jsp"%>
 			<div class="orderListContainer">
 				<div id="app" v-cloak>
 					<h2>
 						<a href="javascript:;" style="font-size: 25px; color: #747171;">
-							<span style="color: #ff7f00; font-weight: bold;">| </span> MY리뷰목록
+							<span style="color: #ff7f00; font-weight: bold;">| </span> My리뷰목록
 						</a>
 					</h2>
 					<div>
 						<table class="orderListTable">
 							<tr>
 								<th
-									style="width: 100px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+									style="width: 50px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
 									NO</th>
 								<th
-									style="width: 100px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
-									주문번호</th>
+									style="width: 250px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+									가게명</th>
 								<th
-									style="width: 150px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
-									주문한 가게</th>
-								<th
-									style="width: 450px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+									style="width: 300px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
 									메뉴</th>
 								<th
-									style="width: 100px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
-									가격</th>
+									style="width: 450px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+									리뷰 내용</th>
 								<th
-									style="width: 200px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
-									주문일</th>
+									style="width: 100px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
+									금액</th>
 								<th
 									style="width: 150px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
-									주문상태</th>
+									리뷰 작성일</th>	
 							</tr>
-							<tr v-for="(item, index) in orderList">
-								<td style="font-size: 13px">{{ index + 1 }}</td>
-								<td class="reviewFont">{{ item.orderNo }}</td>
-								<td class="reviewFont">{{ item.bizName }}</td>
-								<td class="reviewFont">{{ item.menus }}</td>
-								<td class="reviewFont">{{ item.price }}</td>
-								<td class="reviewFont">{{ item.orderDate }}</td>
-								<td class="reviewFont">{{ item.status }}</td>
+							<tr v-for="(item, index) in reviewList">
+								<td style="font-size: 13px">{{ index + 1 + startOrder }}</td>
+								<td class="reviewFont">{{item.bizName}}</td>
+								<td class="reviewFont">{{item.menuList}}</td>
+								<td class="reviewFont">{{item.contents}}</td>
+								<td class="reviewFont">{{item.totalPrice.toLocaleString()}}원</td>
+								<td class="reviewFont">{{item.reviewDate}}</td>
 							</tr>
 						</table>
 					</div>
+					<button class="reviewButton" @click="fnReviewAdd">리뷰 쓰기</button>
 					<!-- 페이지  -->
-<!-- 					<div class="pageBox">
+					<div class="pageBox">
 						<span><a href="javascript:;" @click="fnfirstPage" style="text-decoration: none; color: black;">≤</a></span>
-						<span><a href="javascript:;" @click="fnPre" style="text-decoration: none; color: black;">&lt;</a></span>  < 는 태그로 인식하므로 &lt; 또는 ㄷ 한자 3 사용해야함 
+						<span><a href="javascript:;" @click="fnPre" style="text-decoration: none; color: black;">&lt;</a></span> 
 						<template v-for="n in pageCount">
 							<a href="javascript:;" @click="fnPageList(n)" v-if="nowPage!=n" :class="[nowPage!=n ? 'text' : 'selectText']">{{n}} </a>
 							<span v-else :class="[nowPage!=n ? 'text' : 'selectText']">{{n}} </span>
 						</template>
 						<span><a href="javascript:;" @click="fnNext" style="text-decoration: none; color: black;">></a></span>
 						<span><a href="javascript:;" @click="fnLastPage" style="text-decoration: none; color: black;">≥</a></span>
-					</div> -->
+					</div>
 				</div>
 			</div>
 		</div>
 		</div>
 	</section>
 
-	<%@include file="main(footer).html"%>
+	<%@include file="food114_footer.jsp"%>
 </body>
 
 <script type="text/javascript">
 	var app = new Vue({
 		el : '#app',
 		data : {
-			orderList : [],
+			reviewList : [],
 			sessionId : "${sessionId}",
 			pageCount : 1,
-			nowPage : 1,
+			cnt : 10,
+			nowPage : "${map.nowPage}",
+			startOrder : 0,
 		},
 		methods : {
 			fnView : function() {
 				var self = this;
+				self.startOrder = (self.nowPage * 10)-10;
 				var nparmap = {
 					userId : self.sessionId,
-					startNum : 1,
-					lastNum : 10,
-					nowPage : 1,
+					startOrder : self.startOrder,
+					endOrder : self.cnt,
 				};
 				$.ajax({
-					url : "myOrderList.dox",
+					url : "myInfoReview.dox",
 					dataType : "json",
 					type : "POST",
 					data : nparmap,
 					success : function(data) {
-						self.orderList = data.orderList;
+						self.reviewList = data.reviewList;
+						console.log(self.reviewList);
 						/* 페이지당 10개 올림  */
-						self.pageCount = Math.ceil(data.cnt.listCnt/10);
+						self.pageCount = Math.ceil(data.cnt.listCnt/self.cnt);
 						console.log(self.pageCount);
 					}
 				});
 			},
 			/* 페이지 기능  */
+			fnPageList : function(num){
+				var self = this;
+				$.pageChange("myInfoReview.do",{
+					nowPage : num
+				});
+			},
 			fnfirstPage : function() {
 				var self = this;
 				self.nowPage = 1;
@@ -193,11 +199,16 @@ a{
 				self.nowPage = self.pageCount;
 				self.fnPageList(self.nowPage);
 			
+			},
+			fnReviewAdd : function() {
+				var self = this;
+				$.pageChange("myPage_reviewAdd.do", {});
 			}
 		},
 		created : function() {
 			var self = this;
 			self.fnView();
+			console.log(self.nowPage);
 		}
 	});
 </script>

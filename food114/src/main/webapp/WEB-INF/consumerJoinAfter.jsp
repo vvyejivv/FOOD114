@@ -13,9 +13,9 @@
 </head>
 
 <body>
-	<header>
-		<%@include file="main(header).html"%>
-	</header>
+	<div id="Container">
+		<%@include file="food114_header.jsp"%>
+
 
 
 	<style>
@@ -23,7 +23,7 @@
 	width: 660px;
 	margin: 0px auto;
 	margin-top: 0px;
-	padding-top: 90px;
+	padding-top: 200px;
 	font-size: 17px;
 	padding-bottom: 50px;
 	color: rgb(72, 72, 72);
@@ -95,7 +95,7 @@ select {
 				<div style="text-align: center; margin-top: 5px;">로그인 후
 					마이페이지에서 카드와 주소지를 등록하면 더욱 편리하게 서비스 이용이 가능합니다.</div>
 				<div
-					style="text-align: center; margin-top: 50px; margin-bottom: 200px;">
+					style="text-align: center; margin-top: 50px; margin-bottom: 100px;">
 					<button style="width: 250px; height: 50px; font-size: 18px;"
 						@click="fnLogin()">로그인하러가기</button>
 				</div>
@@ -104,9 +104,8 @@ select {
 	</section>
 
 
-	<footer>
-		<%@include file="main(footer).html"%>
-	</footer>
+		<%@include file="food114_footer.jsp"%>
+	</div>
 </body>
 
 </html>
@@ -116,7 +115,7 @@ select {
 		data : {},
 		methods : {
 			fnLogin : function() {
-				location.href = "consumer-login.do";
+				location.href = "food114-login.do";
 			}
 		},
 		created : function() {

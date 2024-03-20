@@ -15,21 +15,19 @@
 <link rel="stylesheet" href="../css/menuInfo.css">
 <title>가게정보 페이지</title>
 </head>
-<body>
+<body style="margin:0px;">
 	<header>
-		<%@include file="main(header).html"%>
+		<%@include file="food114_header.jsp"%>
 	</header>
 	<%@include file="shopInfo_header.jsp"%>
 	<div id="app" v-cloak>
-		<section>
 			<div id="menuContainer">
-
 				<div class="menuBox">
 					<div class="menuTitle">
 						<span>메뉴</span>
 					</div>
 					<!-- 메뉴 테이블 -->
-					<template v-for="(item,index) in menuList">
+					<template v-for="(item,index) in menuList" v-if="item.sta != '판매종료'">
 						<div class="menuInfo" @click="fnMenuClick('open',index)">
 							<div class="menuImgBox">
 								<img :src="item.path">
@@ -80,12 +78,13 @@
 					<div class="hrLine"></div>
 					<table class="orderListTable">
 						<tr>
-							<th class="tdFirst th" style="">제품명</th>
+							<th class="tdFirst th">제품명</th>
 							<th class="tdAmount th">수량</th>
 							<th class="tdSecond th" style="text-align: center;">금액</th>
 							<th class="th tdremove">삭제</th>
 						</tr>
 					</table>
+					<div class="hrLine"></div>
 					<div class="receiptt"
 						style="height: 400px; overflow-y: scroll; width: 405px;">
 						<table class="orderListTable">
@@ -108,7 +107,7 @@
 					<div class="hrLine"></div>
 					<div class="priceBox">
 						<div class="totalPriceTxt">총 주문금액</div>
-						<div class="totalPrice">{{selectTotalPrice.toLocaleString()}}원</div>
+						<div class="totalPrice">{{selectTotalPrice.toLocaleString()}} 원</div>
 					</div>
 					<div class="orderBtn" @click="fnOrder">주문하기</div>
 				</div>
@@ -157,10 +156,9 @@
 					</div>
 				</div>
 			</template>
-		</section>
 	</div>
 
-	<%@include file="main(footer).html"%>
+	<%@include file="food114_footer.jsp"%>
 
 </body>
 </html>
@@ -196,7 +194,7 @@
 					data : nparmap,
 					success : function(data) {
 						self.menuList = data.menuList;
-						/* console.log(data.menuList); */
+		
 					}
 				});
 				

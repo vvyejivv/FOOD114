@@ -7,12 +7,12 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <meta charset="UTF-8">
 <title>첫번째 페이지</title>
+<link rel="stylesheet" href="../css/food114.css">
 <link rel="stylesheet" href="../css/event_biz.css">
 </head>
 <body>
-	<header>
-		<%@include file="main(header)_biz.html"%>
-	</header>
+	<div id="Container">
+	<%@include file="food114_header.jsp"%>
 	<section>
 		<%@include file="sideBar_biz.html"%>
 		<div id="app">
@@ -48,11 +48,11 @@
 					</tr>
 					<tr v-for="(event, index) in events" :key="index">
 						<td>{{ index + 1 }}</td>
-						<td>{{event.type}}</td>
+						<td>{{ event.type === 'SHORT' ? '우리동네' : (event.type === 'REGULAR' ? '리뷰 이벤트' : '') }}</td>
 						<td>{{event.title}}</td>
 						<td>{{event.contents}}</td>
 						<td>{{event.eventTime}}</td>
-						<td>{{event.endYn}}</td>
+						<td>{{ event.endYn === 'Y' ? '종료' : (event.endYn === 'N' ? '진행중' : '') }}</td>
 						<td><button class="event-detail" @click="fnDetail(event.boardNo)">자세히</button></td>
 					</tr>
 				</table>
@@ -60,7 +60,8 @@
 		</div>
 	</section>
 
-	<%@include file="main(footer)_biz.html"%>
+	<%@include file="food114_footer.jsp"%>
+	</div>
 
 </body>
 </html>
@@ -74,13 +75,6 @@
 		methods : {
 			list : function() {
 				var self = this;
-<<<<<<< HEAD
-				if(!self.sessionId){
-					$.pageChange("/bizLogin.do", {});
-					return;
-				}
-=======
->>>>>>> branch 'JINSOON' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 				var nparmap = {
 						bizId : self.sessionId
 				};
@@ -95,16 +89,7 @@
 				});
 			},
 			fnDetail : function(boardNo) {
-<<<<<<< HEAD
-				if(!self.sessionId){
-					$.pageChange("/bizLogin.do", {});
-					return;
-				} else {
 					$.pageChange("/bizEvent_info.do", {boardNo : boardNo});
-				}
-=======
-					$.pageChange("/bizEvent_info.do", {boardNo : boardNo});
->>>>>>> branch 'JINSOON' of https://github.com/dlehdwo01/TeamProject1-FOOD114.git
 			}
 		},
 		created : function() {

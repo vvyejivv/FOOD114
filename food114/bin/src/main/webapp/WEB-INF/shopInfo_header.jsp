@@ -15,86 +15,88 @@
 <title>가게정보 페이지</title>
 </head>
 <style>
-
 </style>
-<body>
-	<div id="shopInfoHeader">
-
-			<div class="orderContainer">
-				<!-- 메뉴 / 리뷰 탭 -->
-				<div id="tabContainer">
-					<ul class="tab">
-						<li>
-							<div class="tabBox" :class="{'selectTab' : selectTab === 'menu'}"
-								@click="fnChangeTab('menu') ">
-								<a href="javascript:;">메뉴</a>
-							</div>
-						</li>
-						<li>
-							<div class="tabBox"
-								:class="{'selectTab' : selectTab === 'event'}"
-								@click="fnChangeTab('event')">
-								<a href="javascript:;">이벤트</a>
-							</div>
-						</li>
-						<li>
-							<div class="tabBox"
-								:class="{'selectTab' : selectTab === 'review'}"
-								@click="fnChangeTab('review')">
-								<a href="javascript:;">리뷰</a>
-							</div>
-						</li>
-					</ul>
+<body style="margin: 0px;">
+	<div id="shopInfoHeader" style="width: 1920px; margin: 0px auto;">
+		<div>
+			<!-- 메뉴 / 리뷰 탭 -->
+			<div id="tabContainer">
+				<ul class="tab">
+					<li>
+						<div class="tabBox" :class="{'selectTab' : selectTab === 'menu'}"
+							@click="fnChangeTab('menu') ">
+							<a href="javascript:;">메뉴</a>
+						</div>
+					</li>
+					<li>
+						<div class="tabBox"
+							:class="{'selectTab' : selectTab === 'review'}"
+							@click="fnChangeTab('review')">
+							<a href="javascript:;">리뷰</a>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<!-- 가게 정보 -->
+			<div
+				style="display: flex; width: fit-content; gap: 20px; margin: 0px auto; margin-top: 50px; margin-bottom: 50px;">
+				<!-- 가게 이미지 -->
+				<div style="width: 369px; height: 369px; border-radius: 10px;">
+					<img :src="bizInfo.path" style="width: 369px; height: 369px; border-radius: 10px;">
 				</div>
-				<!-- 가게 정보 -->
-				<div id="shopInfoContainer">
-					<div id="shopInfoLeftBox">
-						<div id="shopMainImg">
-							<!-- <img src="../image/cfood.jpg"> -->
-							<img :src="bizInfo.path">
+				<!-- 가게 정보 내용 -->
+				<div style="width: 451px; height: 369px;">
+					<div
+						style="width: fit-content; height: 139px; margin-bottom: 40px;">
+						<div style="display: flex; margin-bottom: 25px;">
+							<div
+								style="width: 100px; color: #5F5F5F; font-size: 16px; line-height: 16px;">가게명</div>
+							<span
+								style="width: fit-content; color: #222222; font-size: 16px; line-height: 16px;">{{bizInfo.bizName}}</span>
 						</div>
-						<div id="shopHours">
-							<div id="shopTable">
-								<table>
-									<tr>
-										<th style="border-top: none;">가게명</th>
-										<td style="border-top: none;">{{bizInfo.bizName}}</td>
-									</tr>
-									<tr>
-										<th>영업시간</th>
-										<td>{{bizInfo.open}} ~ {{bizInfo.close}}</td>
-									</tr>
-									<tr>
-										<th>운영여부</th>
-										<td>{{bizInfo.shopOpenYN}}</td>
-									</tr>
-									<tr>
-										<th>전화번호</th>
-										<td>{{bizInfo.phone}}</td>
-									</tr>
-								</table>
-							</div>
+						<div style="display: flex; margin-bottom: 25px;">
+							<div
+								style="width: 100px; color: #5F5F5F; font-size: 16px; line-height: 16px;">영업시간</div>
+							<span
+								style="width: 129px; color: #222222; font-size: 16px; line-height: 16px;">{{bizInfo.open}} ~ {{bizInfo.close}}</span>
 						</div>
-						<div id="shopInfo">
-							<div id="eventTitle">&lt;사장님 한마디 / 리뷰이벤트></div>
-							<div id="eventCmt">~이벤트 내용~</div>
+						<div style="display: flex; margin-bottom: 25px;">
+							<div
+								style="width: 100px; color: #5F5F5F; font-size: 16px; line-height: 16px;">운영시간</div>
+							<span
+								style="width: 129px; color: #222222; font-size: 16px; line-height: 16px;">{{bizInfo.shopOpenYN}}</span>
+						</div>
+						<div style="display: flex; margin-bottom: 25px;">
+							<div
+								style="width: 100px; color: #5F5F5F; font-size: 16px; line-height: 16px;">전화번호</div>
+							<span
+								style="width: 129px; color: #222222; font-size: 16px; line-height: 16px;">{{bizInfo.phone}}</span>
 						</div>
 					</div>
-					<div id="shopInfoRightBox">
-						<div id="shopAddrBox">
-							<div id="shopAddrLine">주소</div>
-							<div id="shopAddr">{{bizInfo.newAddr}}</div>
-							<div id="shopAddrDetail">{{bizInfo.detail}}</div>
-							<div id="addrBtn">
-								<button>거리확인</button>
-							</div>
+					<div
+						style="width: 451px; height: 190px; border-radius: 10px; background-color: #F7F7F7;">
+						<div
+							style="width: 377px; height: 150px; padding: 20px; line-height: 160%; color: #5F5F5F;">
+							<div>‼ {{bizInfo.bizName}} 이벤트 ‼</div>
+							<div>{{event.title}}</div>	
+							<div>{{event.contents}}</div>	
+
 						</div>
-						<div id="shopMapBox" style="z-index: 1;">
-							<div id="map"></div>
+					</div>
+				</div>
+				<!-- 지도 -->
+				<div style="width: 560px; height: 369px; position: relative; background-color: #767676;">
+					<div id="map"></div>
+					<div style="background-color: #EDEDED; width: 520px; height: 61px; position: absolute; bottom: 0px; left: 0px; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;">
+						<div style="width: fit-content; height: 16px; display: flex; align-items: center;">
+							<div style="width: fit-content; height: 16px; line-height: 16px; color: #222222; margin-right: 20px; font-size: 16px;">주소</div>
+							<div style="width: 350px; height: 16px; line-height: 16px; color: #222222; word-break: break-all; overflow: hidden; font-size: 16px;">{{bizInfo.newAddr}} {{bizInfo.detail}}</div>
 						</div>
+						<div style="width: 60px; height: 16px; padding: 15px 20px; background-color: #ffffff50; border-radius: 1px; color: #5F5F5F; line-height: 16px; border-radius: 8px; cursor: pointer;">거리확인</div>
 					</div>
 				</div>
 			</div>
+		</div>
 	</div>
 
 </body>
@@ -144,6 +146,7 @@
 			bizId : "${map.bizId}",/* 가게 누른 파라미터값 불러와야함 */
 			bizInfo : {}, /* DB 가게정보  */
 			map : null,
+			event : {}, /* 이벤트 정보 */
 		},
 		methods : {
 			fnView : function() {
@@ -158,6 +161,8 @@
 					data : nparmap,
 					success : function(data) {
 						self.bizInfo = data.bizInfo;
+						self.event = data.shopEvent;
+						console.log(self.event);
 						// 데이터베이스에서 가져온 첫 번째 항목의 위치를 이용하여 지도 설정 및 마커 추가
 		                self.setMapCenterAndAddMarker(self.bizInfo.latitude, self.bizInfo.longitude);
 					}

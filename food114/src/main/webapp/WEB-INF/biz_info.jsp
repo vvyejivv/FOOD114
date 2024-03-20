@@ -12,16 +12,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="../css/food114.css">
-<title>로그인</title>
+<title>사장님 페이지</title>
 </head>
 <style>
 .infoBox {
 	width: 1000px;
 	/* height: 495px; */
 	margin-top: 13px;
-	border: 1px solid #ddd;
-	border-radius: 2px;
-	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+	border: 1px solid #EDEDED;
+	border-radius: 5px;
+/* 	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); */
 	color: #555;
 }
 
@@ -29,24 +29,24 @@
 	width: 200px;
 	margin-top: 30px;
 	margin-left: 370px;
-	background-color: #ffffff; /* 버튼 배경색 (흰색) */
-	border: 1px solid #ff7f00; /* 버튼 테두리 (파란색) */
-	color: #ff7f00; /* 텍스트 색상 (파란색) */
-	padding: 8px 12px; /* 내부 여백 */
+	background-color: rgb(240,240,240); /* 버튼 배경색 (흰색) */
+	border: 1px solid #ededed; /* 버튼 테두리 (파란색) */
+	color: #222222; /* 텍스트 색상 (파란색) */
+	padding: 10px 20px; /* 내부 여백 */
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
 	font-size: 14px;
 	transition-duration: 0.4s; /* 트랜지션 효과 지속 시간 */
 	cursor: pointer;
-	border-radius: 4px; /* 버튼에 border-radius 적용 */
+	border-radius: 3px; /* 버튼에 border-radius 적용 */
 }
 
-.btn-modify:hover {
+/* .btn-modify:hover {
 	background-color: #ff7f00;
 	border: 1px solid #FBCEB1;
 	color: #ffffff;
-}
+} */
 
 .infoBox .infoDiv {
 	margin: 15px 0 25px 20px;
@@ -55,14 +55,16 @@
 .infoName {
 	display: inline-block;
 	width: 250px;
+	font-size : 15px;
+	color : #5F5F5F;
 }
 
 .updateBtn {
 	width: 98px;
 	margin-top: 30px;
-	background-color: #ffffff; /* 버튼 배경색 (흰색) */
-	border: 1px solid #ff7f00; /* 버튼 테두리 (파란색) */
-	color: #ff7f00; /* 텍스트 색상 (파란색) */
+	background-color: rgb(240,240,240); /* 버튼 배경색 (흰색) */
+	border: 1px solid #ededed; /* 버튼 테두리 (파란색) */
+	color: #222222; /* 텍스트 색상 (파란색) */
 	padding: 8px 12px; /* 내부 여백 */
 	text-align: center;
 	text-decoration: none;
@@ -73,14 +75,31 @@
 	border-radius: 4px; /* 버튼에 border-radius 적용 */
 }
 
-.updateBtn:hover {
+.removeBtn {
+	width: 98px;
+	margin-top: 30px;
+	background-color: #fff;  /* 버튼 배경색 (흰색) */
+	border: 1px solid #ededed; /* 버튼 테두리 (파란색) */
+	color: #222222; /* 텍스트 색상 (파란색) */
+	padding: 8px 12px; /* 내부 여백 */
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 14px;
+	transition-duration: 0.4s; /* 트랜지션 효과 지속 시간 */
+	cursor: pointer;
+	border-radius: 4px; /* 버튼에 border-radius 적용 */
+}
+
+/* .updateBtn:hover {
 	background-color: #ff7f00;
 	border: 1px solid #FBCEB1;
 	color: #ffffff;
-}
+} */
 
 .viewInfo {
-	
+	font-size : 14px;
+	color : #5F5F5F;
 }
 
 .updateInput {
@@ -111,7 +130,8 @@ input[type="file"] {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	border: 1px solid #ccc;
+	border: 1px solid #EDEDED;
+	border-radius: 2px;
 }
 
 .infoSelect {
@@ -145,15 +165,15 @@ section {
 </style>
 <body>
 	<div id="Container">
-	<%@include file="food114_header.jsp"%>
+	<%@include file="food114_header(biz).jsp"%>
 
 	<section style="height: 950px;">
 		<%@include file="sideBar_biz.html"%>
 		<div id="app" v-cloak>
 			<div class="mold" style="height: auto;">
 				<h2>
-					<span style="color: #ff7f00; font-weight: bold;">| </span> <span
-						style="text-align: left; color: rgba(72, 72, 72);">판매자정보<span
+					<span style="color: #ff7f00; font-weight: bold; font-size : 16px;">| </span> <span
+						style="text-align: left; color: #222222; font-size : 16px;">판매자정보<span
 						v-if="updateFlg"> 변경</span></span>
 				</h2>
 				<div class="infoBox" style="position: relative;">
@@ -164,9 +184,7 @@ section {
 								<input type="file" id="file1" name="file1"
 									accept=".jpg, .png, .gif" @change="fnFileUpload">
 							</template>
-							<div v-if="!updateFlg"
-								style="width: 400px; display: inline-block">사진 변경을 위해서 하단에
-								정보 변경하기 버튼을 눌러주세요.</div>
+							<div style="width: 400px; display: inline-block" v-if="!updateFlg">사진 변경을 위해서 하단에 정보 변경하기 버튼을 눌러주세요.</div>
 
 						</span>
 
@@ -176,7 +194,7 @@ section {
 								<div
 									style="font-size: 12px; position: absolute; top: 90px; left: 20px;"
 									v-if="bizFile=='nothing'">현재 등록된 이미지가 없습니다.</div>
-								<div style="position: absolute; bottom: -15px; left: 70px">300x300</div>
+								<div style="position: absolute; bottom: -15px; left: 70px; font-size:13px; color:#9E9E9E;">300x300</div>
 							</div>
 						</div>
 
@@ -222,7 +240,7 @@ section {
 						<div class="infoName">대표 이름</div>
 						<span v-if="!updateFlg" class="viewInfo">{{bizInfo.ownerName}}</span>
 						<input v-if="updateFlg" class="updateInput"
-							v-model="bizInfo.ownerName">
+							v-model="bizInfo.ownerName" @keyup="validateName">
 					</div>
 					<div class="infoDiv">
 						<div class="infoName">대표연락처</div>
@@ -304,7 +322,12 @@ section {
 							</select>
 							분
 						</template>
-
+					</div>
+					<div class="infoDiv">
+						<div class="infoName">배달 가능 거리(m)</div>
+						<span v-if="!updateFlg" class="viewInfo">{{bizInfo.range}}</span>
+						<input v-if="updateFlg" class="updateInput"
+							v-model="bizInfo.range">
 					</div>
 				</div>
 				<button v-if="!updateFlg" class="btn-modify" @click="fnInfoUpdate()">정보
@@ -312,12 +335,12 @@ section {
 				<div v-if="updateFlg">
 					<button style="margin-left: 370px;" class="updateBtn"
 						@click="fnInfoUpdateComplete">수정</button>
-					<button class="updateBtn" @click="fnCancel()">취소</button>
+					<button class="removeBtn" @click="fnCancel()">취소</button>
 				</div>
 			</div>
 		</div>
 	</section>
-	<%@include file="food114_footer.jsp"%>
+	<%@include file="food114_footer(biz).jsp"%>
 	</div>
 </body>
 
@@ -346,7 +369,8 @@ section {
 					phoneConfirmNum : "1234", //인증번호
 					phoneConfirmInputNum : "", //인증번호 입력값 
 					phoneFlg : true, // 휴대폰 인증 여부
-					inputPhoneCheckFlg : false, // 휴대폰 인증/취소 버튼 활성화 여부					
+					inputPhoneCheckFlg : false, // 휴대폰 인증/취소 버튼 활성화 여부	
+					validName : true
 				},
 				methods : {
 					// 해당 주소의 위도 경도 구하기
@@ -420,12 +444,16 @@ section {
 						if (self.bizInfo.bizName == ""
 								|| self.bizInfo.ownerName == ""
 								|| self.bizInfo.accountNumber == ""
-								|| self.email == "" || self.emailAddr == "") {
+								|| self.email == "" || self.emailAddr == "" || self.bizInfo.range == "") {
 							alert("판매자 정보를 제대로 기입해주세요.");
 							return;
 						}
 						if (!self.phoneFlg) {
 							alert("휴대폰 인증을 진행해주세요.");
+							return;
+						}
+						if (!self.validName) {
+							alert("유효하지 않은 문자가 포함되어 있습니다.");
 							return;
 						}
 						self.bizInfo.openTime = self.openHour + self.openMinute;
@@ -475,7 +503,10 @@ section {
 							success : function(data) {
 								console.log(self.bizFile);
 								self.bizInfo = data.bizInfo;
-								self.category = data.bizInfo.bizCategory;
+								console.log(data);
+								if(!data.bizInfo.bizCategory){
+								self.bizInfo.bizCategory = "";
+								}
 								self.bank = data.bizInfo.bank;
 								if(typeof data.bizInfo.openTime !="undefined"){
 								self.openHour = data.bizInfo.openTime.substring(0, 2);
@@ -561,6 +592,16 @@ section {
 								}
 							}
 						});
+					},
+					validateName : function() {
+						// 영어, 숫자만 입력가능 정규식
+						var pattern = /^[a-zA-Z\u3131-\uD79D]*$/;
+
+						if (pattern.test(this.bizInfo.ownerName)) {
+							this.validName = true; // 유효한 이름
+						} else {
+							this.validName = false; // 유효하지 않은 이름
+						}
 					}
 				},
 				created : function() {

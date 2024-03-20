@@ -40,7 +40,7 @@ public class BoardController {
 		} else {
 			request.setAttribute("endYn", map.get("endYn"));
 		}
-
+		request.setAttribute("map", map);
 		return "/eventList";
 	}
 
@@ -175,6 +175,14 @@ public class BoardController {
 	public String editBizEventBoard(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap = boardService.editBizEventBoard(map);
+		return new Gson().toJson(resultMap);
+	}
+	
+	@RequestMapping(value = "/searchBoardListLimit.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String searchBoardListLimit(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = boardService.searchBoardListLimit(map);
 		return new Gson().toJson(resultMap);
 	}
 

@@ -5,9 +5,9 @@
 
 .orderListBox {
 	position: fixed;
-	width: 280px;
-	right: 10px;
-	top: 250px;
+	width: 380px;
+	right: 240px;
+	top: 560px;
 	border-radius: 5px;
 	border: 1px solid #EDEDED;
 	padding: 10px;

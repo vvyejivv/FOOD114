@@ -23,6 +23,10 @@
 	/* 스크롤바 색상 */
 	;
 }
+a{
+	text-decoration: none;
+	color:#9e9e9e;
+}
 
 ::-webkit-scrollbar- track {
 	background: rgba(0, 0, 0, 0);

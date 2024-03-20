@@ -490,7 +490,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 						map["latitude"]=self.latitude;
 						map["longitude"]=self.longitude;
 						map["inputAddr"]=self.inputAddr;
-						$.pageChange("/food114_foodfind.do", map);
+						$.pageChange("/food114-foodfind.do", map);
 					},
 					/* 사업자 리스트 불러오기 */
 					fnBizList : function() {
@@ -555,7 +555,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 						  var self=this;
 					    self.convertAddressToCoordinates(self.inputAddr);
 						setTimeout(function(){
-							$.pageChange("/food114_foodfind.do", {
+							$.pageChange("/food114-foodfind.do", {
 								latitude : self.latitude,
 								longitude : self.longitude,
 								inputAddr : self.inputAddr,
