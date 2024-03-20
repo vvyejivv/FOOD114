@@ -393,7 +393,7 @@ input[type='text']:focus {
 
 						map["userId"] = self.info.userId;
 						
-						let name = /^[^\d\W]+$/
+						let name = /^[^\d\W]+$/;
 						if (!name.test(self.changeValue)) {
 							alert("이름을 제대로 입력해주세요.");
 							return;
@@ -445,6 +445,7 @@ input[type='text']:focus {
 					// 변경 클릭시 오픈 모달창
 					openNameModal : function(type) {
 						var self = this;
+					
 						self.modalType = type;
 						self.modalFlg = true;
 						self.modalType = type;
