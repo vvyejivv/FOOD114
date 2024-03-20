@@ -109,6 +109,7 @@
 	height: 136px;
 	border-radius: 8px;
 	box-sizing: border-box;
+	object-fit:scale-down;
 }
 
 .bizInfo {
@@ -501,16 +502,16 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 			  self.map.nowPage=1;
 			  self.convertAddressToCoordinates(self.map.inputAddr);
 			  setTimeout(function(){
-			  $.pageChange("/event-biz-list.do", self.map);
+			  $.pageChange("/food114-town-event.do", self.map);
 			}, 50)	
 		  },
 		  'map.nowPage' : function(){
 			  var self=this;
-			  $.pageChange("/event-biz-list.do", self.map);
+			  $.pageChange("/food114-town-event.do", self.map);
 		  },
 		  'map.order' : function(){
 			  var self=this;
-			  $.pageChange("/event-biz-list.do", self.map);
+			  $.pageChange("/food114-town-event.do", self.map);
 		  }
 		},
 		created : function() {

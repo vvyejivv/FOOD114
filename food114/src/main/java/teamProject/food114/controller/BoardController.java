@@ -27,80 +27,9 @@ public class BoardController {
 
 	@Autowired
 	BoardService boardService;
-	
+
 	@Autowired
 	HttpSession session;
-	
-	
-	// 우리 동네 이벤트
-	@RequestMapping("/food114-biz-event.do")
-	public String bizEvent_info(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
-			throws Exception {
-		if(session.getAttribute("sessionBizId")==null) {
-			return "redirect:/nosession.do";
-		}
-		request.setAttribute("map", map);
-		return "/bizEvent_info"; // bizEvent_info.jsp
-	}
-	
-	
-	
-	// 웹 주관 이벤트 페이지
-	@RequestMapping("/food114-event.do")
-	public String eventWeb(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
-			throws Exception {
-		if (!map.containsKey("endYn")) {
-			request.setAttribute("endYn", "N");
-		} else {
-			request.setAttribute("endYn", map.get("endYn"));
-		}
-		request.setAttribute("map", map);
-		return "/user_web_event";
-	}
-
-	// 웹 주관 이벤트 페이지
-	@RequestMapping("/food114-town-event.do")
-	public String eventBizList(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
-			throws Exception {
-		if(!map.containsKey("order") || map.get("order")=="") {
-			map.put("order", "ORDER BY ENDYN DESC");
-		}
-		if(!map.containsKey("nowCategory")||map.get("nowCategory")=="") {
-			map.put("nowCategory","%%");
-		}
-		if(!map.containsKey("nowPage")) {
-			map.put("nowPage", 1);
-		}
-		request.setAttribute("map", map);
-		return "/user-town-event";
-	}
-
-	// 웹 주관 이벤트 페이지 상세보기
-	@RequestMapping("/event-web-view.do")
-	public String eventWebView(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
-			throws Exception {
-		request.setAttribute("boardNo", map.get("boardNo"));
-		request.setAttribute("endYn", map.get("endYn"));
-		return "/eventView";
-	}
-
-	// 웹 주관 이벤트 페이지 상세보기
-	@RequestMapping(value = "/event-view.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-	@ResponseBody
-	public String eventView(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		resultMap = boardService.searchEvent(map);
-		return new Gson().toJson(resultMap);
-	}
-
-	// 웹 주관 이벤트 목록 호출
-	@RequestMapping(value = "/event-list.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-	@ResponseBody
-	public String eventList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		resultMap = boardService.searchEventList(map);
-		return new Gson().toJson(resultMap);
-	}
 
 	// 공지사항 리스트
 	@RequestMapping("/food114-biz-notice.do")
@@ -122,8 +51,90 @@ public class BoardController {
 			throws Exception {
 		request.setAttribute("map", map);
 		return "/boardNoticeInsert";
+	}
+
+	// 사업자 이벤트 등록수정페이지
+	@RequestMapping("/food114-biz-event.do")
+	public String bizEvent_info(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
+			throws Exception {
+		if (session.getAttribute("sessionBizId") == null) {
+			return "redirect:/nosession.do";
 		}
-	
+		request.setAttribute("map", map);
+		return "/bizEvent_info"; // bizEvent_info.jsp
+	}
+
+	// 웹 주관 이벤트 페이지
+	@RequestMapping("/food114-event.do")
+	public String eventWeb(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
+			throws Exception {
+		if (!map.containsKey("endYn")) {
+			request.setAttribute("endYn", "N");
+		} else {
+			request.setAttribute("endYn", map.get("endYn"));
+		}
+		request.setAttribute("map", map);
+		return "/user_web_event";
+	}
+
+	// 우리 동네 이벤트 페이지
+	@RequestMapping("/food114-town-event.do")
+	public String eventBizList(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
+			throws Exception {
+		if (!map.containsKey("order") || map.get("order") == "") {
+			map.put("order", "ORDER BY ENDYN DESC");
+		}
+		if (!map.containsKey("nowCategory") || map.get("nowCategory") == "") {
+			map.put("nowCategory", "%%");
+		}
+		if (!map.containsKey("nowPage")) {
+			map.put("nowPage", 1);
+		}
+		request.setAttribute("map", map);
+		return "/user_town_event";
+	}
+
+	// 웹 주관 이벤트 페이지 상세보기
+	@RequestMapping("/event-web-view.do")
+	public String eventWebView(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
+			throws Exception {
+		request.setAttribute("boardNo", map.get("boardNo"));
+		request.setAttribute("endYn", map.get("endYn"));
+		return "/eventView";
+	}
+
+	// 자주하는 질문 (목록/상세보기)
+	@RequestMapping("/boardNoticeQnaAsk.do")
+	public String qnaAsk(Model model) throws Exception {
+		return "/boardNoticeQnaAsk";
+	}
+
+	// 1:1 문의 게시판 글 작성
+	@RequestMapping("/boardQnaInsert.do")
+	public String insert(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
+			throws Exception {
+		request.setAttribute("map", map);
+		return "/boardQnaInsert";
+	}
+
+	// 웹 주관 이벤트 페이지 상세보기
+	@RequestMapping(value = "/event-view.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String eventView(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = boardService.searchEvent(map);
+		return new Gson().toJson(resultMap);
+	}
+
+	// 웹 주관 이벤트 목록 호출
+	@RequestMapping(value = "/event-list.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String eventList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = boardService.searchEventList(map);
+		return new Gson().toJson(resultMap);
+	}
+
 	// 공지사항 게시판 글 작성
 	@RequestMapping(value = "/boardNoticeInsert.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
@@ -132,7 +143,7 @@ public class BoardController {
 		resultMap = boardService.insertNotice(map);
 		return new Gson().toJson(resultMap);
 	}
-	
+
 	// 공지사항 게시판 글 삭제
 	@RequestMapping(value = "/boardNoticeRemove.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
@@ -140,15 +151,6 @@ public class BoardController {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap = boardService.insertNotice(map);
 		return new Gson().toJson(resultMap);
-	}
-	
-	
-	// 1:1 문의 게시판 글 작성
-	@RequestMapping("/boardQnaInsert.do")
-	public String insert(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
-			throws Exception {
-		request.setAttribute("map", map);
-		return "/boardQnaInsert";
 	}
 
 	// 게시글 목록
@@ -170,14 +172,6 @@ public class BoardController {
 		return new Gson().toJson(resultMap);
 	}
 
-	// 자주하는 질문 (목록/상세보기)
-	@RequestMapping("/boardNoticeQnaAsk.do")
-	public String qnaAsk(Model model) throws Exception {
-		return "/boardNoticeQnaAsk";
-	}
-
-
-
 	@RequestMapping(value = "/listBizEvent.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String listBizEvent(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
@@ -186,8 +180,6 @@ public class BoardController {
 		return new Gson().toJson(resultMap);
 	}
 
-
-
 	@RequestMapping(value = "/listBizEventView.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String listBizEventView(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
@@ -195,7 +187,7 @@ public class BoardController {
 		resultMap = boardService.searchBizEventView(map);
 		return new Gson().toJson(resultMap);
 	}
-	
+
 	@RequestMapping(value = "/editBizEventBoard.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String editBizEventBoard(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
@@ -203,7 +195,7 @@ public class BoardController {
 		resultMap = boardService.editBizEventBoard(map);
 		return new Gson().toJson(resultMap);
 	}
-	
+
 	@RequestMapping(value = "/searchBoardListLimit.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String searchBoardListLimit(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
@@ -216,8 +208,8 @@ public class BoardController {
 	@RequestMapping("/bizEventFileUpload.dox")
 	public String result(@RequestParam("file1") MultipartFile multi, @RequestParam("boardNo") String boardNo,
 			@RequestParam("title") String title, @RequestParam("contents") String contents,
-			@RequestParam("type") String type, @RequestParam("endYn") String endYn,
-			HttpServletRequest request, HttpServletResponse response, Model model) {
+			@RequestParam("type") String type, @RequestParam("endYn") String endYn, HttpServletRequest request,
+			HttpServletResponse response, Model model) {
 		String url = null;
 		String path = "c:\\img";
 		try {
@@ -258,12 +250,12 @@ public class BoardController {
 				model.addAttribute("filename", multi.getOriginalFilename());
 				model.addAttribute("uploadPath", file.getAbsolutePath());
 
-				return "redirect:bizEvent_info.do";
+				return "redirect:food114-biz-event.do";
 			}
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		return "redirect:bizEvent_info.do";
+		return "redirect:food114-biz-event.do";
 	}
 
 	// 현재 시간을 기준으로 파일 이름 생성
