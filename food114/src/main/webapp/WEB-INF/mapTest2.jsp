@@ -119,14 +119,14 @@ section {
 }
 
 #menu1, #menu2 {
-	font-size: 16px;
-	color: #000;
+	color: #222222;
 	padding: 10px 20px;
 	width: 50%;
 	box-sizing: border-box;
 	float: left;
 	height: 50px;
 	margin: 0px;
+	font-size : 14px;
 }
 
 .option {
@@ -204,6 +204,7 @@ ul, ol {
 	height: 80px;
 	float: left;
 	margin: 10px;
+	object-fit:contain;
 }
 /* 장소 리스트 스타일 */
 #placesList1 {
@@ -283,6 +284,7 @@ ul, ol {
 	width: 200px;
 	height: 200px;
 	margin-left:5px;
+	margin-top:10px;
 }
 </style>
 <link rel="stylesheet" href="../css/food114.css">
@@ -301,31 +303,31 @@ ul, ol {
 					<a href="javascript:;" @click="fnRestClose()" class="backBtn">❮</a>
 					<div style="margin:20px;">
 						<h1 style="font-size: 1.5em;">{{restView.bizName}}<span style="color:#ccc; margin-top:5px;"> {{restView.categoryName}}</span></h1>
-						<div style="margin-top:10px;">리뷰 {{restView.reviewCnt}}</div>
+						<div style="margin-top:10px;"><a href="javascript:;" @click="fnShopInfoReview(restView.bizId)">리뷰 {{restView.reviewCnt}}</a></div>
 					</div>
 						<div style="border-top:1px solid #eee; width:414px; margin:20px 0px 20px 10px;"></div>
 					<div style="margin:10px;">
 						<div class="detailView">
 							<img class="solidImg" src="../img/location-dot-solid.png">
-							<span style="font-size:17px;">{{restView.newAddr}} {{restView.detail}}</span>
+							<span style="font-size:14px;">{{restView.newAddr}} {{restView.detail}}</span>
 						</div>
 						<div class="detailView">
 							<img class="solidImg" src="../img/clock-solid.png">
-							<span style="font-size:17px;">{{restView.sepaOpenTime}} - {{restView.sepaCloseTime}}</span>
+							<span style="font-size:14px;">{{restView.sepaOpenTime}} - {{restView.sepaCloseTime}}</span>
 						</div>
 						<div class="detailView">
 							<img class="solidImg" src="../img/phone-solid.png">
-							<span style="font-size:17px;">{{restView.sepaPhone}}</span>
+							<span style="font-size:14px;">{{restView.sepaPhone}}</span>
 						</div>
 						<div class="detailView">
 							<img class="solidImg" src="../img/store-solid.png">
-							<span style="font-size:17px;">{{restView.devType}}</span>
+							<span style="font-size:14px;">{{restView.devType}}</span>
 						</div>
 						<div class="detailView">
 							<img class="solidImg" src="../img/store-solid.png">
-							<span style="font-size:1.5em;">가게이벤트</span>
-							<div style="font-size:15px; margin-left:25px; margin-top:10px;">{{restView.title}}</div>
-							<div style="font-size:15px; margin-left:25px; margin-top:10px;">{{restView.contents}}</div>
+							<span style="font-size:16px;">가게이벤트</span>
+							<div style="font-size:14px; margin-left:25px; margin-top:10px;">{{restView.title}}</div>
+							<div style="font-size:14px; margin-left:25px; margin-top:10px;">{{restView.contents}}</div>
 						</div>
 						<div style="width:100%; text-align:center;">
 							<button @click="fnShopInfo(restView.bizId)" class="plusBtn">정보 더보기 ❯</button>
@@ -337,9 +339,9 @@ ul, ol {
 						<div class="detailView" v-for="item in menuSampleList" style="float:left;">
 							<img class="sampleImg" :src="item.path">
 							<div style="font-size:15px; margin-left:50px;">{{item.menu}}</div>
-							<div style="font-size:15px; margin-left:50px; margin-top:10px; font-weight:bold;">{{item.price}}<span style="font-size:15px; font-weight:100;">원</span></div>
+							<div style="font-size:15px; margin-left:50px; margin-top:10px; font-weight:bold;">{{parseInt(item.price).toLocaleString()}}<span style="font-size:15px; font-weight:100;">원</span></div>
 						</div>
-						<div style="width:100%; text-align:center;">
+						<div style="width:100%; text-align:center; clear:both;">
 							<button @click="fnShopInfo(restView.bizId)" class="plusBtn">메뉴 더보기 ❯</button>
 						</div>
 					</div>
@@ -393,13 +395,13 @@ ul, ol {
 					<div class="restList" v-if="areaRestList.length == 0 && searchFlg" v-for="item in locationRestList">
 						<img :src="item.path" alt="Hi" class="restImg">
 						<h3 style="margin-top: 8px;">
-							<a style="font-size: 1.5em;" href="javascript:;"
+							<a style="font-size: 16px;" href="javascript:;"
 								@click="fnRestView(item.bizId)">{{item.bizName}}</a><span style="color: #aaa;"> {{item.categoryName}}</span>
 						</h3>
-						<div id="placesList1">
+						<div id="placesList1" style="margin-top:5px;">
 							<span style="color: #ff7f00;">★ {{item.reviewAvg}}</span> | 리뷰 {{item.reviewCnt}}
-							<p style="margin-left: 60px;">{{item.title}}</p>
-							<p style="margin-left: 60px;">{{item.contents}}</p>
+							<p style="margin-left: 60px; margin-top:5px;">{{item.title}}</p>
+							<p style="margin-left: 60px; margin-top:5px;">{{item.contents}}</p>
 						</div>
 					</div>
 					<div class="restList" v-if="areaRestList.length > 0" v-for="item in areaRestList" @click="fnRestView(item.bizId)">
@@ -408,10 +410,10 @@ ul, ol {
 							<a style="font-size: 1.5em;" href="javascript:;"
 								>{{item.bizName}}</a><span style="color: #aaa;"> {{item.categoryName}}</span>
 						</h3>
-						<div id="placesList1">
+						<div id="placesList1" style="margin-top:5px;">
 							<span style="color: #ff7f00;">★ {{item.reviewAvg}}</span> | 리뷰 {{item.reviewCnt}}
-							<p style="margin-left: 60px;">{{item.title}}</p>
-							<p style="margin-left: 60px;">{{item.contents}}</p>
+							<p style="margin-left: 60px; margin-top:5px;">{{item.title}}</p>
+							<p style="margin-left: 60px; margin-top:5px;">{{item.contents}}</p>
 						</div>
 					</div>
 					<div class="restList" v-if="areaRestList.length == 0 && !searchFlg">
@@ -481,7 +483,7 @@ ul, ol {
     }
     
     function goToPage(bizId){
-    	$.pageChangeBlank("/shopInfo.do", {bizId : bizId});
+    	$.pageChangeBlank("/shopInfo.do", {bizId : bizId, selectTab : 'menu'});
     }
     
 		var app = new Vue({
@@ -937,7 +939,10 @@ ul, ol {
 				    menuView.style.left = "0";
 				},
 			  fnShopInfo: function(bizId) {
-				  $.pageChangeBlank("/shopInfo.do", {bizId : bizId});
+				  $.pageChangeBlank("/shopInfo.do", {bizId : bizId, selectTab : 'menu'});
+			  },
+			  fnShopInfoReview: function(bizId) {
+				  $.pageChangeBlank("/shopReview.do", {bizId : bizId, selectTab : 'review'});
 			  }
 			},
 			mounted() {

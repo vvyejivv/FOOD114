@@ -152,7 +152,7 @@ tr:hover {
 				<button v-if="!updateFlg" class="btn-modify" @click="fnInfoUpdate()">정보 변경하기</button>
 				<div v-if="updateFlg">
 					<button style="margin-left: 370px;" class="updateBtn"
-						@click="fnAdd()">수정</button>
+						@click="fnAdd()">작성/수정</button>
 					<button class="updateBtn" @click="fnInfoUpdate()">취소</button>
 				</div>
 				<div style="margin-top: 30px; font-size:15px;">
@@ -199,7 +199,22 @@ tr:hover {
 		data : {
 			sessionId : "${sessionBizId}",
 			updateFlg : false,
-			eventInfo : {},
+			eventInfo : {
+				title : "",
+				type : "",
+				contents : "",
+				endYn : "",
+				beginHour : "",
+				beginMinute : "",
+				endHour : "",
+				endMinute : "",
+				beginYear : "",
+				beginMonth : "",
+				beginDay : "",
+				endYear : "",
+				endMonth : "",
+				endDay : ""
+			},
 			menuList : [],
 			menuCnt : ""
 		},
@@ -215,15 +230,16 @@ tr:hover {
 					type : "POST",
 					data : nparmap,
 					success : function(data) {
-						self.menuList = data.menuList;
 						self.menuCnt = data.menuCnt;
-						console.log(data.menuList);
 						console.log(data.menuCnt);
-						for(var i = 0; i < self.menuList.length; i++){
-							if(self.menuList[i].salePrice){
-								self.menuList[i].saleFlg = true;
-							} else {
-								self.menuList[i].saleFlg = false;
+						if(data.menuList){
+							self.menuList = data.menuList;
+							for(var i = 0; i < self.menuList.length; i++){
+								if(self.menuList[i].salePrice){
+									self.menuList[i].saleFlg = true;
+								} else {
+									self.menuList[i].saleFlg = false;
+								}
 							}
 						}
 					}
@@ -241,8 +257,9 @@ tr:hover {
 					data : nparmap,
 					success : function(data) {
 						console.log(data.listBizEventView);
-						self.eventInfo = data.listBizEventView;
-						console.log(self.eventInfo.boardNo);
+						if(data.listBizEventView){
+							self.eventInfo = data.listBizEventView;
+						}
 					}
 				});
 			},
@@ -290,7 +307,7 @@ tr:hover {
 			fnAdd : function() {
 				var self = this;
 				var nparmap = {
-					boardNo : self.boardNo,
+					boardNo : self.eventInfo.boardNo,
 					type : self.eventInfo.type,
 					title : self.eventInfo.title,
 					contents : self.eventInfo.contents,
@@ -306,7 +323,7 @@ tr:hover {
 					type : "POST",
 					data : nparmap,
 					success : function(data) {
-						$.pageChange("/bizEvent.do", {});
+						$.pageChange("/bizEvent_info.do", {});
 					}
 				});
 			},
