@@ -325,7 +325,7 @@ tr:hover {
 					type : "POST",
 					data : nparmap,
 					success : function(data) {
-						$.pageChange("/bizEvent_info.do", {});
+						$.pageChange("/food114-biz-event.do", {});
 					}
 				});
 			},
@@ -353,7 +353,7 @@ tr:hover {
 					type : "POST",
 					data : nparmap,
 					success : function(data) {
-						$.pageChange("/bizEvent_info.do", {});
+						$.pageChange("/food114-biz-event.do", {});
 					}
 				});
 			},
@@ -369,7 +369,7 @@ tr:hover {
 					type : "POST",
 					data : nparmap,
 					success : function(data) {
-						$.pageChange("/bizEvent_info.do", {});
+						$.pageChange("/food114-biz-event.do", {});
 					}
 				});
 			},
@@ -398,7 +398,7 @@ tr:hover {
 					type : "POST",
 					data : nparmap,
 					success : function(data) {
-						$.pageChange("/bizEvent_info.do", {});
+						$.pageChange("/food114-biz-event.do", {});
 					}
 				});
 			}
