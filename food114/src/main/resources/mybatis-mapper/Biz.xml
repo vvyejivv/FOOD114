@@ -7,7 +7,7 @@
 	<select id="selectEventStatus" parameterType="hashmap"
 		resultType="teamProject.food114.model.Biz">
 		SELECT
-		<![CDATA[ setbegintime<= DATE_FORMAT(NOW(), '%H%i')
+		<![CDATA[ date_format(NOW(),"%Y%m%d")>=date_format(begintime,"%Y%m%d") AND date_format(NOW(),"%Y%m%d")<=date_format(endtime,"%Y%m%d") and setbegintime<= DATE_FORMAT(NOW(), '%H%i')
 		AND DATE_FORMAT(NOW(), '%H%i')<= setendtime AS EVENTSTATUS ]]>
 		FROM
 		FOOD114_BOARD
@@ -435,6 +435,8 @@
 	<select id="selectBizDelivery" parameterType="hashmap"
 		resultType="teamProject.food114.model.Biz">
 		SELECT
+DATE_FORMAT(RE.BEGINTIME,"%y/%m/%d") AS BEGINTIME,
+DATE_FORMAT(RE.ENDTIME,"%y/%m/%d") AS ENDTIME,
 		ENDYN,
 		I.*,
 		REVIEWAVG,
@@ -470,6 +472,8 @@
 		B.CONTENTS,
 		B.SETBEGINTIME,
 		B.SETENDTIME,
+		B.BEGINTIME,
+		B.ENDTIME,
 		COUNT(REVIEWNO) AS
 		REVIEWCNT,
 		B.ENDYN
@@ -502,7 +506,7 @@
 		OC ON
 		OC.BIZID=I.BIZID
 		WHERE BIZCATEGORY LIKE
-		(#{nowCategory})
+		(#{nowCategory}) ${keyword}
 		${order}
 	</select>
 

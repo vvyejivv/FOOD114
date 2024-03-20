@@ -80,8 +80,18 @@
 		WHERE BOARDNO = #{boardNo} AND
 		CODE = 1
 	</select>
+	
+	<!-- 공지사항 게시글 작성 -->
+	<insert id="insertNotictBoard" parameterType="hashmap"
+		useGeneratedKeys="true" keyProperty="BOARDNO" keyColumn="BOARDNO">
+		INSERT INTO
+		FOOD114_BOARD
+		VALUES(, #{title}, #{contents}, null, null, null, null, #{userId}, 1, null, null, N, SYSDATE, 
+		SYSDATE, null, 1)
+	</insert>
+	
 
-	<!-- 게시글 작성 -->
+	<!-- 1:1 문의 게시글 작성 -->
 	<insert id="insertQnaBoard" parameterType="hashmap"
 		useGeneratedKeys="true" keyProperty="BOARDNO" keyColumn="BOARDNO">
 		INSERT INTO

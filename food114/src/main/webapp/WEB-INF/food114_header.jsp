@@ -59,7 +59,11 @@
 				inputAddr : "${map.inputAddr}", // 현재 입력된 주소
 				latitude : "${map.latitude}", // 현재 입력된 주소의 위도
 				longitude : "${map.longitude}",	 // 현재 입력된 주소의 경도	
-				nowPage:1
+				nowPage:1,
+				detail : "${map.detail}",
+				addrNo : "${map.addrNo}",
+				phone : "${map.phone}",
+				request : "${map.request}"
 			}
 		},
 		methods : {
@@ -81,7 +85,6 @@
 			},
 			fnPageChange : function(link, map) {
 				var self = this;
-				console.log("클릭");
 				$.pageChange(link, self.map);
 			}
 		},

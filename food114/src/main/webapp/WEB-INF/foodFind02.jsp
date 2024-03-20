@@ -24,7 +24,8 @@
 }
 
 .bottomSection {
-	height: 830px;
+	min-height: 400px;
+	max-height: 830px;
 }
 
 #title {
@@ -208,7 +209,7 @@
 									<div>주소 : {{item.newAddr}}</div>
 									<div>상세주소 : {{item.detail}}</div>
 									<button class="main2-text-btn"
-										@click="fnAddrSelect(item.newAddr,item.detail)">선택</button>
+										@click="fnAddrSelect(item)">선택</button>
 								</div>
 							</template>
 						</div>
@@ -229,7 +230,15 @@
 
 				<div class="bottomSection">
 					<div style="width: 1420px; margin: 0 auto;">
-						<div style="height: 44px;">
+						<div
+							style="height: 44px; display: flex; justify-content: end; gap: 10px;">
+							<div style="display: inline-block;">
+								<input placeholder="검색어를 입력해주세요." v-model="keyword"
+									style="font-size: 14px; border: 1px solid #ededed; border-radius: 5px; padding: 12px 23.5px 12px 23.5px; color: #5f5f5f;">
+							</div>
+							<button @click="fnList()"
+								style="border-radius: 5px; background-color: #ff8002; color: white; border: 1px solid #ffffff; padding: 5px 15px; cursor: pointer;">검색</button>
+
 							<select class="orderSelect" v-model="map.order">
 								<option value="ORDER BY ENDYN DESC">기본 정렬순</option>
 								<option value="ORDER BY ENDYN DESC,REVIEWAVG DESC">별점
@@ -240,14 +249,16 @@
 						</div>
 					</div>
 					<div id="bizListContainer">
+					<div style="margin-top: 20px; width: 1420px; text-align: center;"
+							v-if="list.bizBaedalOkList.length==0">현재 조회되는 매장이 없습니다.</div>
+					
 						<div id="bizListGrid">
 
 							<!-- 가게 보여주기 -->
 							<div v-for="(item,index) in list.bizBaedalOkList" class="bizBox"
-								:style="{'background-color': !item.contents? '#ededed3c':'white'}"
 								v-if="(map.nowPage*showCnt-showCnt)<= index && index<(map.nowPage*showCnt)">
 								<div class="bizBoxContent">
-									<img :src="item.path">
+									<img :src="item.path" style="border-radius: 0px;">
 
 									<div class="bizInfo">
 
@@ -337,7 +348,10 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 				latitude : "${map.latitude}",
 				longitude : "${map.longitude}",
 				nowPage : ${map.nowPage},
-				detail : "${map.detail}"
+				detail : "${map.detail}",
+				addrNo : "${map.addrNo}",
+				phone : "${map.phone}",
+				request : "${map.request}"
 			},
 			list : {
 				bizBaedalOkList : [] ,
@@ -348,7 +362,8 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 			},
 			totalPage : "", // 총 페이지 
 			showCnt : 9, //보여지는 개수
-			totalCnt : "" // 총 개수
+			totalCnt : "", // 총 개수
+			keyword : ""
 		},		
 		methods : {
 			/* 카테고리 목록 불러오기 */
@@ -362,16 +377,17 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 					data : nparmap,
 					success : function(data) {
 						self.list.categoryList = data.categoryList;
-						console.log(data);
 					}
 				});
 			},
 			// 주소 선택시
-			fnAddrSelect : function(addr,detail){
+			fnAddrSelect : function(item){
 				var self=this;
-				self.map.detail=detail;
-				self.map.inputAddr=addr;
-				
+				self.map.addrNo=item.addrNo;
+				self.map.detail=item.detail;				
+				self.map.phone=item.phone;
+				self.map.request=item.request;
+				self.map.inputAddr=item.newAddr;
 				
 			},
 			
@@ -397,7 +413,10 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 			,
 			// 내 주소 불러오기
 			fnLoadMyAddr : function(){
-				var self=this;				
+				var self=this;		
+				if(self.sessionId==""){
+					return;
+				}
 				var nparmap = {
 					userId : self.sessionId
 				}
@@ -408,20 +427,23 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 					data : nparmap,
 					success : function(data) {
 						self.list.addrList=data.list;
-						console.log(data);
 						if(data.list.length==0){							
 							return;
 						}
-						if(self.map.inputAddr==""){
-						self.map.inputAddr=self.list.addrList[0].newAddr;
-						}
+						if(self.map.addrNo==""){
+							self.map.addrNo=self.list.addrList[0].addrNo;
+							self.map.inputAddr=self.list.addrList[0].newAddr;
+							self.map.detail=self.list.addrList[0].detail;
+							self.map.phone=self.list.addrList[0].phone;
+							return;
+							self.map.request=self.list.addrList[0].request;
+							}
 					}
 				});
 			},
 			// 페이지 체인지
 			fnPageChange : function(link,map){
 				var self=this;
-				console.log(map);
 				$.pageChange(link, map);
 			},
 			// 해당 주소의 위도 경도 구하기
@@ -443,9 +465,11 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 			// 배달가능한 가게목록 전체
 			fnList : function() {
 				var self=this;
+				var keyword ="AND BIZNAME LIKE('%"+self.keyword+"%')";
 				var nparmap = {
 						nowCategory : self.map.nowCategory,
-						order : self.map.order
+						order : self.map.order,
+						keyword : keyword
 				};
 				$.ajax({
 					url : "baedalok.dox",
@@ -481,7 +505,6 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 	                })
 	                self.totalCnt=self.list.bizBaedalOkList.length;	// 총 개수 초기화     
 	                self.totalPage=Math.ceil(self.totalCnt/9); // 총 페이지 초기화
-	                console.log(self.list.bizBaedalOkList);
 			},
 			//주소조회 api
 			openAddressSearch : function() {
@@ -500,7 +523,6 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 			  self.map.nowPage=1;
 			  self.convertAddressToCoordinates(self.map.inputAddr);
 			  setTimeout(function(){
-				  console.log(self.map.inputAddr);
 			  $.pageChange("/food114-foodfind.do", self.map);
 			}, 50)	
 		  },
@@ -523,7 +545,6 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 			self.fnLoadMyAddr();
 			self.fnCategoryList();
 			self.fnList();
-			console.log(self.sessionId);
 				
 
 		}
