@@ -502,7 +502,7 @@
 		OC ON
 		OC.BIZID=I.BIZID
 		WHERE BIZCATEGORY LIKE
-		(#{nowCategory})
+		(#{nowCategory}) ${keyword}
 		${order}
 	</select>
 
