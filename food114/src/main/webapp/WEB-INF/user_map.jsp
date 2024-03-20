@@ -482,7 +482,7 @@ ul, ol {
     }
     
     function goToPage(bizId){
-    	$.pageChangeBlank("/shopInfo.do", {bizId : bizId, selectTab : 'menu'});
+    	$.pageChangeBlank("/food114-shop-info.do", {bizId : bizId, selectTab : 'menu'});
     }
     
 		var app = new Vue({
@@ -938,10 +938,10 @@ ul, ol {
 				    menuView.style.left = "0";
 				},
 			  fnShopInfo: function(bizId) {
-				  $.pageChangeBlank("/shopInfo.do", {bizId : bizId, selectTab : 'menu'});
+				  $.pageChangeBlank("/food114-shop-info.do", {bizId : bizId, selectTab : 'menu'});
 			  },
 			  fnShopInfoReview: function(bizId) {
-				  $.pageChangeBlank("/shopReview.do", {bizId : bizId, selectTab : 'review'});
+				  $.pageChangeBlank("/food114-shop-review.do", {bizId : bizId, selectTab : 'review'});
 			  }
 			},
 			mounted() {

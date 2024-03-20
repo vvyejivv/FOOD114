@@ -29,7 +29,7 @@
 	<header>
 		<%@include file="food114_header.jsp"%>
 	</header>
-	<%@include file="shopInfo_header.jsp"%>
+	<%@include file="user_shop_header.jsp"%>
 	<div id="app" v-cloak>
 		<div id="menuContainer">
 			<div class="menuBox">
@@ -219,7 +219,6 @@
 					success : function(data) {
 						self.menuList = data.menuList;
 						self.eventStatus = data.eventStatus;
-						console.log(data);
 		
 					}
 				});
@@ -233,7 +232,6 @@
 				if (type == "open") {
 					
 					self.clickMenu = self.menuList[index];
-					console.log(self.clickMenu);
 					if(self.eventStatus==1&&self.clickMenu.salePrice){
 					self.totalPrice = self.clickMenu.salePrice * self.cnt;
 					} else{
@@ -344,7 +342,7 @@
 						data : nparmap,
 						success : function(data) {
 							self.orderNo = data.orderNo;
-							$.pageChange("/order.do", {userId : self.sessionId, selectMenuList: self.selectMenuList, orderNo : self.orderNo, orderAddr : self.orderAddr, orderAddrDetail : self.orderAddrDetail, phone : self.phone});
+							$.pageChange("/food114-shop-order.do", {userId : self.sessionId, selectMenuList: self.selectMenuList, orderNo : self.orderNo, orderAddr : self.orderAddr, orderAddrDetail : self.orderAddrDetail, phone : self.phone, request : self.orderRequest});
 						}
 					});  
 			}

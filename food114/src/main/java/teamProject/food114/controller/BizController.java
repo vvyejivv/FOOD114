@@ -96,20 +96,20 @@ public class BizController {
 		return "/nosession";
 	}
 
-	// 가게 정보
-	@RequestMapping("/shopInfo.do")
+	// 가게 자세히보기 클릭시 메뉴 및 가게 정보
+	@RequestMapping("/food114-shop-info.do")
 	public String shopInfo(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
 		request.setAttribute("map", map);
-		return "/shopInfo";
+		return "/user_shop_info";
 	}
 
 	// 사업자 이벤트 등록/수정
-	@RequestMapping("/shopEvent.do")
+	@RequestMapping("/food114-shop-event.do")
 	public String shopEvent(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
 		request.setAttribute("map", map);
-		return "/shopEvent";
+		return "/user_shop_event";
 	}
 	
 	// 사업자 판매 통계

@@ -109,6 +109,7 @@
 	height: 136px;
 	border-radius: 8px;
 	box-sizing: border-box;
+	object-fit: scale-down;
 }
 
 .bizInfo {
@@ -285,7 +286,7 @@
 								</div>
 								<div style="clear: both; margin-left: -20px;">
 									<button class="bizDetailBtn"
-										@click="fnPageChange('shopInfo.do',Object.assign(map, {selectTab : 'menu', bizId : item.bizId}))">자세히
+										@click="fnPageChange('food114-shop-info.do',Object.assign(map, {selectTab : 'menu', bizId : item.bizId}))">자세히
 										보기</button>
 								</div>
 							</div>
@@ -357,10 +358,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 			showCnt : 9, //보여지는 개수
 			totalCnt : "", // 총 개수
 			keyword : ""
-			
-		
-		},
-		
+		},		
 		methods : {
 			// 주소 선택시
 			fnAddrSelect : function(item){
@@ -414,6 +412,8 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 						self.map.addrNo=self.list.addrList[0].addrNo;
 						self.map.inputAddr=self.list.addrList[0].newAddr;
 						self.map.detail=self.list.addrList[0].detail;
+						self.map.phone=self.list.addrList[0].phone;
+						self.map.request=self.list.addrList[0].request;
 						}
 						
 					}
@@ -482,7 +482,6 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 	                })
 	                self.totalCnt=self.list.bizBaedalOkList.length;	// 총 개수 초기화     
 	                self.totalPage=Math.ceil(self.totalCnt/9); // 총 페이지 초기화
-	                console.log(self.list.bizBaedalOkList);
 			},
 			//주소조회 api
 			openAddressSearch : function() {
@@ -501,16 +500,16 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 			  self.map.nowPage=1;
 			  self.convertAddressToCoordinates(self.map.inputAddr);
 			  setTimeout(function(){
-			  $.pageChange("/event-biz-list.do", self.map);
+			  $.pageChange("/food114-town-event.do", self.map);
 			}, 50)	
 		  },
 		  'map.nowPage' : function(){
 			  var self=this;
-			  $.pageChange("/event-biz-list.do", self.map);
+			  $.pageChange("/food114-town-event.do", self.map);
 		  },
 		  'map.order' : function(){
 			  var self=this;
-			  $.pageChange("/event-biz-list.do", self.map);
+			  $.pageChange("/food114-town-event.do", self.map);
 		  }
 		},
 		created : function() {

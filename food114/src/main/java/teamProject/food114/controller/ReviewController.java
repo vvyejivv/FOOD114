@@ -28,11 +28,11 @@ public class ReviewController {
 
 	
 	//가게 리뷰
-	@RequestMapping("/shopReview.do")
+	@RequestMapping("/food114-shop-review.do")
 	public String shopReview(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		request.setAttribute("map", map);
 		/* System.out.println(map); */
-		return "/shopReview"; 
+		return "/user_shop_review"; 
 	}
 	
 	// 사업자 고객 리뷰 목록

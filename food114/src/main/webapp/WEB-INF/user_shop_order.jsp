@@ -211,7 +211,7 @@
 			phone3 : "",
 			phone : "${map.phone}", /* 전화번호  */
 			ecoYNChecked : false, /* 일회용 수저,포크 체크여부 전달  */
-			orderRequest : "", /* 주문 요청사항  */
+			orderRequest : "${map.request}", /* 주문 요청사항  */
 			deliveryRequest : "", /* 배달 요청사항  */
 			status : "", /* 주문상태 */
 			selectedPaymentMethod : "", /* 바로 결제 선택  */
@@ -235,6 +235,7 @@
 		methods : {
 			fnView : function() {
 				var self = this;
+				
 				/* 총 금액  */
 				self.selectTotalPrice = self.fnTotalPrice(self.selectMenuList);
 				self.couponAmount = self.selectTotalPrice;

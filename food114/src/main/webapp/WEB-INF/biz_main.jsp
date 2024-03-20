@@ -88,7 +88,7 @@ button {
                      </div>
                      <!-- 구분선  -->
                      <div style="width: 1px; height: 50px; background-color: #ccc;"></div>
-                     <div @click="fnSelectMenu('/food114-biz-event-view.do')"
+                     <div @click="fnSelectMenu('/food114-biz-event.do')"
                         style="cursor: pointer; width: 100px; height: 100px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px;">
                         <div style="width: 50px; height: 50px;">
                            <img width="50" height="50"
@@ -137,7 +137,7 @@ button {
                         style="border-radius: 5px; border: 1px solid #EDEDED; padding: 10px 144px; color: #222222; font-size: 14px;"
                         @click="fnBizLogout()">로그아웃</button>
                   </div>
-                  <div
+                  <div v-if="sessionId==''"
                      style="display: flex; justify-content: center; margin-top: 5px;">
                      <button
                         style="border-radius: 5px; border: 1px solid #EDEDED; padding: 10px 144px; background-color: #fff; color: #5F5F5F; font-size: 14px;"
