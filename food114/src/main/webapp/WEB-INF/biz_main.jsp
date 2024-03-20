@@ -19,11 +19,10 @@ button {
 <body style="margin: 0px auto;">
 	<div style="width: 1920px; margin: 0px auto;">
 		<%@include file="food114_header(biz).jsp"%>
-		<section>
-			<div id="app" style="width: 1920px; margin: 0px auto;">
-				<div style="width: 1420px; margin: 0px auto; overflow: hidden">
-					<!-- 배너 -->
-
+	<section>
+		<div id="app" style="width: 1920px; margin: 0px auto;">
+			<div style="width: 1420px; margin: 0px auto; overflow: hidden">
+				<!-- 배너 -->
 
 					<div style="width: 1420px; height: 400px; overflow: hidden">
 
