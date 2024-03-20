@@ -125,7 +125,7 @@ input[type="file"] {
 .mainImg img {
 	width: 90%;
 	height: 90%;
-	object-fit: cover;
+	object-fit: scale-down;
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -471,7 +471,7 @@ section {
 							success : function(data) {
 								if (data.result == "success") {
 									alert("정보변경완료");
-									location.href = "biz-info.do";
+									location.href = "food114-biz-info.do";
 								} else {
 									alert("잠시 후 다시 시도해주세요. 해당 오류가 지속된다면 관리자에게 문의하세요.")
 								}
