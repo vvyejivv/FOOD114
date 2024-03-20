@@ -258,7 +258,7 @@
 							<div v-for="(item,index) in list.bizBaedalOkList" class="bizBox"
 								v-if="(map.nowPage*showCnt-showCnt)<= index && index<(map.nowPage*showCnt)">
 								<div class="bizBoxContent">
-									<img :src="item.path" style="border-radius: 0px;">
+									<img :src="item.path" style="border-radius: 0px; object-fit:scale-down;">
 
 									<div class="bizInfo">
 
