@@ -144,7 +144,7 @@ input[type="checkbox"], .btn-modify {
 						<th>수정</th>
 					</tr>
 					<tr v-for="(item,index) in menuList">
-						<td>식음료</td>
+						<td>음식</td>
 						<td>{{item.menuNo}}</td>
 						<td>{{item.menu}}</td>
 						<td>{{item.sta}}</td>
