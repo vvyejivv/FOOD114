@@ -8,9 +8,8 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MAIN</title>
+<title>FOOD114::마이페이지(쿠폰)</title>
 <style>
-@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 </style>
 </head>
 <link rel="stylesheet" href="../css/myPage_myInfo(grade).css">

@@ -12,7 +12,7 @@
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=753d2e1bb03d5938bad9908725e5ad41&libraries=services"></script>
 <script type="text/javascript"
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<title>지도로 검색</title>
+<title>FOOD114::지도로 검색</title>
 <style>
 [v-cloak] { display: none; }
 

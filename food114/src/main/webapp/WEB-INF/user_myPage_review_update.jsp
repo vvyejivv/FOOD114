@@ -6,7 +6,7 @@
 <script src="js/jquery.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <meta charset="UTF-8">
-<title>첫번째 페이지</title>
+<title>FOOD114::마이페이지(리뷰 작성)</title>
 <style>
 .orderListContainer {
 	margin: 10px;

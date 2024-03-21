@@ -8,7 +8,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>회원가입</title>
+<title>FOOD114::회원가입</title>
 <link rel="stylesheet" href="../css/main.css">
 
 </head>
@@ -495,7 +495,6 @@ select {
 						var nparmap = {
 							phone : self.userInfo.phone
 						};
-						return;
 						$.ajax({
 							url : "send-one",
 							dataType : "json",

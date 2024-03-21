@@ -11,7 +11,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="../css/main.css">
 <link rel="stylesheet" href="../css/shopInfo.css">
-<title>가게리뷰</title>
+<title>FOOD114::가게리뷰</title>
 </head>
 <style>
 </style>

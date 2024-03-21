@@ -8,10 +8,8 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>리뷰목록</title>
+<title>FOOD114::마이페이지(리뷰)</title>
 <style>
-
-
 .orderListContainer {
 	margin: 10px;
 	margin-left: 20px;
@@ -37,14 +35,20 @@
 .orderListTable td {
 	font-size: 13px;
 }
-.pageBox{
+
+.pageBox {
 	margin-left: 400px;
 }
-a{
+
+a {
 	text-decoration: none;
 	color: black;
 }
-[v-cloak] { display: none; }
+
+[v-cloak] {
+	display: none;
+}
+
 .reviewButton {
 	background-color: #ffffff;
 	border: 1px solid #ff7f00;
@@ -57,6 +61,7 @@ a{
 	margin-left: 930px;
 	margin-top: 5px;
 }
+
 .reviewButton:hover {
 	background-color: #ff7f00;
 	border: 1px solid #FBCEB1;
@@ -67,11 +72,11 @@ a{
 <link rel="stylesheet" href="../css/myPage_myInfo(main).css">
 <body>
 
-<div id="Container"></div>
-		<%@include file="food114_header.jsp"%>
+	<div id="Container"></div>
+	<%@include file="food114_header.jsp"%>
 
 	<section>
-	<div style="width: 1420px; display: flex; margin: 0px auto;">
+		<div style="width: 1420px; display: flex; margin: 0px auto;">
 			<%@include file="myPage_header.jsp"%>
 			<div class="orderListContainer">
 				<div id="app" v-cloak>
@@ -100,31 +105,43 @@ a{
 									금액</th> -->
 								<th
 									style="width: 150px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
-									리뷰 작성일</th>	
+									리뷰 작성일</th>
 							</tr>
-							<template  v-for="(item, index) in reviewList" v-if="index<(nowPage*cnt)&&(nowPage*cnt-cnt)<=index">
-							<tr>							
-								<td style="font-size: 13px">{{index+1}}</td>
-								<td class="reviewFont">{{item.bizName}}</td>
-								<td class="reviewFont">{{item.menuList}}</td>
-								<td class="reviewFont">{{item.contents}}</td>
-								<!-- <td class="reviewFont">{{item.totalPrice.toLocaleString()}}원</td> -->
-								<td class="reviewFont">{{item.reviewDate}}</td>
-							</tr>
+							<template v-for="(item, index) in reviewList"
+								v-if="index<(nowPage*cnt)&&(nowPage*cnt-cnt)<=index">
+								<tr>
+									<td style="font-size: 13px">{{index+1}}</td>
+									<td class="reviewFont">{{item.bizName}}</td>
+									<td class="reviewFont">{{item.menuList}}</td>
+									<td class="reviewFont">{{item.contents}}</td>
+									<!-- <td class="reviewFont">{{item.totalPrice.toLocaleString()}}원</td> -->
+									<td class="reviewFont">{{item.reviewDate}}</td>
+								</tr>
+							</template>
+							<template v-if="reviewList.length==0">
+								<tr>
+									<td colspan="5">작성한 리뷰가 없습니다.</td>
+								</tr>
 							</template>
 						</table>
 					</div>
 					<button class="reviewButton" @click="fnReviewAdd">리뷰 쓰기</button>
 					<!-- 페이지  -->
 					<div class="pageBox">
-						<span><a href="javascript:;" @click="fnfirstPage" style="text-decoration: none; color: black;">≤</a></span>
-						<span><a href="javascript:;" @click="fnPre" style="text-decoration: none; color: black;">&lt;</a></span> 
+						<!-- <span><a href="javascript:;" @click="fnfirstPage"
+							style="text-decoration: none; color: black;">≤</a></span> <span><a
+							href="javascript:;" @click="fnPre"
+							style="text-decoration: none; color: black;">&lt;</a></span> -->
 						<template v-for="n in totalPage">
-							<a href="javascript:;" @click="fnPageList(n)" v-if="nowPage!=n" :class="[nowPage!=n ? 'text' : 'selectText']">{{n}} </a>
-							<span v-else :class="[nowPage!=n ? 'text' : 'selectText']">{{n}} </span>
+							<a href="javascript:;" @click="fnPageList(n)" v-if="nowPage!=n"
+								:class="[nowPage!=n ? 'text' : 'selectText']">{{n}} </a> <span
+								v-else :class="[nowPage!=n ? 'text' : 'selectText']">{{n}}
+							</span>
 						</template>
-						<span><a href="javascript:;" @click="fnNext" style="text-decoration: none; color: black;">></a></span>
-						<span><a href="javascript:;" @click="fnLastPage" style="text-decoration: none; color: black;">≥</a></span>
+						<!-- <span><a href="javascript:;" @click="fnNext"
+							style="text-decoration: none; color: black;">></a></span> <span><a
+							href="javascript:;" @click="fnLastPage"
+							style="text-decoration: none; color: black;">≥</a></span> -->
 					</div>
 				</div>
 			</div>
@@ -151,36 +168,39 @@ a{
 		methods : {
 			fnView : function() {
 				var self = this;
-				self.startOrder = (self.nowPage * 10)-10;
+				self.startOrder = (self.nowPage * 10) - 10;
 				var nparmap = {
 					userId : self.sessionId,
 					startOrder : self.startOrder,
 					endOrder : self.cnt,
 				};
-				$.ajax({
-					url : "myInfoReview.dox",
-					dataType : "json",
-					type : "POST",
-					data : nparmap,
-					success : function(data) {
-						self.reviewList = data.reviewList;
-						console.log(data);
-						/* 페이지당 10개 올림  */
-						self.totalCnt=data.reviewList.length;
-						self.totalPage=Math.ceil(self.totalCnt/self.cnt);
-						console.log(self.totalPage);
-						console.log(self.totalPage);
-						
-						return;
-						self.pageCount = Math.ceil(data.cnt.listCnt/self.cnt);
-						console.log(self.pageCount);
-					}
-				});
+				$
+						.ajax({
+							url : "myInfoReview.dox",
+							dataType : "json",
+							type : "POST",
+							data : nparmap,
+							success : function(data) {
+								self.reviewList = data.reviewList;
+								console.log(data);
+								/* 페이지당 10개 올림  */
+								self.totalCnt = data.reviewList.length;
+								self.totalPage = Math.ceil(self.totalCnt
+										/ self.cnt);
+								console.log(self.totalPage);
+								console.log(self.totalPage);
+
+								return;
+								self.pageCount = Math.ceil(data.cnt.listCnt
+										/ self.cnt);
+								console.log(self.pageCount);
+							}
+						});
 			},
 			/* 페이지 기능  */
-			fnPageList : function(num){
+			fnPageList : function(num) {
 				var self = this;
-				$.pageChange("food114-myPage-review.do",{
+				$.pageChange("food114-myPage-review.do", {
 					nowPage : num
 				});
 			},
@@ -191,23 +211,23 @@ a{
 			},
 			fnPre : function() {
 				var self = this;
-				if(self.nowPage != 1){				
-					self.nowPage = self.nowPage-1;
+				if (self.nowPage != 1) {
+					self.nowPage = self.nowPage - 1;
 				}
 				self.fnPageList(self.nowPage);
-			},			
+			},
 			fnNext : function() {
 				var self = this;
-				if(self.nowPage < self.pageCount){					
-					self.nowPage = self.nowPage+1;
+				if (self.nowPage < self.pageCount) {
+					self.nowPage = self.nowPage + 1;
 				}
 				self.fnPageList(self.nowPage);
 			},
 			fnLastPage : function() {
-				var self = this;			
+				var self = this;
 				self.nowPage = self.pageCount;
 				self.fnPageList(self.nowPage);
-			
+
 			},
 			fnReviewAdd : function() {
 				var self = this;

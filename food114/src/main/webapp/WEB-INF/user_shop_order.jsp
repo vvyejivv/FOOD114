@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="../css/main.css">
 <link rel="stylesheet" href="../css/order.css">
-<title>주문하기</title>
+<title>FOOD114::주문하기</title>
 </head>
 <style>
 </style>

@@ -7,7 +7,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="../css/main.css">
-<title>결제완료</title>
+<title>FOOD114::결제완료</title>
 </head>
 <style>
 </style>

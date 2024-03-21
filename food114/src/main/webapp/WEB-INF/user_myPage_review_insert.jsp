@@ -6,7 +6,7 @@
 <script src="js/jquery.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <meta charset="UTF-8">
-<title>첫번째 페이지</title>
+<title>FOOD114::마이페이지(리뷰 작성)</title>
 </head>
 <link rel="stylesheet" href="../css/myPage_myInfo(main).css">
 <style>
@@ -135,20 +135,23 @@ a {
 									<td class="reviewFont"><button class="reviewAdd"
 											@click="fnHellow(item)">작성</button></td>
 								</tr>
+								<tr v-if="reviewList.length==0">
+									<td colspan="5">주문내역이 없습니다.</td>
+								</tr>
 							</table>
-							</div>
-							<div
-								style="display: flex; justify-content: center; margin-top: 10px; gap: 10px; align-items: center; font-size: 18px;">
-								<template v-for="index in totalPage"
-									>
-									<a  href="javascript:;" v-if="index!=nowPage" @click="fnPaging(index)">{{index}}</a>
-									<span v-if="nowPage==index">{{index}}</span>
-								</template>
-							</div>
-							<div style="margin-top: 10px;">
-								<button class="review_button2" @click="goBack">이전으로</button>
-							</div>
 						</div>
+						<div
+							style="display: flex; justify-content: center; margin-top: 10px; gap: 10px; align-items: center; font-size: 18px;">
+							<template v-for="index in totalPage">
+								<a href="javascript:;" v-if="index!=nowPage"
+									@click="fnPaging(index)">{{index}}</a> <span
+									v-if="nowPage==index">{{index}}</span>
+							</template>
+						</div>
+						<div style="margin-top: 10px;">
+							<button class="review_button2" @click="goBack">이전으로</button>
+						</div>
+					</div>
 				</div>
 			</div>
 		</section>

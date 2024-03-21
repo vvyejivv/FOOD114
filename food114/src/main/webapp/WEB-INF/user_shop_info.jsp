@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="../css/shopInfo.css">
 <link rel="stylesheet" href="../css/orderList.css">
 <link rel="stylesheet" href="../css/menuInfo.css">
-<title>가게정보 페이지</title>
+<title>FOOD114::가게정보</title>
 </head>
 
 <style>

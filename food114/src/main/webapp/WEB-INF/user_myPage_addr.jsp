@@ -11,7 +11,7 @@
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MAIN</title>
+<title>FOOD114::마이페이지(주소지 관리)</title>
 <style>
 [v-cloak] {
 	display: none;

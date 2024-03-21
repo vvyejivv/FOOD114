@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="../css/main.css">
 <link rel="stylesheet" href="../css/login.css">
 <link rel="stylesheet" href="../css/food114.css">
-<title>로그인</title>
+<title>FOOD114::로그인</title>
 </head>
 <style>
 .login_button {

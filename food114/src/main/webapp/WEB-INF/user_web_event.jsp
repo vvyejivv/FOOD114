@@ -8,7 +8,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>웹 이벤트</title>
+<title>FOOD114::이벤트</title>
 
 </head>
 
