@@ -436,7 +436,6 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 							self.map.inputAddr=self.list.addrList[0].newAddr;
 							self.map.detail=self.list.addrList[0].detail;
 							self.map.phone=self.list.addrList[0].phone;
-							return;
 							self.map.request=self.list.addrList[0].request;
 							}
 					}

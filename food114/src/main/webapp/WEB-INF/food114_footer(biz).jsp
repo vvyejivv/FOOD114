@@ -36,10 +36,13 @@
             <div id="footer-contents-right">
                 <div
                     style="overflow: hidden;">
-                    <div id="footer-sns"><img
-                            src="../img/instagram.png">
-                        <img src="../img/github.png" @click="fnLink('https://github.com/dlehdwo01/TeamProject1-FOOD114')" style="cursor: pointer;"></div>
-                </div>
+				<div id="footer-sns">
+					<!-- <img src="../img/instagram.png"> -->
+					<img src="../img/github.png"
+						@click="fnLink('https://github.com/dlehdwo01/TeamProject1-FOOD114')"
+						style="cursor: pointer;">
+				</div>
+			</div>
                 <div id="footer-link">
                     <span>이용약관</span>
                     <span>|</span>

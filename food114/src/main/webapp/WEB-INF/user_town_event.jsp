@@ -247,7 +247,7 @@
 							v-if="list.bizBaedalOkList.length==0">현재 조회되는 매장이 없습니다.</div>
 						<div id="bizListGrid">
 							<div v-for="(item,index) in list.bizBaedalOkList" class="bizBox"
-								:style="{'background-color': !item.contents? '#ededed3c':'white'}"
+								:style="{'background-color': !item.contents? '#edededa6':'white'}"
 								v-if="(map.nowPage*showCnt-showCnt)<= index && index<(map.nowPage*showCnt)">
 								<div class="bizBoxContent">
 									<img :src="item.path" style="border-radius: 0px;">

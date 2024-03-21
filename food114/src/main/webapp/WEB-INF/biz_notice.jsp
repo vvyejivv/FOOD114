@@ -77,7 +77,7 @@ cursor: pointer;
 								<td style="text-align: center; font-size: 15px; color: #a3a2a2;">{{formatDate(item.cdateTime)}}</td>
 							</tr>
 						</table>
-						<div class="insertRemoveButton">
+						<div class="insertRemoveButton" hidden>
 							<button @click="fnInsertNotice">글쓰기</button>
 							<button @click="fnNoticeRemove">삭제</button>
 						</div>

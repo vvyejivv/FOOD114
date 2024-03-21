@@ -102,14 +102,16 @@ a{
 									style="width: 150px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
 									리뷰 작성일</th>	
 							</tr>
-							<tr v-for="(item, index) in reviewList" v-if="true">
-								<td style="font-size: 13px">{{ index + 1 + startOrder }}</td>
+							<template  v-for="(item, index) in reviewList" v-if="index<(nowPage*cnt)&&(nowPage*cnt-cnt)<=index">
+							<tr>							
+								<td style="font-size: 13px">{{index+1}}</td>
 								<td class="reviewFont">{{item.bizName}}</td>
 								<td class="reviewFont">{{item.menuList}}</td>
 								<td class="reviewFont">{{item.contents}}</td>
 								<!-- <td class="reviewFont">{{item.totalPrice.toLocaleString()}}원</td> -->
 								<td class="reviewFont">{{item.reviewDate}}</td>
 							</tr>
+							</template>
 						</table>
 					</div>
 					<button class="reviewButton" @click="fnReviewAdd">리뷰 쓰기</button>
