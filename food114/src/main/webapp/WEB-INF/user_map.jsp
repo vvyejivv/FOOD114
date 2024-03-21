@@ -413,8 +413,8 @@ ul, ol {
 						</h3>
 						<div id="placesList1" style="margin-top:5px;">
 							<span style="color: #ff7f00;">★ {{item.reviewAvg}}</span> | 리뷰 {{item.reviewCnt}}
-							<p style="margin-left: 60px; margin-top:5px;">{{item.title}}</p>
-							<p style="margin-left: 60px; margin-top:5px;">{{item.contents}}</p>
+							<p style="margin-left: 60px; margin-top:5px;">이벤트 기간 {{item.beginTime}} <span v-if="item.beginTime||item.endTime">~</span> {{item.endTime}} {{item.setBeginTime}} <span v-if="item.setBeginTime||item.setEndTime">~</span> {{item.setEndTime}}</p>
+							<p style="margin-left: 60px; margin-top:5px;">{{item.contents}}<span v-if="!item.contents">진행중인 이벤트가 없습니다</span></p>
 						</div>
 					</div>
 					<div class="restList" v-if="areaRestList.length == 0 && !searchFlg">
@@ -525,6 +525,7 @@ ul, ol {
 							self.restList = data.list;
 							console.log(self.restList);
 							self.addMarkers();
+							
 						}
 					});
 				},
