@@ -8,7 +8,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title></title>
+<title>FOOD114::공지사항</title>
 <style>
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 .insertRemoveButton{

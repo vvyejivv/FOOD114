@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="../css/food114.css">
-<title>사장님 페이지</title>
+<title>FOOD114::메뉴등록</title>
 </head>
 <style>
 .inputBox {

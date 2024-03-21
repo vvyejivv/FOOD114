@@ -6,7 +6,7 @@
 <script src="js/jquery.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <meta charset="UTF-8">
-<title>사장님 페이지</title>
+<title>FOOD114::이벤트관리</title>
 <link rel="stylesheet" href="../css/food114.css">
 <link rel="stylesheet" href="../css/event_info_biz.css">
 </head>

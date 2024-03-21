@@ -15,27 +15,27 @@
 <script type="text/javascript"
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-<title>회원가입</title>
+<title>FOOD114::사업자회원가입</title>
 </head>
 
 <body>
 	<div id="Container">
-	<%@include file="food114_header(biz).jsp"%>
-	<!-- 주문하기(영수증창) -->
-	<!-- <div class="receipt" style="border-radius: 10px;">
+		<%@include file="food114_header(biz).jsp"%>
+		<!-- 주문하기(영수증창) -->
+		<!-- <div class="receipt" style="border-radius: 10px;">
         영수증
         <div class="goOrder">
             주문하기</div>
     </div> -->
 
 
-	<!-- 광고창 -->
-	<!-- <div class="ad">
+		<!-- 광고창 -->
+		<!-- <div class="ad">
         광고창
         <button class="adClose">x</button>
     </div> -->
 
-	<style>
+		<style>
 .container {
 	width: 660px;
 	margin: 0px auto;
@@ -69,7 +69,7 @@ input[type="checkbox"]:checked {
 }
 
 .title {
-	color: #ff7f00;
+	color: rgb(34, 34, 34);
 	font-size: 30px;
 	font-weight: bold;
 	text-align: center;
@@ -78,7 +78,7 @@ input[type="checkbox"]:checked {
 
 .container button {
 	padding: 10px 20px;
-	background-color: #ff7f00;
+	background-color: #ededed;
 	color: white;
 	border: none;
 	border-radius: 5px;
@@ -86,21 +86,19 @@ input[type="checkbox"]:checked {
 	transition: background-color 0.3s ease;
 }
 
-.container button:hover {
+/* .container button:hover {
 	background-color: #c06000;
-}
-
+} */
 .container table td button {
-	color: #ff8000;
+	color: #5f5f5f;
 	background-color: white;
-	border: 1px solid #ff7f00;
+	border: 1px solid #ededed;
 	font-weight: 700;
 	padding: 10px 30px;
 }
 
 .container table td button:hover {
-	background-color: #ff7f00;
-	color: white;
+	background-color: #ccc;
 }
 
 .container table td input[type="checkbox"] {
@@ -109,9 +107,9 @@ input[type="checkbox"]:checked {
 
 .joinBtn {
 	padding: 10px;
-	background-color: #ff7f00;
-	color: #fff;
 	border: none;
+	background-color: rgb(240, 240, 240);
+	color: rgb(34, 34, 34);
 	border-radius: 4px;
 	cursor: pointer;
 	height: 50px;
@@ -161,196 +159,194 @@ select {
 	background-color: #ccc;
 }
 
-.container input[type="text"]:focus, .container input[type="password"]:focus,
+/* .container input[type="text"]:focus, .container input[type="password"]:focus,
 	.container select:focus {
 	outline: #ff7f00 solid thin;
 	border: 1px solid white;
-}
+} */
 </style>
 
-	<section>
-		<div id="app">
-			<div class="container" style="width: 650px;">
-				<div class="title">회원가입</div>
-				<div
-					style="border-bottom: 1px solid #ccc; font-size: 13px; height: 25px; margin-bottom: 5px;">
-					<div style="float: right; color: rgb(72, 72, 72);">
-						<span class="star">*</span>
-						필수입력사항
+		<section>
+			<div id="app">
+				<div class="container" style="width: 650px;">
+					<div class="title">회원가입</div>
+					<div
+						style="border-bottom: 1px solid #ccc; font-size: 13px; height: 25px; margin-bottom: 5px;">
+						<div style="float: right; color: rgb(72, 72, 72);">
+							<span class="star">*</span> 필수입력사항
+						</div>
+					</div>
+					<table>
+						<tr>
+							<th>사업자등록번호<span class="star">*</span></th>
+							<td><input type="text" placeholder="사업자등록번호를 입력해주세요."
+									id="businessNum" v-model="businessNo">
+								<div class="errorMessage"></div></td>
+							<td style="padding: 0px;"><button @click="business()"
+									v-if="!bizNumFlg">등록 확인</button></td>
+							</td>
+						</tr>
+						<tr>
+							<th>상호명<span class="star">*</span></th>
+							<td><input type="text" placeholder="상호명을 입력해주세요."
+									v-model="businessName">
+								<div class="errorMessage"></div></td>
+						</tr>
+						<tr>
+							<th>대표자 이름<span class="star">*</span></th>
+							<td><input type="text" placeholder="대표자 이름을 입력해주세요."
+									v-model="businessRename" @keyup="validateName">
+								<div class="errorMessage"></div></td>
+						</tr>
+						<tr>
+							<th>사업장 주소<span class="star">*</span></th>
+							<td>
+								<div>
+									<input id="addressInput" v-model="businessAddr" type="text"
+										placeholder="주소 조회를 클릭해주세요." disabled>
+								</div>
+							</td>
+							<td style="padding: 0px;"><button style="margin-top: 20px;"
+									id="addrBtn" @click="openAddressSearch()">주소 조회</button></td>
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td style="padding-bottom: 20px;"><input type="text"
+									style="margin-top: 0px;" placeholder="상세주소를 입력해주세요."
+									v-model="businessDetailAddr"></td>
+							<td></td>
+
+						</tr>
+						<tr>
+							<th>휴대폰<span class="star">*</span></th>
+							<td><input id="phoneNum" v-model="phone" type="text"
+									placeholder="'-'를 제외한 휴대폰번호를 입력해주세요.">
+								<div class="errorMessage"></div></td>
+							<td style="padding: 0px;"><button id="success" v-if="!flg2"
+									@click="fnSmsTest()">인증 요청</button></td>
+						</tr>
+						<tr v-if="flg">
+							<td></td>
+							<td><input type="text" v-model="hello"
+									:placeholder="timerPlaceholder">
+								<div class="errorMessage"></div></td>
+							<td style="padding: 0px;"><button @click="authentication()">인증</button></td>
+						</tr>
+						<tr>
+							<th>아이디<span class="star">*</span></th>
+							<td><input type="text" placeholder="아이디를 입력해주세요."
+									v-model="businessId" @keyup="idCheck()">
+								<div class="errorMessage">
+									<template v-if="businessId != ''">
+										<span style="color: blue;" v-if="checkFlg">사용 가능한
+											아이디입니다.</span> <span v-else>중복된 아이디입니다.</span>
+									</template>
+								</div></td>
+							<td></td>
+						</tr>
+						<tr>
+							<th>비밀번호<span class="star">*</span></th>
+							<td><input type="password" placeholder="비밀번호를 입력해주세요."
+									v-model="businessPwd" @keyup="validatePassword">
+								<div class="errorMessage">
+									<template v-if="businessPwd != ''">
+										<div v-if="!valid">영어, 숫자, 특수문자 조합, 8글자 이상이어야 합니다.</div>
+										<div style="color: blue;" v-else>유효한 비밀번호입니다.</div>
+									</template>
+								</div></td>
+							<td></td>
+						</tr>
+						<tr>
+							<th>비밀번호 확인<span class="star">*</span></th>
+							<td><input type="password" placeholder="비밀번호를 한번 더 입력해주세요."
+									v-model="businessPwd2" @keyup="validatePassword2">
+								<div class="errorMessage">
+									<template v-if="businessPwd2 != '' && valid">
+										<div v-if="!valid2">비밀번호가 일치하지 않습니다.</div>
+										<div style="color: blue;" v-else>비밀번호가 일치합니다.</div>
+									</template>
+								</div></td>
+							<td></td>
+						</tr>
+						<tr>
+							<th>이메일<span class="star">*</span></th>
+							<td>
+								<div>
+									<input type="text" style="width: 150px; margin-right: 5px;"
+										placeholder="이메일을 입력해주세요." v-model="businessEmail"
+										@keyup="emailChange()">
+									<span style="margin-right: 5px; font-size: 17px;">@</span>
+									<select id="emailDomain" v-model="businessDomain"
+										@change="fnEmailInputOnOff">
+										<option value="">직접입력</option>
+										<option v-for="item in emailList" :value="item.value">{{item.name}}</option>
+									</select>
+								</div>
+								<div>
+									<input type="text" placeholder="이메일 플랫폼을 입력해주세요."
+										v-if="emailAddrFlg" v-model="businessTempDomain">
+								</div>
+								<div class="errorMessage"></div>
+							</td>
+							<td style="padding: 0px;"><button @click="emailCheck()">중복
+									확인</button></td>
+						</tr>
+
+						<tr>
+							<th>입금 계좌(은행)<span class="star">*</span></th>
+							<td><select style="width: 320px;" v-model="businessBank">
+									<option value="">은행을 선택하세요</option>
+									<option v-for="item in bankList" :value="item.value">{{item.name}}</option>
+								</select>
+								<div class="errorMessage"></div></td>
+						</tr>
+						<tr>
+							<th>입금 계좌번호<span class="star">*</span></th>
+							<td><input type="text" placeholder="계좌번호를 입력해주세요."
+									v-model="businessAccountNum">
+								<div class="errorMessage"></div></td>
+						</tr>
+
+					</table>
+					<div style="border-bottom: 1px solid #ccc; padding-top: 25px;"></div>
+					<table>
+						<tr>
+							<th rowspan="4">이용약관동의<span class="star">*</span></th>
+							<td style="font-size: 20px; font-weight: 500;"><label>
+									<input v-model="allChecked" @change="checkAll" type="checkbox">
+									전체 동의합니다.
+								</label></td>
+						</tr>
+						<tr>
+							<td><label>
+									<input type="checkbox" v-model="termsChecked">
+									이용약관 동의(필수)
+								</label></td>
+						</tr>
+						<tr>
+							<td><label>
+									<input type="checkbox" v-model="privacyChecked">
+									개인정보 수집·이용 동의(필수)
+								</label></td>
+						</tr>
+						<tr>
+							<td><label>
+									<input type="checkbox" v-model="offerChecked">
+									할인쿠폰 등 혜택/정보 수신 동의(선택)
+								</label></td>
+						</tr>
+					</table>
+					<div style="border-bottom: 1px solid #ccc; padding-top: 25px;"></div>
+					<div
+						style="text-align: center; margin-top: 50px; padding-bottom: 50px;">
+						<button @click="signUp()" class="joinBtn"
+							style="background-color: rgb(240, 240, 240); color: rgb(34, 34, 34);">가입하기</button>
 					</div>
 				</div>
-				<table>
-					<tr>
-						<th>사업자등록번호<span class="star">*</span></th>
-						<td><input type="text" placeholder="사업자등록번호를 입력해주세요."
-								id="businessNum" v-model="businessNo">
-							<div class="errorMessage"></div></td>
-						<td style="padding: 0px;"><button @click="business()"
-								v-if="!bizNumFlg">등록 확인</button></td>
-						</td>
-					</tr>
-					<tr>
-						<th>상호명<span class="star">*</span></th>
-						<td><input type="text" placeholder="상호명을 입력해주세요."
-								v-model="businessName">
-							<div class="errorMessage"></div></td>
-					</tr>
-					<tr>
-						<th>대표자 이름<span class="star">*</span></th>
-						<td><input type="text" placeholder="대표자 이름을 입력해주세요."
-								v-model="businessRename" @keyup="validateName">
-							<div class="errorMessage"></div></td>
-					</tr>
-					<tr>
-						<th>사업장 주소<span class="star">*</span></th>
-						<td>
-							<div>
-								<input id="addressInput" v-model="businessAddr" type="text"
-									placeholder="주소 조회를 클릭해주세요." disabled>
-							</div>
-						</td>
-						<td style="padding: 0px;"><button
-								style="border: 1px solid #ccc; color: rgb(72, 72, 72); margin-top: 20px;"
-								id="addrBtn" @click="openAddressSearch()">주소 조회</button></td>
-						</td>
-					</tr>
-					<tr>
-						<td></td>
-						<td style="padding-bottom: 20px;"><input type="text"
-								style="margin-top: 0px;" placeholder="상세주소를 입력해주세요."
-								v-model="businessDetailAddr"></td>
-						<td></td>
-
-					</tr>
-					<tr>
-						<th>휴대폰<span class="star">*</span></th>
-						<td><input id="phoneNum" v-model="phone" type="text"
-								placeholder="'-'를 제외한 휴대폰번호를 입력해주세요.">
-							<div class="errorMessage"></div></td>
-						<td style="padding: 0px;"><button id="success" v-if="!flg2"
-								@click="fnSmsTest()">인증 요청</button></td>
-					</tr>
-					<tr v-if="flg">
-						<td></td>
-						<td><input type="text" v-model="hello"
-								:placeholder="timerPlaceholder">
-							<div class="errorMessage"></div></td>
-						<td style="padding: 0px;"><button @click="authentication()">인증</button></td>
-					</tr>
-					<tr>
-						<th>아이디<span class="star">*</span></th>
-						<td><input type="text" placeholder="아이디를 입력해주세요."
-								v-model="businessId" @keyup="idCheck()">
-							<div class="errorMessage">
-								<template v-if="businessId != ''">
-									<span style="color: blue;" v-if="checkFlg">사용 가능한
-										아이디입니다.</span>
-									<span v-else>중복된 아이디입니다.</span>
-								</template>
-							</div></td>
-						<td></td>
-					</tr>
-					<tr>
-						<th>비밀번호<span class="star">*</span></th>
-						<td><input type="password" placeholder="비밀번호를 입력해주세요."
-								v-model="businessPwd" @keyup="validatePassword">
-							<div class="errorMessage">
-								<template v-if="businessPwd != ''">
-									<div v-if="!valid">영어, 숫자, 특수문자 조합, 8글자 이상이어야 합니다.</div>
-									<div style="color: blue;" v-else>유효한 비밀번호입니다.</div>
-								</template>
-							</div></td>
-						<td></td>
-					</tr>
-					<tr>
-						<th>비밀번호 확인<span class="star">*</span></th>
-						<td><input type="password" placeholder="비밀번호를 한번 더 입력해주세요."
-								v-model="businessPwd2" @keyup="validatePassword2">
-							<div class="errorMessage">
-								<template v-if="businessPwd2 != '' && valid">
-									<div v-if="!valid2">비밀번호가 일치하지 않습니다.</div>
-									<div style="color: blue;" v-else>비밀번호가 일치합니다.</div>
-								</template>
-							</div></td>
-						<td></td>
-					</tr>
-					<tr>
-						<th>이메일<span class="star">*</span></th>
-						<td>
-							<div>
-								<input type="text" style="width: 150px; margin-right: 5px;"
-									placeholder="이메일을 입력해주세요." v-model="businessEmail"
-									@keyup="emailChange()">
-								<span style="margin-right: 5px; font-size: 17px;">@</span>
-								<select id="emailDomain" v-model="businessDomain"
-									@change="fnEmailInputOnOff">
-									<option value="">직접입력</option>
-									<option v-for="item in emailList" :value="item.value">{{item.name}}</option>
-								</select>
-							</div>
-							<div>
-								<input type="text" placeholder="이메일 플랫폼을 입력해주세요."
-									v-if="emailAddrFlg" v-model="businessTempDomain">
-							</div>
-							<div class="errorMessage"></div>
-						</td>
-						<td style="padding: 0px;"><button @click="emailCheck()">중복
-								확인</button></td>
-					</tr>
-
-					<tr>
-						<th>입금 계좌(은행)<span class="star">*</span></th>
-						<td><select style="width: 320px;" v-model="businessBank">
-								<option value="">은행을 선택하세요</option>
-								<option v-for="item in bankList" :value="item.value">{{item.name}}</option>
-							</select>
-							<div class="errorMessage"></div></td>
-					</tr>
-					<tr>
-						<th>입금 계좌번호<span class="star">*</span></th>
-						<td><input type="text" placeholder="계좌번호를 입력해주세요."
-								v-model="businessAccountNum">
-							<div class="errorMessage"></div></td>
-					</tr>
-
-				</table>
-				<div style="border-bottom: 1px solid #ccc; padding-top: 25px;"></div>
-				<table>
-					<tr>
-						<th rowspan="4">이용약관동의<span class="star">*</span></th>
-						<td style="font-size: 20px; font-weight: 500;"><label>
-								<input v-model="allChecked" @change="checkAll" type="checkbox">
-								전체 동의합니다.
-							</label></td>
-					</tr>
-					<tr>
-						<td><label>
-								<input type="checkbox" v-model="termsChecked">
-								이용약관 동의(필수)
-							</label></td>
-					</tr>
-					<tr>
-						<td><label>
-								<input type="checkbox" v-model="privacyChecked">
-								개인정보 수집·이용 동의(필수)
-							</label></td>
-					</tr>
-					<tr>
-						<td><label>
-								<input type="checkbox" v-model="offerChecked">
-								할인쿠폰 등 혜택/정보 수신 동의(선택)
-							</label></td>
-					</tr>
-				</table>
-				<div style="border-bottom: 1px solid #ccc; padding-top: 25px;"></div>
-				<div
-					style="text-align: center; margin-top: 50px; padding-bottom: 50px;">
-					<button @click="signUp()" class="joinBtn">가입하기</button>
-				</div>
 			</div>
-		</div>
-	</section>
-	<%@include file="food114_footer(biz).jsp"%>
+		</section>
+		<%@include file="food114_footer(biz).jsp"%>
 	</div>
 </body>
 

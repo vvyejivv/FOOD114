@@ -9,7 +9,7 @@
    href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
 <meta charset="UTF-8">
-<title>FOOD114 사장님 페이지</title>
+<title>FOOD114::사업자</title>
 <style>
 button {
    cursor: pointer;

@@ -10,7 +10,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="../css/main.css">
 	<link rel="stylesheet" href="../css/login.css">
-	<title>사장님 페이지 로그인</title>
+	<title>FOOD114::사업자로그인</title>
 </head>
 
 <body style="margin: 0px auto;">
