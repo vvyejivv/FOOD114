@@ -25,6 +25,7 @@
     		FO.BIZID = #{bizId}
 		GROUP BY
     		FO.ORDERNO, FO.USERID, FO.ORDERDATE
+    		ORDER BY FO.ORDERDATE DESC
 	</select>
 	
 	<select id="selectOrderCount" parameterType="hashmap" resultType="teamProject.food114.model.Order">
