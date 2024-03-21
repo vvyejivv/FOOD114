@@ -364,7 +364,7 @@
 			fnPay : function(){
 				var self = this;
 				/* 결제중으로 상태변경  */
-				self.fnStatus("결제중");
+				self.fnStatus("결제완료");
 				 if (self.paymentType == 'card') {
 					self.fnPayInfoSave(); /* 결제정보 저장  */
 					self.fnCreditCard();  /* 신용카드 결제 */
@@ -490,6 +490,7 @@
 	                	 console.log("결제 : success");
 	                     self.paymentStatus = "success";
 	                     self.fnOrder();/* 주문내용 저장  */
+	                     self.fnPageChang('success'); /* 결제완료 후 페이지이동 */
 	                 } else {
 	                     console.error("Fail. Reason:", rsp.error_msg); // 오류 메시지 출력
 	                     self.paymentStatus = "fail";
