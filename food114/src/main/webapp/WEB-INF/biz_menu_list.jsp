@@ -113,13 +113,7 @@ input[type="checkbox"], .btn-modify {
 						</div>
 					</div>
 					<div class="box">
-						<div class="box-text">판매대기</div>
-						<div class="box-text">
-							<span style="font-weight: bold;">0</span>건
-						</div>
-					</div>
-					<div class="box">
-						<div class="box-text">판매중지</div>
+						<div class="box-text">품절</div>
 						<div class="box-text">
 							<span style="font-weight: bold;">{{menuCnt.soldOut}}</span>건
 						</div>
