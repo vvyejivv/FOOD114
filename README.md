@@ -15,6 +15,31 @@
                 <th>역할</th>
                 <th>GitHub 프로필</th>
             </tr>
+            <tr>
+                <td>이동재</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>김예지</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>박승영</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>박경빈</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>이진순</td>
+                <td></td>
+                <td></td>
+            </tr>
             </table>
         </div>
     <div align= "center">
