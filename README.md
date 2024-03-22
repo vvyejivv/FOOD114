@@ -11,7 +11,9 @@
     <h2 tabindex="-1" class="heading-element" dir="auto">👨‍👩‍👦‍👦 Collaborators : 팀원 소개</h2>
         <table>
             <tr>
-                <th>asdf</th>    
+                <th>이름</th>    
+                <th>역할</th>
+                <th>GitHub 프로필</th>
             </tr>
             </table>
         </div>
