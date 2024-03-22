@@ -17,27 +17,27 @@
             </tr>
             <tr>
                 <td>이동재</td>
-                <td></td>
+                <td>팀장,풀스택</td>
                 <td></td>
             </tr>
             <tr>
                 <td>김예지</td>
-                <td></td>
+                <td>풀스택</td>
                 <td></td>
             </tr>
             <tr>
                 <td>박승영</td>
-                <td></td>
+                <td>풀스택</td>
                 <td></td>
             </tr>
             <tr>
                 <td>박경빈</td>
-                <td></td>
+                <td>풀스택</td>
                 <td></td>
             </tr>
             <tr>
                 <td>이진순</td>
-                <td></td>
+                <td>풀스택</td>
                 <td></td>
             </tr>
             </table>
