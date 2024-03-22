@@ -193,25 +193,25 @@ input[type="email"]:focus {
 				<ul>
 					<li>나의정보<span style="color: #b1b0b0;">───────────</span>
 						<ul>
-							<li><a href="javascript:;" @click="fnMyInfo">MY정보 확인/변경</a></li>
-							<li><a href="javascript:;" @click="fnMyInfoPwd">비밀번호 변경</a></li>
-							<li><a href="javascript:;" @click="myInfoAddr">MY주소지 관리</a></li>
-							<li><a href="javascript:;" @click="fnMyInfoGrade">등급</a></li>
+							<li><a href="food114-myPage.do">MY정보 확인/변경</a></li>
+							<li><a href="food114-myPage-pwd.do" >비밀번호 변경</a></li>
+							<li><a href="food114-myPage-addr.do">MY주소지 관리</a></li>
+							<li><a href="food114-myPage-grade.do">등급</a></li>
 						</ul>
 					</li>
 					<br>
 					<li>결제/주문/리뷰<span style="color: #b1b0b0;">───────────</span>
 						<ul>
-							<li><a href="myInfoPayment.do">결제수단 관리</a></li>
-							<li><a href="javascript:;" @click="fnMyOrderList">주문내역</a></li>
-							<li><a href="myInfoReview.do">MY리뷰목록</a></li>
+							<li><a href="food114-myPage-payment.do">결제수단 관리</a></li>
+							<li><a href="food114-myPage-order.do">주문내역</a></li>
+							<li><a href="food114-myPage-review.do">MY리뷰목록</a></li>
 						</ul>
 					</li>
 					<br>
 					<li>이벤트<span style="color: #b1b0b0;">───────────</span>
 						<ul>
-							<li><a href="myInfoCoupon.do">쿠폰</a></li>
-							<li><a href="myInfoPoint.do">포인트</a></li>
+							<li><a href="food114-myPage-coupon.do">쿠폰</a></li>
+							<li><a href="food114-myPage-point.do">포인트</a></li>
 						</ul>
 					</li>
 				</ul>

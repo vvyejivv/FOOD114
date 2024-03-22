@@ -13,6 +13,6 @@
 </body>
 </html>
 <script type="text/javascript">
-alert("세션이 만료되었습니다. 다시 로그인해주세요.");
-location.href="bizLogin.do"
+alert("로그인 후 이용가능합니다.");
+location.href="food114-biz-login.do"
 </script>

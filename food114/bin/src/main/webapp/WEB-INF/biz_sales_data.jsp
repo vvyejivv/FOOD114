@@ -11,7 +11,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="../css/food114.css">
-<title>로그인</title>
+<title>FOOD114::매출관리</title>
 </head>
 <style>
 table {
@@ -73,7 +73,7 @@ table th, td {
 </style>
 <body>
 	<div id="Container">
-	<%@include file="food114_header.jsp"%>
+		<%@include file="food114_header(biz).jsp"%>
 	<!-- 광고창 -->
 	<!-- <div class="ad">
         광고창
@@ -81,25 +81,25 @@ table th, td {
     </div> -->
 	<section>
 		<%@include file="sideBar_biz.html"%>
-		<div id="app">
+		<div id="app" v-cloak>
 			<div class="mold">
 				<h2>
-					<span style="color: #ff7f00; font-weight: bold;">| </span><span
-						style="text-align: left; color: rgba(72, 72, 72);">판매통계&nbsp;</span>
+					<span style="color: #ff7f00; font-weight: bold; font-size : 16px;">| </span><span
+						style="text-align: left; color: #222222; font-size : 16px;">판매통계&nbsp;</span>
 				</h2>
-				<strong v-html="title1"></strong>
+				<strong v-html="title1" style="font-size: 14px; color:#5F5F5F"></strong>
 				<div id="chart">
 					<apexchart type="line" height="350" width="1100" :options="chartOptions"
 						:series="series"></apexchart>
 				</div>
 				<div class="thin"></div>
 				<h2>
-					<span style="color: #ff7f00; font-weight: bold;">| </span><span
-						style="text-align: left; color: rgba(72, 72, 72);">판매이력&nbsp;</span>
+					<span style="color: #ff7f00; font-weight: bold; font-size : 16px;">| </span><span
+						style="text-align: left; color: #222222; font-size : 16px;">판매이력&nbsp;</span>
 				</h2><small> 총 {{orderCnt.cnt}}건</small>
 				<div>
 					<table class="order">
-						<tr>
+						<tr style="color: #222222; font-size : 14px;">
 							<th
 								style="width: 30px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
 								번호</th>
@@ -116,10 +116,10 @@ table th, td {
 								style="width: 100px; border-top: 2px solid rgba(72, 72, 72); border-bottom: 1px solid #979797;">
 								주문일</th>
 						</tr>
-						<tr v-for="(item,index) in orderList">
+						<tr v-for="(item,index) in orderList"  style="font-size : 14px;">
 							<td>{{item.orderNo}}</td>
 							<td>{{item.menuList}}</td>
-							<td>{{item.totalAmount}}원</td>
+							<td>{{parseInt(item.totalAmount).toLocaleString()}}원</td>
 							<td>{{item.userId}}</td>
 							<td>{{item.orderDate}}</td>
 						</tr>
@@ -128,7 +128,7 @@ table th, td {
 			</div>
 		</div>
 	</section>
-	<%@include file="food114_footer.jsp"%>
+		<%@include file="food114_footer(biz).jsp"%>
 	</div>
 </body>
 
@@ -145,7 +145,7 @@ table th, td {
 			sessionId : "${sessionBizId}",
 			orderCnt : "",
 			daySellList : [],
-			title1 : "안녕",
+			title1 : "",
 			
 			series : [ {
 				name : "일매출",

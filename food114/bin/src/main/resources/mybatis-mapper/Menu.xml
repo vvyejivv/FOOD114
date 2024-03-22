@@ -8,66 +8,129 @@
 		resultType="teamProject.food114.model.Category">
 		SELECT * FROM FOOD114_CATEGORY
 	</select>
-	<!-- 메뉴 정보 검색  -->
-	<select id="selectMenuList" parameterType="hashmap" resultType="teamProject.food114.model.Menu">
-		SELECT *, CONCAT(FILEPATH,FILENAME) AS PATH,
-			CASE WHEN STATUS = '1' THEN '판매종료'
-			WHEN STATUS = '0' THEN '판매중'
-			WHEN STATUS = '3' THEN '품절'
-			END AS STA
-		FROM FOOD114_MENU 
-		WHERE BIZID = #{bizId}
+
+	<!-- 세일중인 가격 확인하기 -->
+	<select id="selectSalePrice" parameterType="hashmap"
+		resultType="teamProject.food114.model.Menu">
+		SELECT
+		T.MENUNO,T.SALEPRICE
+		FROM
+		FOOD114_MENU M
+		LEFT JOIN (
+		SELECT
+		*
+		FROM
+		FOOD114_BOARD b
+		LEFT JOIN FOOD114_EVENT_MENU e ON b.BOARDNO
+		= e.EVENTNO
+		WHERE
+		CODE = 4
+		AND userid = #{bizId}
+		AND endyn = 'N'
+		) T ON
+		M.MENUNO = T.MENUNO
+		WHERE
+		BIZID = #{bizId} AND SALEPRICE IS NOT NULL
+	</select>
+
+	<!-- 메뉴 정보 검색 -->
+	<select id="selectMenuList" parameterType="hashmap"
+		resultType="teamProject.food114.model.Menu">
+		SELECT
+		*, CONCAT(FILEPATH,FILENAME) AS PATH,
+		CASE WHEN STATUS = '1' THEN '판매종료'
+		WHEN STATUS = '0' THEN '판매중'
+		WHEN STATUS = '3' THEN '품절'
+		END AS STA
+		FROM
+		FOOD114_MENU M
+		LEFT JOIN (
+		SELECT
+		*
+		FROM
+		FOOD114_BOARD b
+		LEFT JOIN FOOD114_EVENT_MENU e ON b.BOARDNO = e.EVENTNO
+		WHERE
+		CODE = 4
+		AND userid = #{bizId}
+		AND endyn = 'N'
+		) T ON M.MENUNO = T.MENUNO
+		WHERE
+		BIZID = #{bizId}
 	</select>
 	<select id="selectMenuCount" parameterType="hashmap"
 		resultType="teamProject.food114.model.Menu">
 		SELECT
-			COUNT(*) AS CNT,
-			SUM(CASE WHEN STATUS = '1' THEN 1 ELSE 0 END) AS "END",
-   			SUM(CASE WHEN STATUS = '0' THEN 1 ELSE 0 END) AS "ING",
-   			SUM(CASE WHEN STATUS = '3' THEN 1 ELSE 0 END) AS "SOLDOUT"
-		FROM FOOD114_MENU
+		COUNT(*) AS CNT,
+		SUM(CASE WHEN STATUS = '1' THEN 1
+		ELSE 0 END) AS "END",
+		SUM(CASE WHEN STATUS = '0' THEN 1 ELSE 0 END) AS
+		"ING",
+		SUM(CASE WHEN STATUS = '3' THEN 1 ELSE 0 END) AS "SOLDOUT"
+		FROM
+		FOOD114_MENU
 		WHERE BIZID = #{bizId}
 		GROUP BY BIZID
 	</select>
 
-	<!-- 선택 메뉴 확인  -->
-	<select id="selectMenu" parameterType="hashmap" resultType="teamProject.food114.model.Menu">
+	<!-- 선택 메뉴 확인 -->
+	<select id="selectMenu" parameterType="hashmap"
+		resultType="teamProject.food114.model.Menu">
 		SELECT *
-		FROM FOOD114_MENU 
+		FROM FOOD114_MENU
 		WHERE MENUNO = #{menuNo}
 	</select>
 
-	
+
 	<insert id="insertMenu" parameterType="hashmap">
-		INSERT INTO FOOD114_MENU 
-		VALUES(null, #{bizId}, null, #{menu}, #{price}, #{menuInfo}, '3', #{path}, #{fileName}, #{orgName}, #{fileSize}, #{etc})
+		INSERT INTO FOOD114_MENU
+		VALUES(null, #{bizId}, null, #{menu}, #{price}, #{menuInfo}, '3',
+		#{path}, #{fileName}, #{orgName}, #{fileSize}, #{etc})
 	</insert>
-	
+
 	<insert id="insertMenuNoFile" parameterType="hashmap">
-		INSERT INTO FOOD114_MENU 
-		VALUES(null, #{bizId}, null, #{menu}, #{price}, #{menuInfo}, '3', null, null, null, null, null)
+		INSERT INTO
+		FOOD114_MENU
+		VALUES(null, #{bizId}, null, #{menu}, #{price},
+		#{menuInfo}, '3', null, null,
+		null, null, null)
 	</insert>
-	
-	<select id="selectMenuView" parameterType="hashmap" resultType="teamProject.food114.model.Menu">
-		SELECT * 
-		FROM FOOD114_MENU 
+
+	<select id="selectMenuView" parameterType="hashmap"
+		resultType="teamProject.food114.model.Menu">
+		SELECT *
+		FROM FOOD114_MENU
 		WHERE MENUNO = #{menuNo}
 	</select>
-	
+
 	<update id="updateMenu" parameterType="hashmap">
-		UPDATE FOOD114_MENU 
-			SET MENU = #{menu}, PRICE = #{price}, 
-				MENUINFO = #{menuInfo}, FILEPATH = #{path}, 
-				FILENAME = #{fileName}, FILEORGNAME = #{orgName}, 
-				FILESIZE = #{fileSize}, FILEETC = #{etc}, STATUS = #{status} 
-		WHERE MENUNO = #{menuNo}
+		UPDATE FOOD114_MENU
+		SET
+		MENU = #{menu}, PRICE = #{price},
+		MENUINFO = #{menuInfo}, FILEPATH =
+		#{path},
+		FILENAME = #{fileName}, FILEORGNAME = #{orgName},
+		FILESIZE =
+		#{fileSize}, FILEETC = #{etc}, STATUS = #{status}
+		WHERE MENUNO =
+		#{menuNo}
 	</update>
-	
+
 	<update id="updateMenuNoFile" parameterType="hashmap">
-		UPDATE FOOD114_MENU 
-			SET MENU = #{menu}, PRICE = #{price}, 
-				MENUINFO = #{menuInfo}, STATUS = #{status} 
+		UPDATE FOOD114_MENU
+		SET MENU = #{menu}, PRICE = #{price},
+		MENUINFO = #{menuInfo}, STATUS =
+		#{status}
 		WHERE MENUNO = #{menuNo}
 	</update>
 	
+	<update id="updateSalePrice" parameterType="hashmap">
+		UPDATE FOOD114_EVENT_MENU SET SALEPRICE = #{salePrice} WHERE MENUNO = #{menuNo}
+	</update>
+	<insert id="insertSalePrice" parameterType="hashmap">
+		INSERT INTO FOOD114_EVENT_MENU VALUES(#{eventNo}, #{menuNo}, #{salePrice})
+	</insert>
+	<delete id="deleteSalePrice" parameterType="hashmap">
+		DELETE FROM FOOD114_EVENT_MENU WHERE MENUNO = #{menuNo}
+	</delete>
 </mapper>

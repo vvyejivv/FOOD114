@@ -1,7 +1,8 @@
 section {
 	position: relative;
-	width: 100%;
+	width: 1720px;
 	height: 870px;
+	margin : 0px auto;
 }
 
 #menu_list {
@@ -9,17 +10,17 @@ section {
 	top: 2px;
 	left: 0;
 	bottom: 0;
-	width: 300px;
 	overflow-y: auto;
-	background: rgba(255, 255, 255, 1);
+	background-color: rgba(255, 255, 255, 1);
 	z-index: 1;
 	font-size: 14px;
+	color : #5F5F5F;
 	border-right: 1px solid #ddd;
 }
 
 .selectList {
 	margin: 20px 20px 30px 20px;
-	font-size: 20px;
+	font-size: 16px;
 	cursor:pointer;
 }
 
@@ -30,13 +31,14 @@ section {
 }
 
 .selectList a {
-	float: right;
 	text-decoration: none;
 	color: #ff7f00;
+	float :right;
 }
 
 .menu_f {
 	margin: 430px 30px 0px 30px;
+	font-size : 13px;
 }
 
 .menu_f img {
