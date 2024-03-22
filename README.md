@@ -9,6 +9,11 @@
     </div>
     <div align="center">
     <h2 tabindex="-1" class="heading-element" dir="auto">👨‍👩‍👦‍👦 Collaborators : 팀원 소개</h2>
+        <table>
+            <tr>
+                <th>asdf</th>    
+            </tr>
+            </table>
         </div>
     <div align= "center">
     <h2 style="border-bottom: 1px solid #d8dee4; color: #282d33;"> 🛠️ Tech Stacks </h2> <br> 
