@@ -1,10 +1,10 @@
-# FOOD114
 
 <div align= "center">
     <img src="https://capsule-render.vercel.app/api?type=waving&color=auto&height=120&text=&animation=&fontColor=000000&fontSize=70" />
+    #FOOD114
     </div>
     <div align= "center"> 
-    <h2 style="border-bottom: 1px solid #d8dee4; color: #282d33;"> FOOD114 </h2>  
+    <h2 style="border-bottom: 1px solid #d8dee4; color: #282d33;">  </h2>  
     <div style="font-weight: 700; font-size: 15px; text-align: center; color: #282d33;">  </div> 
     </div>
     <div align= "center">
