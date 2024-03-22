@@ -6,7 +6,7 @@
     </div>
     
     
-<div align= "center"> 
+<div align= "left"> 
     <div style="font-weight: 700; font-size: 15px; text-align: center; color: #282d33;">  </div> 
     </div>
     <div align="center">
