@@ -54,9 +54,7 @@
           </div>
     </div>
     <div align= "center">
-    <h2 style="border-bottom: 1px solid #d8dee4; color: #282d33;"> 🧑‍💻 Contact me </h2> <br> 
-       djl01@naver.com
-    <div align= "center">  </div>  <br> 
+  
     <div align= "center">  </div> 
     </div>
     <div align= "center"> 
