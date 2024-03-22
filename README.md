@@ -2,7 +2,7 @@
     <img src="https://capsule-render.vercel.app/api?type=waving&color=ff8002&height=120&text=FOOD114&animation=&fontColor=222222&fontSize=50" />
     </div>
     
-    <div align= "center"> 
+<div align= "center"> 
     <div style="font-weight: 700; font-size: 15px; text-align: center; color: #282d33;">  </div> 
     </div>
     <div align="center">
